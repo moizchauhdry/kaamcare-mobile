@@ -1,0 +1,74 @@
+{
+  "expo": {
+    "name": "kaamcare",
+    "slug": "kaamcare",
+    "version": "1.0.4",
+    "owner": "qodeca",
+    "orientation": "portrait",
+    "icon": "./src/assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "kaamcare",
+    "splash": {
+      "image": "./src/assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "experiments": {
+      "tsconfigPaths": false
+    },
+    "plugins": [
+      [
+        "expo-av"
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your doctor."
+        }
+      ],
+      "expo-secure-store"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.qodeca.kaamcare",
+      "buildNumber": "31",
+      "entitlements": {
+        "aps-environment": "development" 
+      } 
+    },
+    "android": {
+      "splash": {
+        "backgroundColor": "#ffffff",
+        "image": "./src/assets/splash.png"
+      },
+      "icon": "./src/assets/icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/icon.png",
+        "backgroundColor": "#0072EF"
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ],
+      "blockedPermissions": [ "android.permission.READ_MEDIA_IMAGES", "android.permission.READ_MEDIA_VIDEO" ],
+      "package": "com.qodeca.kaamcare"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9cfdd7ec-bcbd-4b38-bd49-a48904395bfe"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/9cfdd7ec-bcbd-4b38-bd49-a48904395bfe"
+    }
+  }
+}

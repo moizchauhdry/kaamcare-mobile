@@ -1,0 +1,1298 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Sign up or sign in</title>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://stkmcrappsprodwu.blob.core.windows.net/auth/src/index.css" rel="stylesheet" type="text/css" />
+  <style id="common">
+      @font-face {
+          font-family: 'SF Pro Text';
+          src: url(https://stkmcrappsprodwu.blob.core.windows.net/auth/src/fonts/SF-Pro-Text-Regular.otf);
+          font-weight: 400;
+      }
+      @font-face {
+          font-family: 'SF Pro';
+          src: url(https://stkmcrappsprodwu.blob.core.windows.net/auth/src/fonts/SF-Pro-Text-Bold.otf);
+          font-weight: 700;
+      }
+      @font-face {
+          font-family: 'SF Pro';
+          src: url(https://stkmcrappsprodwu.blob.core.windows.net/auth/src/fonts/SF-Pro-Text-Medium.otf);
+          font-weight: 500;
+      }
+      @font-face {
+          font-family: 'SF Pro';
+          src: url(https://stkmcrappsprodwu.blob.core.windows.net/auth/src/fonts/SF-Pro-Text-Semibold.otf);
+          font-weight: 600;
+      }
+
+      .buttons button#cancel {
+          display: none;
+      }
+
+      p, label, h1, h2, h3, h4, h5, h6, button, a, span, div, input {
+          font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu!important;
+      }
+  </style>
+  <style>
+      /* Following are generated styles via gulp. */
+      /* inject: css */
+      html{background:0 0}body{font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu!important;;background-attachment:fixed;background-color:#fff;background-position:center;background-repeat:no-repeat;background-size:cover;text-align:left;font:-apple-system-body}p{margin:0}a:focus{outline:0}input,select{border:1px solid #605e5c}input::placeholder{color:#BEBEBE;opacity:1}img[data-tenant-branding-background=true]{width:100%;height:100%;object-fit:cover;z-index:0;position:fixed;left:0;overflow:hidden;top:0}div[data-tenant-branding-background-color=true]{background-color: white;width:100%;height:100%;position:fixed;z-index:0}.container{text-align:center;width:100%;display:table;height:100vh;padding:0}#api{margin:0 auto}.heading h1{margin-bottom:20px}.col-lg-6{max-width:470px;width:100%;float:none;display:inline-block;vertical-align:top;padding:0}.row{width:100%;margin:0;display:table-cell;vertical-align:middle}ul{padding:0;padding-left:16px;}#simplemodal-container .simplemodal-data{padding:5px 8px;overflow:hidden;background-color:#fff;border-radius:3px;font-style:italic}#LocalAccountSigninEmailExchange,#LocalAccountSigninUsernameExchange,#SignInWithLogonEmailExchange,#SignInWithLogonNameExchange,#SignUpWithLogonEmailExchange,#SignUpWithLogonNameExchange{background-color:#296ec6;background-image:url(none);background-size:10%;background-position-x:95%;background-position-y:50%;background-repeat:no-repeat;border-radius:.5rem;width:100%;width:100%;font-size:1em;margin-left:auto}#LocalAccountSigninEmailExchange:hover,#LocalAccountSigninUsernameExchange:hover,#SignInWithLogonEmailExchange:hover,#SignInWithLogonNameExchange:hover,#SignUpWithLogonEmailExchange:hover,#SignUpWithLogonNameExchange:hover{background-color:#1662c7!important}#AmazonExchange:hover{background-color:#36474f!important}#FacebookExchange:hover{background-color:#3b5595!important}#GitHubExchange:hover{background-color:#0f0f0f!important}#AppleExchange:hover,#AppleManagedExchange:hover{background-color:#0f0f0f!important}#GoogleExchange:hover{background-color:#c64a29!important}#LinkedInExchange:hover{background-color:#0274b3!important}#MicrosoftAccountExchange:hover{background-color:#01a4ef!important}#QQExchange:hover{background-color:#1a97df!important}#TwitterExchange:hover{background-color:#1da1f2!important}#WeChatExchange:hover{background-color:#4cc522!important}#WeiboExchange:hover{background-color:#e81123!important}.buttons button{margin:0 auto;width:100%;height:50px;background-color:#BC8F4B;border-radius:.5rem;border:none;color:#fff;font-size:1em;margin-top:10px}.buttons button:hover{background-color:#1662c7;border-color:#204d74}.buttons button[aria-disabled=true]{opacity:.3}.buttons button:not([aria-disabled=true]){opacity:1}.buttons #cancel{padding:0;margin-left:auto;background:0 0;border:0;width:inherit;position:absolute;background-color:transparent;top:2px;left:15px;font-size:1em;color:#505050;box-shadow:none;text-align:left}.buttons #cancel:hover{color:#000!important}.buttons #cancel:before{padding:10px;vertical-align:sub;zoom:90%;display:inline-block}#attributeList ul{padding:0}#attributeList ul li{list-style:none;margin:1rem 0}label{font-weight:600}#attributeList ul li label{display:block;text-align:left;float:none}#attributeList ul li.EmailBox label,#attributeList ul li.Password label,#attributeList ul li.TextBox label{display:none!important}#attributeList ul li label[for=country]{float:left;display:inline-block!important;margin-bottom:.5rem}#attributeList ul li label[for=cpiminternal_legalCountry]{float:none;display:block!important;text-align:left;margin-bottom:.5rem}#attributeList ul li label[for=cpiminternal_dateOfBirth]{float:none;text-align:left;display:block!important;margin-bottom:.5rem}#attributeList ul li input{height:50px;width:70%;border-radius:.5rem;text-indent:20px}#attributeList ul li input::-webkit-input-placeholder{text-indent:20px}#attributeList ul li .attrEntry.validate input.invalid,#attributeList ul li .attrEntry.validate input:invalid{border:1px solid #b00}#attributeList ul li .attrEntry .verify{margin-top:2rem;padding-bottom:10px;position:relative}#attributeList ul li .attrEntry .verificationControlContent .buttons{margin-top:2rem;padding-bottom:10px;position:relative}#attributeList ul li .attrEntry .verify .sendButton[id$=ver_but_send]{width:60%;height:50px;background-color:#296ec6;color:#fff;border-radius:.5rem}#attributeList ul li .attrEntry .verificationControlContent .sendCode{width:60%;height:50px;background-color:#296ec6;color:#fff;border-radius:.5rem}#attributeList ul li .attrEntry .verify .sendButton[id$=ver_but_send]:hover{background-color:#1662c7}#attributeList ul li .attrEntry .verificationControlContent .sendCode:hover{background-color:#1662c7}@media screen and (-ms-high-contrast:active){#attributeList ul li .attrEntry .verify button,.buttons #continue{border:1px dashed #fff!important}#attributeList ul li .attrEntry .verify button:hover,.buttons #continue:hover{border:1px solid #fff!important}}#attributeList ul li .attrEntry .verify .verifyButton{width:inherit;padding:0 20px;height:50px;background-color:#296ec6;color:#fff;margin-right:5px;border-radius:.5rem}#attributeList ul li .attrEntry .verificationControlContent .verifyCode{width:inherit;padding:0 20px;height:50px;background-color:#296ec6;color:#fff;margin-right:5px;border-radius:.5rem}#attributeList ul li .attrEntry .verify .verifyButton:hover{background-color:#1662c7}#attributeList ul li .attrEntry .verificationControlContent .verifyCode:hover{background-color:#1662c7}#attributeList ul li .attrEntry .verify .sendButton[id$=ver_but_resend]{width:inherit;padding:0 20px;border:0;font-size:1em;height:50px;right:0;bottom:-38px;background-color:#296ec6;color:#fff;border-radius:.5rem}#attributeList ul li .attrEntry .verificationControlContent .sendNewCode{width:inherit;padding:0 20px;border:0;font-size:1em;height:50px;right:0;bottom:-38px;background-color:#296ec6;color:#fff;border-radius:.5rem}#attributeList ul li .attrEntry .verify .sendButton[id$=ver_but_resend]:hover{background-color:#1662c7}#attributeList ul li .attrEntry .verificationControlContent .sendNewCode:hover{background-color:#1662c7}#attributeList ul li .attrEntry .verify .editButton{border:none;color:#fff;background-color:#296ec6;width:60%;height:50px;border-radius:.5rem}#attributeList ul li .attrEntry .verificationControlContent .changeClaims{border:none;color:#fff;background-color:#296ec6;width:60%;height:50px;border-radius:.5rem}#attributeList ul li .attrEntry .verify .editButton:hover{background-color:#1662c7}#attributeList ul li .attrEntry .verificationControlContent .changeClaims:hover{background-color:#1662c7}#attributeList ul li .attrEntry .verify #email_ver_input_label{display:none!important}#api .working{background:url(data:image/gif;base64,R0lGODlhbgAKAPMAALy6vNze3PTy9MTCxOTm5Pz6/Ly+vNTS1Pz+/Ozq7MzKzP///wAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCQAJACwTAAIABgAGAAAEE7AcM0iaIAuaQRidR4RIIgREGQEAIfkECQkACQAsJwACAAYABgAABBOwHDNImiALmkEYnUeESCIERBkBACH5BAkJAAkALDYAAgAGAAYAAAQTsBwzSJogC5pBGJ1HhEgiBEQZAQAh+QQJCQAJACxFAAIABgAGAAAEE7AcM0iaIAuaQRidR4RIIgREGQEAIfkECQkACgAsCwACAEAABgAABDdQpWFOUTjrzbv/HkFZAmACB6iuLFeeR3CabW138izOd3/vJwTFRPAZWUIDUUIICI5QFSLgVEQAACH5BAkJAAoALB8AAgAtAAYAAAQyUKVhTlE46837LkdFSEAJHF6qcqEpBGa5zmp8Ejatc0ZfEgjKb0fE4FwSQkBQbL6AiggAIfkECQkACgAsOAACABUABgAABCpQpWFOUTjnciqRQAgcWtmJQiCGpbaOxNtmRh0SCHXPWIxKhICAtxEiFBEAIfkECQkACgAsPQACABAABgAABCdQpWFOURgTagX4wJFJBngE4Dei6ZauqYFQHzHOZSgRgTBiiEBPEQEAIfkECQkACwAsAwACAEsABgAABEVwpWFOWTjrzbv/XnFUxCaSEqACB+i+cDeugjarQrCqce97O5bGsAsQgr9kkkgbFhEUnHIaOzYzVimCYKR6XzkCghMeRwAAIfkECQkACwAsJgACACkABgAABDxwpWFOWTjrrcupxOaBEmACB6dy3ylorSkEp7neWI1qRh0QOtyt5+L5EBSZcAUsZppKBOG3vM0ICM41GwEAIfkECQkACgAsMAACAB8ABgAABDdQpWFOUThrQq2WXSEAJHB8m1Ge2bgGJYlmcJzGnD2DOpaXCAqJsOMNNUGVSUIICIoYRMCJklIjACH5BAkJAAsALDUAAgAbAAYAAAQ3cKVhTlkYl1NJ1tyQSEAJHN8SlsK3AkJglul8fsYcEHadszgdggJ0/URG0wVB2KVABMQzFpBGAAAh+QQJCQALACwPAAIAQgAGAAAEU3ClYU5ZOOvNOyeUtRVHRYzlkEhACxxeLH+GC2tpK+AuIAQ9w2woA/Y2wYCmZgMdidCN04Vk+pY9AoKii3oxW+aJ50KQuwhCYPf9ptedn/YTgEcAACH5BAkJAAsALB4AAgAzAAYAAARMcKVhTlk4663LqQQ3VZdGUJYArMDBvdzHCp3Bupl6B+wK/5heyyQk9k494M82M7KcKwRlFVK+kNFaMzcdIggBmhUmCCNEYHEnEF5EAAAh+QQJCQALACwoAAIAKgAGAAAER3ClYU5ZOGtCrZZHRXxFOCQgoB7fZqgA68LCrAoBrLZZrn+6mOYFC3B+PEkQSBRmmjEE5ZZMUW0n7AVBMFYxXG8LR0CMjeYIACH5BAkJAAsALC4AAgApAAYAAARHsBwzyLo4DVrwlZTljRo3AajgCRR6jGc6Zi0Qu16A7uOOzwudb7MTXQjDns9IGiJ3iBXR1oQCFyCZIECIkriq2bZ7/RC4iwgAIfkECQkACwAsLgACADMABgAABExwpWFOWRiXU0nOU3V9ZAlSlgCswEFyrPCprGvemlEH7Er2rQ+vh8MNd8SPLiYEFm8EIIKy8jSZJ+yTNF16EISArCQQI8jh8RYtXkQAACH5BAkJAAsALC8AAgA/AAYAAAROsBwzyLo4DVrwlZTljWRpZtsErIInUOsxquxp3x+sA4EXrMARMIYrln5DoOhCSAqHS6O0yRoiXJsaFniVekGAhSBA6LrILdK47G2LCYEIACH5BAkJAAoALDAAAgAfAAYAAAQ6sBwziLo4DVqwz9shASQgeAJFHh+qAlMJe4EMtKAtW3mJXwRbsIRwqXg4xGalEAQIxQ/iefpdpk9FBAAh+QQJCQALACwwAAIAKQAGAAAEPnClYU5ZGJdTSf5gqFGWAJzAAXKoIL6ZiR4BeoJ2CsO1TeQ4Q2v3+tkQlJPnYzwhiKLNEEEIuEIC6xMarboiACH5BAkJAAoALDEAAgA3AAYAAARCsBwziLo4DVqw/2AoKsR2SEAKCJ5Apccoz9kLTOrtBTlA/yJeL2ep5YDIXa+kQrQ2sKQUAdUJAgTnB4FlSacErCICACH5BAkJAAsALDIAAgAVAAYAAAQpsBwzyLo4S5rWBKCQjV9IgUAwZicYDGi6Ym1KxMh83WixCAFCTrcL+iIAIfkECQkACgAsMgACAB8ABgAABC5QpWFOUTjrrcuphASMwMGd3EcKATmiMOaWxBzDRj4SCLXfqNpKQggIgDAWTxEBACH5BAkJAAsALDMAAgAtAAYAAAQysBwzyLo46823pMkyAaTQneg2lhQJBGmMtmQwuK+sb/RL4Iid8PJzFRaCACE4HCaXiwgAIfkECQkACgAsOAACAAYABgAABBNQpWFOESCDE3QmnoFQn0QEghIBACH5BAkJAAoALEIAAgAGAAYAAAQTUKVhThEggxN0Jp6BUJ9EBIISAQAh+QQJCQAKACxRAAIABgAGAAAEE1ClYU4RIIMTdCaegVCfRASCEgEAOw==) no-repeat;height:30px;width:auto;background-position:center bottom}#attributeList ul li .attrEntry .itemLevel{display:none}input[type=email],input[type=password],input[type=text]{-webkit-appearance:none}#attributeList ul li .attrEntry .dropdown_single{height:45px;border-radius:.5rem;width:100%;padding-left:15px}#attributeList ul li .attrEntry div#cpiminternal_dateOfBirth.date{display:table;width:100%}#attributeList ul li .attrEntry div#cpiminternal_dateOfBirth.date select{border-radius:.5rem;display:inline-block;height:50px;padding-left:15px}#attributeList ul li .attrEntry div#cpiminternal_dateOfBirth select#cpiminternal_dateOfBirth_day.day{margin-right:3%;width:23%}#attributeList ul li .attrEntry div#cpiminternal_dateOfBirth select#cpiminternal_dateOfBirth_month.month{margin-right:3%;width:38%}#attributeList ul li .attrEntry div#cpiminternal_dateOfBirth select#cpiminternal_dateOfBirth_year.year{width:33%}#attributeList ul li .helpLink{display:none}#attributeVerification .buttons{margin-top:30px}@media screen and (max-width:100%){.row .panel-default .panel-body{margin-top:40px}.row .panel-default .panel-body .branding img{display:block;height:80px;width:auto;margin:0 auto}.row .panel-default .panel-body .branding h1{display:none}.row .panel-default .panel-body h3{font-size:1.5em;margin-top:15px}#attributeVerification #attributeList ul li input{width:60%;height:40px;border-radius:.5rem;border:1px solid #605e5c;text-indent:10px}#attributeVerification #attributeList ul li input::-webkit-input-placeholder{text-indent:10px}#attributeVerification #attributeList ul li #email{width:65%;float:left;position:relative;z-index:2}#attributeVerification #attributeList ul li #email_ver_but_verify{background:0 0;border:0;color:#496ad8;font-size:1em;position:relative;right:0;top:60px;font-size:1.1em;width:auto;z-index:1;height:20px}#attributeVerification #attributeList ul li #email_ver_input{min-width:50%;width:60%;float:left}#attributeVerification #attributeList ul li #email_ver_but_resend{top:10px;font-size:1.1em;height:20px}#attributeVerification #attributeList ul li .attrEntry #email{height:40px}#attributeVerification #attributeList ul li .attrEntry .verify #email_ver_but_send:after{content:" Verify";font-size:1.1em;font-style:bold;margin-left:40%}#attributeVerification #attributeList ul li .attrEntry .verify #email_ver_but_send{height:40px;width:auto;float:right;overflow:hidden;text-indent:-200px}#attributeVerification #attributeList ul li .attrEntry .verify #email_ver_but_edit{margin-bottom:15px;border:none;color:#fff;background-color:#496ad8;border-radius:.5rem;font-size:1em;box-shadow:0 0 40px 2px #dae1f7;width:30%;height:40px;overflow:hidden;padding-top:6px;margin-left:40%}#attributeVerification #attributeList ul li .attrEntry .verify:after{content:" ";display:block;clear:both}#attributeVerification #attributeList #verifying_blurb{margin-top:15px}#attributeVerification .buttons #continue{height:40px}#attributeVerification .buttons #cancel{font-size:1em;left:40%}}.panel,.panel_layout,.panel_layout_row,body,html{height:100%}@media only screen and (max-width:600px){img[data-tenant-branding-background=true]{display:none}.container{background-color:#fff}.container .row .panel-default{border-radius:0;border:none;box-shadow:none}}
+      /* endinject */
+  </style>
+  <style>
+      #api input[type=submit],#next{color:#fff;border:none;padding:10px 20px;cursor:pointer}#api input[type=submit],#api input[type=submit]:hover{background-color:#bc8f4b}#api #forgotPassword,.create-account,.link{font-family:SF Pro sans-serif}#api #forgotPassword,#api .entry-item label,.create-account,.link{font-size:17px;font-weight:400;line-height:22px}#next{background-color:#0078d4;border-radius:4px;text-align:center;font-weight:700}#next:hover{background-color:#005fbb}#api .heading h1{letter-spacing:0}#api .divider h2,#api .intro h2{display:none}#api .entry{margin:0 auto}#api .entry-item label{font-family:SF Pro,sans-serif;text-align:left;letter-spacing:-.4000000059604645px}#api input[type=email],#api input[type=password],#api input[type=text]{width:100%;padding:10px;margin:5px 0;border:1px solid #ccc;border-radius:4px;box-sizing:border-box}#api .password-label label{font-weight:700}#api input[type=submit]{border-radius:4px;text-align:center;font-weight:700}#api #forgotPassword,.link{color:#007aff;letter-spacing:-.4000000059604645px;text-align:center}#api .heading h1,.create-account{letter-spacing:-.4000000059604645px;text-align:center;color:#07406b}#api .heading h1{font-family:SF Pro,'sans-serif';font-weight:700;margin-top:0;font-size:34px;line-height:41px}#api{text-align:center}#api .password-label{flex-direction:column;align-items:flex-start;display:none}.panel .panel-default{border:none}.panel{box-shadow:none;border-bottom:1px solid #e6f1fa}.entry-item-password{margin-bottom:28px}
+      /* Additional styles can be added as needed */
+  </style>
+  <style>
+      #attributeList ul li.Password label {
+          display: block !important;
+      }
+
+      #attributeList ul li .attrEntry .verificationControlContent .sendCode {
+          width: 100%;
+          background-color: #007AFF;
+          padding: 13px 24px;
+          font-family: SF Pro sans-serif;
+          font-size: 17px;
+          font-weight: 590;
+          line-height: 22px;
+          letter-spacing: -0.4000000059604645px;
+      }
+
+      #attributeList ul li .attrEntry .verificationControlContent .sendNewCode {
+          width: 100%;
+          height: auto;
+          background-color: transparent;
+          padding: 16px 24px;
+          border-top: 1px solid rgb(230, 241, 250);
+          border-bottom: 1px solid rgb(230, 241, 250);
+          font-size: 17px;
+          font-weight: 400;
+          color: rgb(0, 122, 255);
+          line-height: 22px;
+          letter-spacing: -0.4000000059604645px;
+
+          &:hover {
+              background-color: transparent;
+          }
+      }
+
+      #attributeList ul li .attrEntry .verificationControlContent .verifyCode {
+          width: 100%;
+          background-color: #007AFF;
+          padding: 13px 24px;
+          font-family: SF Pro sans-serif;
+          font-size: 17px;
+          font-weight: 590;
+          line-height: 22px;
+          letter-spacing: -0.4000000059604645px;
+      }
+
+      .buttons button {
+          width: 100%;
+          background-color: #007AFF;
+          padding: 13px 24px;
+          font-family: SF Pro sans-serif;
+          font-size: 17px;
+          font-weight: 590;
+          line-height: 22px;
+          letter-spacing: -0.4000000059604645px;
+      }
+
+      .common-text {
+          font-size: 17px;
+          font-weight: 400;
+          line-height: 22px;
+          letter-spacing: -0.4000000059604645px;
+          text-align: left;
+          color: #07406B;
+      }
+
+      .step-text {
+          font-size: 22px;
+          font-weight: 400;
+          line-height: 28px;
+          letter-spacing: -0.4000000059604645px;
+          text-align: center;
+          color: rgb(7, 64, 107);
+      }
+
+      .common-links {
+          color: #007AFF;
+
+          &:hover {
+              color: #007AFF;
+          }
+      }
+
+      .wrapper {
+          display: flex;
+          justify-content: center;
+      }
+
+      .common-label {
+          display: block !important;
+          color: #07406B;
+          font-size: 17px;
+          font-weight: 400;
+          line-height: 22px;
+          letter-spacing: -0.4000000059604645px;
+          text-align: left;
+      }
+
+      .input-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          justify-content: center;
+      }
+
+      .password-checker-wrapper {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+      }
+
+      .password-checker-text {
+          color: black;
+          white-space: nowrap;
+      }
+
+      .password-checker-text-active {
+          color: #66B71B;
+      }
+
+      .password-checker {
+          width: 16px;
+          display: flex;
+          align-items: center;
+      }
+
+      #attributeList ul li .attrEntry .error {
+          font-family: SF Pro sans-serif;
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 20px;
+          letter-spacing: -0.4000000059604645px;
+          text-align: left;
+          color: #FF4B23;
+      }
+
+      #requiredFieldMissing.error {
+          font-family: SF Pro sans-serif;
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 20px;
+          letter-spacing: -0.4000000059604645px;
+          text-align: left;
+          color: #FF4B23;
+      }
+
+      .wrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+      }
+
+      .verificationSuccessText {
+          font-size: 17px;
+          font-weight: 400;
+          line-height: 22px;
+          letter-spacing: -0.4000000059604645px;
+          text-align: center;
+          color: #07406B;
+
+          padding-bottom: 16px;
+          padding-top: 16px;
+      }
+
+      .title {
+          font-size: 28px;
+          font-weight: 700;
+          line-height: 34px;
+      }
+
+      .description {
+          font-size: 17px;
+          font-weight: 400;
+          line-height: 22px;
+      }
+
+      .title-small {
+          font-size: 20px;
+          font-weight: 590;
+          line-height: 25px;
+      }
+
+      .modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: white;
+
+          overflow: auto;
+      }
+
+      .container {
+          display: none;
+      }
+
+      .sub-title {
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 25px;
+          letter-spacing: -0.4000000059604645px;
+          text-align: left;
+          text-underline-position: from-font;
+          text-decoration-skip-ink: none;
+      }
+      .secondary-title {
+          font-size: 18px;
+      }
+      .text-italic {
+          font-style: italic;
+      }
+      .table-container {
+          overflow-x: auto; /* Enables horizontal scroll for wide tables */
+      }
+      .table-main {
+          width: 100%;
+          min-width: 800px;
+          border-collapse: collapse;
+          margin: 20px 0;
+      }
+      .cell-header, .cell-content {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+      }
+      .cell-header-typography {
+          background-color: #f5f5f5;
+          font-weight: bold;
+          color: #333;
+      }
+  </style>
+  <!--<script async src="./src/indexSignUp.js"></script>-->
+</head>
+<body>
+<div id="background_branding_container" data-tenant-branding-background-color="true"></div>
+<div class="container  unified_container " role="presentation">
+  <div class="row">
+    <div class="col-lg-6">
+      <img style="margin-bottom: 48px;" src="https://stkmcrappsprodwu.blob.core.windows.net/auth/src/images/logo.svg" alt="kaamcare logo">
+      <div class="panel">
+        <div class="panel-body panel-default">
+          <div id="api" data-name="SelfAsserted" role="main">
+          </div>
+        </div>
+      </div>
+      <div class='wrapper'>
+        <p class='common-text' style="text-align: center">
+          Already have account?
+          <a id='login-link' class='common-links' style="cursor: pointer">Log In</a>
+        </p>
+      </div>
+      <div style="margin-top: 24px;">
+        <div class="input-wrapper">
+          <input type="checkbox" id="privacyPolicyCheckbox" />
+          <label for="privacyPolicyCheckbox" class="common-text" style="max-width: 320px">
+            Yes, I Understand and Agree to the Kaam Care
+            <span>
+                            <a class="common-links" id="termsAndConditionsLink">
+                                Terms of Service
+                            </a>
+                        </span> and
+            <span>
+                            <a class="common-links" id="privacyPolicyLink">
+                                Privacy Policy
+                            </a>
+                        </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="termsAndConditions" class="modal">
+    <div class="col-lg-8 wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;">
+      <div style="padding-left: 15px; padding-bottom: 16px; padding-top: 16px;">
+        <a href="/">
+          <img src="https://stkmcrappsprodwu.blob.core.windows.net/auth/src/images/chevron-left.svg" alt="go back icon" />
+        </a>
+      </div>
+      <div>
+        <div>
+          <h1 class="common-text title">
+            Terms & Conditions
+          </h1>
+          <p class="common-text" style="font-style: italic">Last Updated: September 18, 2024</p>
+          <p class="common-text">The following Terms of Use ("Agreement") applies to you using Kaam Care Platform, including without limitation any hardware, mobile applications, web applications, or other services associated with Kaam Care. By signing up for, or otherwise obtaining, an account, or by accessing or using the Services, you are entering into this Agreement and agreeing to be bound by its terms. Please read this Agreement carefully, and do not sign up for an account to use the Services if you are unwilling or unable to be bound by this Agreement.
+            By agreeing to this Agreement you are also representing that you are of the appropriate legal age and have full authority and capacity to validly enter into such an Agreement, and that you have carefully read, fully understood and agreed to the Agreement or the use of the Services by your family members.
+            If you have limited authority and legal capacity to validly enter into such Agreement, you should obtain consent from your parents (or any other legal guardian with such authority) before you use the Services and enter this Agreement. Your usage shall represent that you have obtained such consent properly.
+            If you have no authority and legal capacity to validly enter into such Agreement, then you should not use the Services or you may ask your parents (or any other legal guardian with such authority) to handle this for you.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Services</h2>
+          <p class="common-text">The Services, which are designed to improve chronic disease management experiences, may include hardware to upload personal health vital data from your medical devices to smart clients (“Hardware), mobile applications to be installed on your smart clients to receive your personal health vital data from your medical devices (“Mobile app(s)”), web applications allowing you to access with a registered user name and password (“Web app(s)”), and other services offered by Kaam Care (other services) You may choose to use a part or all of the Services. You may use the Hardware only after you have purchased the Hardware , and you may use the mobile app(s) only after you have downloaded the mobile app(s) through Apple, Google Play Store or other source. To fully enjoy the benefits of the Services, you may also need to upload, retrieve, store, or share your health data, including but not limited to physiological data and self-monitored data (“Health Data”).
+            You can also choose to share your Health Data to third parties, such as insurance providers, medical institutions, or other service providers (“Health Service Providers” or “Third Parties”) to enjoy additional services. The parties you choose to share data with may be able to provide different services based on your Health Data; however, you are solely responsible for any actions you choose to take after receiving those services. You will need to decide whether you can trust the services or information provided by Third Parties and accept the risks associated with your decision. Please See Privacy Policy for more information about data storage.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Your Account</h2>
+          <p class="common-text">You will need to register an account to use Kaam Care. Any information you provide to Kaam Care shall be accurate, complete and updated. You are solely responsible for the activity that occurs on your account or password and for maintaining the security of the mobile application and web application and any information you input to the mobile application and web application. You shall not use or access another users account without such other users express permission. You will immediately notify Kaam Care in writing of any unauthorized use of your account (primary account and or Sub-Profiles), or any other account-related security breach of which you are aware.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Use of Personal Information</h2>
+          <p class="common-text">If you create, transmit, submit, display or otherwise make available information while using the Services, you may provide only information that you own or have the right to use. When you provide access to any such information through the Services, you give Kaam Care a license to fully use that information in connection with providing you the Services. However, in terms of Personal Information (as defined in the Privacy Policy, hereinafter “Privacy Policy”), Kaam Care may only use the information you provide as permitted by the Privacy Policy and applicable law. Please closely review our Privacy Policy for more information regarding how we use and disclose your personal information. You have the right to choose whether to share your Personal Information with Kaam Care or Health Service Providers.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Reviews, Comments, Communications, and Other Contents</h2>
+          <p class="common-text">If you post content or submit material (personal information excluded), you grant Kaam Care a nonexclusive, royalty-free, perpetual, irrevocable, and fully sub-licensable right to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display such content throughout the world in any media. You grant Kaam Care and sublicensees the right to use the name that you submit in connection with such content, if they choose. You represent and warrant that you own or otherwise control all of the rights to the content that you post; that the content is accurate; that use of the content you supply does not violate this policy and will not cause injury to any person or entity; and in the event a third party files a claim against Kaam Care with regard to the content you post, you are solely responsible for all the responsibilities, fees and liabilities incurred therefrom. Kaam Care has the right but not the obligation to monitor and edit or remove any activity or content. Kaam Care takes no responsibility and assumes no liability for any content posted by you or any third party.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">No Medical Advice</h2>
+          <p class="common-text">Kaam Care does not offer medical advice or diagnoses, or engage in the practice of medicine. Our Services are not intended to be a substitute for professional medical advice, diagnosis, or treatment and are offered for informational purposes only. Always seek the advice of your physician or other qualified health provider with any questions regarding your medical condition or the use (or frequency) of any medication or medical device. Never disregard professional medical advice or delay in seeking it because of something you have read in connection with our Services.
+            You are solely responsible for any decisions or actions you take based on the information and materials available through the Services. Reliance on any information provided by Kaam Care or in connection with the Services is solely at your own discretion and risk.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Third Party Sites and Services</h2>
+          <p class="common-text">Kaam Care may provide links to, or contact information for, third party’s sites or services. Kaam Care is not responsible for, and does not endorse, any content of third party’ service, sites, apps or links.
+            Kaam Care also may enter into business arrangements with third parties; in the course of the arrangements, we may share with them anonymous data or information, which are de-identified data and cannot be re-identified and attributable to you or anyone. Some third parties may want you to share your personal data or information with them in order to provide services. Whether to share your personal data or information with these third parties will be up to you. By properly following instructions provided to you by Kaam Care and these third parties, you will be able to decide whether you want to share personal data or information with these third parties. Sharing of your personal data or information with third parties is solely at your own discretion and risk.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Data Encryption</h2>
+          <p class="common-text">When you are using services provided by Kaam Care, if data needs to be transferred between our servers and our applications (mobile or web), the data will always be encrypted during transit. The Kaam Care app is connected via API to Microsoft Azure, a secure cloud service provider. While your personal health information is collected through the app, Kaam Care does not store this data on its own servers. All health data is securely stored and managed by Azure, ensuring high levels of protection and compliance with industry standards.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Rules of Conduct</h2>
+          <p class="common-text">As a condition of use, you promise not to use the Services for any purpose that is prohibited by the Terms of Use or other rules or policies implemented by Kaam Care from time to time. The Services are provided only for your own personal, non-commercial use.
+            You agree that your use of the Service is not for an illegal purpose or in violation of the law.
+            You shall not (and shall not permit any third party to) take any action that: (i) would constitute a violation of any applicable law, rule or regulation; (ii) infringes on any intellectual property or other right of any other person or entity; (iii) is threatening, abusive, harassing, defamatory, libelous, deceptive, fraudulent, invasive of another’s privacy, tortious, obscene, offensive, or profane; or (iv) impersonates any person or entity; (v) impose or may impose an unreasonable or disproportionately large load on Kaam Care (or its third party providers) infrastructure; (vi) interfere or attempt to interfere with the proper working of the Services or any activities conducted on the Services; (vii) bypass any measures Kaam Care may use to prevent or restrict access to the Services (or parts thereof); (viii) decipher, decompile, disassemble, reverse engineer or otherwise attempt to derive any source code or underlying ideas or algorithms of any part of the Services, except to the limited extent applicable laws specifically prohibit such restriction; (ix) modify, translate, or otherwise create derivative works of any part of the Services; or (x) in any way transfer any or all of the rights that you receive hereunder.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">License</h2>
+          <p class="common-text">Kaam Care GRANTS YOU A LIMITED, NON-EXCLUSIVE, NON-TRANSFERRABLE, NON-SUBLICENSABLE LICENSE TO ACCESS AND MAKE PERSONAL AND NON-COMMERCIAL USE OF SERVICES. THE APPLICATION IS SOLELY TO BE USED IN CONNECTION WITH THE SERVICE FOR YOUR PRIVATE, PERSONAL, NON-COMMERCIAL USE, SUBJECT TO ALL THE TERMS AND CONDITIONS OF THIS AGREEMENT AS THEY ARE APPLICABLE TO THE SERVICE.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Notifications Provided by Kaam Care</h2>
+          <p class="common-text">Kaam Care may from time to time provide automatic notifications. Automatic notifications may be sent to you following certain changes made to your Kaam Care account (including, without limitation, any account you create for accessing Kaam Care Services). Some of these notifications may then be customized, deactivated or reactivated by you. Kaam Care may add new notifications from time to time, or cease to provide certain notifications at any time upon its sole discretion. Some notification may have different options available, and you may be asked to select from among these options upon activation of your notification service.
+            Because notifications are not encrypted, we will never include your password. However, notifications may include some information about your account(s). Information such as analysis of your Health Data may be included. Anyone with access to your email accounts will be able to view the content of these notifications.
+            You understand and agree that any notifications provided to you through the Mobile app(s) or Web app(s) may be delayed or prevented by a variety of factors. Kaam Care will do its best to provide notifications in a timely manner with accurate information. However, we neither guarantee the delivery nor the accuracy of the content of any notifications. You also agree that Kaam Care shall not be liable for any delays, failure to deliver, or misdirected delivery of any notification; for any errors in the content of notification; or for any actions taken or not taken by you or any third party in reliance on a notification.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Commercial Use of the Services</h2>
+          <p class="common-text">If you are interested in using Kaam Care Services in a professional or commercial environment or for non-personal use, you must contact Kaam Care and agree to other written terms and conditions.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Fees and Payments</h2>
+          <p class="common-text">The use of Kaam Care mobile app(s) and web app(s) are currently free, but certain services or features require payment to be activated; Kaam Care reserves the right to require payment of fees for a part or all of the Services. You agree to timely pay all applicable fees in connection with your use of the Services, and in the event of any failure to timely make payment in full, Kaam Care has the right to terminate and cease providing the corresponding Services immediately. Kaam Care reserves the right to change fees and to institute new charges at any time, with a prior notice to you, which may be sent by email or posted on the Services. Your use of the Services following such notification constitutes your agreement to the terms of payment.
+            For certain services provided by Kaam Care that are subscription based, by subscribing to those services you understand and agree to pay the full amount charged.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Payments and Contributions</h2>
+          <p class="common-text">Kaam Care uses Stripe as our payment processor for all contributions and premium service payments. By making any payments through the Kaam Care app, you agree to comply with Stripe’s terms of service and privacy policy. Kaam Care does not store or process your payment information directly. All financial transactions, including processing of your payment information, are securely handled by Stripe. For more information, please review Stripe’s terms and conditions, available on their website.
+            You are responsible for ensuring that the payment information you provide is accurate and up-to-date. If any issues arise with your payment, they will be handled through Stripe’s customer service and dispute resolution process.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Medical Portfolio Disclaimer</h2>
+          <p class="common-text">The Kaam Care app serves as a tool to help users organize, manage, and store their personal health information. Kaam Care does not guarantee the accuracy, completeness, or reliability of the medical information entered by users. Users are solely responsible for ensuring that the data they input is accurate, up-to-date, and verified with a licensed healthcare provider.
+            Kaam Care is not liable for any consequences resulting from incomplete or inaccurate medical information entered by users, including but not limited to misdiagnosis, delayed treatment, or medical errors. The information in your medical portfolio should always be reviewed and confirmed by your healthcare provider to ensure its correctness and applicability to your current health status.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Limitation of Liability</h2>
+          <p class="common-text">TO THE FULLEST EXTENT PERMITTED BY LAW, IN NO EVENT SHALL Kaam Care (NOR ITS DIRECTORS, EMPLOYEES, AGENTS, PARTNERS, SUPPLIERS, CONTENT PROVIDERS, LICENSORS OR RESELLERS) BE LIABLE UNDER CONTRACT, TORT, STRICT LIABILITY, NEGLIGENCE OR ANY OTHER LEGAL OR EQUITABLE THEORY WITH RESPECT TO THE SERVICE (I) FOR ANY LOST PROFITS, DATA LOSS, LOSS OF GOODWILL OR OPPORTUNITY, COST OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, OR SPECIAL, INDIRECT, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES OF ANY KIND WHATSOEVER, OR SUBSTITUTE GOODS OR SERVICES, (II) FOR YOUR RELIANCE ON THE SERVICE (III) FOR ANY DIRECT DAMAGES IN EXCESS (IN THE AGGREGATE) OF THE FEES PAID BY YOU FOR THE SERVICE IN THE TWELVE (12) MONTHS PRECEDING THE APPLICABLE CLAIM OR (IV) FOR ANY MATTER BEYOND ITS OR THEIR REASONABLE CONTROL, EVEN IF Kaam Care HAS BE ADVISED OF THE POSSIBILITY OF ANY OF THE AFOREMENTIONED DAMAGES.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Support</h2>
+          <p class="common-text">Kaam Care offers email-based and online support tools. You may access support resources or Frequently Asked Questions (FAQs) by visiting the Kaam Care Dashboard. You may reach out to us directly, Kaam Care does not make any promises regarding how quickly we will respond to your request for support, or that we will be able to fix any problems you may be having. Any suggestions by Kaam Care regarding use of the Services shall not be construed as a warranty.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Termination of the Services</h2>
+          <p class="common-text">Kaam Care may terminate your access to all or any part of the Services at anytime if you fail to comply with these Terms of Use. This may result in the forfeiture and destruction of all information associated with your membership and may immediately terminate your ability to use the Services. If you wish to terminate your account, you may do so by ceasing use of the Services, and deleting the mobile app. All provisions of the Terms of Use, which by their nature should survive termination, shall survive termination, including, without limitation, warranty disclaimers, indemnity and limitations of liability. Further, we will retain the aggregated, non-personally identifiable information and data, which may be generated from or based on the information relevant to your account, even after you deactivate or terminate your account. Please see the Privacy Policy.
+            You understand that due to system or network failure, the Services maybe interrupted or data may not be properly saved; Kaam Care will do its best to recover its systems and Services, but you agree not seek any compensation if the aforementioned situation occurs.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Warranty Disclaimer</h2>
+          <p class="common-text">THE SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE AND, TO THE FULLEST EXTENT PERMITTED BY LAWS, IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF TITLE, NONINFRINGEMENT, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, AND ANY WARRANTIES IMPLIED BY ANY COURSE OF PERFORMANCE OR USAGE OF TRADE, ALL OF WHICH ARE EXPRESSLY DISCLAIMED. Kaam Care AND ITS DIRECTORS, EMPLOYEES, AGENTS, SUPPLIERS, SPONSORS AND PARTNERS DO NOT WARRANT THAT: (A) THE SERVICES WILL BE SECURE OR AVAILABLE AT ANY PARTICULAR TIME OR LOCATION; (B) ANY DEFECTS OR ERRORS WILL BE CORRECTED; (C) ANY CONTENT OR SOFTWARE AVAILABLE AT OR THROUGH THE SERVICES IS FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS; OR (D) THE RESULTS OF USING THE SERVICES WILL MEET YOUR REQUIREMENTS. YOUR USE OF THE SERVICES IS SOLELY AT YOUR OWN RISK. SOME STATES DO NOT ALLOW LIMITATIONS ON HOW LONG AN IMPLIED WARRANTY LASTS, SO THE ABOVE LIMITATIONS MAY NOT APPLY TO YOU.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Indemnification</h2>
+          <p class="common-text">You shall defend, indemnify, and hold harmless Kaam Care, its affiliates and each of its and its affiliates’ employees, contractors, directors, suppliers and representatives from all liabilities, losses, claims, and expenses (including reasonable litigation expenses and attorney fees) that arise from or relate to (i) your use or misuse of, or access to, the Services, or (ii) your violation of the Terms of Use or any applicable law, contract, policy, regulation or other obligation. Kaam Care reserves the right to assume the exclusive defense and control of any matter otherwise subject to indemnification by you, in which event you will assist and cooperate with Kaam Care in connection therewith.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Arbitration</h2>
+          <p class="common-text">THE AGREEMENT AND RELEVANT NOTIFICATIONS ARE ENTERED INTO IN ELECTRONIC FORM. A PRINTED VERSION OF THE TERMS OF USE AND OF ANY NOTICE GIVEN IN ELECTRONIC FORM SHALL BE ADMISSIBLE IN JUDICIAL OR ADMINISTRATIVE PROCEEDINGS BASED UPON OR RELATING TO THE TERMS OF USE TO THE SAME EXTENT AND SUBJECT TO THE SAME CONDITIONS AS OTHER BUSINESS DOCUMENTS AND RECORDS ORIGINALLY GENERATED AND MAINTAINED IN PRINTED FORM. YOU AND Kaam Care AGREE THAT ANY CAUSE OF ACTION, ARBITRATION OR JUDICIAL PROCEEDINGS ARISING OUT OF OR RELATED TO THE SERVICE MUST COMMENCE WITHIN ONE (1) YEAR AFTER THE CAUSE OF ACTION AROSE; OTHERWISE, SUCH CAUSE OF ACTION IS PERMANENTLY BARRED. THE TERMS OF USE SHALL BE GOVERNED BY AND CONSTRUED IN ACCORDANCE WITH THE LAWS OF THE REPUBLIC OF CHINA (ROC), TAIWAN, EXCLUDING ITS CONFLICTS OF LAW RULES. ANY DISPUTE, CONTROVERSY, DIFFERENCE OR CLAIM ARISING OUT OF, RELATING TO OR IN CONNECTION WITH THIS AGREEMENT (INCLUDING THAT BETWEEN YOU AND Kaam Care, OR YOU AND MANAGERS, DIRECTORS, EMPLOYEES, REPRESENTATIVES OR AFFILLIATES OF Kaam Care) SHALL BE FINALLY SETTLED BY ARBITRATION REFERRED TO THE CHINESE ARBITRATION ASSOCIATION, TAIPEI IN ACCORDANCE WITH THE ASSOCIATION’S ARBITRATION RULES. THE PLACE OF ARBITRATION SHALL BE IN TAIPEI, TAIWAN. THE ARBITRATION TRIBUNAL WILL BE COMPOSED OF THREE ARBITRATORS. THE LANGUAGE OF ARBITRATION SHALL BE ENGLISH. THE ARBITRAL AWARD SHALL BE FINAL AND BINDING UPON BOTH PARTIES.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">CHANGES IN THE TERMS OF USE</h2>
+          <p class="common-text">Kaam Care MAY MODIFY THIS AGREEMENT FROM TIME TO TIME. ANY AND ALL CHANGES TO THIS AGREEMENT (INCLUDING BUT NOT LIMITED TO THE FEES AND PAYMENT SECTION) WILL BE POSTED ON THE Kaam Care SITE, APPLICATION, AND/OR E-MAILED TO YOU. IN ADDITION, THE AGREEMENT WILL ALWAYS INDICATE THE DATE IT WAS LAST REVISED. YOU ARE DEEMED TO ACCEPT AND AGREE TO BE BOUND BY ANY CHANGES TO THE AGREEMENT WHEN YOU USE THE SERVICE AFTER THOSE CHANGES ARE POSTED.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">MISCELLANEOUS</h2>
+          <p class="common-text">THE TERMS OF USE ARE THE ENTIRE AGREEMENT BETWEEN YOU AND Kaam Care WITH RESPECT TO THE SERVICES, AND SUPERSEDE ALL PRIOR OR CONTEMPORANEOUS COMMUNICATIONS AND PROPOSALS (WHETHER ORAL, WRITTEN OR ELECTRONIC) BETWEEN YOU AND Kaam Care WITH RESPECT TO THE SERVICES. NOTWITHSTANDING THE FOREGOING, YOU ACKNOWLEDGE THE EXISTENCE AND VALIDITY OF THE HARDWARE TERMS OF SALE, WHICH GOVERNS YOUR USE OF THE HARDWARE, IF APPLICABLE. IN THE EVENT OF ANY CONFLICT BETWEEN THIS AGREEMENT AND THE TERMS OF SALE DOCUMENT, THE APPLICABLE TERMS OF SALE DOCUMENT SHALL CONTROL WITH RESPECT TO THE SUBJECT MATTER OF SUCH TERMS OF SALE ONLY.
+            IF ANY PROVISION OF THE TERMS OF USE IS FOUND TO BE UNENFORCEABLE OR INVALID, THAT PROVISION WILL BE LIMITED OR ELIMINATED TO THE MINIMUM EXTENT NECESSARY SO THAT THE TERMS OF USE WILL OTHERWISE REMAIN IN FULL FORCE AND EFFECT AND ENFORCEABLE.
+            THE FAILURE OF EITHER PARTY TO EXERCISE IN ANY RESPECT ANY RIGHT PROVIDED FOR HEREIN SHALL NOT BE DEEMED A WAIVER OF ANY FURTHER RIGHTS HEREUNDER.
+            THE TERMS OF USE ARE PERSONAL TO YOU, AND ARE NOT ASSIGNABLE OR TRANSFERABLE BY YOU EXCEPT WITH Kaam Care PRIOR WRITTEN CONSENT.
+            Kaam Care MAY ASSIGN, TRANSFER OR DELEGATE ANY OF ITS RIGHTS AND OBLIGATIONS HEREUNDER WITHOUT CONSENT.
+            NO AGENCY, PARTNERSHIP, JOINT VENTURE, OR EMPLOYMENT RELATIONSHIP IS CREATED AS A RESULT OF THE TERMS OF USE.
+            ALL NOTICES UNDER THE TERMS OF USE WILL BE IN WRITING AND WILL BE DEEMED TO HAVE BEEN DULY SERVED:
+          </p>
+          <ul>
+            <li>
+              <p class="common-text">IF DELIVERED IN PERSON, WHEN THE NOTICE IS DELIVERED;</p>
+            </li>
+            <li>
+              <p class="common-text">IF ELECTRONICALLY DELIVERED (INCLUDING BUT NOT LIMITED TO ELECTRONIC MAILS AND NOTIFICATIONS), WHEN THE NOTICE IS SENT; OR</p>
+            </li>
+            <li>
+              <p class="common-text">IF DELIVERED BY COURIER, REGISTERED MAIL OR DOUBLED REGISTERED MAIL, WHEN RECEIPT OF THE NOTICE IS CONFIRMED BY THE POST OFFICE OR COURRIER COMPANY.</p>
+            </li>
+          </ul>
+          <p class="common-text">THE CLAUSE HEADINGS HEREOF ARE FOR THE CONVENIENCE OF THE READER ONLY AND SHALL NOT INFLUENCE THE CONTENT OR INTERPRETATION OF THE AGREEMENT.
+            IF YOU HAVE ANY QUESTIONS REGARDING THE SERVICE, PLEASE CONTACT <a href="mailto:KaamCare@gmail.com">KaamCare@gmail.com</a></p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title"></h2>
+          <p class="common-text"></p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title"></h2>
+          <p class="common-text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="privacyPolicy" class="modal">
+    <div class="col-lg-8 wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;">
+      <div style="padding-left: 15px; padding-bottom: 16px; padding-top: 16px;">
+        <a href="/">
+          <img src="https://stkmcrappsprodwu.blob.core.windows.net/auth/src/images/chevron-left.svg" alt="go back icon" />
+        </a>
+      </div>
+      <div>
+        <div>
+          <h1 class="common-text title">Privacy Policy</h1>
+          <p class="common-text" style="font-style: italic"><strong>Effective Date:</strong> September 18, 2024</p>
+          <p class="common-text">Kaam Care LLC (“we,” “us,” or “our”) shares your concerns about maintaining the integrity and privacy of personal information collected on the internet. We are committed to protecting your privacy, and this privacy policy (“Policy”) is intended to describe our information collection and dissemination practices in connection with the Kaam Care Platform (collectively, the “Sites”).<br />
+            Please review the entire Policy and feel free to contact us using the contact information below if you have any questions. By using the Kaam Care Platform, you consent to the  collection, use, and disclosure of your information in accordance with the Policy.
+            Kaam Care L.L.C., The company has been organized as a California Limited liability company under and pursuant to the provisions of law with the filling of the Articles of Organization of the company with the secretary of state of California on 02/02/2023. Kaam Care ”) respects and promises to protect your privacy. Before you use one or more of the services that we provide (the “Service”), we hereby make the following declaration (“Declaration”) to you regarding personal information and privacy protection</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">POLICY AMENDMENTS:</h2>
+          <p class="common-text">We reserve the right to amend this Policy from time to time, at our sole discretion. The most recent version of the Policy will always be posted on the website. The updated date of the Policy will be reflected in the “Effective Date” heading. We will provide notice to you if these changes are material, and, where required by applicable law, we will obtain your consent. Any amendments to the Policy will become effective within 30-days upon the display of the modified Policy. We recommend you review this Policy periodically to ensure that you understand our most updated privacy practices.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title"></h2>
+          <p class="common-text"></p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">1A. Personal Information Security</h2>
+          <p class="common-text">In order to provide you comprehensive and personalized service, in the course of your use of this service, the Company may use the following methods to collect, process and use the personal information that you inputted. This Declaration will explain the circumstance of information collection, processing and usage. The Company will apply all reasonable efforts to strictly protect the safety of your personal information so as to prevent your personal information and privacy from being accessed, used or disclosed without authorization.
+            In the event there has been a leak of your personal information which has exposed your rights or freedom to substantial risk, the Company will inform you of our discovery of the leak.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">1B. DATA SETS WE COLLECT AND FOR WHAT PURPOSE:</h2>
+          <p class="common-text">You can find here information regarding the purposes for which we process your personal data as well as our lawful basis for processing, the definition of “personal” and “non-personal” data, and how it is technically processed.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text secondary-title text-italic">Non-Personal Data</h2>
+          <p class="common-text">During your interaction with our website and Services, we may collect aggregated, non-personal non-identifiable information, which may be made available or gathered via your access to and use of the Services (“Non-Personal Data “). We are not aware of the identity of the user from which the Non-Personal Data is collected. The Non-Personal Data being collected may include your aggregated usage information and technical information transmitted by your device, such as: the type of browser or device you use, language preference, time and date stamp, country location, etc.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text secondary-title text-italic">Personal Data</h2>
+          <p class="common-text">
+            We may also collect from you, directly or indirectly, during your access or interaction with the website or Services, individually identifiable information, namely information that identifies an individual or may, with reasonable effort, be used to identify an individual (“Personal Data”). The types of Personal Data that we collect as well as the purpose for processing and the lawfulness are specified in the table below.
+            <br />We do not knowingly collect or process any Personal Data constituting or revealing racial or ethnic origin, political opinions, religious or philosophical beliefs, or trade union membership, genetic data, biometric data, data concerning a person’s health or data concerning a person’s sex life or sexual orientation (“Special Categories of Personal Data”).
+            <br />The table below details the processing of Personal Data, the purpose, lawful basis, and processing operations:
+          </p>
+        </div>
+
+        <div class="table-container">
+          <table class="table-main">
+            <thead>
+            <tr>
+              <th class="cell-header cell-header-typography">Data Set</th>
+              <th class="cell-header cell-header-typography">Purpose and Operations</th>
+              <th class="cell-header cell-header-typography">Lawful Basis</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="cell-content">
+                <div class="section">
+                  <h2 class="common-text secondary-title" style="margin-bottom: 0">Registration Information:</h2>
+                  <p class="common-text" style="margin-top: 0">
+                    If you are required to register and create an account through our App, we will collect the Personal Data that you are required to provide us during the registry process, such as your full name and email address. Further, during the registration process you will be supplied with username and password for your account, at which time you thereby represent and warrant that you are responsible for maintaining the confidentiality of your details and password. You represent and warrant that you will not provide us with inaccurate, misleading or false information.
+                  </p>
+                </div>
+              </td>
+              <td class="cell-content">
+                <p class="common-text">
+                  This information will be processed for the purpose of performing our contract with you, to set up your account with us and enable you to use our Services. In addition, we may process your Personal Data for our legitimate interests, for example, to send you marketing and promotional messages and offers related to our Services. You are able to unsubscribe from receiving such correspondence from us by contacting us at: <a href="mailto:Kaamcare@gmail.com">Kaamcare@gmail.com</a> Please note that if you choose to unsubscribe from direct marketing, we may still retain your contact details and send you relevant service-related information such as invoices and subscription rates.
+                </p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text">The registration information is processed to perform our contract with you and the direct marketing is subject to our legitimate interest.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Contact Information:</h2>
+                <p class="common-text" style="margin-top: 0">If you voluntarily contact us, you may be required to provide us with certain information such as your name, job title, company name, email address (“Contact Information”) and any additional information you decide to share with us.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We will use this data to respond to your inquiry.</p>
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Members Club Registration:</h2>
+                <p class="common-text" style="margin-top: 0">If you choose to register to our Members Club, we will you your Contact Information in order to send you Offers and marketing materials.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We process such Contact Information subject to our legitimate interest. We may keep such correspondence if we are legally required to.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">GPS Location Information:></h2>
+                <p class="common-text" style="margin-top: 0">Certain features may require access to your GPS location permissions. In addition, in certain features we will use your “Access Fine Location” permission in the background while you are using the App so that we are able to locate the wifi networks and connection to provide the Services.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">This information will be processed for the purpose of providing the Services. In addition, we will use your Fine Access Location in order to offer you different WIFI networks depend on your location. Please note that this information can run in the background of your mobile device, and show you an applicable list of WIFI networks. You may choose to block your background location through your device setting. Further we wish to clarify that we do not store any GPS Location Information on our servers and any processing activity shall be done solely on your device.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We will process this data solely upon your active explicit consent though in-app notifications.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Push Notifications:</h2>
+                <p class="common-text" style="margin-top: 0">We may store Firebase Cloud Messages token. If you wish to stop getting push notifications, you may do so simply by disabling push notifications on your device’s settings or uninstall the app.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">This information will be processed to allow us to send push notifications to users from our server.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">As the token is Non-Personal Data it does not require a lawful basis.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">In-App Payment Information:</h2>
+                <p class="common-text" style="margin-top: 0">When you make a payment through our App and offered Services, all payments are in-app payments and are subject to the applicable App Store terms and privacy policy.<br/>Google Terms of Service<br/>Google Privacy Policy<br/>App Store Terms of Use<br/>App Store Privacy Policy</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We use in app payment processors; the registration and payment information are solely processed by the applicable app store provider. We do not store nor process any Personal Data when you process the payment. We receive an order number which is connected to a user ID which was generated when installing the app (non identifiable).</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">The Payment Information is processed to perform our contract with you to provide you our Services..</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Log Data and Unique Identifiers:</h2>
+                <p class="common-text" style="margin-top: 0">In case of an error in the App we collect data and information (through third-party service providers) such as “Log Data” or “Crash Data”. This data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the App when utilizing our Service, the time and date of your use of the Service, and other statistics.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">In most cases, this data will not include Personal Data, however we treat this information as Personal Data as we may be able to reasonably identify you.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We process this data set for our legitimate Interest of protecting our App and Services and optimizing the App and Services.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">List of Installed App:</h2>
+                <p class="common-text" style="margin-top: 0"></p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">When you install our App, we may collect information from your device, that may include a list of your installed Apps. This data may contain identity information and therefore we treat it as Personal Data.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We use this data in order to maintain, support, improve, protect and manage our App and Services.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Profiling Data:</h2>
+                <p class="common-text" style="margin-top: 0">When you use our App we may display advertisements, our partners, the advertisers may place an SDK (as detailed below) and collect certain data on you for the purpose of displaying advertisement. If you wish to prevent the display of advertisements or other identifiers for interest-based advertising, you may change your device settings to reset such advertisement or opt-out of such advertising (typically, this is available under the “Privacy” or “Ads” section in your device settings). Please note that if you reset your advertising settings or opt-out of interest based advertising, you may still see advertisements in our App, but those ads will not be targeted for you. Please note that such actions may result in a less enjoyable user experience.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">Our partners will process this data to manage and deliver advertisements more effectively and personally, including contextual, behavioral and interests-based advertising based on your activity, preferences or other data available to us or to our business partners and advertisers, including for re-targeting purposes.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We process this information based on your consent as required under your jurisdiction provided through our cookie manager or similar technologies.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Photos and Videos:</h2>
+                <p class="common-text" style="margin-top: 0">if you use our designated feature in the applicable App in order to provide you with our Services, we will ask you to provide us with photos, images or videos of you (collectively “Content”) for editing purposes and to create animations. While we cannot prevent you from doing so, we still do not use Personal Data from photos for purposes other than providing our Service.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We process such data to provide you with the Services and to enable the editing and animation function that you requested. For example, if you wish to receive altered photographs with animations of Emoji, we will use the original photograph you provided us. We keep the original photo and the animation for as long as you use the Services. Further we wish to clarify that we do not store any of your photos and videos on our servers and any processing activity shall be done solely on your device.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We process this information based on your consent provided through the organic in-app permissions in order to execute our contract with you and provide you with our services.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Microphone and audio:</h2>
+                <p class="common-text" style="margin-top: 0">As part of our dialer feature which is provided to certain Apps of ours, you will be required to provide us permissions to your Microphone.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We use those permissions to provide you with our dialer. The microphone permission needs to be affirmatively enabled through in-app permission or the mobile settings. You may disable the permissions at any time, but depending on the permission you disable, a feature or all features may not function properly. We will process the audio and use the microphone solely for providing you the dialer feature and we will not store any of your audio. Further, we wish to clarify that we do not store any audio file or any information which may be accessed through the microphones and audio permissions on our servers and any processing activity shall be done solely on your device.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We process this information based on your consent provided through the organic in-app permissions in order to execute our contract with you and provide you with our services.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Call log and Contacts:</h2>
+                <p class="common-text" style="margin-top: 0">As part of our dialer feature which is provided to certain Apps of ours, you will be required to provide us permissions to your call log and contacts.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We use those permissions to provide you with our dialer and to identify your caller based on your contact list. The Call log and contacts permissions need to be affirmatively enabled through in-app permission or the mobile settings. You may disable the permissions at any time, but depending on the permission you disable, a feature or all features may not function properly. Further, we wish to clarify that we do not store any of your contacts or call log on our servers and any processing activity shall be done solely on your device.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We process this information based on your consent provided through the organic in-app permissions in order to execute our contract with you and provide you with our services.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Bluetooth and Network:</h2>
+                <p class="common-text" style="margin-top: 0">We may collect through your Bluetooth and network permissions list of devices and networks your device “see” and connection history of your device</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We use those permissions to provide you with our Services. The permission needs to be affirmatively enabled through in-app permission or the mobile settings. You may disable the permissions at any time, but depending on the permission you disable, a feature or all features may not function properly.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We process this information based on your consent provided through the organic in-app permissions in order to execute our contract with you and provide you with our services.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Calendar:</h2>
+                <p class="common-text" style="margin-top: 0">Some of our Apps will provide you with new design features for your device. In order to apply those designs, we will need to access your calendar.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We will use the calendar permission in order to apply the applicable design for your device and calendar. The permission needs to be affirmatively enabled through in-app permission or the mobile settings. You may disable the permissions at any time, but depending on the permission you disable, a feature or all features may not function properly. Further, we wish to clarify that we do not store any data processed or may be accessed through the calendar permissions on our servers and any processing activity shall be done solely on your device.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We process this information based on your consent provided through the organic in-app permissions in order to execute our contract with you and provide you with our services.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-content">
+                <h2 class="common-text secondary-title" style="margin-bottom: 0">Health Data:</h2>
+                <p class="common-text" style="margin-top: 0">Our Apps may access and process certain health related data. This data shall be solely processed on your device and we will not transmit such data to our servers or taking any action which will cause the data to leave your device</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We will use this data in order to provide you with certain features and as part of the performance of our Apps We process this information based on your consent provided through the organic in-app permissions in order to execute our contract with you and provide you with our services. We wish to clarify that we do not store any of your contacts or call log on our servers and any processing activity shall be done solely on your device.</p>
+              </td>
+              <td class="cell-content">
+                <p class="common-text" style="margin-top: 0">We process this information based on your consent provided through the organic in-app permissions in order to execute our contract with you and provide you with our services.</p>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="common-text">
+          Please note that the actual processing operation per each purpose of use and lawful basis detailed in the table above may differ. Such processing operation usually includes a set of operations made by automated means, such as collection, storage, use, disclosure by transmission, erasure, or destruction. The transfer of personal data to third-party countries, as further detailed in the Data Transfer Section, is based on the same lawful basis as stipulated in the table above.
+          In addition, we may use certain Personal Data to prevent potentially prohibited or illegal activities, fraud, misappropriation, infringements, identity thefts, and any other misuse of the Services and to enforce the Terms, as well as to protect the security or integrity of our databases and the Services, and to take precautions against legal liability. Such processing is based on our legitimate interests.
+          We may collect different categories of Personal Data and Non-Personal Data from you, depending on the nature of your interaction with the Services provided through the website and Platform, as detailed above. If we combine Personal Data with Non-Personal Data, the combined information will be treated as Personal Data or for as long as it remains combined.
+        </p>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            1C. HOW WE COLLECT YOUR INFORMATION:
+          </h2>
+          <ul>
+            <li>
+              <p class="common-text">Automatically, We process this information based on your consent provided through the organic in-app permissions in order to execute our contract with you and provide you with our services..</p>
+            </li>
+            <li>
+              <p class="common-text">When you voluntarily choose to provide us with information, such as when you contact us, all as detailed in this Policy.</p>
+            </li>
+            <li>
+              <p class="common-text">Provided from third-parties.</p>
+            </li>
+          </ul>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            2. Purpose of Collection
+          </h2>
+          <p class="common-text">
+            To enhance your ability to manage your health records and provide you with more services through sharing data to those that you have authorized to receive the information, the Company may collect personal information from you for the purposes as stated above or for the following purposes:
+          </p>
+          <ul>
+            <li>
+              <p class="common-text">Personal insurance</p>
+            </li>
+            <li>
+              <p class="common-text">Marketing</p>
+            </li>
+            <li>
+              <p class="common-text">Health care services</p>
+            </li>
+            <li>
+              <p class="common-text">Emergency aid when traveling abroad</p>
+            </li>
+            <li>
+              <p class="common-text">Consumer and client management and services</p>
+            </li>
+            <li>
+              <p class="common-text">Online shopping and other e-commerce services</p>
+            </li>
+            <li>
+              <p class="common-text">Advertising or commercial conduct management</p>
+            </li>
+            <li>
+              <p class="common-text">Survey, statistics and research analysis</p>
+            </li>
+            <li>
+              <p class="common-text">Other business operations that are compliant with the registered business items or the constitution articles</p>
+            </li>
+          </ul>
+          <p class="common-text">In the event information is being collected, processed or used for any purpose other than the above, the Company will obtain your consent in advance before proceeding.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            3. Categories and Contents of Information Collected
+          </h2>
+          <p class="common-text">
+            The possible categories and contents of the personal information that the Company may collect from you are as follows, but the Company will only collect personal information necessary to meet the aforementioned purposes:
+          </p>
+          <ul>
+            <li><p class="common-text">Information that may identify the person: This includes your name, job title, address, work address, former address, home telephone number, mobile number, instant messenger account, web service account information, service and household registration address, photographs, e-mail address, electronic signature, personal identification card serial number, and any other information that may allow identification of the data holder.</p></li>
+            <li><p class="common-text">Government information that may identify the person: This includes the passport number, social security number, national ID number, etc.</p></li>
+            <li><p class="common-text">Personal descriptions: This includes age, sex, birth date, birthplace, nationality, etc.</p></li>
+            <li><p class="common-text">Body descriptions:This includes height, weight, blood type, etc.</p></li>
+            <li><p class="common-text">Personal habits: This includes smoking, alcohol consumption, etc.</p></li>
+            <li><p class="common-text">Family situation:This includes marital status, offspring, etc.</p></li>
+            <li><p class="common-text">Details of other family members: This includes offspring, persons under care, other relatives, parents, live-ins, or any relatives living abroad, etc.</p></li>
+            <li><p class="common-text">Recreational activities and interests: This includes hobbies, sports, and other interests.</p></li>
+            <li><p class="common-text">Lifestyles: This includes types of consumer items and services used, personal or family consumer practices, etc.</p></li>
+            <li><p class="common-text">Occupation: All types of jobs and positions.</p></li>
+            <li><p class="common-text">Safety and health records: This includes occupational illnesses, safety, accident records, first aid qualifications, emergency medical aid information when traveling abroad, etc.</p></li>
+            <li><p class="common-text">Insurance details: This includes insurance type, scope of insurance, insurance amount, term of insurance, expiration date, insurance premiums, insurance payments, etc.</p></li>
+            <li><p class="common-text">Health records: This includes medical records, treatment and diagnosis records, test results, the type, level, and duration of disability, the Disability Card number, contact person, etc.</p></li>
+            <li><p class="common-text">Race or ancestral origin: This includes DNA records.</li>
+            <li><p class="common-text">Records of Service usage: This includes geographical positioning, usage time, browsing, and browser history.</p></li>
+          </ul>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            4. Duration, Region, Storage, Target of Method Use, and User Responsibilities
+          </h2>
+          <ul>
+            <li><p class="common-text">Duration: Until you request the suspension of usage of your personal information.</p></li>
+            <li><p class="common-text">Region: Areas where the Company or its affiliates are operating.</p></li>
+            <li><p class="common-text">Target and Method:</p></li>
+            <li style="list-style: none">
+              <ul>
+                <li><p class="common-text">Account information and other non-data portions: This information shall be stored on Microsoft Azure and used according to the purposes for which such information was collected.</p></li>
+                <li><p class="common-text">Personal physical data, medical records, and other medical data:</p>
+                  <ul>
+                    <li><p class="common-text">Data storage: The Kaam Care app is connected via API to Microsoft Azure, a secure cloud service provider. While your personal health information is collected through the app, Kaam Care does not store this data on its own servers. All health data is securely stored and managed by Azure, ensuring high levels of protection and compliance with industry standards.</p></li>
+                    <li><p class="common-text">Data Usage and sharing: Your personal information is only used to provide and improve the services offered by Kaam Care. We do not share, sell, or disclose your personal health information to third parties without your explicit consent, except as required by law. You maintain control over your health data, and no information is shared without your approval.</p></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><p class="common-text">User Responsibilities:</p></li>
+            <li style="list-style: none"><ul>
+              <li><p class="common-text">You are responsible for keeping your username and password secure to protect your personal information from unauthorized access.</p></li>
+              <li><p class="common-text">By using Kaam Care, you agree to keep your personal health information up-to-date and accurate. It is your responsibility to review, verify, and update your medical information regularly.</p></li>
+            </ul>
+            </li>
+          </ul>
+
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            5. Your Rights
+          </h2>
+          <p class="common-text">
+            You may exercise the following rights with respect to your personal information:
+          </p>
+          <ul>
+            <li><p class="common-text">Inquire or request a review of the information.</p></li>
+            <li><p class="common-text">Request a copy of the information.</p></li>
+            <li><p class="common-text">Request an amendment or correction of the information.</p></li>
+            <li><p class="common-text">Request the suspension of collection, processing, or use of the information.</p></li>
+            <li><p class="common-text">Request the deletion of the information.</p></li>
+            <li><p class="common-text">Refuse automated decisions, including profiling.</p></li>
+          </ul>
+          <p class="common-text">
+            Please note that if you do not wish to provide your personal information, the Company will be unable to provide you with a part or the entirety of services.
+            You can contact Kaam Care under the Privacy Dashboard settings to request the exercise of the above rights (such as information deletion), and when you exercise such rights, the Company may request for you to provide relevant supporting information so as to verify your identity.
+            If you believe that our collection, processing or use of your personal information is inappropriate or in violation of the law, you may submit a complaint to the competent authority or initiate litigation at court.
+            You understand that the cross-border transmission of your personal information may expose your personal information to a greater degree of risk.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            6. United States Residents in certain Territories Have Specific Privacy Right
+          </h2>
+          <p class="common-text">
+            If you are a resident of California, Colorado, Connecticut, Utah, or Virginia, you are granted specific rights regarding access to your Personal Information, based on the following laws:
+          </p>
+          <ul>
+            <li><p class="common-text">General Data Protection Regulation (GDPR)</p></li>
+            <li><p class="common-text">Virginia Consumer Data Protection Act (CDPA)</p></li>
+            <li><p class="common-text">California Consumer Privacy Act (CCPA) as amended by the California Privacy Rights Act (CPRA)</p></li>
+            <li><p class="common-text">California Online Privacy Protection Act (CalOPPA)</p></li>
+            <li><p class="common-text">Personal Information Protection and Electronic Documents Act (PIPEDA)</p></li>
+            <li><p class="common-text">Colorado Privacy Act (ColoPA)</p></li>
+            <li><p class="common-text">Utah Consumer Privacy Act (UCPA)</p></li>
+            <li><p class="common-text">Connecticut Data Privacy Act (CDPA)</p></li>
+          </ul>
+        </div>
+        <div class="section">
+          <h2 class="common-text title">
+            Kaam Care California Privacy Rights
+          </h2>
+          <p class="common-text">
+            California residents have certain privacy rights under the California Consumer Privacy Act as amended by the California Privacy Rights Act (collectively, CCPA). This notice provides a general overview of the privacy rights under the CCPA. Further, it applies generally to all of Kaam Care products and services. For specific information about your personal information or how your personal information is processed by a particular Kaam Care product please see Privacy section. 
+            The CCPA defines certain terms in a particular manner that may differ from how those terms are used in everyday language. When these terms are used in this notice, they are used based on the definitions set forth in the CCPA. These terms are: "personal information", "consumer", "business purpose", "commercial purpose", "service provider", "third party", "share", and "sale" or "sell".
+            For purposes of this notice, Kaam Care may be referred to as "us", "our or "we" and Kaam Care consumer customers may be referred to as "you" or "your".
+          </p>
+          <h2 class="common-text sub-title">Summary of CCPA Privacy Rights</h2>
+          <p class="common-text">The CCPA provides California consumers with the following privacy rights. These rights are explained in further detail in the sections below.</p>
+          <ul>
+            <li><p class="common-text">The right to know and the right to access the following for the preceding 12-month period: categories of personal information we collected, the categories of sources from which we collected personal information, the business or commercial purposes for which we collected personal information, and the categories of third parties with whom we sell or share personal information, and the pieces of personal information we have collected about you.</p></li>
+            <li><p class="common-text">The right to delete personal information collected that is not needed for specified purposes.</p></li>
+            <li><p class="common-text">The right to correct inaccurate personal information that Kaam Care maintains about you.</p></li>
+            <li><p class="common-text">The right to not be discriminated against for exercising any of your CCPA rights.</p></li>
+            <li><p class="common-text">The right to opt out of the selling or sharing of your personal information.</p></li>
+            <li><p class="common-text">The right to limit the use or disclosure of sensitive personal information for certain purposes.</p></li>
+          </ul>
+          <p class="common-text">You may exercise your right to know, right to delete, right to correct, and right to opt out of sale or sharing by logging into your Kaam Care Privacy Dashboard.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            Right to Know and Access
+          </h2>
+          <p class="common-text">
+            Under the CCPA, California consumers have the right to know and access the following information for the preceding 12 month period:
+          </p>
+          <ul>
+            <li><p class="common-text">The categories of personal information collected or used, disclosed for a business purpose, or otherwise sold or shared.</p></li>
+            <li><p class="common-text">The business purposes for collecting or sharing personal information.</p></li>
+            <li><p class="common-text">The commercial purposes for collecting, selling, or sharing personal information.</p></li>
+            <li><p class="common-text">The categories of sources of personal information.</p></li>
+            <li><p class="common-text">The categories of service providers to which personal information is disclosed for a business purpose.</p></li>
+            <li><p class="common-text">The categories of third parties to which personal information is sold or shared.</p></li>
+            <li><p class="common-text">The specific pieces of personal information collected or used.</p></li>
+          </ul>
+          <p class="common-text">
+            You may access this information by logging into your Kaam Care Privacy Dashboard.
+          </p>
+        </div>
+        <div>
+          <p class="common-text">
+            Categories of Personal Information: Kaam Care may collect, use, disclose for a business purpose, or otherwise sell or share different categories of personal information depending on the product or service, if consent is given. You may locate the specific categories of personal information for each product or service by logging into your Kaam Care Privacy Dashboard.
+            <br/><br/>Below is the full list of categories of personal information that Kaam Care may collect, use, disclose, if Consent is given, for the following: a business purpose or otherwise sell or share: identifiers (e.g., technical, financial, government identifiers); contact information; physical characteristics or description information; internet or electronic network activity information; geolocation information; commercial information; audio, electronic, visual, thermal, olfactory or similar information; biometric information; inferences, including advertising and content related inferences; medical information or health insurance information; professional or employment related information; education information; legally protected classifications; and other information that identifies or can be reasonably associated or linked with you.
+            <br/><br/>Business Purposes: Kaam Care may disclose personal information to service providers for the following business purposes: auditing; security; debugging; short-term transient use; performing services on behalf of Kaam Care; research; and quality assurance and service improvements.
+            <br/><br/>Commercial Purposes: Kaam Care may sell or share personal information with third parties (if consent is given) for the following commercial purposes: delivering content; associating user activity; provide Kaam Care services; provide, provide personalized content; fulfill user requests; user communication; provide location-based services; provide promotions; create analytics and reports for third parties; processing payments; and security and fraud prevention.
+            <br/><br/>Categories of Sources: Kaam Care collects personal information from the following categories of sources: Kaam Care websites and apps; external party websites and apps where Kaam Care technologies serves content measurement; third party data partners; Kaam Care services; and websites, apps or other public sources.
+            <br/><br/>Categories of Service Providers: Kaam Care may disclose personal information for a business purpose with the following categories of service providers: analytics providers; social button providers; application providers; content providers; payment providers; search partners; voice and digital assistant providers; and security partners.
+            <br/><br/>Categories of Third Parties: Kaam Care may sell or share personal information for a commercial purpose with the following categories of third parties: analytics providers; social button providers; application providers; advertising partners; content providers; game developers; payment providers; search partners; voice and digital assistant providers; and security partners.
+            <br/><br/>Specific Pieces of Information: Please visit your Kaam Care Privacy Dashboard to access the specific pieces of information collected by Kaam Care. Please note that due to the nature of Kaam Care services, we are not able to adequately verify the identity of a non-registered user. As a result, only users who are able to authenticate themselves through their account can access the specific pieces of information at this time.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            Right to Delete
+          </h2>
+          <p class="common-text">
+            You may request that Kaam Care delete personal information we have collected from you by logging into your Kaam Care Privacy Dashboard.
+            If your Kaam Care account has Sub-profiles, you will need to exercise your deletion right with each sub-profile which you wish to delete.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            Right to Correct Inaccurate Personal Information
+          </h2>
+          <p class="common-text">
+            You have the right to correct inaccurate information that we maintain about you. You may exercise this right by contacting us.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            Right to Not Be Discriminated Against
+          </h2>
+          <p class="common-text">
+            You have the right to receive information about the financial incentives that we offer to you (if any). Kaam Care does not and will not discriminate against you because you exercise any of the CCPA rights described here. We will not deny goods or services, charge different prices or rates for goods or services, or provide you with a different level or quality of goods or services as a result of you exercising any CCPA rights described here.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">
+            Right to Opt Out of Selling or Sharing
+          </h2>
+          <p class="common-text">
+            Kaam Care does not sell or share information that, on its own, identifies you, like your name or email address. As outlined in our Privacy Policy, if consent is given by you, we do share other identifiers with partners for product, service and advertising reasons. Sharing this information allows us to provide the content and services you enjoy, helps our partners deliver better content and advertising, and keeps our services supported by our advertisers. Under the California Consumer Privacy Act some of this sharing may be considered a "sale" that you have a right to opt out of.
+            You have the right to direct Kaam Care not to sell or share your personal information. You may direct Kaam Care not to sell or share your personal information by turning off the "allow the 'sale' or 'sharing' of my Personal Information" control in your Kaam Care Privacy Dashboard.
+            If you choose to opt out of selling or sharing, such action may impact how you are able to view and/or receive some services that Kaam Care offers. This is because some of the services that Kaam Care offers require disclosure of your personal information to third parties, and such disclosure may be deemed selling or sharing under the CCPA.
+            Kaam Care sells or shares different categories of personal information to third parties depending on the product or service. You may locate the specific categories of personal information sold or shared in the last 12 months for each product or service you use by logging into your Kaam Care Privacy Dashboard.
+            Across all of our products and services, if consent is given, Kaam Care may sell or share the following categories of personal data to third parties: identifiers (e.g., technical, financial, government identifiers); contact information; physical characteristics or description information; internet or electronic network activity information; geolocation information; commercial information; audio, electronic, visual, thermal, olfactory or similar information; inferences, including advertising and content related inferences; professional or employment related information.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text title">Kaam Care Colorado Privacy Rights</h2>
+          <p class="common-text">
+            Colorado Residents have certain Privacy Rights under Colorado's Privacy Act of 2021, also known as the CPA. This notice provides a general overview of the privacy rights under the CPA. Further, it applies generally to all of Kaam Care products and services. For specific information about your personal data or how your personal data is processed by a particular Kaam Care product or service you may interact with, please login to the Kaam Care Privacy Dashboard.
+            The CPA defines certain terms in a particular manner that may differ from how those terms are used in everyday language. When these terms are used in this notice, they are used based on the definition set forth in the CPA. These terms are "personal data", "consumer", "controller", "processor", "sensitive data", "targeted advertising", "third party", and "sale" or "sell". Please note that Kaam Care uses the terms "personal data" and "personal information" interchangeably throughout our policies.
+            For purposes of this page, Kaam Care may be referred to as "us", "our" or "we" and Kaam Care consumer customers may be referred to as "you" or "your".
+          </p>
+          <h2 class="common-text sub-title">
+            Summary of CPA Privacy Rights
+          </h2>
+          <p class="common-text">
+            The CPA provides Colorado consumers with the following five privacy rights. These rights are explained in further detail in the sections below.
+          </p>
+          <ul>
+            <li><p class="common-text">The right to opt out of processing of personal data for the following purposes:</p>
+              <ul>
+                <li><p class="common-text">Targeted advertising</p></li>
+                <li><p class="common-text">The sale of personal data</p></li>
+                <li><p class="common-text">Profiling in furtherance of decisions that produce legal or similarly significant effects concerning the consumer</p></li>
+              </ul>
+            </li>
+            <li><p class="common-text">Right of access</p></li>
+            <li><p class="common-text">Right to correction</p></li>
+            <li><p class="common-text">Right to deletion</p></li>
+            <li><p class="common-text">Right to data portability</p></li>
+          </ul>
+          <p class="common-text">
+            You may exercise your right to confirm and access, and right to opt out of Targeted advertising and sale of personal data by logging into your Kaam Care Privacy Dashboard.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right of Access</h2>
+          <p class="common-text">
+            Under the CPA, Colorado consumers have the right to confirm a controller's processing of their personal data and access such personal data. You may access this data by logging into your Kaam Care Privacy Dashboard.
+            If you do not have a Kaam Care login, Kaam Care is unable to confirm the ownership of personal data and will not be able to provide you with access.
+            <br/>Categories of personal data: If your consent is given, Kaam Care may collect, use, disclose, or otherwise sell or share different categories of personal data depending on the product or services. You may locate the specific categories of personal data for each product or service by logging into your Kaam Care Privacy Dashboard.
+            Below is the list of categories of personal data that Kaam Care may, sell or share: identifiers (e.g., technical, financial, government identifiers); contact information; physical characteristics or description information; internet or electronic network activity information; geolocation information; commercial information; audio, electronic, visual, thermal, olfactory or similar information; biometric information; inferences, including advertising and content related inferences; medical information or health insurance information; professional or employment related information; education information; legally protected classifications; and other information that identifies or can be reasonably associated or linked with you.
+            <br />Purposes for processing personal data: Kaam Care may process your personal data for the following purposes: auditing; security and fraud prevention; debugging; short-term transient use; performing services on behalf of Kaam Care; research; quality assurance service improvements; delivering content,; associating user activity; providing Kaam Care services; providing contextual advertising; providing targeted advertising; providing personalized content; fulfilling user requests; for user communication; providing location-based services; providing promotions; creating analytics and reports for third parties; and payment processing.
+            <br />Categories of third parties: If you consent is given Kaam Care may sell or share personal data of our consumers with the following categories of third parties: analytics providers; social button providers; application providers; advertising partners; content providers; game developers; payment providers; search partners; voice and digital assistant providers; and security partners.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Correct</h2>
+          <p class="common-text">Under the CPA, Colorado consumers have the right to correct inaccuracies in their personal data, by contacting us.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Delete</h2>
+          <p class="common-text">
+            You may request that Kaam Care delete personal information we have collected from you by logging into your Kaam Care Privacy Dashboard.
+            If your Kaam Care account has Sub-profiles, you will need to exercise your deletion right with each sub-profile which you wish to delete.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Data Portability</h2>
+          <p class="common-text">You may request Kaam Care to provide you with a copy of the personal data that you previously provided. You may access this data by logging into the Kaam Care Privacy Dashboard,</p>
+        </div>
+
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Opt Out of Selling or Targeted Advertising</h2>
+          <p class="common-text">Kaam Care does not sell or share data that, on its own, identifies you, like your name or email address. We do share other identifiers with partners for product, service and targeted Research reasons. Sharing this data allows us to provide the content and services you enjoy, helps our partners deliver better content and keeps our services supported.
+            You have the right to direct Kaam Care not to sell your personal data and to not use your personal data for targeted advertising. You may direct Kaam Care to opt you out of selling your personal data and using your personal data for targeted advertising above or via the sale of personal data and targeted advertising control in the Privacy Dashboard.
+            If you choose to opt out of the sale of your personal data, such action may impact how you are able to view and/or receive some services that Kaam Care offers. This is because some of the services that Kaam Care offers require disclosure of your personal data to third parties and such disclosure may be deemed selling under the CPA.
+            Kaam Care sells or shares different categories of personal information to third parties depending on the product or service. You may locate the specific categories of personal data sold or shared in the last 12 months for each product or service you use by logging into the Kaam Care Privacy Dashboard.
+            Kaam Care does not process personal data for the purposes of profiling in furtherance of decisions that produce legal or similarly significant effects concerning the consumer.
+            Across all of our products and services, if consent is given, Kaam Care may sell or share the following categories of personal data to third parties: identifiers (e.g., technical, financial, government identifiers); contact information; physical characteristics or description information; internet or electronic network activity information; geolocation information; commercial information; audio, electronic, visual, thermal, olfactory or similar information; inferences, including advertising and content related inferences; professional or employment related information.</p>
+        </div>
+
+        <div class="section">
+          <h2 class="common-text title">
+            Kaam Care Connecticut Privacy Rights
+          </h2>
+          <p class="common-text">
+            Connecticut residents have certain privacy rights under the Connecticut Data Privacy Act (CTPA). This notice provides a general overview of the privacy rights under the CTPA. Further, it applies generally to all of Kaam Care products and services. For specific information about your personal data or how your personal data is processed by a particular Kaam Care product or service you may interact with, please log into the Kaam Care Privacy Dashboard.
+            The CTPA defines certain terms in a particular manner that may differ from how those terms are used in everyday language. When these terms are used in this notice, they are used based on the definitions set forth in the CTPA. These terms are: "personal data", "process", "consumer", "processor", "controller", "third party", "sale" or "sell", and "targeted advertising". Please note that Kaam Care uses the terms "personal data" and "personal information" interchangeably throughout our policies.
+            For purposes of this notice, Kaam Care may be referred to as "us", "our" or "we" and Kaam Care consumer customers may be referred to as "you" or "your".
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Targeted Advertising and Sale of Personal Data</h2>
+          <p class="common-text">While we don't sell directly identifying information like your name, phone number or email address, we do share your technical identifiers in order to provide more relevant services, content to you. This could be considered a "sale" as defined under Connecticut law. We also share information with and collect information from partners for the purpose of Research. Connecticut law gives you the right to opt out of this. To do so, select "Don't Allow". In addition, we may still disclose your information with our processors in accordance with Connecticut law and our privacy policy.</p>
+          <ul>
+            <li><p class="common-text">Allow</p></li>
+            <li><p class="common-text">Do Not Allow</p></li>
+          </ul>
+
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Summary of CTPA Privacy Rights</h2>
+          <p class="common-text">The CTPA provides Connecticut consumers with the following privacy rights. These rights are explained in further detail in the sections below</p>
+          <ul>
+            <li><p class="common-text">The right to confirm whether or not Kaam Care is processing your personal data and access to such personal data.</p></li>
+            <li><p class="common-text">The right to correct inaccuracies in your personal data, taking into account the nature of the personal data and the purposes of the processing of your personal data.</p></li>
+            <li><p class="common-text">The right to delete personal data provided by, or obtained about, you.</p></li>
+            <li><p class="common-text">The right to obtain a copy of your personal data processed by Kaam Care, in a portable and, to the extent technically feasible, readily usable format that allows you to transmit the data to another controller without hindrance, where the processing is carried out by automated means, provided Kaam Care shall not be required to reveal any trade secret.</p></li>
+            <li><p class="common-text">The right to opt out of the processing of your personal data for the following purposes:</p>
+              <ul>
+                <li><p class="common-text">Targeted advertising</p></li>
+                <li><p class="common-text">The sale of personal data, subject to the terms set forth below</p></li>
+                <li><p class="common-text">Profiling in furtherance of solely automated decisions that produce legal or similarly significant effects concerning you</p></li>
+              </ul>
+            </li>
+          </ul>
+          <p class="common-text">You may exercise your right to confirm or access, right to correct, right to delete, right to obtain a copy, and right to opt out of sale by logging into your Kaam Care Privacy Dashboard.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Confirm and Access</h2>
+          <p class="common-text">Under the CTPA, Connecticut consumers have the right to confirm and access the following information:</p>
+          <ul>
+            <li><p class="common-text">The categories of personal data processed by Kaam Care and shared with third parties.</p></li>
+            <li><p class="common-text">The purposes for processing personal data.</p></li>
+            <li><p class="common-text">How you may exercise your rights, including how you may appeal Kaam Care's decision with regard to your request.</p></li>
+            <li><p class="common-text">The categories of third parties, if any, which Kaam Care shares personal data.</p></li>
+            <li><p class="common-text">An active electronic mail address that you may use to contact Kaam Care.</p></li>
+          </ul>
+          <p class="common-text">
+            Categories of personal data: Kaam Care may process or otherwise sell or share different categories of personal data depending on the product or service. You may locate the specific categories of personal data for each product or service by logging into your Kaam Care Privacy Dashboard.
+            Below is the list of categories of personal data that Kaam Care may process or otherwise sell or share with third parties: identifiers (e.g., technical, financial, government identifiers); contact information; physical characteristics or description information; internet or electronic network activity information; geolocation information; commercial information; audio, electronic, visual, thermal, olfactory or similar information; biometric information; inferences, including advertising and content related inferences; medical information or health insurance information; professional or employment related information; education information; legally protected classifications; and other information that identifies or can be reasonably associated or linked with you.
+            <br />Processing Purposes: Kaam Care may disclose personal data to processors for the following purposes: auditing; security; debugging; short-term transient use; performing services on behalf of Kaam Care; research; and quality assurance and service improvements.
+            Kaam Care may sell or share personal data with third parties for the following purposes: delivering content; associating user activity; provide Kaam Care services;; provide targeted advertising; provide personalized content; fulfill user requests; user communication; provide location-based services; provide promotions; create analytics and reports for third parties; processing payments; and security and fraud prevention.
+            <br />Categories of Third Parties: Kaam Care may sell or share personal data with the following categories of third parties: analytics providers; social button providers; application providers; advertising partners; content providers; game developers; payment providers; search partners; voice and digital assistant providers; and security partners.
+            Right to Correct Inaccurate Personal Data
+            You have the right to correct inaccurate information that we maintain about you, taking into account the nature of the personal data and the purposes of the processing of your personal data. You may exercise this right by logging into your Kaam Care Privacy Dashboard or contacting us at the information provided below.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Delete</h2>
+          <p class="common-text">You may request that Kaam delete personal data we have collected about you by logging into your Kaam Care Privacy Dashboard.
+            If you exercise your right to delete your data, the CTPA allows Kaam Care to retain certain personal data for limited purposes. As a result, Kaam Care may retain your personal data in accordance with our records retention program to: comply with federal, state, or municipal ordinances or regulations; comply with a civil, criminal, or regulatory inquiry, investigation, subpoena, or summons by federal, state, municipal, or other governmental authorities; reasonably and in good faith cooperate with law enforcement agencies; investigate, establish, exercise, prepare for, or defend legal claims; provide a product or service that you specifically requested or perform a contract with you; protect the interests essential for your or another person's life or physical safety; prevent, detect, protect against, or respond to security incidents, identity theft, fraud, harassment, or other malicious, deceptive, or illegal activities, preserve the integrity or security of systems or investigate, report, or prosecute those responsible for any such action; engage in public or peer reviewed scientific or statistical research in the public interest; assist another controller, processor, or third party with any of Kaam Care obligations under the CTPA; process personal data for reasons of public interest in the area of public health, community health, or population health; conduct internal research to develop, improve, or repair products, services, or technology; effectuate a product recall; identify and repair technical errors that impair existing or intended functionality; perform internal operations that are reasonably aligned with your expectations or reasonably anticipated based on your existing relationship with Kaam Care; or engage in public or peer-reviewed scientific or statistical research in the public interest that adheres to all other applicable ethics and privacy laws and is approved, monitored and governed by an institutional review board.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Opt Out of Selling or Targeted Advertising</h2>
+          <p class="common-text">
+            Kaam Care does not sell or share information that, on its own, identifies you, like your name or email address. As outlined in our Privacy Policy, we do share other identifiers with partners for product, service, and advertising reasons. Sharing this data allows us to provide the content and services you enjoy, helps our partners deliver better content and advertising, and keeps our services supported by our advertisers.
+
+            You have the right to direct Kaam Care not to sell your personal data and not to use your personal data for targeted advertising. You may direct Kaam Care not to sell your personal data and using your personal data for targeted advertising above or via the sale of personal data and targeted advertising control in the Privacy Dashboard. Note, if you opt out of Targeted Advertising on Kaam Care, under the CTPA Kaam Care may still show you ads, including personalized advertisements based on your interactions with the family of Kaam Care products.
+
+            If you choose to opt out of the sale of your personal data, such action may impact how you are able to view and/or receive some services that Kaam Care offers. This is because some of the services that Kaam Care offers require disclosure of your personal data to third parties, and such disclosure may be deemed selling under the CTPA. Kaam Care sells or shares different categories of personal data to third parties depending on the product or service. You may locate the specific categories of personal data sold or shared in the last 12 months for each product or service you use by logging into your Kaam Care Privacy Dashboard
+
+            Across all of our products or services, Kaam Care sells or shares the following categories of personal data to third parties: identifiers (e.g., technical, financial, government identifiers); contact information; physical characteristics or description information; internet or electronic network activity information; geolocation information; commercial information; audio, electronic, visual, thermal, olfactory or similar information; inferences, including advertising and content related inferences; professional or employment related information.
+
+            If you choose to opt out of selling, Kaam Care may continue to sell your personal data under the following limited exceptions: the sale is reasonably necessary to enable a third party to provide a benefit to which you are entitled; the sale of personal data to third parties is clearly disclosed in the terms of the program; and the third party uses the personal data only for purposes of facilitating such a benefit to which you are entitled and does not retain or otherwise use or disclose the personal data for any other purpose.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text title">
+            Kaam Care Utah Privacy Rights
+          </h2>
+          <p class="common-text">
+            Utah Residents have certain privacy rights under the Utah Consumer Privacy Act (UCPA). This notice provides a general overview of the privacy rights under the UCPA. Further, it applies generally to all of Kaam Care's products and services. For specific information about your personal data or how your personal data is processed by a particular Kaam Care product or service you may interact with, please log into the Kaam Care Privacy Dashboard.
+            The UCPA defines certain terms in a particular manner that may differ from how those terms are used in everyday language. When these terms are used in this notice, they are used based on the definition set forth in the UCPA. These terms are: "personal data", "process", "consumer", "processor", "controller", "third party", "sale" or "sell", and "targeted advertising". Please note that Kaam Care uses the terms "personal data" and "personal information" interchangeably throughout our policies.
+            For purposes of this notice, Kaam Care may be referred to as "us", "our" or "we" and Kaam Care's consumer customers may be referred to as "you" or "your".
+          </p>
+        </div>
+
+        <div class="section">
+          <h2 class="common-text sub-title">
+            Summary of UCPA Privacy Rights
+          </h2>
+          <p class="common-text">
+            The UCPA provides Utah consumers with the following privacy rights. These rights are explained in further detail in the sections below.
+          </p>
+          <ul>
+            <li><p class="common-text">The Right to confirm whether or not Kaam Care is processing your personal data and access to such personal data.</p></li>
+            <li><p class="common-text">The right to access and delete personal data provided by you.</p></li>
+            <li><p class="common-text">The right to obtain a copy of your personal data that you previously provided to Kaam Care, in a format that, to the extent technically feasible, is portable and, to the extent practicable, is readily usable, that allows you to transmit the data to another controller without impediment, where the processing is carried out by automated means, provided that Kaam Care shall not be required to reveal any trade secret.</p></li>
+            <li><p class="common-text">The right to opt out of the processing of your personal data for the following purposes:</p>
+              <ul>
+                <li><p class="common-text">Targeted advertising</p></li>
+                <li><p class="common-text">The sale of personal data, subject to the terms set forth below</p></li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+
+        <div class="section">
+          <h2 class="common-text sub-title">
+            Right to Confirm and Access
+          </h2>
+          <p class="common-text">
+            Under the UCPA, Utah consumers have the right to confirm the processing of and access the following information:
+          </p>
+          <ul>
+            <li><p class="common-text">The categories of personal data processed by Kaam Care and shared with third parties.</p></li>
+            <li><p class="common-text">The purposes for processing personal data.</p></li>
+            <li><p class="common-text">How you may exercise your rights.</p></li>
+            <li><p class="common-text">The categories of third parties, if any, which Kaam Care shares personal data.</p></li>
+          </ul>
+          <p class="common-text">
+            Categories of personal data: Kaam Care may process or otherwise sell or share different categories of personal data spending on the product or service. You may locate the specific categories of personal data for each product or service by logging into your Kaam Care Privacy Dashboard
+            <br />Below is the list of categories of personal data that Kaam Care may process or otherwise sell or share with third parties: identifiers (e.g., technical, financial, government identifiers); contact information; physical characteristics or description information; internet or electronic network activity information; geolocation information; commercial information; biometric information; inferences, including advertising and content related inferences; medical information or health insurance information; professional or employment related information; education information; legally protected classifications; and other information that identifies you or can be reasonably associated or linked with you.
+            <br />Processing Purposes:: Kaam Care may disclose personal data to processors for the following purposes: auditing; security; debugging; short-term transient use; performing services on behalf of Kaam Care; research; and quality assurance and service improvements.
+            Kaam Care may sell or share personal data with third parties for the following purposes: delivering content and ads; associating user activity; provide Kaam Care services; provide contextual advertising; provide targeted advertising; provide personalized content; fulfill user requests; user communication; provide location-based services; provide promotions; create analytics and reports for third parties; processing payments; and security and fraud prevention.
+            <br />Categories of Third Parties: Kaam Care may sell or share personal data with the following categories of third parties: analytics providers; social button providers; application providers; advertising partners; content providers; game developers; payment providers; search partners; voice and digital assistant providers; and security partners.
+          </p>
+        </div>
+
+        <div class="section">
+          <h2 class="common-text sub-title">
+            Right to Delete
+          </h2>
+          <p class="common-text">
+            You may request that Kaam Care delete personal data you have provided to us by logging into your Kaam Care Privacy Dashboard.
+            If you have more than one registered account with Kaam Care (for example, a Kaam Care and an AOL account), you will need to exercise your deletion right within each registered account for which you wish to delete your personal data.
+            If you exercise your right to delete your personal data, the UCPA allows Kaam Care to retain certain personal data for limited purposes. As a result, Kaam Care may retain your personal data in accordance with our records retention program to: Comply with a federal, state, or local law, rule or regulation; comply with a civil, criminal, or regulatory inquiry, investigation, subpoena, or summons by a federal, state, local or other governmental entity; cooperate with a law enforcement agency concerning activity that the controller or processor reasonably and in good faith believes may violate federal, state, or local laws, rules, or regulations; investigate, establish, exercise, prepare for, or defend a legal claim; provide a product or service requested by a consumer or a parent or legal guardian of a child; perform a contract to which the consumer or the parent or legal guardian of a child is a party, including fulfilling the terms of a written warranty or taking steps at the request of the consumer or parent or legal guardian before entering into the contract with the consumer; take immediate steps to protect an interest that is essential for the life or physical safety of the consumer or of another individual; detect, prevent, protect against, or respond to a security incident, identity theft, fraud, harassment, malicious or deceptive activity, or any illegal activity; preserve the integrity or security of systems; investigate, report, or prosecute a person responsible for harming or threatening the integrity or security of systems; engage in public or peer-reviewed scientific, historical, or statistical research in the public interest that adheres to all other applicable ethics and privacy laws; process personal data to: conduct internal analytics or other research to develop, improve, or repair a product, service or technology; identify and repair technical errors that impair existing or intended functionality; effectuate a product recall; process personal data to perform an internal operation reasonably aligned with consumer's expectations or otherwise compatible with processing to aid in providing a product or service specifically requested by a consumer or a parent or legal guardian of a child or the performance of a contract to which the consumer or a parent or legal guardian of a child is a party; or retain a consumer's email address to comply with the consumer's request to exercise a right.
+          </p>
+        </div>
+
+        <div class="section">
+          <h2 class="common-text sub-title">
+            Right to Opt Out of Selling or Targeted Advertising
+          </h2>
+          <p class="common-text">
+            Kaam Care does not sell or share information that, on its own, identifies you, like your name or email address. As outlined in our Privacy Policy, we do share other identifiers with partners for product, service, and advertising reasons. Sharing this data allows us to provide the content and services you enjoy, helps our partners deliver better content and advertising, and keeps our services supported by our advertisers.
+            You have the right to direct Kaam Care not to sell your personal data and not to use your personal data for targeted advertising. You may direct Kaam Care not to sell your personal data and using your personal data for targeted advertising above or via the sale of personal data and targeted advertising control in the Privacy Dashboard.
+            If you choose to opt out of the sale of your personal data, such action may impact how you are able to view and/or receive some services that Kaam Care offers. This is because some of the services that Kaam Care offers require disclosure of your personal data to third parties, and such disclosure may be deemed selling under the UCPA.
+            Kaam Care sells or shares different categories of personal data to third parties depending on the product or service. You may locate the specific categories of personal data sold or shared in the last 12 months for each product or service you use by logging into your Kaam Care Privacy Dashboard
+            Across all of our products or services, Kaam Care sells or shares the following categories of personal data to third parties: identifiers (e.g., technical, financial, government identifiers); contact information; physical characteristics or description information; internet or electronic network activity information; geolocation information; commercial information; audio, electronic, visual, thermal, olfactory or similar information; inferences, including advertising and content related inferences; professional or employment related information.
+            If you choose to opt out of selling, Kaam Care may continue to sell your personal data under the following limited exceptions: the sale is reasonably necessary to enable a third party to provide a benefit to which you are entitled; the sale of personal data to third parties is clearly disclosed in the terms of the program; and the third party uses the personal data only for purposes of facilitating such a benefit to which you are entitled and does not retain or otherwise use or disclose the personal data for any other purpose.
+          </p>
+        </div>
+
+        <div class="section">
+          <h2 class="common-text title">
+            Kaam Care Virginia Privacy Rights
+          </h2>
+          <p class="common-text">
+            Virginia Residents have certain Privacy Rights under Virginia's Consumer Data Protection Act of 2021, also known as the VCDPA. This notice provides a general overview of the privacy rights under the VCDPA. Further, it applies generally to all of Kaam Care's products and services. For specific information about your personal data or how your personal data is processed by a particular Kaam Care product or service you may interact with, please login to the Kaam Care Privacy Dashboard,, accessible from the Kaam Care Privacy Policy. Please note that Kaam Care considers personal data to be the same as Personal Information.
+            The VCDPA defines certain terms in a particular manner that may differ from how those terms are used in everyday language. When these terms are used in this notice, they are used based on the definition set forth in the VCDPA. These terms are "personal data", "consumer", "controller", "processor", "sensitive data", "targeted advertising", "third party", and "sale" or "sell".
+            For purposes of this page, Kaam Care may be referred to as "us", "our" or "we" and Kaam Care's consumer customers may be referred to as "you" or "your".
+          </p>
+        </div>
+
+        <div class="section">
+          <h2 class="common-text sub-title">Summary of VCDPA Privacy Rights</h2>
+          <p class="common-text">The VCDPA provides Virginia consumers with the following five privacy rights. These rights are explained in further detail in the sections below.</p>
+          <ul>
+            <li><p class="common-text">The right to confirm whether or not a controller is processing the consumer's personal data and right to access such personal data.</p></li>
+            <li><p class="common-text">The right to correct inaccuracies in the consumer's personal data, taking into account the nature and purpose of processing of personal data.</p></li>
+            <li><p class="common-text">The right to delete personal data provided by or obtained about the consumer.</p></li>
+            <li><p class="common-text">The right to obtain a copy of personal data that the consumer previously provided to the controller.</p></li>
+            <li><p class="common-text">The right to opt out of processing of personal data for the following purposes:</p>
+              <ul>
+                <li><p class="common-text">Targeted advertising</p></li>
+                <li><p class="common-text">The sale of personal data</p></li>
+                <li><p class="common-text">Profiling in furtherance of decisions that produce legal or similarly significant effects concerning the consumer</p></li>
+              </ul>
+            </li>
+          </ul>
+          <p class="common-text">
+            You may exercise your right to confirm and access, and right to opt out of Targeted advertising and sale of personal data by logging into your Kaam Care Privacy Dashboard.
+          </p>
+        </div>
+
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Confirm and Access</h2>
+          <p class="common-text">Under the VCDPA, Virginia consumers have the right to confirm a controller's processing of their personal data and access such personal data. You may access this data by logging into your Kaam Care Privacy Dashboard.
+            If you do not have a Kaam Care login, Kaam Care is unable to confirm the ownership of personal data and will not be able to provide you with access. You can see the types of data Kaam Care generally collects via our Privacy Policy.</p>
+          <p class="common-text">
+            <br />Categories of personal data: Kaam Care may collect, use, disclose, or otherwise sell or share different categories of personal data depending on the product or service a consumer uses. You may locate the specific categories of personal data for each product or service by logging into your Kaam Care Privacy Dashboard.
+            <br />Below is the full list of categories of personal data that Kaam Care may collect, use, disclose for a business purpose or otherwise sell or share: identifiers (e.g., technical, financial, government identifiers); contact information; physical characteristics or description information; internet or electronic network activity information; geolocation information; commercial information; audio, electronic, visual, thermal, olfactory or similar information; biometric information; inferences, including advertising and content related inferences; medical information or health insurance information; professional or employment related information; education information; legally protected classifications; and other information that identifies or can be reasonably associated or linked with you.
+            <br />Purposes for processing personal data: Kaam Care may process your personal data for the following purposes: auditing; security and fraud prevention; debugging; short-term transient use; performing services on behalf of Kaam Care; research; quality assurance service improvements; delivering content and ads; associating user activity; providing Kaam Care services; providing contextual advertising; providing targeted advertising; providing personalized content; fulfilling user requests; for user communication; providing location-based services; providing promotions; creating analytics and reports for third parties; and payment processing.
+            <br />Categories of third parties: Kaam Care may sell or share personal data of our consumers with the following categories of third parties: analytics providers; social button providers; application providers; advertising partners; content providers; game developers; payment providers; search partners; voice and digital assistant providers; and security partners.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Correct</h2>
+          <p class="common-text">Under the VCDPA, Virginia consumers have the right to correct inaccuracies in their personal data. You may correct certain data via Kaam Care Privacy Dashboard.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Delete</h2>
+          <p class="common-text">You may request that Kaam Care delete personal data we have collected about you by logging into your Kaam Care Privacy Dashboard.
+            If you have more than one registered account with Kaam Care, you will need to exercise your deletion right within each registered account for which you wish to delete your personal data.
+            If you exercise your right to delete your data, the VCDPA allows Kaam Care to retain your personal data for limited purposes. As a result, Kaam Care may retain your personal data in accordance with our records retention program to: comply with federal, state, or local laws, rules or regulations; comply with a legal inquiry, investigation, subpoena, or summons by federal, state, local, or other governmental authorities; reasonably and in good faith cooperate with law enforcement agencies; investigate, establish, exercise, prepare for, or defend legal claims; provide a product or service that you request, or perform a contract with you; protect the interests essential for your or another person's life or physical safety; prevent, detect, protect against, or respond to security incidents, fraud, harassment, or other malicious or illegal activities; engage in peer-reviewed scientific or statistical research in the public interest; conduct internal research to develop, improve, or repair products or services; or debug our products and services to identify and repair existing or intended functionality.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Obtain a Copy of Personal Data</h2>
+          <p class="common-text">You may request Kaam Care to provide you with a copy of the personal data that you previously provided to Kaam Care. You may access this data by logging into the Kaam Care Privacy Dashboard, accessible from the Kaam Care Privacy Policy.</p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">Right to Opt Out of Selling or Targeted Advertising</h2>
+          <p class="common-text">
+            Kaam Care does not sell or share data that, on its own, identifies you, like your name or email address. As outlined in our Privacy Policy, we do share other identifiers with partners for product, service and targeted advertising reasons. Sharing this data allows us to provide the content and services you enjoy, helps our partners deliver better content and advertising, and keeps our services supported by our advertisers.
+            <br />You have the right to direct Kaam Care not to sell your personal data and to not use your personal data for targeted advertising. You may direct Kaam Care to opt you out of selling your personal data and using your personal data for targeted advertising above or via the sale of personal data and targeted advertising control in the Privacy Dashboard.
+            If you choose to opt out of the sale of your personal data, such action may impact how you are able to view and/or receive some services that Kaam Care offers. This is because some of the services that Kaam Care offers require disclosure of your personal data to third parties and such disclosure may be deemed selling under the VCDPA.
+            Kaam Care sells or shares different categories of personal information to third parties depending on the product or service. You may locate the specific categories of personal data sold or shared in the last 12 months for each product or service you use by logging into the Kaam Care Privacy Dashboard.
+            Kaam Care does not process personal data for the purposes of profiling in furtherance of decisions that produce legal or similarly significant effects concerning the consumer.
+            Across all of our products and services, Kaam Care sells or shares the following categories of personal data to third parties: identifiers (e.g., technical, financial, government identifiers); contact information; physical characteristics or description information; internet or electronic network activity information; geolocation information; commercial information; audio, electronic, visual, thermal, olfactory or similar information; inferences, including advertising and content related inferences; professional or employment related information.
+          </p>
+          <p class='common-text'>
+            <br/>Use of Precise Geolocation Information in Virginia
+            <br/>The Virginia Consumer Data Protection Act requires consumer consent for the collection of precise location data for certain commercial uses. Kaam Care honors this legal requirement by truncating latitude and longitude coordinate information from geolocation data that falls within the state of Virginia. This converts the data into imprecise location data. Virginia residents do not need to manage or effectuate their Precise Location Information opt-out in Kaam Care's Privacy Dashboard to receive this privacy protection.
+            <br/>Verification Process for Access and Deletion
+            <br/>You may access and/or delete your personal data by logging into the Kaam Care Privacy Dashboard.
+          </p>
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">7. Collection, Use, and Linking of Technical Identifiers</h2>
+          <p class="common-text">Kaam Care uses different technical identifiers to make its consumer services available on most platforms, browsers, and devices. Kaam Care also uses these technical identifiers to provide our digital services on our properties and for our business partners.
+            <br />These technical identifiers include:</p>
+          <ul>
+            <li><p class="common-text">Browser cookie identifiers (sometimes referred to as “cookie IDs”) and browser local storage identifiers</p></li>
+            <li><p class="common-text">Mobile device identifiers, such as the Android advertising ID or the Apple Identifier for Advertising (IDFA)</p></li>
+            <li><p class="common-text">Platform or operating system-based identifiers, such as those offered on smart or connected TVs or media streaming devices</p></li>
+            <li><p class="common-text">Partner-supplied technical identifiers</p></li>
+            <li><p class="common-text">Encrypted or one-way cryptographic hashes of personal information such as email addresses, phone numbers, account identifiers, derivatives, or escalated versions of these identifiers</p></li>
+            <li><p class="common-text">Household-based identifiers</p></li>
+            <li><p class="common-text">IP addresses</p></li>
+            <li><p class="common-text">Probabilistic (non-unique) identifiers</p></li>
+            <li><p class="common-text">Identifiers generated from the combination of various device, browser, or operating system attributes, such as the operating system or browser version</p></li>
+            <li><p class="common-text">“Cohort”, audience, or group identifiers, such as “sports enthusiasts”</p></li>
+          </ul>
+
+          <p class="common-text">
+            The storage, generation, and collection methods of these identifiers may also vary, depending on the context. For instance, some browsers and devices offer limited technical identifier support and/or limited cookie support, so non-cookie-based identifiers may be used in these cases. Examples of these devices include:
+          </p>
+
+          <ul>
+            <li><p class="common-text">Certain apps, mobile devices, or installed software, where permitted and applicable</p></li>
+            <li><p class="common-text">Certain internet-of-things (IoT) devices</p></li>
+            <li><p class="common-text">Browsers enabled with intelligent tracking prevention (ITP), privacy sandbox, or similar cookie-blocking technology</p></li>
+          </ul>
+
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">8. Children’s Privacy</h2>
+          <p class="common-text">
+            Children’s Online Privacy Protection Act (COPPA) applies to Operators of websites or online services that collect data from children under the age of 13. COPPA, prohibits unfair or deceptive acts related to the collection, use or disclosure of personal information from and about children on the internet. The goal of COPPA is to give parents control over what information is collected from their young children online.
+            <br />We recognize the need to provide further privacy protections with respect to personal information we may collect from children on our sites and applications. Some of the features on our sites and applications are age-gated so that they are not available for use by children, and we do not knowingly collect personal information from children in connection with those features. When we intend to collect personal information from children, we take additional steps to protect children’s privacy, including:
+          </p>
+          <ul>
+            <li><p class="common-text">Notifying parents about our information practices with regard to children, including the types of personal information we may collect from children, the uses to which we may put that information, and whether and with whom we may share that information.</p></li>
+            <li><p class="common-text">In accordance with applicable law, and our practices, obtaining consent from parents for the collection of personal information from their children, or for sending information about our products and services directly to their children.</p></li>
+            <li><p class="common-text">Limiting our collection of personal information from children to no more than is reasonably necessary to participate in an online activity.</p></li>
+            <li><p class="common-text">Giving parents access or the ability to request access to personal information we have collected from their children and the ability to request that the personal information be changed or deleted.</p></li>
+          </ul>
+
+        </div>
+        <div class="section">
+          <h2 class="common-text sub-title">9. Amendments to this Declaration</h2>
+          <p class="common-text">You agree that the Company may make amendments to this Declaration at any time, which will be announced on the Kaam Care platform. If you continue to use this service after the public announcement or direct notification, it shall be deemed that you have consented to those amendments.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script defer src="https://stkmcrappsprodwu.blob.core.windows.net/auth/src/indexSignUp-v1.0.min.js"></script>
+</html>

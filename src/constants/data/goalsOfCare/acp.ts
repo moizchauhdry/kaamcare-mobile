@@ -1,0 +1,16 @@
+export const acpApiKeys = {
+  livingWillAttachments: 'Attachments',
+  isCodeStatusActive: 'IsCodeStatusActive',
+  codeStatusValue: 'CodeStatusValue',
+  codeStatusExplanation: 'CodeStatusExplanation',
+  isMedicalPowerOfAttorneyActive: 'IsMedicalPowerOfAttorneyActive',
+  medicalPowerOfAttorneySelectListValue: 'MedicalPowerOfAttorneySelectListValue',
+  medicalPowerOfAttorneyName: 'MedicalPowerOfAttorneyName',
+  medicalPowerOfAttorneyPhone: 'MedicalPowerOfAttorneyPhone',
+  isOrganDonationActive: 'IsOrganDonationActive',
+  organDonationSelectListValue: 'OrganDonationSelectListValue',
+  isReligiousSpiritualPreferencesActive: 'IsReligiousSpiritualPreferencesActive',
+  religiousSpiritualPreferencesExplanation: 'ReligiousSpiritualPreferencesExplanation',
+  isLivingWillActive: 'IsLivingWillActive',
+  livingWillSelectListValue: 'LivingWillSelectListValue',
+};

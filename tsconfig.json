@@ -1,0 +1,57 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2023"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnreachableCode": false,
+    "noFallthroughCasesInSwitch": true,
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": false,
+
+    "jsx": "react-native",
+    "noEmit": true,
+    "isolatedModules": true,
+    "baseUrl": "src",
+    "paths": {
+      "assets": ["./src/assets/*"],
+      "components": ["./src/components/*"],
+      "config": ["./src/config"],
+      "constants": ["./src/constants"],
+      "context": ["./src/context"],
+      "hooks": ["./src/hooks"],
+      "model": ["./src/model"],
+      "schemas": ["./src/schemas"],
+      "screens": ["./src/screens/*"],
+      "services": ["./src/services"],
+      "utils": ["./src/services"]
+    }
+  },
+  "include": ["src/App.tsx", "src/**/*", "index.d.ts"],
+  "exclude": [
+    "./node_modules/**/*",
+    "babel.config.js",
+    "android/**/*",
+    "ios/**/*",
+    "metro.config.js",
+    "b2cLoginPages/**/*",
+    ".eslintrc.js"
+  ],
+  "extends": "expo/tsconfig.base"
+}

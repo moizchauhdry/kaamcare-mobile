@@ -1,0 +1,107 @@
+{
+  "cli": {
+    "version": ">= 7.3.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "development-simulator": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
+    },
+    "preview": {
+      "ios": {
+        "credentialsSource": "remote"
+      },
+      "android": {
+        "buildType": "apk",
+        "credentialsSource": "remote",
+        "autoIncrement": true,
+        "developmentClient": true,
+        "gradleCommand": ":app:assembleRelease",
+        "resourceClass": "large"
+      },
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_CLIENT_ID": "210ab400-81c0-49f5-a0d2-672a81f742d6",
+        "EXPO_PUBLIC_API_URL": "https://app-kmcr-apps-api-dev-plc.azurewebsites.net",
+        "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/test_28oeWs6yz49OehacMM",
+        "EXPO_PUBLIC_APP_NAME": "KaamCare",
+        "EXPO_PUBLIC_ENVIRONMENT": "Development",
+        "EXPO_PUBLIC_B2C_NAME": "kaamcaredevplc"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "apk",
+        "credentialsSource": "remote",
+        "autoIncrement": true,
+        "developmentClient": true,
+        "gradleCommand": ":app:assembleRelease",
+        "resourceClass": "large"
+      },
+      "autoIncrement": true,
+      "credentialsSource": "local",
+      "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_CLIENT_ID": "469bfb24-c303-4cc3-a8ed-e78faa7640e2",
+        "EXPO_PUBLIC_API_URL": "https://app-kmcr-apps-api-prod-wu.azurewebsites.net",
+        "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k8A73qVb8ucpyaEH",
+        "EXPO_PUBLIC_APP_NAME": "KaamCare",
+        "EXPO_PUBLIC_ENVIRONMENT": "Production",
+        "EXPO_PUBLIC_B2C_NAME": "kaamcareprod"
+      }
+    },
+    "dev": {
+      "android": {
+        "buildType": "apk",
+        "credentialsSource": "remote",
+        "autoIncrement": true,
+        "developmentClient": true,
+        "gradleCommand": ":app:assembleRelease",
+        "resourceClass": "large"
+      },
+      "autoIncrement": true,
+      "credentialsSource": "local",
+      "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_CLIENT_ID": "210ab400-81c0-49f5-a0d2-672a81f742d6",
+        "EXPO_PUBLIC_API_URL": "https://app-kmcr-apps-api-dev-plc.azurewebsites.net",
+        "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/test_28oeWs6yz49OehacMM",
+        "EXPO_PUBLIC_APP_NAME": "KaamCare",
+        "EXPO_PUBLIC_ENVIRONMENT": "Development",
+        "EXPO_PUBLIC_B2C_NAME": "kaamcaredevplc"
+      }
+    },
+    "test": {
+      "autoIncrement": true,
+      "credentialsSource": "local",
+      "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_CLIENT_ID": "ab78fd32-c3b4-4f41-b2cf-d223887a5254",
+        "EXPO_PUBLIC_API_URL": "https://app-kmcr-apps-api-test-wu.azurewebsites.net",
+        "EXPO_PUBLIC_APP_NAME": "KaamCare",
+        "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k4jRe5zekGahqbII",
+        "EXPO_PUBLIC_ENVIRONMENT": "Development",
+        "EXPO_PUBLIC_B2C_NAME": "kaamcaretest"
+      }
+    },
+    "production-local": {
+      "autoIncrement": true,
+      "credentialsSource": "remote"
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "ascAppId": "<< App Store Connect app ID, instructions where to get it: https://github.com/expo/fyi/blob/main/asc-app-id.md >>"
+      }
+    }
+  }
+}
