@@ -6,7 +6,7 @@ export const parseHearingHistoryApiToFormData = (data: HearingHistory): HearingH
   day: data.diagnosisDate?.day?.toString() ?? '',
   month: data.diagnosisDate?.month?.toString() ?? '',
   year: data.diagnosisDate?.year?.toString() ?? '',
-  location: Array.isArray(data.location) ? data.location[0] : data.location ?? '',
+  location: Array.isArray(data.location) ? data.location[0] : (data.location ?? ''),
   attachment: data.attachments ?? [],
 });
 

@@ -22,8 +22,8 @@ type ButtonVariantStyles = {
 export const styles: ButtonStyles = StyleSheet.create({
   button: {
     width: '100%',
-    paddingTop: 13,
-    paddingBottom: 13,
+    paddingTop: 15,
+    paddingBottom: 15,
     paddingLeft: 24,
     paddingRight: 24,
     borderRadius: 8,

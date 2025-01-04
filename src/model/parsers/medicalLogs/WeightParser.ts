@@ -6,7 +6,7 @@ export const parseWeightApiToFormData = (values: WeightApiLog, unitType: 'Pound'
   weight:
     unitType === 'Pound'
       ? values.currentPounds.toString()
-      : values.currentKilograms?.toString() ?? values.currentKilogram?.toString(),
+      : (values.currentKilograms?.toString() ?? values.currentKilogram?.toString()),
   explanation: values.explanation ?? '',
   date: getDateFromSeparatedModel(values.date),
 });

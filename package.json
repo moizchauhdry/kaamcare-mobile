@@ -32,6 +32,7 @@
     "expo-file-system": "~18.0.6",
     "expo-image-picker": "~16.0.3",
     "expo-linear-gradient": "~14.0.1",
+    "expo-random": "undefined",
     "expo-secure-store": "~14.0.0",
     "expo-status-bar": "~2.0.0",
     "expo-updates": "~0.26.10",
@@ -53,8 +54,7 @@
     "react-native-toast-message": "^2.2.0",
     "react-native-video": "^6.1.2",
     "uuid": "^9.0.1",
-    "zod": "^3.23.8",
-    "expo-random": "undefined"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

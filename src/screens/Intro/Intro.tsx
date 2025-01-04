@@ -2,8 +2,11 @@ import type { ViewToken } from 'react-native';
 import { FlatList, View, ScrollView, StyleSheet, Image, SafeAreaView } from 'react-native';
 import { useRef, useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
+import type { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
 import { data } from 'constants/data/introScreen';
+import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
 import { IntroItem } from '../../components/DataDisplay/IntroItem/IntroItem';
 import { Button } from '../../components/UI/Button/Button';
@@ -29,6 +32,7 @@ export const Intro = () => {
   const [active, setActive] = useState('1');
   const listRef = useRef<FlatList | null>(null);
   const { handleRegister, handleLogin } = useAuth();
+  const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   const handleItemChange = (items: ViewToken[]) => {
     if (items.length === 1) {
@@ -76,7 +80,7 @@ export const Intro = () => {
           style={{ marginVertical: 16, gap: 8, paddingHorizontal: 16, justifyContent: 'center', alignItems: 'center' }}
         >
           <Button onPress={handleRegister}>Create Account</Button>
-          <Button onPress={handleLogin} variant="secondary">
+          <Button onPress={() => navigation.navigate('LogIn')} variant="secondary">
             Log in
           </Button>
         </View>

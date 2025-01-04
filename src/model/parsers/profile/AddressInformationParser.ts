@@ -10,7 +10,7 @@ export const parseAddressInformationFormToApiData = (data: AddressFormData): Add
   otherFacilityName: data.otherFacilityName || null,
   otherFacilityPhoneNumber: formattedPhoneNumberStringToNumber(data.otherPhoneNumber),
   otherFacilityAddress: data.otherAddress || null,
-  otherFacilitySet: (data.residentialFacility || null) === null ? false : data.isOtherOptions ?? false,
+  otherFacilitySet: (data.residentialFacility || null) === null ? false : (data.isOtherOptions ?? false),
   homelessShelterFacilityName: data.facilityName || null,
   homelessShelterFacilityPhoneNumber: formattedPhoneNumberStringToNumber(data.phoneNumber),
 });

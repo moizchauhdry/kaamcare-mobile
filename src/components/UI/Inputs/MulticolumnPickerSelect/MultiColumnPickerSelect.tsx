@@ -43,7 +43,7 @@ export const MultiColumnPickerSelect = ({
   const [showPicker, setShowPicker] = useState(false);
   const [values, setValues] = useState<(string | number | undefined)[]>(
     pickerProps.map((elem, index) =>
-      properInitialValue ? properInitialValue[index] : elem.initialValue ?? 'undefined',
+      properInitialValue ? properInitialValue[index] : (elem.initialValue ?? 'undefined'),
     ),
   );
 
