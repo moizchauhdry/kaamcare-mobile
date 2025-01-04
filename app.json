@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "kaamcare",
-    "slug": "kaamcare",
+    "name": "Kaam Care",
+    "slug": "kaam-care",
     "version": "1.0.4",
-    "owner": "qodeca",
+    "owner": "nextbridgesystem",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,9 +17,7 @@
       "tsconfigPaths": false
     },
     "plugins": [
-      [
-        "expo-av"
-      ],
+      ["expo-av"],
       [
         "expo-image-picker",
         {
@@ -28,16 +26,14 @@
       ],
       "expo-secure-store"
     ],
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.qodeca.kaamcare",
       "buildNumber": "31",
       "entitlements": {
-        "aps-environment": "development" 
-      } 
+        "aps-environment": "development"
+      }
     },
     "android": {
       "splash": {
@@ -49,11 +45,8 @@
         "foregroundImage": "./src/assets/icon.png",
         "backgroundColor": "#0072EF"
       },
-      "permissions": [
-        "android.permission.RECORD_AUDIO",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
-      ],
-      "blockedPermissions": [ "android.permission.READ_MEDIA_IMAGES", "android.permission.READ_MEDIA_VIDEO" ],
+      "permissions": ["android.permission.RECORD_AUDIO", "android.permission.MODIFY_AUDIO_SETTINGS"],
+      "blockedPermissions": ["android.permission.READ_MEDIA_IMAGES", "android.permission.READ_MEDIA_VIDEO"],
       "package": "com.qodeca.kaamcare"
     },
     "web": {
@@ -61,7 +54,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "9cfdd7ec-bcbd-4b38-bd49-a48904395bfe"
+        "projectId": "c0a565e1-d631-4c78-8376-2bc72fa63568"
       }
     },
     "runtimeVersion": {
