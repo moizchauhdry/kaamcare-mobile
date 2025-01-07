@@ -12,7 +12,7 @@ import { IntroItem } from '../../components/DataDisplay/IntroItem/IntroItem';
 import { Button } from '../../components/UI/Button/Button';
 import { PaginationDotted } from '../../components/DataDisplay/Pagination/PaginationDotted';
 import { theme } from '../../config/Theme';
-import { useAuth } from '../../context/AuthContext';
+// import { useAuth } from '../../context/AuthContext';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +31,7 @@ WebBrowser.maybeCompleteAuthSession();
 export const Intro = () => {
   const [active, setActive] = useState('1');
   const listRef = useRef<FlatList | null>(null);
-  const { handleRegister, handleLogin } = useAuth();
+  // const { handleRegister, handleLogin } = useAuth();
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   const handleItemChange = (items: ViewToken[]) => {
@@ -79,10 +79,14 @@ export const Intro = () => {
         <View
           style={{ marginVertical: 16, gap: 8, paddingHorizontal: 16, justifyContent: 'center', alignItems: 'center' }}
         >
-          <Button onPress={handleRegister}>Create Account</Button>
+          {/* <Button onPress={handleRegister}>Create Account</Button> */}
+          <Button onPress={() => navigation.navigate('SignUp')}>Create Account</Button>
           <Button onPress={() => navigation.navigate('LogIn')} variant="secondary">
             Log in
           </Button>
+          {/* <Button onPress={handleLogin} variant="secondary">
+            Log in
+          </Button> */}
         </View>
       </ScrollView>
     </SafeAreaView>

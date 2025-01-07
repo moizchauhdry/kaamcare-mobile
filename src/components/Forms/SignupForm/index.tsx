@@ -2,24 +2,24 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { loginPostSchema, type LoginFormData } from 'schemas/forms/login';
+import { signupPostSchema, type SignupFormData } from 'schemas/forms/signup';
 
 import { TextInputControlled } from '../../UI/Inputs/TextInput/TextInputControlled';
 import { Button } from '../../UI/Button/Button';
 
-type LoginFormProps = {
-  onSubmit?: (values: LoginFormData) => void;
-  initialValues?: LoginFormData;
+type SignupFormProps = {
+  onSubmit?: (values: SignupFormData) => void;
+  initialValues?: SignupFormData;
   isPending?: boolean;
 };
 
-export const LoginForm = ({ onSubmit, initialValues, isPending }: LoginFormProps) => {
-  const form = useForm<LoginFormData>({
+export const SignupForm = ({ onSubmit, initialValues, isPending }: SignupFormProps) => {
+  const form = useForm<SignupFormData>({
     defaultValues: initialValues,
-    resolver: zodResolver(loginPostSchema),
+    resolver: zodResolver(signupPostSchema),
   });
 
-  const handleSubmitForm = (values: LoginFormData) => {
+  const handleSubmitForm = (values: SignupFormData) => {
     onSubmit?.(values);
   };
 
@@ -28,12 +28,11 @@ export const LoginForm = ({ onSubmit, initialValues, isPending }: LoginFormProps
       <FormProvider {...form}>
         <View style={{ flex: 1, gap: 16 }}>
           <TextInputControlled name="email" label="Email" inputProps={{ maxLength: 60 }} />
-          <TextInputControlled name="password" label="Password" inputProps={{ maxLength: 60 }} />
         </View>
 
         <View>
           <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)}>
-            Log In
+            Send verification code
           </Button>
         </View>
       </FormProvider>

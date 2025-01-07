@@ -1,11 +1,11 @@
+import { useState } from 'react';
 import { View, ScrollView, StyleSheet, Image, SafeAreaView, Pressable } from 'react-native';
-import type { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
 
 import { theme } from 'config/Theme';
 import { Typography } from 'components/UI/Typography/Typography';
-import { LoginForm } from 'components/Forms/LoginForm';
-import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
+import { SignupForm } from 'components/Forms/SignupForm';
+
+import TermsCheckbox from './modules/TermsCheckbox';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,12 +23,20 @@ const styles = StyleSheet.create({
   line: {
     height: 1,
     width: '100%',
+    marginTop: 28,
     backgroundColor: theme.colors.backgroundDark,
+  },
+  haveAccount: {
+    marginVertical: 24,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
 });
 
-export const LoginScreen = () => {
-  const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
+export const SignUpScreen = () => {
+  const [isChecked, setIsChecked] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,11 +49,11 @@ export const LoginScreen = () => {
         </View>
         <View style={{ marginTop: 20, marginBottom: 20 }}>
           <Typography weight="bolder" size="xl" align="center">
-            Log in
+            Create your account
           </Typography>
         </View>
 
-        <LoginForm
+        <SignupForm
           initialValues={undefined}
           //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
           onSubmit={() => {}}
@@ -53,22 +61,19 @@ export const LoginScreen = () => {
           isPending={false}
         />
 
-        <Pressable onPress={() => {}} style={styles.forgotPassword}>
-          <Typography align="center" color="secondary">
-            Forgot Password
-          </Typography>
-        </Pressable>
-
         <View style={styles.line} />
 
-        <View style={{ marginTop: 20 }}>
-          <Typography align="center">Don't have an account yet?</Typography>
-
-          <Pressable onPress={() => navigation.navigate('SignUp')}>
+        <View style={styles.haveAccount}>
+          <Typography align="center">Already have an account?</Typography>
+          <Pressable onPress={() => {}} style={{ marginLeft: 5 }}>
             <Typography align="center" color="secondary">
-              Create an account
+              Log In
             </Typography>
           </Pressable>
+        </View>
+
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <TermsCheckbox checked={isChecked} onToggle={setIsChecked} />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -9,8 +9,8 @@ export const loginPostSchema = z.object(loginSchema);
 
 export const loginPutSchema = z.object({
   ...loginSchema,
-  firstName: loginSchema.email.nullable().optional().or(z.literal('')),
-  lastName: loginSchema.password.nullable().optional().or(z.literal('')),
+  email: loginSchema.email.nullable().optional().or(z.literal('')),
+  password: loginSchema.password.nullable().optional().or(z.literal('')),
 });
 
 export type LoginFormData = z.infer<typeof loginPostSchema> | z.infer<typeof loginPutSchema>;

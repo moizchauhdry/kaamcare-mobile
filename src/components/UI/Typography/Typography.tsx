@@ -15,6 +15,7 @@ export type TypographyExportProps = TextProps & {
   style?: TextStyle;
   weight?: TypographyWeight;
   color?: TypographyColor;
+  align?: 'left' | 'center' | 'right' | 'justify';
 };
 
 export type TypographySuperScriptExportProps = TextProps & {
@@ -38,9 +39,17 @@ export const Typography = ({
   weight = 'normal',
   color = 'primary',
   style,
+  align = 'left',
   ...props
 }: TypographyProps) => {
-  const flattenStyles = StyleSheet.flatten([styles.common, colors[color], sizes[size], weights[weight], style]);
+  const flattenStyles = StyleSheet.flatten([
+    styles.common,
+    colors[color],
+    sizes[size],
+    weights[weight],
+    { textAlign: align },
+    style,
+  ]);
 
   return (
     <Text style={flattenStyles} {...props}>
