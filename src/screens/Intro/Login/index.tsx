@@ -7,26 +7,6 @@ import { Typography } from 'components/UI/Typography/Typography';
 import { LoginForm } from 'components/Forms/LoginForm';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    flexDirection: 'column',
-    alignItems: 'center',
-    alignContent: 'center',
-    overflow: 'scroll',
-    backgroundColor: theme.colors.white,
-  },
-  forgotPassword: {
-    marginVertical: 20,
-  },
-  line: {
-    height: 1,
-    width: '100%',
-    backgroundColor: theme.colors.backgroundDark,
-  },
-});
-
 export const LoginScreen = () => {
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
@@ -65,7 +45,7 @@ export const LoginScreen = () => {
           <Typography align="center">Don't have an account yet?</Typography>
 
           <Pressable onPress={() => navigation.navigate('SignUp')}>
-            <Typography align="center" color="secondary">
+            <Typography align="center" color="secondary" style={{ marginTop: 3 }}>
               Create an account
             </Typography>
           </Pressable>
@@ -74,3 +54,23 @@ export const LoginScreen = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    flexDirection: 'column',
+    alignItems: 'center',
+    alignContent: 'center',
+    overflow: 'scroll',
+    backgroundColor: theme.colors.white,
+  },
+  forgotPassword: {
+    marginVertical: 20,
+  },
+  line: {
+    height: 1,
+    width: '100%',
+    backgroundColor: theme.colors.backgroundDark,
+  },
+});

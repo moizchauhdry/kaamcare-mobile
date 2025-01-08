@@ -18,6 +18,7 @@ export const AppNavigation = () => {
         ) : (
           <Stack.Screen name="Auth" component={AuthNavigation} options={{ headerShown: false }} />
         )}
+        {/* <Stack.Screen name="App" component={LoggedNavigation} options={{ headerShown: false }} /> */}
       </Stack.Navigator>
     </View>
   );

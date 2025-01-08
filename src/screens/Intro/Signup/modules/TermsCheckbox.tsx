@@ -1,54 +1,48 @@
-import { StyleSheet, View, Text } from 'react-native';
-// import { Checkbox } from 'expo-checkbox';
+import { StyleSheet, View } from 'react-native';
+import { Checkbox } from 'expo-checkbox';
+
 import { theme } from 'config/Theme';
+import { Typography } from 'components/UI/Typography/Typography';
 
 interface TermsCheckboxProps {
   checked: boolean;
   onToggle: (value: boolean) => void;
 }
 
-const TermsCheckbox: React.FC<TermsCheckboxProps> = ({ checked, onToggle }) => (
+export const TermsCheckbox: React.FC<TermsCheckboxProps> = ({ checked, onToggle }) => (
   <View style={styles.container}>
-    {/* <Checkbox
+    <Checkbox
       style={styles.checkbox}
       value={checked}
       onValueChange={onToggle}
-      color={checked ? '#007AFF' : undefined}
-    /> */}
-    <Text style={styles.text}>
+      color={checked ? theme.colors.textSecondary : undefined}
+    />
+    <Typography>
       Yes, I Understand and Agree to the Kaam Care{' '}
-      <Text style={styles.link} onPress={() => {}}>
+      <Typography style={styles.link} onPress={() => {}}>
         Terms of Service
-      </Text>{' '}
+      </Typography>{' '}
       and{' '}
-      <Text style={styles.link} onPress={() => {}}>
+      <Typography style={styles.link} onPress={() => {}}>
         Privacy Policy
-      </Text>
-    </Text>
+      </Typography>
+    </Typography>
   </View>
 );
-
-export default TermsCheckbox;
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
   },
   checkbox: {
-    marginRight: 10,
+    marginRight: 14,
     height: 20,
     width: 20,
-  },
-  text: {
-    fontSize: 14,
-    flexWrap: 'wrap',
-    color: theme.colors.black,
+    borderWidth: 0.5,
   },
   link: {
     color: theme.colors.textSecondary,
-    textDecorationLine: 'underline',
   },
 });

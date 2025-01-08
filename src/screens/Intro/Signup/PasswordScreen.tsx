@@ -5,13 +5,13 @@ import type { StackNavigationProp } from '@react-navigation/stack';
 
 import { theme } from 'config/Theme';
 import { Typography } from 'components/UI/Typography/Typography';
-import { SignupForm } from 'components/Forms/SignupForm';
+import { SignupPasswordForm } from 'components/Forms/PasswordForm';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
 import { TermsCheckbox } from './modules/TermsCheckbox';
 import { HeaderCounter } from './modules/HeaderCounter';
 
-export const SignUpScreen = () => {
+export const PasswordScreen = () => {
   const [isChecked, setIsChecked] = useState(false);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
@@ -24,17 +24,17 @@ export const SignUpScreen = () => {
         <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
           <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
         </View>
-        <HeaderCounter pageCounter="1" />
+        <HeaderCounter pageCounter="3" />
 
-        <SignupForm
-          initialValues={undefined}
-          //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
-          onSubmit={() => {
-            navigation.navigate('Verify');
-          }}
-          //   isPending={isPending}
-          isPending={false}
-        />
+        <View style={{ marginBottom: 24 }}>
+          <SignupPasswordForm
+            initialValues={undefined}
+            //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
+            onSubmit={() => {}}
+            //   isPending={isPending}
+            isPending={false}
+          />
+        </View>
 
         <View style={styles.line} />
 
@@ -65,13 +65,9 @@ const styles = StyleSheet.create({
     overflow: 'scroll',
     backgroundColor: theme.colors.white,
   },
-  forgotPassword: {
-    marginVertical: 20,
-  },
   line: {
     height: 1,
     width: '100%',
-    marginTop: 28,
     backgroundColor: theme.colors.backgroundDark,
   },
   haveAccount: {
