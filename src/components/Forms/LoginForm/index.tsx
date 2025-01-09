@@ -27,8 +27,16 @@ export const LoginForm = ({ onSubmit, initialValues, isPending }: LoginFormProps
     <View style={{ gap: 16, flex: 1 }}>
       <FormProvider {...form}>
         <View style={{ flex: 1, gap: 16 }}>
-          <TextInputControlled name="email" label="Email" inputProps={{ maxLength: 60 }} />
-          <TextInputControlled name="password" label="Password" inputProps={{ maxLength: 60 }} />
+          <TextInputControlled
+            name="email"
+            label="Email"
+            inputProps={{ maxLength: 60, autoCapitalize: 'none', keyboardType: 'email-address' }}
+          />
+          <TextInputControlled
+            name="password"
+            label="Password"
+            inputProps={{ maxLength: 60, autoCapitalize: 'none' }}
+          />
         </View>
 
         <View>

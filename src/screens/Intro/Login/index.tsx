@@ -1,10 +1,13 @@
-import { View, ScrollView, StyleSheet, Image, SafeAreaView, Pressable } from 'react-native';
+import { View, ScrollView, StyleSheet, Image, SafeAreaView, Pressable, TouchableOpacity, Text } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import { SvgXml } from 'react-native-svg';
 
 import { theme } from 'config/Theme';
-import { Typography } from 'components/UI/Typography/Typography';
+import apple from 'assets/icons/apple.svg';
+import google from 'assets/icons/google.svg';
 import { LoginForm } from 'components/Forms/LoginForm';
+import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
 export const LoginScreen = () => {
@@ -25,15 +28,9 @@ export const LoginScreen = () => {
           </Typography>
         </View>
 
-        <LoginForm
-          initialValues={undefined}
-          //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
-          onSubmit={() => {}}
-          //   isPending={isPending}
-          isPending={false}
-        />
+        <LoginForm initialValues={undefined} onSubmit={() => {}} isPending={false} />
 
-        <Pressable onPress={() => {}} style={styles.forgotPassword}>
+        <Pressable onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotPassword}>
           <Typography align="center" color="secondary">
             Forgot Password
           </Typography>
@@ -41,10 +38,26 @@ export const LoginScreen = () => {
 
         <View style={styles.line} />
 
+        <View style={{ display: 'flex', gap: 10, marginTop: 45, marginBottom: 60 }}>
+          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
+            <View style={styles.iconContainer}>
+              <SvgXml xml={google} />
+            </View>
+            <Text style={styles.buttonText}>Continue with Google</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
+            <View style={styles.iconContainer}>
+              <SvgXml xml={apple} />
+            </View>
+            <Text style={styles.buttonText}>Continue with Apple</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={{ marginTop: 20 }}>
           <Typography align="center">Don't have an account yet?</Typography>
 
-          <Pressable onPress={() => navigation.navigate('SignUp')}>
+          <Pressable onPress={() => navigation.navigate('Welcome')}>
             <Typography align="center" color="secondary" style={{ marginTop: 3 }}>
               Create an account
             </Typography>
@@ -72,5 +85,31 @@ const styles = StyleSheet.create({
     height: 1,
     width: '100%',
     backgroundColor: theme.colors.backgroundDark,
+  },
+  socialButton: {
+    backgroundColor: theme.colors.white,
+    padding: 14,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.3)',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  iconContainer: {
+    width: 24,
+    height: 24,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontSize: 17,
+    fontWeight: '400',
+    lineHeight: 22,
+    letterSpacing: -0.4,
+    color: theme.colors.textPrimary,
   },
 });

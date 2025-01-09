@@ -8,6 +8,7 @@ import { signupPasswordPostSchema, type SignupPasswordFormData } from 'schemas/f
 import { theme } from 'config/Theme';
 import checkbox from 'assets/icons/checkbox.svg';
 import checkboxDash from 'assets/icons/checkbox-dash.svg';
+
 import { TextInputControlled } from '../../UI/Inputs/TextInput/TextInputControlled';
 import { Button } from '../../UI/Button/Button';
 

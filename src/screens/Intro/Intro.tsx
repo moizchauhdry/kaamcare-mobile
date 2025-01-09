@@ -12,7 +12,7 @@ import { IntroItem } from '../../components/DataDisplay/IntroItem/IntroItem';
 import { Button } from '../../components/UI/Button/Button';
 import { PaginationDotted } from '../../components/DataDisplay/Pagination/PaginationDotted';
 import { theme } from '../../config/Theme';
-import { useAuth } from '../../context/AuthContext';
+// import { useAuth } from '../../context/AuthContext';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +31,7 @@ WebBrowser.maybeCompleteAuthSession();
 export const Intro = () => {
   const [active, setActive] = useState('1');
   const listRef = useRef<FlatList | null>(null);
-  const { handleRegister, handleLogin } = useAuth();
+  // const { handleRegister, handleLogin } = useAuth();
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   const handleItemChange = (items: ViewToken[]) => {
@@ -46,7 +46,11 @@ export const Intro = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ alignContent: 'center' }} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={{ alignContent: 'center' }}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ height: '100%' }}
+      >
         <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
           <Image style={{ width: 126, height: 56 }} source={require('../../assets/logo.png')} />
         </View>
@@ -80,12 +84,17 @@ export const Intro = () => {
           style={{ marginVertical: 16, gap: 8, paddingHorizontal: 16, justifyContent: 'center', alignItems: 'center' }}
         >
           {/* <Button onPress={handleRegister}>Create Account</Button> */}
-          <Button onPress={() => navigation.navigate('SignUp')}>Create Account</Button>
-          {/* <Button onPress={() => navigation.navigate('LogIn')} variant="secondary">
+          {/* <Button onPress={handleLogin} variant="secondary">
             Log in
           </Button> */}
-          <Button onPress={handleLogin} variant="secondary">
+
+          {/* <Button onPress={() => navigation.navigate('SignUp')}>Create Account</Button>
+          <Button onPress={() => navigation.navigate('LogIn')} variant="secondary">
             Log in
+          </Button> */}
+
+          <Button weight="semiBold" onPress={() => navigation.navigate('LogIn')}>
+            Get Started
           </Button>
         </View>
       </ScrollView>
