@@ -39,7 +39,7 @@ export const ResetPasswordScreen = () => {
         <ResetPasswordForm
           initialValues={undefined}
           //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
-          onSubmit={() => {}}
+          onSubmit={() => navigation.navigate('LogIn')}
           //   isPending={isPending}
           isPending={false}
         />

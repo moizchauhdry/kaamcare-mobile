@@ -1,8 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { QueryClient } from '@tanstack/react-query';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -50,6 +51,12 @@ export default function App() {
   const [queryClient] = useState(newQueryClient);
   useOnlineManager();
   useMutationDefaults(queryClient);
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: '382059876129-h6d2bd40ntdsiomjg0vjmp8sbbsagc7b.apps.googleusercontent.com',
+    });
+  }, []);
 
   return (
     <PersistQueryClientProvider

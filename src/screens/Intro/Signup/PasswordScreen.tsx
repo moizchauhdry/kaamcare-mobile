@@ -10,10 +10,13 @@ import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigat
 
 import { TermsCheckbox } from './modules/TermsCheckbox';
 import { HeaderCounter } from './modules/HeaderCounter';
+import { useAuth } from 'context/AuthContext';
 
 export const PasswordScreen = () => {
   const [isChecked, setIsChecked] = useState(false);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
+
+  const { handleLogin } = useAuth();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,7 +33,7 @@ export const PasswordScreen = () => {
           <SignupPasswordForm
             initialValues={undefined}
             //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
-            onSubmit={() => {}}
+            onSubmit={handleLogin}
             //   isPending={isPending}
             isPending={false}
           />

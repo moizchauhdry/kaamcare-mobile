@@ -50,7 +50,12 @@ export const ResetPasswordForm = ({ onSubmit, initialValues, isPending }: ResetF
           <TextInputControlled
             name="password"
             label="Password"
-            inputProps={{ maxLength: 60, autoCapitalize: 'none', onChangeText: handlePasswordChange }}
+            inputProps={{
+              maxLength: 60,
+              autoCapitalize: 'none',
+              secureTextEntry: true,
+              onChangeText: handlePasswordChange,
+            }}
           />
 
           <PasswordValidator validations={validations} />

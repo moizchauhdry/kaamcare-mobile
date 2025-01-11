@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { View, ScrollView, StyleSheet, Image, SafeAreaView, Pressable, TouchableOpacity, Text } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
@@ -9,9 +11,30 @@ import google from 'assets/icons/google.svg';
 import { LoginForm } from 'components/Forms/LoginForm';
 import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
+import { useAuth } from 'context/AuthContext';
 
 export const LoginScreen = () => {
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
+
+  const { handleLogin } = useAuth();
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const user = await GoogleSignin.signIn();
+      if (user.data?.idToken) {
+        handleLogin();
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  const logout = () => {
+    setUserInfo(null);
+    GoogleSignin.revokeAccess();
+    GoogleSignin.signOut();
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,7 +51,7 @@ export const LoginScreen = () => {
           </Typography>
         </View>
 
-        <LoginForm initialValues={undefined} onSubmit={() => {}} isPending={false} />
+        <LoginForm initialValues={undefined} onSubmit={handleLogin} isPending={false} />
 
         <Pressable onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotPassword}>
           <Typography align="center" color="secondary">
@@ -39,12 +62,19 @@ export const LoginScreen = () => {
         <View style={styles.line} />
 
         <View style={{ display: 'flex', gap: 10, marginTop: 45, marginBottom: 60 }}>
-          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
+          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signIn}>
             <View style={styles.iconContainer}>
               <SvgXml xml={google} />
             </View>
             <Text style={styles.buttonText}>Continue with Google</Text>
           </TouchableOpacity>
+
+          {/* <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={logout}>
+            <View style={styles.iconContainer}>
+              <SvgXml xml={google} />
+            </View>
+            <Text style={styles.buttonText}>Logout</Text>
+          </TouchableOpacity> */}
 
           <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
             <View style={styles.iconContainer}>

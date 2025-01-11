@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { SvgXml } from 'react-native-svg';
 import { View, ScrollView, StyleSheet, Image, SafeAreaView, TouchableOpacity, Text } from 'react-native';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
 import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
 import google from 'assets/icons/google.svg';
+import { useAuth } from 'context/AuthContext';
 import emailCircle from 'assets/icons/user-email-circle.svg';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
@@ -15,6 +17,20 @@ import { TermsCheckbox } from '../Signup/modules/TermsCheckbox';
 export const WelcomeScreen = () => {
   const [isChecked, setIsChecked] = useState(false);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
+
+  const { handleLogin } = useAuth();
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const user = await GoogleSignin.signIn();
+      if (user.data?.idToken) {
+        handleLogin();
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,7 +45,7 @@ export const WelcomeScreen = () => {
 
         <View style={{ flex: 0.6, width: '100%' }}>
           <View style={{ display: 'flex', gap: 10, marginTop: 45, marginBottom: 80 }}>
-            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
+            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signIn}>
               <View style={styles.iconContainer}>
                 <SvgXml xml={google} />
               </View>

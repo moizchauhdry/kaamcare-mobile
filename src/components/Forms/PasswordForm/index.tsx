@@ -50,12 +50,13 @@ export const SignupPasswordForm = ({ onSubmit, initialValues, isPending }: Signu
               maxLength: 60,
               autoCapitalize: 'none',
               onChangeText: handlePasswordChange,
+              secureTextEntry: true,
             }}
           />
           <TextInputControlled
             name="password_confirmation"
             label="Confirm Password"
-            inputProps={{ maxLength: 60, autoCapitalize: 'none' }}
+            inputProps={{ maxLength: 60, autoCapitalize: 'none', secureTextEntry: true }}
           />
         </View>
 
