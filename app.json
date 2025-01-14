@@ -24,11 +24,19 @@
           "photosPermission": "The app accesses your photos to let you share them with your doctor."
         }
       ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow KaamCare to use Face ID/Fingerprnt. To authenticate and access your app."
+        }
+      ],
       "expo-secure-store",
+      "expo-apple-authentication",
       "@react-native-google-signin/google-signin"
     ],
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "usesAppleSignIn": true,
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": false,
       "bundleIdentifier": "com.qodeca.kaamcare",

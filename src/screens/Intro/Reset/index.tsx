@@ -2,6 +2,7 @@ import { View, StyleSheet, Image, SafeAreaView, TouchableOpacity, Pressable } fr
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { theme } from 'config/Theme';
 import userCircle from 'assets/icons/user-circle.svg';
@@ -15,7 +16,7 @@ export const ResetPasswordScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ paddingHorizontal: 16, flex: 1 }}>
+      <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 16 }}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.chevronWrapper}>
             <SvgXml xml={chevronLeft} width={28} height={28} />
@@ -43,7 +44,7 @@ export const ResetPasswordScreen = () => {
           //   isPending={isPending}
           isPending={false}
         />
-      </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };

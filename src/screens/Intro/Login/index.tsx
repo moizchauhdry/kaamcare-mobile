@@ -1,24 +1,41 @@
-import { useState } from 'react';
-import { View, ScrollView, StyleSheet, Image, SafeAreaView, Pressable, TouchableOpacity, Text } from 'react-native';
+import { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  Alert,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
+import { Checkbox } from 'expo-checkbox';
+import * as LocalAuthentication from 'expo-local-authentication';
+import * as AppleAuthentication from 'expo-apple-authentication';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
+import fingerprint from 'assets/icons/fingerprint.svg';
 import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
 import google from 'assets/icons/google.svg';
+import { useAuth } from 'context/AuthContext';
 import { LoginForm } from 'components/Forms/LoginForm';
 import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
-import { useAuth } from 'context/AuthContext';
 
 export const LoginScreen = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const [biometricButtonText, setBiometricButtonText] = useState<string>('');
+  const [isBiometricAvailable, setIsBiometricAvailable] = useState<boolean>(false);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   const { handleLogin } = useAuth();
 
-  const signIn = async () => {
+  const signInWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const user = await GoogleSignin.signIn();
@@ -30,11 +47,69 @@ export const LoginScreen = () => {
     }
   };
 
+  const signInWithApple = async () => {
+    try {
+      const user = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+      console.log('user', user);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  const handleBiometric = async () => {
+    const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
+    if (!savedBiometrics) {
+      return Alert.alert(
+        'The entered email does not match your last logged-in email. Please log in with password or pin.',
+      );
+    }
+
+    const biometricAuth = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Login with Biometrics',
+      cancelLabel: 'Cancel',
+    });
+
+    if (biometricAuth.success) {
+      console.log('Logged In');
+    }
+  };
+
   const logout = () => {
-    setUserInfo(null);
     GoogleSignin.revokeAccess();
     GoogleSignin.signOut();
   };
+
+  useEffect(() => {
+    (async () => {
+      const compatible = await LocalAuthentication.hasHardwareAsync();
+      setIsBiometricAvailable(compatible);
+    })();
+  }, []);
+
+  useEffect(() => {
+    const fetchBiometricButtonText = async () => {
+      let supportedBiometrics;
+      if (isBiometricAvailable) {
+        supportedBiometrics = await LocalAuthentication.supportedAuthenticationTypesAsync();
+      }
+      let buttonText = 'Log in with Face ID';
+      if (supportedBiometrics && supportedBiometrics.length > 0) {
+        if (supportedBiometrics.includes(1)) {
+          buttonText = 'Log in with Fingerprint';
+        } else if (supportedBiometrics.includes(2)) {
+          buttonText = 'Log in with Face ID';
+        }
+      }
+      setBiometricButtonText(buttonText);
+    };
+
+    fetchBiometricButtonText();
+  }, [isBiometricAvailable]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,6 +128,23 @@ export const LoginScreen = () => {
 
         <LoginForm initialValues={undefined} onSubmit={handleLogin} isPending={false} />
 
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 8 }}>
+          <View style={styles.wrapper}>
+            <Checkbox
+              style={styles.checkbox}
+              value={isChecked}
+              onValueChange={setIsChecked}
+              color={isChecked ? theme.colors.textSecondary : undefined}
+            />
+            <Typography size="sm">Remember Me</Typography>
+          </View>
+
+          <Pressable onPress={handleBiometric} style={styles.wrapper}>
+            <SvgXml xml={fingerprint} height={22} width={22} style={styles.biometric} />
+            <Typography size="sm">Use Biometrics</Typography>
+          </Pressable>
+        </View>
+
         <Pressable onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotPassword}>
           <Typography align="center" color="secondary">
             Forgot Password
@@ -62,7 +154,7 @@ export const LoginScreen = () => {
         <View style={styles.line} />
 
         <View style={{ display: 'flex', gap: 10, marginTop: 45, marginBottom: 60 }}>
-          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signIn}>
+          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithGoogle}>
             <View style={styles.iconContainer}>
               <SvgXml xml={google} />
             </View>
@@ -76,7 +168,7 @@ export const LoginScreen = () => {
             <Text style={styles.buttonText}>Logout</Text>
           </TouchableOpacity> */}
 
-          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
+          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithApple}>
             <View style={styles.iconContainer}>
               <SvgXml xml={apple} />
             </View>
@@ -141,5 +233,19 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     letterSpacing: -0.4,
     color: theme.colors.textPrimary,
+  },
+  wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  checkbox: {
+    marginRight: 8,
+    height: 18,
+    width: 18,
+    borderWidth: 1,
+    borderRadius: 4,
+  },
+  biometric: {
+    marginRight: 4,
   },
 });
