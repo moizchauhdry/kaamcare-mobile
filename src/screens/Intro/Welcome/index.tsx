@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { SvgXml } from 'react-native-svg';
 import { View, ScrollView, StyleSheet, Image, SafeAreaView, TouchableOpacity, Text } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import type { StackNavigationProp } from '@react-navigation/stack';
+import * as AppleAuthentication from 'expo-apple-authentication';
 import { useNavigation } from '@react-navigation/native';
 
 import { theme } from 'config/Theme';
@@ -13,21 +13,32 @@ import { useAuth } from 'context/AuthContext';
 import emailCircle from 'assets/icons/user-email-circle.svg';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
-import { TermsCheckbox } from '../Signup/modules/TermsCheckbox';
-
 export const WelcomeScreen = () => {
-  const [isChecked, setIsChecked] = useState(false);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   const { handleLogin } = useAuth();
 
-  const signIn = async () => {
+  const signInWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const user = await GoogleSignin.signIn();
       if (user.data?.idToken) {
         handleLogin();
       }
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  const signInWithApple = async () => {
+    try {
+      const user = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+      console.log('user', user);
     } catch (error) {
       console.log('error', error);
     }
@@ -46,7 +57,7 @@ export const WelcomeScreen = () => {
 
         <View style={{ flex: 0.6, width: '100%' }}>
           <View style={{ display: 'flex', gap: 10, marginTop: 45, marginBottom: 80 }}>
-            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signIn}>
+            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithGoogle}>
               <View style={styles.iconContainer}>
                 <SvgXml xml={google} />
               </View>
@@ -54,7 +65,7 @@ export const WelcomeScreen = () => {
             </TouchableOpacity>
 
             {!isAndroid && (
-              <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
+              <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithApple}>
                 <View style={styles.iconContainer}>
                   <SvgXml xml={apple} />
                 </View>

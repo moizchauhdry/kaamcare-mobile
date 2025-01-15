@@ -34,6 +34,7 @@ export const SignUpScreen = () => {
           }}
           //   isPending={isPending}
           isPending={false}
+          isTermsAccepted={isChecked}
         />
 
         <View style={styles.line} />

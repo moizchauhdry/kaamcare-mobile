@@ -16,9 +16,10 @@ type SignupPasswordProps = {
   onSubmit?: (values: SignupPasswordFormData) => void;
   initialValues?: SignupPasswordFormData;
   isPending?: boolean;
+  isTermsAccepted: boolean;
 };
 
-export const SignupPasswordForm = ({ onSubmit, initialValues, isPending }: SignupPasswordProps) => {
+export const SignupPasswordForm = ({ onSubmit, initialValues, isPending, isTermsAccepted }: SignupPasswordProps) => {
   const [hasMinLength, setHasMinLength] = useState(false);
   const [hasUpperAndLower, setHasUpperAndLower] = useState(false);
   const [hasNumber, setHasNumber] = useState(false);
@@ -90,7 +91,7 @@ export const SignupPasswordForm = ({ onSubmit, initialValues, isPending }: Signu
         </View>
 
         <View>
-          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)}>
+          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)} disabled={!isTermsAccepted}>
             Create account
           </Button>
         </View>

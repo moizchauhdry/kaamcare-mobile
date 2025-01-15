@@ -33,6 +33,7 @@ export const VerifyScreen = () => {
             onSubmit={() => navigation.navigate('Password')}
             //   isPending={isPending}
             isPending={false}
+            isTermsAccepted={isChecked}
           />
         </View>
 

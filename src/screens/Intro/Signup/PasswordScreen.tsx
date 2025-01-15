@@ -4,13 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
 import { theme } from 'config/Theme';
+import { useAuth } from 'context/AuthContext';
 import { Typography } from 'components/UI/Typography/Typography';
 import { SignupPasswordForm } from 'components/Forms/PasswordForm';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
 import { TermsCheckbox } from './modules/TermsCheckbox';
 import { HeaderCounter } from './modules/HeaderCounter';
-import { useAuth } from 'context/AuthContext';
 
 export const PasswordScreen = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -36,6 +36,7 @@ export const PasswordScreen = () => {
             onSubmit={handleLogin}
             //   isPending={isPending}
             isPending={false}
+            isTermsAccepted={isChecked}
           />
         </View>
 

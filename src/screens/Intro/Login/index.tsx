@@ -10,12 +10,12 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import type { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
 import { Checkbox } from 'expo-checkbox';
+import { useNavigation } from '@react-navigation/native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import * as AppleAuthentication from 'expo-apple-authentication';
+import type { StackNavigationProp } from '@react-navigation/stack';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 import { isAndroid } from 'config/Metrics';
@@ -30,7 +30,6 @@ import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigat
 
 export const LoginScreen = () => {
   const [isChecked, setIsChecked] = useState(false);
-  const [biometricButtonText, setBiometricButtonText] = useState<string>('');
   const [isBiometricAvailable, setIsBiometricAvailable] = useState<boolean>(false);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
@@ -63,6 +62,10 @@ export const LoginScreen = () => {
   };
 
   const handleBiometric = async () => {
+    if (!isBiometricAvailable) {
+      return Alert.alert('Biometrics are not available on this device.');
+    }
+
     const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
     if (!savedBiometrics) {
       return Alert.alert(
@@ -91,26 +94,6 @@ export const LoginScreen = () => {
       setIsBiometricAvailable(compatible);
     })();
   }, []);
-
-  useEffect(() => {
-    const fetchBiometricButtonText = async () => {
-      let supportedBiometrics;
-      if (isBiometricAvailable) {
-        supportedBiometrics = await LocalAuthentication.supportedAuthenticationTypesAsync();
-      }
-      let buttonText = 'Log in with Face ID';
-      if (supportedBiometrics && supportedBiometrics.length > 0) {
-        if (supportedBiometrics.includes(1)) {
-          buttonText = 'Log in with Fingerprint';
-        } else if (supportedBiometrics.includes(2)) {
-          buttonText = 'Log in with Face ID';
-        }
-      }
-      setBiometricButtonText(buttonText);
-    };
-
-    fetchBiometricButtonText();
-  }, [isBiometricAvailable]);
 
   return (
     <SafeAreaView style={styles.container}>
