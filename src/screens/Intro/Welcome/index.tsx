@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
+import { isAndroid } from 'config/Metrics';
 import google from 'assets/icons/google.svg';
 import { useAuth } from 'context/AuthContext';
 import emailCircle from 'assets/icons/user-email-circle.svg';
@@ -52,12 +53,14 @@ export const WelcomeScreen = () => {
               <Text style={styles.buttonText}>Continue with Google</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
-              <View style={styles.iconContainer}>
-                <SvgXml xml={apple} />
-              </View>
-              <Text style={styles.buttonText}>Continue with Apple</Text>
-            </TouchableOpacity>
+            {!isAndroid && (
+              <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
+                <View style={styles.iconContainer}>
+                  <SvgXml xml={apple} />
+                </View>
+                <Text style={styles.buttonText}>Continue with Apple</Text>
+              </TouchableOpacity>
+            )}
 
             <TouchableOpacity
               style={styles.socialButton}
@@ -69,10 +72,6 @@ export const WelcomeScreen = () => {
               </View>
               <Text style={styles.buttonText}>Continue with Email</Text>
             </TouchableOpacity>
-          </View>
-
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <TermsCheckbox checked={isChecked} onToggle={setIsChecked} />
           </View>
         </View>
       </ScrollView>

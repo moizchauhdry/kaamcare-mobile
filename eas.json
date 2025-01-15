@@ -6,14 +6,16 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "development"
     },
     "development-simulator": {
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
         "simulator": true
-      }
+      },
+      "channel": "development-simulator"
     },
     "preview": {
       "ios": {
@@ -35,7 +37,8 @@
         "EXPO_PUBLIC_APP_NAME": "KaamCare",
         "EXPO_PUBLIC_ENVIRONMENT": "Development",
         "EXPO_PUBLIC_B2C_NAME": "kaamcaredevplc"
-      }
+      },
+      "channel": "preview"
     },
     "production": {
       "android": {
@@ -94,7 +97,8 @@
     },
     "production-local": {
       "autoIncrement": true,
-      "credentialsSource": "remote"
+      "credentialsSource": "remote",
+      "channel": "production-local"
     }
   },
   "submit": {

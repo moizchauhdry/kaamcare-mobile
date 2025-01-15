@@ -18,11 +18,12 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-import fingerprint from 'assets/icons/fingerprint.svg';
+import { isAndroid } from 'config/Metrics';
 import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
 import google from 'assets/icons/google.svg';
 import { useAuth } from 'context/AuthContext';
+import fingerprint from 'assets/icons/fingerprint.svg';
 import { LoginForm } from 'components/Forms/LoginForm';
 import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
@@ -65,7 +66,7 @@ export const LoginScreen = () => {
     const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
     if (!savedBiometrics) {
       return Alert.alert(
-        'The entered email does not match your last logged-in email. Please log in with password or pin.',
+        'No biometric records found. Please ensure that you have enrolled biometrics in your device settings.',
       );
     }
 
@@ -161,19 +162,14 @@ export const LoginScreen = () => {
             <Text style={styles.buttonText}>Continue with Google</Text>
           </TouchableOpacity>
 
-          {/* <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={logout}>
-            <View style={styles.iconContainer}>
-              <SvgXml xml={google} />
-            </View>
-            <Text style={styles.buttonText}>Logout</Text>
-          </TouchableOpacity> */}
-
-          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithApple}>
-            <View style={styles.iconContainer}>
-              <SvgXml xml={apple} />
-            </View>
-            <Text style={styles.buttonText}>Continue with Apple</Text>
-          </TouchableOpacity>
+          {!isAndroid && (
+            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithApple}>
+              <View style={styles.iconContainer}>
+                <SvgXml xml={apple} />
+              </View>
+              <Text style={styles.buttonText}>Continue with Apple</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         <View style={{ marginTop: 20 }}>

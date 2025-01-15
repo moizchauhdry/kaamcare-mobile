@@ -56,8 +56,22 @@
         "foregroundImage": "./src/assets/icon.png",
         "backgroundColor": "#0072EF"
       },
-      "permissions": ["android.permission.RECORD_AUDIO", "android.permission.MODIFY_AUDIO_SETTINGS"],
-      "blockedPermissions": ["android.permission.READ_MEDIA_IMAGES", "android.permission.READ_MEDIA_VIDEO"],
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ],
+      "blockedPermissions": [
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO"
+      ],
       "package": "com.qodeca.kaamcare"
     },
     "web": {
@@ -68,11 +82,9 @@
         "projectId": "c0a565e1-d631-4c78-8376-2bc72fa63568"
       }
     },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
+    "runtimeVersion": "1.0.0",
     "updates": {
-      "url": "https://u.expo.dev/9cfdd7ec-bcbd-4b38-bd49-a48904395bfe"
+      "url": "https://u.expo.dev/c0a565e1-d631-4c78-8376-2bc72fa63568"
     }
   }
 }

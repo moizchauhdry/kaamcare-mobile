@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "382059876129",
+    "project_id": "kaam-care",
+    "storage_bucket": "kaam-care.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382059876129:android:c98ad43d17088ce1887860",
+        "android_client_info": {
+          "package_name": "com.qodeca.kaamcare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382059876129-tik7r8qjntmqjrvvajnvblb5ev1kgeda.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qodeca.kaamcare",
+            "certificate_hash": "dd43704fc7b0d540fb61d7c28dee4508647a6211"
+          }
+        },
+        {
+          "client_id": "382059876129-h6d2bd40ntdsiomjg0vjmp8sbbsagc7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuvonUBx4xyYauwHqjMv7ZbSbHzEOO0oo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382059876129-h6d2bd40ntdsiomjg0vjmp8sbbsagc7b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
