@@ -2,7 +2,8 @@ import axios from 'axios';
 import { Alert } from 'react-native';
 
 export const validatedApi = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.EXPO_PUBLIC_API_URL,
+  baseURL: 'https://kaamcare.moizchauhdry.com/api/2.0',
 });
 
 validatedApi.interceptors.request.use((request) => {

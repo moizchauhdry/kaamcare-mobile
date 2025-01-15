@@ -40,7 +40,7 @@ export const LoginForm = ({ onSubmit, initialValues, isPending }: LoginFormProps
         </View>
 
         <View>
-          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)}>
+          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)} disabled={isPending}>
             Log In
           </Button>
         </View>

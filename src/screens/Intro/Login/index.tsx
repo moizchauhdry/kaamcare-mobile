@@ -28,19 +28,20 @@ import { LoginForm } from 'components/Forms/LoginForm';
 import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
+import { useAuthLogin } from './data/auth-login';
+
 export const LoginScreen = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const { mutate: authLogin, isPending } = useAuthLogin();
   const [isBiometricAvailable, setIsBiometricAvailable] = useState<boolean>(false);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
-
-  const { handleLogin } = useAuth();
 
   const signInWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const user = await GoogleSignin.signIn();
       if (user.data?.idToken) {
-        handleLogin();
+        authLogin({ email: user.data.user.email, password: user.data.idToken });
       }
     } catch (error) {
       console.log('error', error);
@@ -110,7 +111,7 @@ export const LoginScreen = () => {
           </Typography>
         </View>
 
-        <LoginForm initialValues={undefined} onSubmit={handleLogin} isPending={false} />
+        <LoginForm onSubmit={authLogin} isPending={isPending} />
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 8 }}>
           <View style={styles.wrapper}>
