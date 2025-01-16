@@ -30,12 +30,12 @@ export const LoginForm = ({ onSubmit, initialValues, isPending }: LoginFormProps
           <TextInputControlled
             name="email"
             label="Email"
-            inputProps={{ maxLength: 60, autoCapitalize: 'none', keyboardType: 'email-address' }}
+            inputProps={{ maxLength: 60, autoCapitalize: 'none', keyboardType: 'email-address', autoComplete: 'off' }}
           />
           <TextInputControlled
             name="password"
             label="Password"
-            inputProps={{ maxLength: 60, autoCapitalize: 'none', secureTextEntry: true }}
+            inputProps={{ maxLength: 60, autoCapitalize: 'none', secureTextEntry: true, autoComplete: 'off' }}
           />
         </View>
 

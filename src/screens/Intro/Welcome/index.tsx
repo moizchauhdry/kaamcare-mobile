@@ -55,7 +55,7 @@ export const WelcomeScreen = () => {
           <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
         </View>
 
-        <View style={{ flex: 0.6, width: '100%' }}>
+        <View style={{ flex: 0.4, width: '100%' }}>
           <View style={{ display: 'flex', gap: 10, marginTop: 45, marginBottom: 80 }}>
             <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithGoogle}>
               <View style={styles.iconContainer}>

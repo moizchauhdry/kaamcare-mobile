@@ -1,7 +1,11 @@
 import * as z from 'zod';
 
 const signupSchema = {
-  email: z.string().email('Please provide a valid email address.'),
+  email: z
+    .string({
+      required_error: 'Please provide a valid email address.',
+    })
+    .email('Please provide a valid email address.'),
 };
 
 export const signupPostSchema = z.object(signupSchema);

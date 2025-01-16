@@ -1,7 +1,11 @@
 import * as z from 'zod';
 
 const verifyOtpSchema = {
-  otp: z.string().min(2, 'Please provide valid otp.'),
+  otp: z
+    .string({
+      required_error: 'Otp cannot be empty.',
+    })
+    .min(6, 'Please enter a min of 6 characters.'),
 };
 
 export const verifyOtpPostSchema = z.object(verifyOtpSchema);

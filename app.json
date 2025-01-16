@@ -40,7 +40,7 @@
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": false,
       "bundleIdentifier": "com.qodeca.kaamcare",
-      "buildNumber": "31",
+      "buildNumber": "168",
       "entitlements": {
         "aps-environment": "development"
       }

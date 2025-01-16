@@ -22,7 +22,6 @@ import { isAndroid } from 'config/Metrics';
 import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
 import google from 'assets/icons/google.svg';
-import { useAuth } from 'context/AuthContext';
 import fingerprint from 'assets/icons/fingerprint.svg';
 import { LoginForm } from 'components/Forms/LoginForm';
 import { Typography } from 'components/UI/Typography/Typography';
@@ -124,10 +123,17 @@ export const LoginScreen = () => {
             <Typography size="sm">Remember Me</Typography>
           </View>
 
-          <Pressable onPress={handleBiometric} style={styles.wrapper}>
-            <SvgXml xml={fingerprint} height={22} width={22} style={styles.biometric} />
-            <Typography size="sm">Use Biometrics</Typography>
-          </Pressable>
+          {isAndroid ? (
+            <Pressable onPress={handleBiometric} style={styles.wrapper}>
+              <SvgXml xml={fingerprint} height={22} width={22} style={styles.biometric} />
+              <Typography size="sm">Use Biometrics</Typography>
+            </Pressable>
+          ) : (
+            <Pressable onPress={handleBiometric} style={styles.wrapper}>
+              <SvgXml xml={fingerprint} height={22} width={22} style={styles.biometric} />
+              <Typography size="sm">Use FaceId</Typography>
+            </Pressable>
+          )}
         </View>
 
         <Pressable onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotPassword}>
