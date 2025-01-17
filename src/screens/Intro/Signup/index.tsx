@@ -1,58 +1,84 @@
-import { useState } from 'react';
-import { View, ScrollView, StyleSheet, Image, SafeAreaView, Pressable } from 'react-native';
+import {
+  View,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Pressable,
+  Keyboard,
+  Platform,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { theme } from 'config/Theme';
 import { Typography } from 'components/UI/Typography/Typography';
 import { SignupForm } from 'components/Forms/SignupForm';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
+import { useSignupStore } from './store';
 import { TermsCheckbox } from './modules/TermsCheckbox';
 import { HeaderCounter } from './modules/HeaderCounter';
 
 export const SignUpScreen = () => {
-  const [isChecked, setIsChecked] = useState(false);
+  const isTermsChecked = useSignupStore((state) => state.isTermsChecked);
+  const setIsTermsChecked = useSignupStore((state) => state.setIsTermsChecked);
+
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView
-        style={{ alignContent: 'center', width: '100%', paddingHorizontal: 16 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
-          <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
-        </View>
-        <HeaderCounter pageCounter="1" />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={styles.container}>
+        <KeyboardAwareScrollView
+          contentContainerStyle={styles.scrollContainer}
+          enableOnAndroid
+          enableAutomaticScroll
+          extraScrollHeight={Platform.select({ ios: 80, android: 120 })}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+          extraHeight={220}
+          enableResetScrollToCoords
+          resetScrollToCoords={{ x: 0, y: 0 }}
+        >
+          <ScrollView style={{ paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
+            <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
+              <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
+            </View>
+            <HeaderCounter pageCounter="1" />
 
-        <SignupForm
-          initialValues={undefined}
-          //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
-          onSubmit={() => {
-            navigation.navigate('Verify');
-          }}
-          //   isPending={isPending}
-          isPending={false}
-          isTermsAccepted={isChecked}
-        />
+            <SignupForm
+              initialValues={undefined}
+              //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
+              onSubmit={() => {
+                navigation.navigate('Verify');
+              }}
+              //   isPending={isPending}
+              isPending={false}
+              isTermsAccepted={isTermsChecked}
+            />
 
-        <View style={styles.line} />
+            <View style={styles.line} />
 
-        <View style={styles.haveAccount}>
-          <Typography align="center">Already have an account?</Typography>
-          <Pressable onPress={() => navigation.navigate('LogIn')} style={{ marginLeft: 5 }}>
-            <Typography align="center" color="secondary">
-              Log In
-            </Typography>
-          </Pressable>
-        </View>
+            <View style={styles.haveAccount}>
+              <Typography align="center">Already have an account?</Typography>
+              <Pressable onPress={() => navigation.navigate('LogIn')} style={{ marginLeft: 5 }}>
+                <Typography align="center" color="secondary">
+                  Log In
+                </Typography>
+              </Pressable>
+            </View>
 
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <TermsCheckbox checked={isChecked} onToggle={setIsChecked} />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <TermsCheckbox checked={isTermsChecked} onToggle={setIsTermsChecked} />
+            </View>
+          </ScrollView>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -65,6 +91,9 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     overflow: 'scroll',
     backgroundColor: theme.colors.white,
+  },
+  scrollContainer: {
+    flexGrow: 1,
   },
   forgotPassword: {
     marginVertical: 20,

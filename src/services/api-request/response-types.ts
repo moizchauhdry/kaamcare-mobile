@@ -1,4 +1,11 @@
 export type ILoginResponse = {
-  token: string;
-  first_name: string;
+  data: {
+    user: {
+      id: number;
+      token: string;
+      email: string;
+      updated_at: string;
+      created_at: string;
+    };
+  };
 };

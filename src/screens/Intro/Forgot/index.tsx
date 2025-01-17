@@ -36,7 +36,7 @@ export const ForgotPasswordScreen = () => {
           keyboardDismissMode="on-drag"
           showsVerticalScrollIndicator={false}
           bounces={false}
-          extraHeight={120}
+          extraHeight={50}
           enableResetScrollToCoords
           resetScrollToCoords={{ x: 0, y: 0 }}
         >

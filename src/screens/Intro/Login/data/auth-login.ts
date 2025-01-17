@@ -1,18 +1,26 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import * as SecureStore from 'expo-secure-store';
 
 import { handleError } from 'utils/helpers';
+import { http } from 'services/http/ApiServices';
 import { validatedApi } from 'services/api-request';
+import { useSignupStore } from 'screens/Intro/Signup/store';
 import type { ILoginRequest } from 'services/api-request/request-types';
 import type { ILoginResponse } from 'services/api-request/response-types';
 
 export const useAuthLogin = () => {
-  const queryClient = useQueryClient();
+  const setIsLogged = useSignupStore((store) => store.setIsLogged);
 
   return useMutation({
     mutationFn: (variables: ILoginRequest) => validatedApi.post<ILoginResponse>('/user/login', variables),
     onSuccess: (response) => {
-      console.log('response', response);
+      SecureStore.setItem('id-token', response.data.data?.user?.token ?? '');
+      SecureStore.setItem('refresh-token', response.data.data?.user?.token ?? '');
+      http.addHeader('Authorization', `Bearer ${response.data.data?.user?.token}`);
+      setIsLogged(true);
     },
-    onError: (error: unknown) => handleError(error),
+    onError: (error: unknown) => {
+      handleError(error);
+    },
   });
 };

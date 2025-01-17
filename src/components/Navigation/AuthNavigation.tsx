@@ -1,4 +1,4 @@
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { Intro } from 'screens/Intro/Intro';
 import { LoginScreen } from 'screens/Intro/Login';
@@ -26,7 +26,7 @@ export const AuthNavigation = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+        // cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
       }}
     >
       <Stack.Screen name="Intro" component={Intro} options={{ headerShown: false }} />
