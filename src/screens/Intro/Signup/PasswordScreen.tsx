@@ -14,21 +14,20 @@ import type { StackNavigationProp } from '@react-navigation/stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { theme } from 'config/Theme';
-import { useAuth } from 'context/AuthContext';
 import { Typography } from 'components/UI/Typography/Typography';
 import { SignupPasswordForm } from 'components/Forms/PasswordForm';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
 import { useSignupStore } from './store';
+import { useAuthPassword } from './data/auth-password';
 import { TermsCheckbox } from './modules/TermsCheckbox';
 import { HeaderCounter } from './modules/HeaderCounter';
 
 export const PasswordScreen = () => {
+  const { mutate: authPassword, isPending } = useAuthPassword();
   const isTermsChecked = useSignupStore((state) => state.isTermsChecked);
   const setIsTermsChecked = useSignupStore((state) => state.setIsTermsChecked);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
-
-  const { handleLogin } = useAuth();
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -53,14 +52,7 @@ export const PasswordScreen = () => {
             <HeaderCounter pageCounter="3" />
 
             <View style={{ marginBottom: 24 }}>
-              <SignupPasswordForm
-                initialValues={undefined}
-                //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
-                onSubmit={handleLogin}
-                //   isPending={isPending}
-                isPending={false}
-                isTermsAccepted={isTermsChecked}
-              />
+              <SignupPasswordForm onSubmit={authPassword} isPending={isPending} isTermsAccepted={isTermsChecked} />
             </View>
 
             <View style={styles.line} />

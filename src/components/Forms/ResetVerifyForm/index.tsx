@@ -2,25 +2,25 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Dimensions, View } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { forgotSchema, type ForgotFormData } from 'schemas/forms/auth/forgotPassword';
+import { verifyOtpPostSchema, type VerifyOtpFormData } from 'schemas/forms/auth/verifyOtp';
 
 import { TextInputControlled } from '../../UI/Inputs/TextInput/TextInputControlled';
 import { Button } from '../../UI/Button/Button';
 
 type ForgotFormProps = {
-  onSubmit?: (values: ForgotFormData) => void;
-  initialValues?: ForgotFormData;
+  onSubmit?: (values: VerifyOtpFormData) => void;
+  initialValues?: VerifyOtpFormData;
   isPending?: boolean;
 };
 
-export const ForgotPasswordForm = ({ onSubmit, initialValues, isPending }: ForgotFormProps) => {
+export const ResetVerifyForm = ({ onSubmit, initialValues, isPending }: ForgotFormProps) => {
   const { height } = Dimensions.get('window');
-  const form = useForm<ForgotFormData>({
+  const form = useForm<VerifyOtpFormData>({
     defaultValues: initialValues,
-    resolver: zodResolver(forgotSchema),
+    resolver: zodResolver(verifyOtpPostSchema),
   });
 
-  const handleSubmitForm = (values: ForgotFormData) => {
+  const handleSubmitForm = (values: VerifyOtpFormData) => {
     onSubmit?.(values);
   };
 
@@ -29,14 +29,14 @@ export const ForgotPasswordForm = ({ onSubmit, initialValues, isPending }: Forgo
       <View style={{ flex: 1, justifyContent: 'flex-end', paddingBottom: height * 0.08 }}>
         <View style={{ gap: 16 }}>
           <TextInputControlled
-            name="email"
-            label="Email"
-            inputProps={{ maxLength: 60, autoCapitalize: 'none', keyboardType: 'email-address' }}
+            name="otp"
+            label="Verification code"
+            inputProps={{ maxLength: 6, keyboardType: 'number-pad' }}
           />
         </View>
         <View style={{ marginTop: 20 }}>
           <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)} disabled={isPending}>
-            Continue
+            Verify code
           </Button>
         </View>
       </View>

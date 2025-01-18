@@ -18,10 +18,13 @@ import { theme } from 'config/Theme';
 import userCircle from 'assets/icons/user-circle.svg';
 import chevronLeft from 'assets/icons/chevron-left.svg';
 import { Typography } from 'components/UI/Typography/Typography';
-import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 import { ResetPasswordForm } from 'components/Forms/ResetPasswordForm';
+import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
+
+import { useAuthResetPass } from './data/auth-reset';
 
 export const ResetPasswordScreen = () => {
+  const { mutate: authResetPass, isPending } = useAuthResetPass();
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   return (
@@ -61,13 +64,7 @@ export const ResetPasswordScreen = () => {
               </Typography>
             </View>
 
-            <ResetPasswordForm
-              initialValues={undefined}
-              //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
-              onSubmit={() => navigation.navigate('LogIn')}
-              //   isPending={isPending}
-              isPending={false}
-            />
+            <ResetPasswordForm onSubmit={authResetPass} isPending={isPending} />
           </View>
         </KeyboardAwareScrollView>
       </SafeAreaView>

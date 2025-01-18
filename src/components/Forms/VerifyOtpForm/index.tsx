@@ -31,7 +31,7 @@ export const VerifyOtpForm = ({ onSubmit, initialValues, isPending, isTermsAccep
           <TextInputControlled
             name="otp"
             label="Verification code"
-            inputProps={{ maxLength: 60, keyboardType: 'number-pad' }}
+            inputProps={{ maxLength: 6, keyboardType: 'number-pad' }}
           />
         </View>
 

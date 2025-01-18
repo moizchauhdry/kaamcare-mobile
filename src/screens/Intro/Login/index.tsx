@@ -12,26 +12,31 @@ import {
 } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { Checkbox } from 'expo-checkbox';
+import * as SecureStore from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native';
 import * as LocalAuthentication from 'expo-local-authentication';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-import { isAndroid } from 'config/Metrics';
 import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
+import { isAndroid } from 'config/Metrics';
 import google from 'assets/icons/google.svg';
+import faceId from 'assets/icons/face-id.svg';
+import { SignupMethods } from 'constants/enums';
 import fingerprint from 'assets/icons/fingerprint.svg';
 import { LoginForm } from 'components/Forms/LoginForm';
 import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
 import { useAuthLogin } from './data/auth-login';
+import { useAuthSignup } from '../Signup/data/auth-signup';
 
 export const LoginScreen = () => {
   const [isChecked, setIsChecked] = useState(false);
   const { mutate: authLogin, isPending } = useAuthLogin();
+  const { mutate: authSignup } = useAuthSignup('socialLogin');
   const [isBiometricAvailable, setIsBiometricAvailable] = useState<boolean>(false);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
@@ -40,35 +45,60 @@ export const LoginScreen = () => {
       await GoogleSignin.hasPlayServices();
       const user = await GoogleSignin.signIn();
       if (user.data?.idToken) {
-        authLogin({ email: user.data.user.email, password: user.data.idToken });
+        authSignup({
+          email: user.data?.user.email,
+          type: SignupMethods.GOOGLE,
+          google_token: user.data?.idToken,
+        });
       }
     } catch (error) {
-      console.log('error', error);
+      console.log('Google Auth Error', error);
     }
   };
 
   const signInWithApple = async () => {
     try {
-      const user = await AppleAuthentication.signInAsync({
+      const response = await AppleAuthentication.signInAsync({
         requestedScopes: [
           AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
           AppleAuthentication.AppleAuthenticationScope.EMAIL,
         ],
       });
-      console.log('user', user);
+
+      if (response.email) {
+        authSignup({
+          email: response.email,
+          type: SignupMethods.APPLE,
+          apple_token: response.identityToken ?? '',
+        });
+      } else {
+        Alert.prompt('Email Required', 'We need your email address to continue. Please provide it below.', (email) => {
+          if (email) {
+            authSignup({
+              email,
+              type: SignupMethods.APPLE,
+              apple_token: response.identityToken ?? '',
+            });
+          } else {
+            console.log('User declined to provide email');
+          }
+        });
+      }
     } catch (error) {
-      console.log('error', error);
+      console.log('Apple Auth Error', error);
     }
   };
 
   const handleBiometric = async () => {
+    const userSavedEmail = SecureStore.getItem('user-email');
     if (!isBiometricAvailable) {
-      return Alert.alert('Biometrics are not available on this device.');
+      return Alert.alert('Not Found', 'Biometrics are not available on this device.');
     }
 
     const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
     if (!savedBiometrics) {
       return Alert.alert(
+        'Not Found',
         'No biometric records found. Please ensure that you have enrolled biometrics in your device settings.',
       );
     }
@@ -78,8 +108,12 @@ export const LoginScreen = () => {
       cancelLabel: 'Cancel',
     });
 
+    if (!userSavedEmail) {
+      return Alert.alert('Login Required', 'Please log in at least once to enable biometric authentication.');
+    }
+
     if (biometricAuth.success) {
-      console.log('Logged In');
+      authSignup({ email: SecureStore.getItem('user-email') || '', type: SignupMethods.BIOMETRIC });
     }
   };
 
@@ -130,7 +164,7 @@ export const LoginScreen = () => {
             </Pressable>
           ) : (
             <Pressable onPress={handleBiometric} style={styles.wrapper}>
-              <SvgXml xml={fingerprint} height={22} width={22} style={styles.biometric} />
+              <SvgXml xml={faceId} height={22} width={22} style={styles.biometric} />
               <Typography size="sm">Use FaceId</Typography>
             </Pressable>
           )}

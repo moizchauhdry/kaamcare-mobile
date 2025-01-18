@@ -6,6 +6,7 @@ import { SignUpScreen } from 'screens/Intro/Signup';
 import { WelcomeScreen } from 'screens/Intro/Welcome';
 import { ResetPasswordScreen } from 'screens/Intro/Reset';
 import { ForgotPasswordScreen } from 'screens/Intro/Forgot';
+import { ResetVerifyScreen } from 'screens/Intro/ResetVerify';
 import { VerifyScreen } from 'screens/Intro/Signup/VerifyScreen';
 import { PasswordScreen } from 'screens/Intro/Signup/PasswordScreen';
 
@@ -18,6 +19,7 @@ export type AuthNavigationParamsList = {
   Password: undefined;
   ForgotPassword: undefined;
   ResetPassword: undefined;
+  ResetVerify: undefined;
 };
 
 export const AuthNavigation = () => {
@@ -37,6 +39,7 @@ export const AuthNavigation = () => {
       <Stack.Screen name="Password" component={PasswordScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="ResetVerify" component={ResetVerifyScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };

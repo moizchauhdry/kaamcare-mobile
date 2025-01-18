@@ -36,7 +36,11 @@ export const SignupForm = ({ onSubmit, initialValues, isPending, isTermsAccepted
         </View>
 
         <View>
-          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)} disabled={!isTermsAccepted}>
+          <Button
+            weight="semiBold"
+            onPress={form.handleSubmit(handleSubmitForm)}
+            disabled={!isTermsAccepted || isPending}
+          >
             Send verification code
           </Button>
         </View>

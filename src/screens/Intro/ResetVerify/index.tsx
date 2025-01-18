@@ -18,13 +18,15 @@ import { theme } from 'config/Theme';
 import userCircle from 'assets/icons/user-circle.svg';
 import chevronLeft from 'assets/icons/chevron-left.svg';
 import { Typography } from 'components/UI/Typography/Typography';
-import { ForgotPasswordForm } from 'components/Forms/ForgotPasswordForm';
+import { ResetVerifyForm } from 'components/Forms/ResetVerifyForm';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
-import { useAuthForgotPass } from './data/auth-forgot';
+import { useSignupStore } from '../Signup/store';
+import { useAuthVerifyOtp } from '../Signup/data/auth-verifyOtp';
 
-export const ForgotPasswordScreen = () => {
-  const { mutate: authForgotPass, isPending } = useAuthForgotPass();
+export const ResetVerifyScreen = () => {
+  const userEmail = useSignupStore((store) => store.userEmail);
+  const { mutate: authVerifyOtp, isPending } = useAuthVerifyOtp('resetPassword');
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   return (
@@ -60,12 +62,11 @@ export const ForgotPasswordScreen = () => {
                 Password Recovery
               </Typography>
               <Typography size="md" align="center" style={styles.subtitle}>
-                Enter your email address that you used to register. We'll send you an email with a link to reset your
-                password.
+                Please enter the verification code sent to your email to reset your password.
               </Typography>
             </View>
 
-            <ForgotPasswordForm onSubmit={authForgotPass} isPending={isPending} />
+            <ResetVerifyForm onSubmit={(data) => authVerifyOtp({ ...data, email: userEmail })} isPending={isPending} />
           </View>
         </KeyboardAwareScrollView>
       </SafeAreaView>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Alert } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 
 export const validatedApi = axios.create({
   // baseURL: process.env.EXPO_PUBLIC_API_URL,
@@ -7,7 +8,7 @@ export const validatedApi = axios.create({
 });
 
 validatedApi.interceptors.request.use((request) => {
-  const token = '';
+  const token = SecureStore.getItem('id-token');
   if (token) {
     request.headers.Authorization = `Bearer ${token}`;
   }

@@ -1,5 +1,5 @@
 import { SvgXml } from 'react-native-svg';
-import { View, ScrollView, StyleSheet, Image, SafeAreaView, TouchableOpacity, Text } from 'react-native';
+import { View, ScrollView, StyleSheet, Image, SafeAreaView, TouchableOpacity, Text, Alert } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import * as AppleAuthentication from 'expo-apple-authentication';
@@ -9,38 +9,62 @@ import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
 import { isAndroid } from 'config/Metrics';
 import google from 'assets/icons/google.svg';
-import { useAuth } from 'context/AuthContext';
+import { SignupMethods } from 'constants/enums';
 import emailCircle from 'assets/icons/user-email-circle.svg';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
-export const WelcomeScreen = () => {
-  const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
+import { useAuthSignup } from '../Signup/data/auth-signup';
 
-  const { handleLogin } = useAuth();
+export const WelcomeScreen = () => {
+  const { mutate: authSignup } = useAuthSignup('socialLogin');
+  const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   const signInWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const user = await GoogleSignin.signIn();
       if (user.data?.idToken) {
-        handleLogin();
+        authSignup({
+          email: user.data?.user.email,
+          type: SignupMethods.GOOGLE,
+          google_token: user.data?.idToken,
+        });
       }
     } catch (error) {
-      console.log('error', error);
+      console.log('Google Auth Error', error);
     }
   };
 
   const signInWithApple = async () => {
     try {
-      const user = await AppleAuthentication.signInAsync({
+      const response = await AppleAuthentication.signInAsync({
         requestedScopes: [
           AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
           AppleAuthentication.AppleAuthenticationScope.EMAIL,
         ],
       });
-      console.log('user', user);
+
+      if (response.email) {
+        authSignup({
+          email: response.email,
+          type: SignupMethods.APPLE,
+          apple_token: response.identityToken ?? '',
+        });
+      } else {
+        Alert.prompt('Email Required', 'We need your email address to continue. Please provide it below.', (email) => {
+          if (email) {
+            authSignup({
+              email,
+              type: SignupMethods.APPLE,
+              apple_token: response.identityToken ?? '',
+            });
+          } else {
+            console.log('User declined to provide email');
+          }
+        });
+      }
     } catch (error) {
-      console.log('error', error);
+      console.log('Apple Auth Error', error);
     }
   };
 

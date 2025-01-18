@@ -21,8 +21,13 @@ import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigat
 import { useSignupStore } from './store';
 import { TermsCheckbox } from './modules/TermsCheckbox';
 import { HeaderCounter } from './modules/HeaderCounter';
+import { useAuthVerifyOtp } from './data/auth-verifyOtp';
+import { useAuthResendOtp } from './data/auth-resendOtp';
 
 export const VerifyScreen = () => {
+  const { mutate: authVerifyOtp, isPending } = useAuthVerifyOtp();
+  const { mutate: authResendOtp, isPending: isOtpPending } = useAuthResendOtp();
+  const userEmail = useSignupStore((store) => store.userEmail);
   const isTermsChecked = useSignupStore((state) => state.isTermsChecked);
   const setIsTermsChecked = useSignupStore((state) => state.setIsTermsChecked);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
@@ -51,18 +56,22 @@ export const VerifyScreen = () => {
 
             <View style={{ marginBottom: 24 }}>
               <VerifyOtpForm
-                initialValues={undefined}
-                //   onSubmit={(values) => mutate(parseEmergencyContactFormToApiData(values))}
-                onSubmit={() => navigation.navigate('Password')}
-                //   isPending={isPending}
-                isPending={false}
+                onSubmit={(data) => authVerifyOtp({ ...data, email: userEmail })}
+                isPending={isPending}
                 isTermsAccepted={isTermsChecked}
               />
             </View>
 
             <View style={styles.line} />
-            <Pressable onPress={() => {}} style={styles.sendCode}>
-              <Typography align="center" color="secondary">
+            <Pressable
+              onPress={() => authResendOtp({ email: userEmail })}
+              disabled={isOtpPending}
+              style={styles.sendCode}
+            >
+              <Typography
+                align="center"
+                style={{ color: isOtpPending ? theme.colors.gray200 : theme.colors.textSecondary }}
+              >
                 Send new code
               </Typography>
             </Pressable>

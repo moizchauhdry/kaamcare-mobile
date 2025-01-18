@@ -62,7 +62,7 @@ export const ResetPasswordForm = ({ onSubmit, initialValues, isPending }: ResetF
         </View>
 
         <View style={{ marginTop: 20 }}>
-          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)}>
+          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)} disabled={isPending}>
             Continue
           </Button>
         </View>
