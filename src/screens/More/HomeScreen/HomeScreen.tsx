@@ -1,6 +1,7 @@
 import { Text, View, FlatList } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 import { http } from 'services/http/ApiServices';
 import { useSignupStore } from 'screens/Intro/Signup/store';
@@ -23,6 +24,9 @@ export const HomeScreen = () => {
     SecureStore.deleteItemAsync('b2c_type');
     http.removeHeader('Authorization');
     setIsLogged(false);
+
+    GoogleSignin.revokeAccess();
+    GoogleSignin.signOut();
   };
 
   return (

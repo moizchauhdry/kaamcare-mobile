@@ -117,11 +117,6 @@ export const LoginScreen = () => {
     }
   };
 
-  const logout = () => {
-    GoogleSignin.revokeAccess();
-    GoogleSignin.signOut();
-  };
-
   useEffect(() => {
     (async () => {
       const compatible = await LocalAuthentication.hasHardwareAsync();

@@ -28,7 +28,13 @@ export type IResendOtpResponse = {
 };
 
 export type IPasswordResponse = {
-  data: User;
+  data: {
+    id: number;
+    token: string;
+    email: string;
+    updated_at: string;
+    created_at: string;
+  };
 };
 
 export type IForgotPassResponse = {
