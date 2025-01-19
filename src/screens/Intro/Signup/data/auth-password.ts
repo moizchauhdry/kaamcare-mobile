@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import * as SecureStore from 'expo-secure-store';
 
 import { handleError } from 'utils/helpers';
 import { validatedApi } from 'services/api-request';
@@ -12,8 +13,9 @@ export const useAuthPassword = () => {
 
   return useMutation({
     mutationFn: (variables: IPasswordRequest) => validatedApi.post<IPasswordResponse>('/user/add-password', variables),
-    onSuccess: () => {
+    onSuccess: (response) => {
       setIsLogged(true);
+      SecureStore.setItem('user-email', response.data.data?.user?.email ?? '');
     },
     onError: (error: unknown) => {
       handleError(error);

@@ -7,6 +7,6 @@ export const handleError = (error: unknown) => {
       error.response?.data?.data?.message || error.response?.data?.message || 'An unexpected error occurred';
     Alert.alert(errorMessage);
   } else {
-    Alert.alert('An unexpected error occurred');
+    Alert.alert('Error', 'An unexpected error occurred');
   }
 };

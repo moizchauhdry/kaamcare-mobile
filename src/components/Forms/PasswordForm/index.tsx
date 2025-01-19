@@ -91,7 +91,11 @@ export const SignupPasswordForm = ({ onSubmit, initialValues, isPending, isTerms
         </View>
 
         <View>
-          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)} disabled={!isTermsAccepted}>
+          <Button
+            weight="semiBold"
+            onPress={form.handleSubmit(handleSubmitForm)}
+            disabled={!isTermsAccepted || isPending}
+          >
             Create account
           </Button>
         </View>

@@ -36,7 +36,11 @@ export const VerifyOtpForm = ({ onSubmit, initialValues, isPending, isTermsAccep
         </View>
 
         <View>
-          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)} disabled={!isTermsAccepted}>
+          <Button
+            weight="semiBold"
+            onPress={form.handleSubmit(handleSubmitForm)}
+            disabled={!isTermsAccepted || isPending}
+          >
             Verify code
           </Button>
         </View>

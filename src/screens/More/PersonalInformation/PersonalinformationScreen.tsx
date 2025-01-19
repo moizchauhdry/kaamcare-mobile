@@ -1,4 +1,5 @@
 import type { NativeStackScreenProps } from 'react-native-screens/native-stack';
+import * as SecureStore from 'expo-secure-store';
 
 import { useMutationPutProfileInformation } from 'hooks/query/profile/useMutationPutProfileInformation';
 import { MoreLayout } from 'components/Layouts/MoreLayout/MoreLayout';
@@ -39,7 +40,11 @@ export const PersonalInformationScreen = ({ navigation }: PersonalInformationScr
       <WithSkeleton isLoading={isLoading} skeleton={<PersonalInformationFormSkeleton />}>
         <PersonalInformationForm
           onSubmit={(formValues) => handleSubmit(formValues)}
-          initialValues={data ? parseProfileInformationToForm(data, length, mass) : undefined}
+          initialValues={
+            data
+              ? parseProfileInformationToForm(data, length, mass)
+              : { email: SecureStore.getItem('user-email') ?? '' }
+          }
         />
       </WithSkeleton>
     </MoreLayout>

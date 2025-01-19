@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 
 import { useQueryGetProfileInformation } from 'hooks/query/profile/useQueryGetProfileInformation';
 import { Typography } from 'components/UI/Typography/Typography';
@@ -43,7 +44,8 @@ export const ProfileInformation = () => {
         </View>
         {data?.dateOfBirth ? <Typography>{`DOB: ${formatDateWithMonthShotName(data.dateOfBirth)}`}</Typography> : null}
         {data?.phoneNumber ? <Typography>{phoneNumberFormatter(data.phoneNumber)}</Typography> : null}
-        {data?.email ? <Typography>{data.email}</Typography> : null}
+        {/* {data?.email ? <Typography>{data.email}</Typography> : null} */}
+        <Typography>{SecureStore.getItem('user-email') ?? ''}</Typography>
         <View style={{ flexDirection: 'row', gap: 8 }}>
           {data?.currentWeight ? (
             <Typography>{`Weight: ${changeKilogramToPound(data.currentWeight, mass)?.toFixed(2)} ${mass === 'Pound' ? 'lbs' : 'kg'}`}</Typography>
@@ -72,7 +74,8 @@ export const ProfileInformation = () => {
         data,
         isError,
       }}
-      defaultDataRender={<Typography style={{ marginBottom: 8 }}>{data?.email}</Typography>}
+      // defaultDataRender={<Typography style={{ marginBottom: 8 }}>{data?.email}</Typography>}
+      defaultDataRender={<Typography style={{ marginBottom: 8 }}>{SecureStore.getItem('user-email') ?? ''}</Typography>}
       arrayToOmit={['email']}
     >
       {renderContent()}
