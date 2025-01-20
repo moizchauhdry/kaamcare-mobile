@@ -28,7 +28,7 @@ export const ForgotPasswordScreen = () => {
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback>
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView
           contentContainerStyle={styles.scrollContainer}
@@ -36,7 +36,7 @@ export const ForgotPasswordScreen = () => {
           enableAutomaticScroll
           extraScrollHeight={Platform.select({ ios: 80, android: 120 })}
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
+          keyboardDismissMode="interactive"
           showsVerticalScrollIndicator={false}
           bounces={false}
           extraHeight={50}

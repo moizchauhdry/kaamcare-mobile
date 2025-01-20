@@ -33,7 +33,7 @@ export const VerifyScreen = () => {
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback>
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView
           contentContainerStyle={styles.scrollContainer}
@@ -41,14 +41,18 @@ export const VerifyScreen = () => {
           enableAutomaticScroll
           extraScrollHeight={Platform.select({ ios: 80, android: 120 })}
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
+          keyboardDismissMode="interactive"
           showsVerticalScrollIndicator={false}
           bounces={false}
           extraHeight={260}
           enableResetScrollToCoords
           resetScrollToCoords={{ x: 0, y: 0 }}
         >
-          <ScrollView style={{ paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            style={{ paddingHorizontal: 16 }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+          >
             <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
               <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
             </View>
@@ -56,7 +60,10 @@ export const VerifyScreen = () => {
 
             <View style={{ marginBottom: 24 }}>
               <VerifyOtpForm
-                onSubmit={(data) => authVerifyOtp({ ...data, email: userEmail })}
+                onSubmit={(data) => {
+                  Keyboard.dismiss();
+                  authVerifyOtp({ ...data, email: userEmail });
+                }}
                 isPending={isPending}
                 isTermsAccepted={isTermsChecked}
               />

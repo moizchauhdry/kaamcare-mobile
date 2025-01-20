@@ -32,7 +32,7 @@ export const SignUpScreen = () => {
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback>
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView
           contentContainerStyle={styles.scrollContainer}
@@ -40,21 +40,28 @@ export const SignUpScreen = () => {
           enableAutomaticScroll
           extraScrollHeight={Platform.select({ ios: 80, android: 120 })}
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
+          keyboardDismissMode="interactive"
           showsVerticalScrollIndicator={false}
           bounces={false}
           extraHeight={220}
           enableResetScrollToCoords
           resetScrollToCoords={{ x: 0, y: 0 }}
         >
-          <ScrollView style={{ paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            style={{ paddingHorizontal: 16 }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+          >
             <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
               <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
             </View>
             <HeaderCounter pageCounter="1" />
 
             <SignupForm
-              onSubmit={(data) => authSignup({ email: data.email, type: SignupMethods.NORMAL })}
+              onSubmit={(data) => {
+                Keyboard.dismiss();
+                authSignup({ email: data.email, type: SignupMethods.NORMAL });
+              }}
               isPending={isPending}
               isTermsAccepted={isTermsChecked}
             />

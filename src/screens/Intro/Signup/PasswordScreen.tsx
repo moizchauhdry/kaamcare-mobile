@@ -30,7 +30,7 @@ export const PasswordScreen = () => {
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback>
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView
           contentContainerStyle={styles.scrollContainer}
@@ -38,21 +38,32 @@ export const PasswordScreen = () => {
           enableAutomaticScroll
           extraScrollHeight={Platform.select({ ios: 80, android: 120 })}
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
+          keyboardDismissMode="interactive"
           showsVerticalScrollIndicator={false}
           bounces={false}
           extraHeight={260}
           enableResetScrollToCoords
           resetScrollToCoords={{ x: 0, y: 0 }}
         >
-          <ScrollView style={{ paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            style={{ paddingHorizontal: 16 }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+          >
             <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
               <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
             </View>
             <HeaderCounter pageCounter="3" />
 
             <View style={{ marginBottom: 24 }}>
-              <SignupPasswordForm onSubmit={authPassword} isPending={isPending} isTermsAccepted={isTermsChecked} />
+              <SignupPasswordForm
+                onSubmit={(data) => {
+                  Keyboard.dismiss();
+                  authPassword(data);
+                }}
+                isPending={isPending}
+                isTermsAccepted={isTermsChecked}
+              />
             </View>
 
             <View style={styles.line} />

@@ -9,6 +9,8 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Platform,
 } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { Checkbox } from 'expo-checkbox';
@@ -21,7 +23,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
-import { isAndroid } from 'config/Metrics';
+import Metrics, { isAndroid } from 'config/Metrics';
 import google from 'assets/icons/google.svg';
 import faceId from 'assets/icons/face-id.svg';
 import { SignupMethods } from 'constants/enums';
@@ -32,6 +34,7 @@ import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigat
 
 import { useAuthLogin } from './data/auth-login';
 import { useAuthSignup } from '../Signup/data/auth-signup';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export const LoginScreen = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -125,83 +128,102 @@ export const LoginScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView
-        style={{ alignContent: 'center', width: '100%', paddingHorizontal: 16 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
-          <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
-        </View>
-        <View style={{ marginTop: 20, marginBottom: 20 }}>
-          <Typography weight="bolder" size="xl" align="center">
-            Log in
-          </Typography>
-        </View>
-
-        <LoginForm onSubmit={authLogin} isPending={isPending} />
-
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 8 }}>
-          <View style={styles.wrapper}>
-            <Checkbox
-              style={styles.checkbox}
-              value={isChecked}
-              onValueChange={setIsChecked}
-              color={isChecked ? theme.colors.textSecondary : undefined}
-            />
-            <Typography size="sm">Remember Me</Typography>
-          </View>
-
-          {isAndroid ? (
-            <Pressable onPress={handleBiometric} style={styles.wrapper}>
-              <SvgXml xml={fingerprint} height={22} width={22} style={styles.biometric} />
-              <Typography size="sm">Use Biometrics</Typography>
-            </Pressable>
-          ) : (
-            <Pressable onPress={handleBiometric} style={styles.wrapper}>
-              <SvgXml xml={faceId} height={22} width={22} style={styles.biometric} />
-              <Typography size="sm">Use FaceId</Typography>
-            </Pressable>
-          )}
-        </View>
-
-        <Pressable onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotPassword}>
-          <Typography align="center" color="secondary">
-            Forgot Password
-          </Typography>
-        </Pressable>
-
-        <View style={styles.line} />
-
-        <View style={{ display: 'flex', gap: 10, marginTop: 45, marginBottom: 60 }}>
-          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithGoogle}>
-            <View style={styles.iconContainer}>
-              <SvgXml xml={google} />
+    <TouchableWithoutFeedback>
+      <SafeAreaView style={styles.container}>
+        <KeyboardAwareScrollView
+          contentContainerStyle={styles.scrollContainer}
+          enableOnAndroid
+          enableAutomaticScroll
+          extraScrollHeight={Platform.select({ ios: 80, android: 120 })}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="interactive"
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+          extraHeight={220}
+          enableResetScrollToCoords
+          resetScrollToCoords={{ x: 0, y: 0 }}
+        >
+          <ScrollView
+            style={{ paddingHorizontal: 16 }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+          >
+            <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
+              <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
             </View>
-            <Text style={styles.buttonText}>Continue with Google</Text>
-          </TouchableOpacity>
+            <View style={{ marginTop: 20, marginBottom: 20 }}>
+              <Typography weight="bolder" size="xl" align="center">
+                Log in
+              </Typography>
+            </View>
 
-          {!isAndroid && (
-            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithApple}>
-              <View style={styles.iconContainer}>
-                <SvgXml xml={apple} />
+            <LoginForm onSubmit={authLogin} isPending={isPending} />
+
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 8 }}
+            >
+              <View style={styles.wrapper}>
+                <Checkbox
+                  style={styles.checkbox}
+                  value={isChecked}
+                  onValueChange={setIsChecked}
+                  color={isChecked ? theme.colors.textSecondary : undefined}
+                />
+                <Typography size="sm">Remember Me</Typography>
               </View>
-              <Text style={styles.buttonText}>Continue with Apple</Text>
-            </TouchableOpacity>
-          )}
-        </View>
 
-        <View style={{ marginTop: 20 }}>
-          <Typography align="center">Don't have an account yet?</Typography>
+              {isAndroid ? (
+                <Pressable onPress={handleBiometric} style={styles.wrapper}>
+                  <SvgXml xml={fingerprint} height={22} width={22} style={styles.biometric} />
+                  <Typography size="sm">Use Biometrics</Typography>
+                </Pressable>
+              ) : (
+                <Pressable onPress={handleBiometric} style={styles.wrapper}>
+                  <SvgXml xml={faceId} height={22} width={22} style={styles.biometric} />
+                  <Typography size="sm">Use FaceId</Typography>
+                </Pressable>
+              )}
+            </View>
 
-          <Pressable onPress={() => navigation.navigate('Welcome')}>
-            <Typography align="center" color="secondary" style={{ marginTop: 3 }}>
-              Create an account
-            </Typography>
-          </Pressable>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            <Pressable onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotPassword}>
+              <Typography align="center" color="secondary">
+                Forgot Password
+              </Typography>
+            </Pressable>
+
+            <View style={styles.line} />
+
+            <View style={{ display: 'flex', gap: 10, marginTop: 45, marginBottom: 60 }}>
+              <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithGoogle}>
+                <View style={styles.iconContainer}>
+                  <SvgXml xml={google} />
+                </View>
+                <Text style={styles.buttonText}>Continue with Google</Text>
+              </TouchableOpacity>
+
+              {!isAndroid && (
+                <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithApple}>
+                  <View style={styles.iconContainer}>
+                    <SvgXml xml={apple} />
+                  </View>
+                  <Text style={styles.buttonText}>Continue with Apple</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+
+            <View style={{ marginTop: 20 }}>
+              <Typography align="center">Don't have an account yet?</Typography>
+
+              <Pressable onPress={() => navigation.navigate('Welcome')}>
+                <Typography align="center" color="secondary" style={{ marginTop: 3 }}>
+                  Create an account
+                </Typography>
+              </Pressable>
+            </View>
+          </ScrollView>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -214,6 +236,10 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     overflow: 'scroll',
     backgroundColor: theme.colors.white,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    width: Metrics.screenWidth,
   },
   forgotPassword: {
     marginVertical: 20,
