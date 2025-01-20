@@ -1,4 +1,4 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 
 import { Intro } from 'screens/Intro/Intro';
 import { LoginScreen } from 'screens/Intro/Login';
@@ -9,6 +9,7 @@ import { ForgotPasswordScreen } from 'screens/Intro/Forgot';
 import { ResetVerifyScreen } from 'screens/Intro/ResetVerify';
 import { VerifyScreen } from 'screens/Intro/Signup/VerifyScreen';
 import { PasswordScreen } from 'screens/Intro/Signup/PasswordScreen';
+import { Easing } from 'react-native';
 
 export type AuthNavigationParamsList = {
   Intro: undefined;
@@ -28,7 +29,23 @@ export const AuthNavigation = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        // cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        transitionSpec: {
+          open: {
+            animation: 'timing',
+            config: {
+              duration: 200,
+              easing: Easing.in(Easing.sin),
+            },
+          },
+          close: {
+            animation: 'timing',
+            config: {
+              duration: 400,
+              easing: Easing.out(Easing.back(1)),
+            },
+          },
+        },
       }}
     >
       <Stack.Screen name="Intro" component={Intro} options={{ headerShown: false }} />
