@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { View } from 'react-native';
+import { TextInput, View } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { verifyOtpPostSchema, type VerifyOtpFormData } from 'schemas/forms/auth/verifyOtp';

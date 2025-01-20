@@ -5,6 +5,7 @@ const verifyOtpSchema = {
     .string({
       required_error: 'Otp cannot be empty.',
     })
+    .length(6, 'Otp can only be 6 digits long')
     .min(6, 'Please enter a min of 6 characters.'),
 };
 

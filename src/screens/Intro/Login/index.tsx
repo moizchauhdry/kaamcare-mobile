@@ -143,11 +143,7 @@ export const LoginScreen = () => {
           enableResetScrollToCoords
           resetScrollToCoords={{ x: 0, y: 0 }}
         >
-          <ScrollView
-            style={{ paddingHorizontal: 16 }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="always"
-          >
+          <ScrollView style={{ paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
             <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
               <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
             </View>
