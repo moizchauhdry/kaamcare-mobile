@@ -45,6 +45,7 @@ export const SignupPasswordForm = ({ onSubmit, initialValues, isPending, isTerms
       <FormProvider {...form}>
         <View style={{ flex: 1, gap: 16 }}>
           <TextInputControlled
+            isPasswordField={true}
             name="password"
             label="Password"
             inputProps={{
@@ -55,6 +56,7 @@ export const SignupPasswordForm = ({ onSubmit, initialValues, isPending, isTerms
             }}
           />
           <TextInputControlled
+            isPasswordField={true}
             name="password_confirmation"
             label="Confirm Password"
             inputProps={{ maxLength: 60, autoCapitalize: 'none', secureTextEntry: true }}

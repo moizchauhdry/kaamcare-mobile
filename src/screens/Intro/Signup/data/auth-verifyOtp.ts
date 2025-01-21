@@ -19,6 +19,7 @@ export const useAuthVerifyOtp = (screenOrigin?: string) => {
       SecureStore.setItem('id-token', response.data.data?.user?.token ?? '');
       SecureStore.setItem('refresh-token', response.data.data?.user?.token ?? '');
       http.addHeader('Authorization', `Bearer ${response.data.data?.user?.token}`);
+
       if (screenOrigin === 'resetPassword') {
         navigation.navigate('ResetPassword');
       } else {

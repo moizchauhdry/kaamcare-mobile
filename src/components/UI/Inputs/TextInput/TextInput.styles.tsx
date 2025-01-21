@@ -36,6 +36,17 @@ export const styles = StyleSheet.create({
     letterSpacing: -0.4,
     textAlign: 'auto',
   },
+  eyeIconContainer: {
+    position: 'absolute',
+    right: 10,
+    top: '28%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 20,
+    height: 20,
+  },
   inputFocus: {
     borderColor: theme.colors.blue,
     borderWidth: 2,

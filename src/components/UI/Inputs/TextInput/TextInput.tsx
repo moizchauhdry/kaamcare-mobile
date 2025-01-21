@@ -1,5 +1,5 @@
 import type { TextInputProps as RNTextInputProps } from 'react-native';
-import { StyleSheet, TextInput as RNTextInput, View } from 'react-native';
+import { StyleSheet, TextInput as RNTextInput, View, TouchableOpacity, Image } from 'react-native';
 import { useState } from 'react';
 
 import { disabled as disabledStyles, styles } from './TextInput.styles';
@@ -12,9 +12,18 @@ export type TextInputProps = RNTextInputProps & {
   isFocused?: boolean;
   disabled?: boolean;
   isWide?: boolean;
+  isSecureTextEntry?: boolean;
 };
 
-export const TextInput = ({ error, disabled, rightElement, isFocused, isWide, ...restProps }: TextInputProps) => {
+export const TextInput = ({
+  error,
+  disabled,
+  isSecureTextEntry = false,
+  rightElement,
+  isFocused,
+  isWide,
+  ...restProps
+}: TextInputProps) => {
   const [isFocus, setIsFocus] = useState(false);
 
   if (rightElement) {
@@ -40,6 +49,7 @@ export const TextInput = ({ error, disabled, rightElement, isFocused, isWide, ..
             disabled ? disabledStyles.inputWithElement : undefined,
           )}
         />
+
         {typeof rightElement === 'function' ? (
           rightElement({ disabled })
         ) : (
@@ -56,6 +66,7 @@ export const TextInput = ({ error, disabled, rightElement, isFocused, isWide, ..
       onFocus={() => setIsFocus(true)}
       multiline={!!isWide}
       editable={!disabled}
+      secureTextEntry={isSecureTextEntry}
       style={StyleSheet.compose(
         [
           styles.input,
