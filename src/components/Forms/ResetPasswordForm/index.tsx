@@ -48,6 +48,7 @@ export const ResetPasswordForm = ({ onSubmit, initialValues, isPending }: ResetF
       <View style={{ flex: 1, justifyContent: 'flex-end', paddingBottom: height * 0.08 }}>
         <View style={{ gap: 16 }}>
           <TextInputControlled
+            isPasswordField={true}
             name="password"
             label="Password"
             inputProps={{

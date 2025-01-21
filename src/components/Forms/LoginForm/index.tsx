@@ -33,6 +33,7 @@ export const LoginForm = ({ onSubmit, initialValues, isPending }: LoginFormProps
             inputProps={{ maxLength: 60, autoCapitalize: 'none', keyboardType: 'email-address', autoComplete: 'off' }}
           />
           <TextInputControlled
+            isPasswordField={true}
             name="password"
             label="Password"
             inputProps={{ maxLength: 60, autoCapitalize: 'none', secureTextEntry: true, autoComplete: 'off' }}

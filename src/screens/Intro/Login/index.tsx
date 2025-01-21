@@ -218,7 +218,7 @@ export const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingVertical: 16,
     flexDirection: 'column',
     alignItems: 'center',
     alignContent: 'center',
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.white,
   },
   scrollContainer: {
-    flexGrow: 1,
+    // flexGrow: 1,
     width: Metrics.screenWidth,
   },
   forgotPassword: {
