@@ -11,10 +11,9 @@ type SignupFormProps = {
   onSubmit?: (values: SignupFormData) => void;
   initialValues?: SignupFormData;
   isPending?: boolean;
-  isTermsAccepted: boolean;
 };
 
-export const SignupForm = ({ onSubmit, initialValues, isPending, isTermsAccepted }: SignupFormProps) => {
+export const SignupForm = ({ onSubmit, initialValues, isPending }: SignupFormProps) => {
   const form = useForm<SignupFormData>({
     defaultValues: initialValues,
     resolver: zodResolver(signupPostSchema),
@@ -36,11 +35,7 @@ export const SignupForm = ({ onSubmit, initialValues, isPending, isTermsAccepted
         </View>
 
         <View>
-          <Button
-            weight="semiBold"
-            onPress={form.handleSubmit(handleSubmitForm)}
-            disabled={!isTermsAccepted || isPending}
-          >
+          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)} disabled={isPending}>
             Send verification code
           </Button>
         </View>

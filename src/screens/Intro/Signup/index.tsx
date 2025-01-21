@@ -14,21 +14,17 @@ import type { StackNavigationProp } from '@react-navigation/stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { theme } from 'config/Theme';
+import Metrics from 'config/Metrics';
 import { AuthTypes } from 'constants/enums';
 import { SignupForm } from 'components/Forms/SignupForm';
 import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
-import { useSignupStore } from './store';
 import { useAuthSignup } from './data/auth-signup';
-import { TermsCheckbox } from './modules/TermsCheckbox';
 import { HeaderCounter } from './modules/HeaderCounter';
 
 export const SignUpScreen = () => {
   const { mutate: authSignup, isPending } = useAuthSignup();
-  const isTermsChecked = useSignupStore((state) => state.isTermsChecked);
-  const setIsTermsChecked = useSignupStore((state) => state.setIsTermsChecked);
-
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   return (
@@ -63,7 +59,6 @@ export const SignUpScreen = () => {
                 authSignup({ email: data.email, type: AuthTypes.NORMAL });
               }}
               isPending={isPending}
-              isTermsAccepted={isTermsChecked}
             />
 
             <View style={styles.line} />
@@ -75,10 +70,6 @@ export const SignUpScreen = () => {
                   Log In
                 </Typography>
               </Pressable>
-            </View>
-
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <TermsCheckbox checked={isTermsChecked} onToggle={setIsTermsChecked} />
             </View>
           </ScrollView>
         </KeyboardAwareScrollView>
@@ -99,6 +90,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
+    width: Metrics.screenWidth,
   },
   forgotPassword: {
     marginVertical: 20,

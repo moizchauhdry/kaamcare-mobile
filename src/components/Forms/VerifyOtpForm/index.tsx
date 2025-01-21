@@ -11,10 +11,9 @@ type VerifyOtpProps = {
   onSubmit?: (values: VerifyOtpFormData) => void;
   initialValues?: VerifyOtpFormData;
   isPending?: boolean;
-  isTermsAccepted: boolean;
 };
 
-export const VerifyOtpForm = ({ onSubmit, initialValues, isPending, isTermsAccepted }: VerifyOtpProps) => {
+export const VerifyOtpForm = ({ onSubmit, initialValues, isPending }: VerifyOtpProps) => {
   const form = useForm<VerifyOtpFormData>({
     defaultValues: initialValues,
     resolver: zodResolver(verifyOtpPostSchema),
@@ -36,11 +35,7 @@ export const VerifyOtpForm = ({ onSubmit, initialValues, isPending, isTermsAccep
         </View>
 
         <View>
-          <Button
-            weight="semiBold"
-            onPress={form.handleSubmit(handleSubmitForm)}
-            disabled={!isTermsAccepted || isPending}
-          >
+          <Button weight="semiBold" onPress={form.handleSubmit(handleSubmitForm)} disabled={isPending}>
             Verify code
           </Button>
         </View>

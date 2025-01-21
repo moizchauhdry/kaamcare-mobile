@@ -81,7 +81,7 @@ export const Intro = () => {
         <View
           style={{ marginVertical: 16, gap: 8, paddingHorizontal: 16, justifyContent: 'center', alignItems: 'center' }}
         >
-          <Button weight="semiBold" onPress={() => navigation.navigate('LogIn')}>
+          <Button weight="semiBold" onPress={() => navigation.navigate('AuthMethod')}>
             Get Started
           </Button>
         </View>

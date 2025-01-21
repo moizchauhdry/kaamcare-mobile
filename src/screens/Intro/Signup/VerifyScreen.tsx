@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   View,
   Image,
@@ -14,12 +15,12 @@ import type { StackNavigationProp } from '@react-navigation/stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { theme } from 'config/Theme';
+import Metrics from 'config/Metrics';
 import { Typography } from 'components/UI/Typography/Typography';
 import { VerifyOtpForm } from 'components/Forms/VerifyOtpForm';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
 import { useSignupStore } from './store';
-import { TermsCheckbox } from './modules/TermsCheckbox';
 import { HeaderCounter } from './modules/HeaderCounter';
 import { useAuthVerifyOtp } from './data/auth-verifyOtp';
 import { useAuthResendOtp } from './data/auth-resendOtp';
@@ -28,9 +29,26 @@ export const VerifyScreen = () => {
   const { mutate: authVerifyOtp, isPending } = useAuthVerifyOtp();
   const { mutate: authResendOtp, isPending: isOtpPending } = useAuthResendOtp();
   const userEmail = useSignupStore((store) => store.userEmail);
-  const isTermsChecked = useSignupStore((state) => state.isTermsChecked);
-  const setIsTermsChecked = useSignupStore((state) => state.setIsTermsChecked);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
+
+  const [timer, setTimer] = useState(60);
+  const [isTimerActive, setIsTimerActive] = useState(true);
+
+  useEffect(() => {
+    let interval: any;
+    if (isTimerActive && timer > 0) {
+      interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
+    } else if (timer === 0) {
+      setIsTimerActive(false);
+    }
+    return () => clearInterval(interval);
+  }, [isTimerActive, timer]);
+
+  const handleResendOtp = () => {
+    authResendOtp({ email: userEmail });
+    setTimer(60);
+    setIsTimerActive(true);
+  };
 
   return (
     <TouchableWithoutFeedback>
@@ -65,23 +83,29 @@ export const VerifyScreen = () => {
                   authVerifyOtp({ ...data, email: userEmail });
                 }}
                 isPending={isPending}
-                isTermsAccepted={isTermsChecked}
               />
             </View>
 
             <View style={styles.line} />
-            <Pressable
-              onPress={() => authResendOtp({ email: userEmail })}
-              disabled={isOtpPending}
-              style={styles.sendCode}
-            >
-              <Typography
-                align="center"
-                style={{ color: isOtpPending ? theme.colors.gray200 : theme.colors.textSecondary }}
-              >
-                Send new code
-              </Typography>
-            </Pressable>
+            {isTimerActive ? (
+              <View style={styles.sendCode}>
+                <Typography
+                  align="center"
+                  style={{ color: isOtpPending ? theme.colors.gray200 : theme.colors.textSecondary }}
+                >
+                  Resend code in {timer}s
+                </Typography>
+              </View>
+            ) : (
+              <Pressable onPress={handleResendOtp} disabled={isOtpPending} style={styles.sendCode}>
+                <Typography
+                  align="center"
+                  style={{ color: isOtpPending ? theme.colors.gray200 : theme.colors.textSecondary }}
+                >
+                  Send new code
+                </Typography>
+              </Pressable>
+            )}
             <View style={styles.line} />
 
             <View style={styles.haveAccount}>
@@ -91,10 +115,6 @@ export const VerifyScreen = () => {
                   Log In
                 </Typography>
               </Pressable>
-            </View>
-
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <TermsCheckbox checked={isTermsChecked} onToggle={setIsTermsChecked} />
             </View>
           </ScrollView>
         </KeyboardAwareScrollView>
@@ -115,6 +135,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
+    width: Metrics.screenWidth,
   },
   sendCode: {
     marginVertical: 20,

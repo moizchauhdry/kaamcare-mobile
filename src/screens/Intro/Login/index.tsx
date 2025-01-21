@@ -208,16 +208,6 @@ export const LoginScreen = () => {
                 </TouchableOpacity>
               )}
             </View>
-
-            <View style={{ marginTop: 20 }}>
-              <Typography align="center">Don't have an account yet?</Typography>
-
-              <Pressable onPress={() => navigation.navigate('Welcome')}>
-                <Typography align="center" color="secondary" style={{ marginTop: 3 }}>
-                  Create an account
-                </Typography>
-              </Pressable>
-            </View>
           </ScrollView>
         </KeyboardAwareScrollView>
       </SafeAreaView>

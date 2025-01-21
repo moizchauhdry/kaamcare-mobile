@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react';
 import {
   View,
   Image,
   Platform,
-  Keyboard,
   Pressable,
   StyleSheet,
   SafeAreaView,
@@ -23,11 +23,32 @@ import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigat
 
 import { useSignupStore } from '../Signup/store';
 import { useAuthVerifyOtp } from '../Signup/data/auth-verifyOtp';
+import { useAuthResendOtp } from '../Signup/data/auth-resendOtp';
 
 export const ResetVerifyScreen = () => {
   const userEmail = useSignupStore((store) => store.userEmail);
   const { mutate: authVerifyOtp, isPending } = useAuthVerifyOtp('resetPassword');
+  const { mutate: authResendOtp, isPending: isOtpPending } = useAuthResendOtp();
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
+
+  const [timer, setTimer] = useState(60);
+  const [isTimerActive, setIsTimerActive] = useState(true);
+
+  useEffect(() => {
+    let interval: any;
+    if (isTimerActive && timer > 0) {
+      interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
+    } else if (timer === 0) {
+      setIsTimerActive(false);
+    }
+    return () => clearInterval(interval);
+  }, [isTimerActive, timer]);
+
+  const handleResendOtp = () => {
+    authResendOtp({ email: userEmail });
+    setTimer(60);
+    setIsTimerActive(true);
+  };
 
   return (
     <TouchableWithoutFeedback>
@@ -65,6 +86,24 @@ export const ResetVerifyScreen = () => {
                 Please enter the verification code sent to your email to reset your password.
               </Typography>
             </View>
+
+            {isTimerActive ? (
+              <Typography
+                align="center"
+                style={{ color: isOtpPending ? theme.colors.gray200 : theme.colors.textSecondary }}
+              >
+                Resend code in {timer}s
+              </Typography>
+            ) : (
+              <Pressable onPress={handleResendOtp} disabled={isOtpPending}>
+                <Typography
+                  align="center"
+                  style={{ color: isOtpPending ? theme.colors.gray200 : theme.colors.textSecondary }}
+                >
+                  Send new code
+                </Typography>
+              </Pressable>
+            )}
 
             <ResetVerifyForm onSubmit={(data) => authVerifyOtp({ ...data, email: userEmail })} isPending={isPending} />
           </View>
