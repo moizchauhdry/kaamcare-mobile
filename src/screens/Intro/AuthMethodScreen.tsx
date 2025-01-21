@@ -64,7 +64,7 @@ export const AuthMethodScreen = () => {
           <Button weight="semiBold" onPress={() => navigation.navigate('LogIn')}>
             Log In
           </Button>
-          <Button weight="semiBold" variant="secondary" onPress={() => navigation.navigate('SignUp')}>
+          <Button weight="semiBold" variant="secondary" onPress={() => navigation.navigate('Welcome')}>
             Sign Up
           </Button>
 

@@ -1,5 +1,15 @@
 import { SvgXml } from 'react-native-svg';
-import { View, ScrollView, StyleSheet, Image, SafeAreaView, TouchableOpacity, Text, Alert } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+  Alert,
+  Dimensions,
+} from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import * as AppleAuthentication from 'expo-apple-authentication';
@@ -10,6 +20,7 @@ import apple from 'assets/icons/apple.svg';
 import { isAndroid } from 'config/Metrics';
 import google from 'assets/icons/google.svg';
 import { AuthTypes } from 'constants/enums';
+import { Typography } from 'components/UI/Typography/Typography';
 import emailCircle from 'assets/icons/user-email-circle.svg';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
@@ -17,6 +28,7 @@ import { useAuthSignup } from '../Signup/data/auth-signup';
 
 export const WelcomeScreen = () => {
   const { mutate: authSignup } = useAuthSignup('socialLogin');
+  const imageWidth = Dimensions.get('window').width - 50;
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   const signInWithGoogle = async () => {
@@ -79,35 +91,47 @@ export const WelcomeScreen = () => {
           <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
         </View>
 
-        <View style={{ flex: 0.4, width: '100%' }}>
-          <View style={{ display: 'flex', gap: 10, marginTop: 45, marginBottom: 80 }}>
-            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithGoogle}>
-              <View style={styles.iconContainer}>
-                <SvgXml xml={google} />
-              </View>
-              <Text style={styles.buttonText}>Continue with Google</Text>
-            </TouchableOpacity>
+        <View style={{ flex: 4, alignItems: 'center' }}>
+          <Image
+            style={{
+              objectFit: 'contain',
+              width: imageWidth,
+              height: imageWidth,
+            }}
+            source={require('../../../assets/images/Intro.png')}
+          />
+          <Typography size="lg" weight="semiBold" align="center" style={{ width: '100%', fontSize: 24 }}>
+            Create a new account
+          </Typography>
+        </View>
 
-            {!isAndroid && (
-              <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithApple}>
-                <View style={styles.iconContainer}>
-                  <SvgXml xml={apple} />
-                </View>
-                <Text style={styles.buttonText}>Continue with Apple</Text>
-              </TouchableOpacity>
-            )}
+        <View style={{ flex: 1, gap: 10, marginTop: 45, marginBottom: 100 }}>
+          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithGoogle}>
+            <View style={styles.iconContainer}>
+              <SvgXml xml={google} />
+            </View>
+            <Text style={styles.buttonText}>Continue with Google</Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.socialButton}
-              activeOpacity={0.8}
-              onPress={() => navigation.navigate('SignUp')}
-            >
+          {!isAndroid && (
+            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithApple}>
               <View style={styles.iconContainer}>
-                <SvgXml xml={emailCircle} />
+                <SvgXml xml={apple} />
               </View>
-              <Text style={styles.buttonText}>Continue with Email</Text>
+              <Text style={styles.buttonText}>Continue with Apple</Text>
             </TouchableOpacity>
-          </View>
+          )}
+
+          <TouchableOpacity
+            style={styles.socialButton}
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('SignUp')}
+          >
+            <View style={styles.iconContainer}>
+              <SvgXml xml={emailCircle} />
+            </View>
+            <Text style={styles.buttonText}>Continue with Email</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
