@@ -1,4 +1,5 @@
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import { Easing } from 'react-native';
 
 import { Intro } from 'screens/Intro/Intro';
 import { LoginScreen } from 'screens/Intro/Login';
@@ -9,7 +10,6 @@ import { ForgotPasswordScreen } from 'screens/Intro/Forgot';
 import { ResetVerifyScreen } from 'screens/Intro/ResetVerify';
 import { VerifyScreen } from 'screens/Intro/Signup/VerifyScreen';
 import { PasswordScreen } from 'screens/Intro/Signup/PasswordScreen';
-import { Easing } from 'react-native';
 
 export type AuthNavigationParamsList = {
   Intro: undefined;

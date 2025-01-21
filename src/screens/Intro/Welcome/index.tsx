@@ -9,7 +9,7 @@ import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
 import { isAndroid } from 'config/Metrics';
 import google from 'assets/icons/google.svg';
-import { SignupMethods } from 'constants/enums';
+import { AuthTypes } from 'constants/enums';
 import emailCircle from 'assets/icons/user-email-circle.svg';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
@@ -26,7 +26,7 @@ export const WelcomeScreen = () => {
       if (user.data?.idToken) {
         authSignup({
           email: user.data?.user.email,
-          type: SignupMethods.GOOGLE,
+          type: AuthTypes.GOOGLE,
           google_token: user.data?.idToken,
         });
       }
@@ -47,7 +47,7 @@ export const WelcomeScreen = () => {
       if (response.email) {
         authSignup({
           email: response.email,
-          type: SignupMethods.APPLE,
+          type: AuthTypes.APPLE,
           apple_token: response.identityToken ?? '',
         });
       } else {
@@ -55,7 +55,7 @@ export const WelcomeScreen = () => {
           if (email) {
             authSignup({
               email,
-              type: SignupMethods.APPLE,
+              type: AuthTypes.APPLE,
               apple_token: response.identityToken ?? '',
             });
           } else {

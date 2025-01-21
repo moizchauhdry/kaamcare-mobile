@@ -20,26 +20,24 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { theme } from 'config/Theme';
 import apple from 'assets/icons/apple.svg';
 import Metrics, { isAndroid } from 'config/Metrics';
 import google from 'assets/icons/google.svg';
 import faceId from 'assets/icons/face-id.svg';
-import { SignupMethods } from 'constants/enums';
+import { AuthTypes } from 'constants/enums';
 import fingerprint from 'assets/icons/fingerprint.svg';
 import { LoginForm } from 'components/Forms/LoginForm';
 import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
 import { useAuthLogin } from './data/auth-login';
-import { useAuthSignup } from '../Signup/data/auth-signup';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export const LoginScreen = () => {
   const [isChecked, setIsChecked] = useState(false);
   const { mutate: authLogin, isPending } = useAuthLogin();
-  const { mutate: authSignup } = useAuthSignup('socialLogin');
   const [isBiometricAvailable, setIsBiometricAvailable] = useState<boolean>(false);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
@@ -48,9 +46,9 @@ export const LoginScreen = () => {
       await GoogleSignin.hasPlayServices();
       const user = await GoogleSignin.signIn();
       if (user.data?.idToken) {
-        authSignup({
+        authLogin({
           email: user.data?.user.email,
-          type: SignupMethods.GOOGLE,
+          type: AuthTypes.GOOGLE,
           google_token: user.data?.idToken,
         });
       }
@@ -69,17 +67,17 @@ export const LoginScreen = () => {
       });
 
       if (response.email) {
-        authSignup({
+        authLogin({
           email: response.email,
-          type: SignupMethods.APPLE,
+          type: AuthTypes.APPLE,
           apple_token: response.identityToken ?? '',
         });
       } else {
         Alert.prompt('Email Required', 'We need your email address to continue. Please provide it below.', (email) => {
           if (email) {
-            authSignup({
+            authLogin({
               email,
-              type: SignupMethods.APPLE,
+              type: AuthTypes.APPLE,
               apple_token: response.identityToken ?? '',
             });
           } else {
@@ -116,7 +114,7 @@ export const LoginScreen = () => {
     }
 
     if (biometricAuth.success) {
-      authSignup({ email: SecureStore.getItem('user-email') || '', type: SignupMethods.BIOMETRIC });
+      authLogin({ email: SecureStore.getItem('user-email') || '', type: AuthTypes.BIOMETRIC });
     }
   };
 
@@ -143,7 +141,11 @@ export const LoginScreen = () => {
           enableResetScrollToCoords
           resetScrollToCoords={{ x: 0, y: 0 }}
         >
-          <ScrollView style={{ paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            style={{ paddingHorizontal: 16 }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+          >
             <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
               <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
             </View>
@@ -153,7 +155,7 @@ export const LoginScreen = () => {
               </Typography>
             </View>
 
-            <LoginForm onSubmit={authLogin} isPending={isPending} />
+            <LoginForm onSubmit={(data) => authLogin({ ...data, type: AuthTypes.NORMAL })} isPending={isPending} />
 
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, paddingHorizontal: 8 }}
@@ -176,7 +178,7 @@ export const LoginScreen = () => {
               ) : (
                 <Pressable onPress={handleBiometric} style={styles.wrapper}>
                   <SvgXml xml={faceId} height={22} width={22} style={styles.biometric} />
-                  <Typography size="sm">Use FaceId</Typography>
+                  <Typography size="sm">Use Face ID</Typography>
                 </Pressable>
               )}
             </View>

@@ -14,7 +14,7 @@ import type { StackNavigationProp } from '@react-navigation/stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { theme } from 'config/Theme';
-import { SignupMethods } from 'constants/enums';
+import { AuthTypes } from 'constants/enums';
 import { SignupForm } from 'components/Forms/SignupForm';
 import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
@@ -60,7 +60,7 @@ export const SignUpScreen = () => {
             <SignupForm
               onSubmit={(data) => {
                 Keyboard.dismiss();
-                authSignup({ email: data.email, type: SignupMethods.NORMAL });
+                authSignup({ email: data.email, type: AuthTypes.NORMAL });
               }}
               isPending={isPending}
               isTermsAccepted={isTermsChecked}

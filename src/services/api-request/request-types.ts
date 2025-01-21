@@ -1,13 +1,16 @@
-import type { SignupMethods } from 'constants/enums';
+import type { AuthTypes } from 'constants/enums';
 
 export type ILoginRequest = {
   email: string;
-  password: string;
+  type: AuthTypes;
+  password?: string;
+  google_token?: string;
+  apple_token?: string;
 };
 
 export type ISignupRequest = {
   email: string;
-  type: SignupMethods;
+  type: AuthTypes;
   google_token?: string;
   apple_token?: string;
 };
