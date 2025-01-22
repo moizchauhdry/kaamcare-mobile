@@ -34,10 +34,12 @@ import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
 import { useAuthLogin } from './data/auth-login';
+import { useAuthBiometric } from './data/auth-biometric';
 
 export const LoginScreen = () => {
   const [isChecked, setIsChecked] = useState(false);
   const { mutate: authLogin, isPending } = useAuthLogin();
+  const { mutate: authBiometric } = useAuthBiometric();
   const [isBiometricAvailable, setIsBiometricAvailable] = useState<boolean>(false);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
@@ -49,7 +51,7 @@ export const LoginScreen = () => {
         authLogin({
           email: user.data?.user.email,
           type: AuthTypes.GOOGLE,
-          google_token: user.data?.idToken,
+          token: user.data?.idToken,
         });
       }
     } catch (error) {
@@ -70,7 +72,7 @@ export const LoginScreen = () => {
         authLogin({
           email: response.email,
           type: AuthTypes.APPLE,
-          apple_token: response.identityToken ?? '',
+          token: response.identityToken ?? '',
         });
       } else {
         Alert.prompt('Email Required', 'We need your email address to continue. Please provide it below.', (email) => {
@@ -78,7 +80,7 @@ export const LoginScreen = () => {
             authLogin({
               email,
               type: AuthTypes.APPLE,
-              apple_token: response.identityToken ?? '',
+              token: response.identityToken ?? '',
             });
           } else {
             console.log('User declined to provide email');
@@ -91,7 +93,7 @@ export const LoginScreen = () => {
   };
 
   const handleBiometric = async () => {
-    const userSavedEmail = SecureStore.getItem('user-email');
+    const userSavedToken = SecureStore.getItem('id-token');
     if (!isBiometricAvailable) {
       return Alert.alert('Not Found', 'Biometrics are not available on this device.');
     }
@@ -109,12 +111,12 @@ export const LoginScreen = () => {
       cancelLabel: 'Cancel',
     });
 
-    if (!userSavedEmail) {
+    if (!userSavedToken) {
       return Alert.alert('Login Required', 'Please log in at least once to enable biometric authentication.');
     }
 
     if (biometricAuth.success) {
-      authLogin({ email: SecureStore.getItem('user-email') || '', type: AuthTypes.BIOMETRIC });
+      authBiometric();
     }
   };
 
@@ -141,11 +143,7 @@ export const LoginScreen = () => {
           enableResetScrollToCoords
           resetScrollToCoords={{ x: 0, y: 0 }}
         >
-          <ScrollView
-            style={{ paddingHorizontal: 16 }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="always"
-          >
+          <View style={{ paddingHorizontal: 16 }}>
             <View style={{ flex: 0.5, paddingVertical: 18, alignItems: 'center' }}>
               <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
             </View>
@@ -208,7 +206,7 @@ export const LoginScreen = () => {
                 </TouchableOpacity>
               )}
             </View>
-          </ScrollView>
+          </View>
         </KeyboardAwareScrollView>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -226,7 +224,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.white,
   },
   scrollContainer: {
-    // flexGrow: 1,
+    flexGrow: 1,
     width: Metrics.screenWidth,
   },
   forgotPassword: {

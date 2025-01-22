@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
 import { handleError } from 'utils/helpers';
-import { http } from 'services/http/ApiServices';
 import { validatedApi } from 'services/api-request';
 import type { ISignupRequest } from 'services/api-request/request-types';
 import type { ISignupResponse } from 'services/api-request/response-types';
@@ -20,14 +19,14 @@ export const useAuthSignup = (screenOrigin?: string) => {
   return useMutation({
     mutationFn: (variables: ISignupRequest) => validatedApi.post<ISignupResponse>('/user/register', variables),
     onSuccess: (response) => {
-      setUserEmail(response.data.data?.email);
       if (screenOrigin === 'socialLogin') {
         SecureStore.setItem('id-token', response.data.data?.user?.token ?? '');
         SecureStore.setItem('refresh-token', response.data.data?.user?.token ?? '');
-        SecureStore.setItem('user-email', response.data.data?.user?.email ?? '');
-        http.addHeader('Authorization', `Bearer ${response.data.data?.user?.token}`);
+        setUserEmail(response.data.data?.email);
         setIsLogged(true);
       } else {
+        SecureStore.setItem('id-token', response.data.data?.token ?? '');
+        SecureStore.setItem('refresh-token', response.data.data?.token ?? '');
         navigation.navigate('Verify');
       }
     },

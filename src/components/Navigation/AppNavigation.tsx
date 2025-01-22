@@ -15,8 +15,7 @@ export const AppNavigation = () => {
   const setIsLogged = useSignupStore((store) => store.setIsLogged);
 
   useEffect(() => {
-    const token = SecureStore.getItem('id-token');
-    console.log('token', token);
+    const token = SecureStore.getItem('refresh-token');
     if (token !== null && token !== '') {
       setIsLogged(true);
     }

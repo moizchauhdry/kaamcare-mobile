@@ -20,7 +20,6 @@ import { Typography } from 'components/UI/Typography/Typography';
 import { VerifyOtpForm } from 'components/Forms/VerifyOtpForm';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
-import { useSignupStore } from './store';
 import { HeaderCounter } from './modules/HeaderCounter';
 import { useAuthVerifyOtp } from './data/auth-verifyOtp';
 import { useAuthResendOtp } from './data/auth-resendOtp';
@@ -28,7 +27,6 @@ import { useAuthResendOtp } from './data/auth-resendOtp';
 export const VerifyScreen = () => {
   const { mutate: authVerifyOtp, isPending } = useAuthVerifyOtp();
   const { mutate: authResendOtp, isPending: isOtpPending } = useAuthResendOtp();
-  const userEmail = useSignupStore((store) => store.userEmail);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
   const [timer, setTimer] = useState(60);
@@ -45,7 +43,7 @@ export const VerifyScreen = () => {
   }, [isTimerActive, timer]);
 
   const handleResendOtp = () => {
-    authResendOtp({ email: userEmail });
+    authResendOtp();
     setTimer(60);
     setIsTimerActive(true);
   };
@@ -80,7 +78,7 @@ export const VerifyScreen = () => {
               <VerifyOtpForm
                 onSubmit={(data) => {
                   Keyboard.dismiss();
-                  authVerifyOtp({ ...data, email: userEmail });
+                  authVerifyOtp(data);
                 }}
                 isPending={isPending}
               />
@@ -108,14 +106,14 @@ export const VerifyScreen = () => {
             )}
             <View style={styles.line} />
 
-            <View style={styles.haveAccount}>
+            {/* <View style={styles.haveAccount}>
               <Typography align="center">Already have an account?</Typography>
               <Pressable onPress={() => navigation.navigate('LogIn')} style={{ marginLeft: 5 }}>
                 <Typography align="center" color="secondary">
                   Log In
                 </Typography>
               </Pressable>
-            </View>
+            </View> */}
           </ScrollView>
         </KeyboardAwareScrollView>
       </SafeAreaView>
@@ -126,7 +124,7 @@ export const VerifyScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingVertical: 16,
     flexDirection: 'column',
     alignItems: 'center',
     alignContent: 'center',

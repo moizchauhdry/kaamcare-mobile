@@ -45,7 +45,7 @@ export const ResetVerifyScreen = () => {
   }, [isTimerActive, timer]);
 
   const handleResendOtp = () => {
-    authResendOtp({ email: userEmail });
+    authResendOtp();
     setTimer(60);
     setIsTimerActive(true);
   };
@@ -105,7 +105,7 @@ export const ResetVerifyScreen = () => {
               </Pressable>
             )}
 
-            <ResetVerifyForm onSubmit={(data) => authVerifyOtp({ ...data, email: userEmail })} isPending={isPending} />
+            <ResetVerifyForm onSubmit={(data) => authVerifyOtp(data)} isPending={isPending} />
           </View>
         </KeyboardAwareScrollView>
       </SafeAreaView>

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Alert } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 
 export const validatedApi = axios.create({
@@ -18,17 +17,7 @@ validatedApi.interceptors.request.use((request) => {
 validatedApi.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error?.request?.status === 401) {
-      Alert.alert('Error', `${error.response.data.message}. Please login again to continue`, [
-        {
-          text: 'OK',
-          onPress: () => {
-            console.log('LoggedOut');
-          },
-        },
-      ]);
-      return;
-    }
+    console.error(error);
     return Promise.reject(error);
   },
 );

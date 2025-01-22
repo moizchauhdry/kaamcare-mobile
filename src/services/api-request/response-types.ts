@@ -5,15 +5,17 @@ export type User = {
     email: string;
     updated_at: string;
     created_at: string;
+    is_verified: number;
   };
 };
 
 export type ILoginResponse = {
   data: User;
+  message: string;
 };
 
 export type ISignupResponse = {
-  data: User & { email: string };
+  data: User & { email: string; token: string };
 };
 
 export type IVerifyOtpResponse = {
@@ -22,8 +24,7 @@ export type IVerifyOtpResponse = {
 
 export type IResendOtpResponse = {
   data: {
-    email: string;
-    otp: number;
+    token: string;
   };
 };
 
@@ -39,8 +40,7 @@ export type IPasswordResponse = {
 
 export type IForgotPassResponse = {
   data: {
-    email: string;
-    otp: number;
+    token: string;
   };
 };
 

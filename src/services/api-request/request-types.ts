@@ -4,25 +4,20 @@ export type ILoginRequest = {
   email: string;
   type: AuthTypes;
   password?: string;
-  google_token?: string;
-  apple_token?: string;
+  token?: string;
 };
 
 export type ISignupRequest = {
   email: string;
   type: AuthTypes;
-  google_token?: string;
-  apple_token?: string;
+  token?: string;
 };
 
 export type IVerifyOtpRequest = {
   otp: string | number;
-  email: null | string;
 };
 
-export type IResendOtpRequest = {
-  email: null | string;
-};
+export type IResendOtpRequest = {};
 
 export type IPasswordRequest = {
   password: string;

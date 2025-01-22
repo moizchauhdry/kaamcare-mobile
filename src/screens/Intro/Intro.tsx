@@ -6,12 +6,13 @@ import type { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
 import { data } from 'constants/data/introScreen';
+import { Typography } from 'components/UI/Typography/Typography';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
-import { IntroItem } from '../../components/DataDisplay/IntroItem/IntroItem';
-import { Button } from '../../components/UI/Button/Button';
-import { PaginationDotted } from '../../components/DataDisplay/Pagination/PaginationDotted';
 import { theme } from '../../config/Theme';
+import { Button } from '../../components/UI/Button/Button';
+import { IntroItem } from '../../components/DataDisplay/IntroItem/IntroItem';
+import { PaginationDotted } from '../../components/DataDisplay/Pagination/PaginationDotted';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +23,9 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     overflow: 'scroll',
     backgroundColor: theme.colors.white,
+  },
+  link: {
+    color: theme.colors.textSecondary,
   },
 });
 
@@ -81,9 +85,25 @@ export const Intro = () => {
         <View
           style={{ marginVertical: 16, gap: 8, paddingHorizontal: 16, justifyContent: 'center', alignItems: 'center' }}
         >
-          <Button weight="semiBold" onPress={() => navigation.navigate('AuthMethod')}>
-            Get Started
+          <Button weight="semiBold" onPress={() => navigation.navigate('LogIn')}>
+            Log In
           </Button>
+          <Button weight="semiBold" variant="secondary" onPress={() => navigation.navigate('Welcome')}>
+            Sign Up
+          </Button>
+
+          <View style={{ paddingTop: 20, paddingHorizontal: 20 }}>
+            <Typography style={{ textAlign: 'center' }}>
+              By signing up, you agree to the{' '}
+              <Typography style={styles.link} onPress={() => {}}>
+                Terms of Service
+              </Typography>{' '}
+              and{' '}
+              <Typography style={styles.link} onPress={() => {}}>
+                Privacy Policy
+              </Typography>
+            </Typography>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -17,7 +17,6 @@ export const HomeScreen = () => {
   const setIsLogged = useSignupStore((store) => store.setIsLogged);
 
   const handleLogout = () => {
-    SecureStore.deleteItemAsync('id-token');
     SecureStore.deleteItemAsync('refresh-token');
     SecureStore.deleteItemAsync('expires-on');
     SecureStore.deleteItemAsync('refresh-token-expires-on');

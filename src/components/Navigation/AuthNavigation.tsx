@@ -33,28 +33,28 @@ const Stack = createStackNavigator<AuthNavigationParamsList>();
 export const AuthNavigation = () => {
   const [initialRoute, setInitialRoute] = useState<keyof AuthNavigationParamsList | undefined>(undefined);
 
-  useEffect(() => {
-    const checkFirstLaunch = async () => {
-      const hasSeenIntro = await SecureStore.getItemAsync('hasSeenIntro');
+  // useEffect(() => {
+  //   const checkFirstLaunch = async () => {
+  //     const hasSeenIntro = await SecureStore.getItemAsync('hasSeenIntro');
 
-      if (hasSeenIntro === 'true') {
-        setInitialRoute('AuthMethod');
-      } else {
-        setInitialRoute('Intro');
-        await SecureStore.setItemAsync('hasSeenIntro', 'true');
-      }
-    };
+  //     if (hasSeenIntro === 'true') {
+  //       setInitialRoute('AuthMethod');
+  //     } else {
+  //       setInitialRoute('Intro');
+  //       await SecureStore.setItemAsync('hasSeenIntro', 'true');
+  //     }
+  //   };
 
-    checkFirstLaunch();
-  }, []);
+  //   checkFirstLaunch();
+  // }, []);
 
-  if (!initialRoute) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-      </View>
-    );
-  }
+  // if (!initialRoute) {
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //       <ActivityIndicator size="large" color={theme.colors.primary} />
+  //     </View>
+  //   );
+  // }
 
   return (
     <Stack.Navigator
@@ -81,7 +81,7 @@ export const AuthNavigation = () => {
       }}
     >
       <Stack.Screen name="Intro" component={Intro} />
-      <Stack.Screen name="AuthMethod" component={AuthMethodScreen} />
+      {/* <Stack.Screen name="AuthMethod" component={AuthMethodScreen} /> */}
       <Stack.Screen name="LogIn" component={LoginScreen} />
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />

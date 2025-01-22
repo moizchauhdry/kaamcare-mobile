@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
 import { handleError } from 'utils/helpers';
-import { http } from 'services/http/ApiServices';
 import { validatedApi } from 'services/api-request';
 import type { IVerifyOtpRequest } from 'services/api-request/request-types';
 import type { IVerifyOtpResponse } from 'services/api-request/response-types';
@@ -18,7 +17,6 @@ export const useAuthVerifyOtp = (screenOrigin?: string) => {
     onSuccess: (response) => {
       SecureStore.setItem('id-token', response.data.data?.user?.token ?? '');
       SecureStore.setItem('refresh-token', response.data.data?.user?.token ?? '');
-      http.addHeader('Authorization', `Bearer ${response.data.data?.user?.token}`);
 
       if (screenOrigin === 'resetPassword') {
         navigation.navigate('ResetPassword');

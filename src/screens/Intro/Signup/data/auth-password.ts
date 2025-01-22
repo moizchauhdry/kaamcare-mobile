@@ -15,11 +15,10 @@ export const useAuthPassword = () => {
   return useMutation({
     mutationFn: (variables: IPasswordRequest) => validatedApi.post<IPasswordResponse>('/user/add-password', variables),
     onSuccess: (response) => {
-      console.log('response', response);
       SecureStore.setItem('id-token', response.data.data?.token ?? '');
       SecureStore.setItem('refresh-token', response.data.data?.token ?? '');
+      http.addHeader('Authorization', `Bearer ${response.data.data?.token ?? ''}`);
       SecureStore.setItem('user-email', response.data.data?.email ?? '');
-      http.addHeader('Authorization', `Bearer ${response.data.data?.token}`);
       setIsLogged(true);
     },
     onError: (error: unknown) => {

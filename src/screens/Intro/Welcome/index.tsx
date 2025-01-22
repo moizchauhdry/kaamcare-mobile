@@ -9,6 +9,7 @@ import {
   Text,
   Alert,
   Dimensions,
+  Pressable,
 } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import type { StackNavigationProp } from '@react-navigation/stack';
@@ -39,7 +40,7 @@ export const WelcomeScreen = () => {
         authSignup({
           email: user.data?.user.email,
           type: AuthTypes.GOOGLE,
-          google_token: user.data?.idToken,
+          token: user.data?.idToken,
         });
       }
     } catch (error) {
@@ -60,7 +61,7 @@ export const WelcomeScreen = () => {
         authSignup({
           email: response.email,
           type: AuthTypes.APPLE,
-          apple_token: response.identityToken ?? '',
+          token: response.identityToken ?? '',
         });
       } else {
         Alert.prompt('Email Required', 'We need your email address to continue. Please provide it below.', (email) => {
@@ -68,7 +69,7 @@ export const WelcomeScreen = () => {
             authSignup({
               email,
               type: AuthTypes.APPLE,
-              apple_token: response.identityToken ?? '',
+              token: response.identityToken ?? '',
             });
           } else {
             console.log('User declined to provide email');
@@ -91,47 +92,67 @@ export const WelcomeScreen = () => {
           <Image style={{ width: 126, height: 56 }} source={require('../../../assets/logo.png')} />
         </View>
 
-        <View style={{ flex: 4, alignItems: 'center' }}>
-          <Image
-            style={{
-              objectFit: 'contain',
-              width: imageWidth,
-              height: imageWidth,
-            }}
-            source={require('../../../assets/images/Intro.png')}
-          />
+        <View style={{ flex: 4, alignItems: 'center', marginVertical: 20 }}>
           <Typography size="lg" weight="semiBold" align="center" style={{ width: '100%', fontSize: 24 }}>
             Create a new account
           </Typography>
-        </View>
 
-        <View style={{ flex: 1, gap: 10, marginTop: 45, marginBottom: 100 }}>
-          <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithGoogle}>
-            <View style={styles.iconContainer}>
-              <SvgXml xml={google} />
-            </View>
-            <Text style={styles.buttonText}>Continue with Google</Text>
-          </TouchableOpacity>
-
-          {!isAndroid && (
-            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithApple}>
+          <View style={{ flex: 1, gap: 10, marginTop: 45, width: '100%' }}>
+            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithGoogle}>
               <View style={styles.iconContainer}>
-                <SvgXml xml={apple} />
+                <SvgXml xml={google} />
               </View>
-              <Text style={styles.buttonText}>Continue with Apple</Text>
+              <Text style={styles.buttonText}>Continue with Google</Text>
             </TouchableOpacity>
-          )}
 
-          <TouchableOpacity
-            style={styles.socialButton}
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate('SignUp')}
-          >
-            <View style={styles.iconContainer}>
-              <SvgXml xml={emailCircle} />
+            {!isAndroid && (
+              <TouchableOpacity style={styles.socialButton} activeOpacity={0.8} onPress={signInWithApple}>
+                <View style={styles.iconContainer}>
+                  <SvgXml xml={apple} />
+                </View>
+                <Text style={styles.buttonText}>Continue with Apple</Text>
+              </TouchableOpacity>
+            )}
+
+            <Typography size="md" weight="regular" align="center" style={{ margin: 15 }}>
+              OR
+            </Typography>
+
+            <TouchableOpacity
+              style={styles.socialButton}
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate('SignUp')}
+            >
+              <View style={styles.iconContainer}>
+                <SvgXml xml={emailCircle} />
+              </View>
+              <Text style={styles.buttonText}>Continue with Email</Text>
+            </TouchableOpacity>
+
+            <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+              <View style={{ paddingTop: 20, paddingHorizontal: 20 }}>
+                <Typography style={{ textAlign: 'center' }}>
+                  By signing up, you agree to the{' '}
+                  <Typography style={styles.link} onPress={() => {}}>
+                    Terms of Service
+                  </Typography>{' '}
+                  and{' '}
+                  <Typography style={styles.link} onPress={() => {}}>
+                    Privacy Policy
+                  </Typography>
+                </Typography>
+              </View>
+
+              <View style={styles.haveAccount}>
+                <Typography align="center">Already have an account?</Typography>
+                <Pressable onPress={() => navigation.navigate('LogIn')} style={{ marginLeft: 5 }}>
+                  <Typography align="center" color="secondary">
+                    Log In
+                  </Typography>
+                </Pressable>
+              </View>
             </View>
-            <Text style={styles.buttonText}>Continue with Email</Text>
-          </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -181,5 +202,14 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     letterSpacing: -0.4,
     color: theme.colors.textPrimary,
+  },
+  haveAccount: {
+    marginVertical: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  link: {
+    color: theme.colors.textSecondary,
   },
 });

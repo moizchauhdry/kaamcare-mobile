@@ -63,14 +63,14 @@ export const SignUpScreen = () => {
 
             <View style={styles.line} />
 
-            <View style={styles.haveAccount}>
+            {/* <View style={styles.haveAccount}>
               <Typography align="center">Already have an account?</Typography>
               <Pressable onPress={() => navigation.navigate('LogIn')} style={{ marginLeft: 5 }}>
                 <Typography align="center" color="secondary">
                   Log In
                 </Typography>
               </Pressable>
-            </View>
+            </View> */}
           </ScrollView>
         </KeyboardAwareScrollView>
       </SafeAreaView>
@@ -81,7 +81,7 @@ export const SignUpScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingVertical: 16,
     flexDirection: 'column',
     alignItems: 'center',
     alignContent: 'center',

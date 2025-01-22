@@ -33,6 +33,13 @@ export const ResetPasswordForm = ({ onSubmit, initialValues, isPending }: ResetF
   ];
 
   const handleSubmitForm = (values: ResetFormData) => {
+    if (!hasMinLength || !hasUpperAndLower || !hasNumber) {
+      form.setError('password', {
+        type: 'manual',
+        message: 'Password does not meet all required criteria.',
+      });
+      return;
+    }
     onSubmit?.(values);
   };
 
