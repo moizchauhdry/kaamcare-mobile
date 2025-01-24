@@ -31,7 +31,6 @@ type ParsedToken = {
 type AuthContextState = {
   isLogged: boolean;
   handleLogin: () => void;
-  handleLogout: () => void;
   handleDeleteAccount: () => void;
   handlePasswordReset: () => void;
   handleRegister: () => void;
@@ -40,7 +39,6 @@ type AuthContextState = {
 export const AuthContext = createContext<AuthContextState>({
   isLogged: false,
   handleLogin: () => {},
-  handleLogout: () => {},
   handleDeleteAccount: () => {},
   handlePasswordReset: () => {},
   handleRegister: () => {},
@@ -112,28 +110,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     discoverySignUp,
   );
 
-  const handleRefreshToken = async () => {
-    const refreshToken = SecureStore.getItem('refresh-token');
-    const refreshTokenExpiresOn = SecureStore.getItem('refresh-token-expires-on');
-    const b2cType = SecureStore.getItem('b2c_type');
-
-    if (refreshToken && refreshTokenExpiresOn && b2cType) {
-      if (AuthService.isTokenValid(parseInt(refreshTokenExpiresOn, 10))) {
-        const data = await AuthService.getNewToken(b2cName, b2cType, refreshToken, clientId, handleLogout);
-        const parsedData = parseTokenResponse(data);
-        SecureStore.setItem('id-token', parsedData.idToken ?? '');
-        SecureStore.setItem('refresh-token', parsedData.refreshToken ?? '');
-        SecureStore.setItem('expires-on', parsedData.expiresOn.toString());
-        SecureStore.setItem('refresh-token-expires-on', parsedData.refreshTokenExpiresOn.toString());
-        SecureStore.setItem('b2c_type', b2cType ?? '');
-        http.addHeader('Authorization', `Bearer ${parsedData.idToken}`);
-        setIsLogged(true);
-      }
-    } else {
-      handleLogout();
-    }
-  };
-
   useEffect(() => {
     const checkToken = async () => {
       const token = SecureStore.getItem('id-token');
@@ -143,11 +119,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         if (AuthService.isTokenValid(parseInt(expiresOn, 10))) {
           setIsLogged(true);
           http.addHeader('Authorization', `Bearer ${token}`);
-        } else {
-          await handleRefreshToken();
         }
-      } else {
-        handleLogout();
       }
     };
 
@@ -217,20 +189,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         if (Platform.OS === 'ios') {
           dismiss();
         }
-        handleLogout();
-        // fetch(discoveryPasswordReset.tokenEndpoint!, {
-        //   method: 'POST',
-        //   body: getTokenFormData(codeResponse.params.code),
-        // }).then(async (res) => {
-        //   const parsedData = parseTokenResponse(await res.json());
-        //   SecureStore.setItem('id-token', parsedData.idToken ?? '');
-        //   SecureStore.setItem('refresh-token', parsedData.refreshToken ?? '');
-        //   SecureStore.setItem('expires-on', parsedData.expiresOn.toString());
-        //   SecureStore.setItem('refresh-token-expires-on', parsedData.refreshTokenExpiresOn.toString());
-        //   SecureStore.setItem('b2c_type', 'b2c_1_passwordreset');
-        //   http.addHeader('Authorization', `Bearer ${parsedData.idToken}`);
-        //   setIsLogged(true);
-        // });
       }
     });
   };
@@ -259,35 +217,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
-  const handleLogout = () => {
-    const b2cType = SecureStore.getItem('b2c_type');
-    fetch(
-      `https://${b2cName}.b2clogin.com/${b2cName}.onmicrosoft.com/${b2cType ?? 'B2C_1_SignUpSignIn'}/oauth2/v2.0/logout`,
-      {
-        method: 'GET',
-      },
-    ).then(() => {
-      SecureStore.deleteItemAsync('id-token');
-      SecureStore.deleteItemAsync('refresh-token');
-      SecureStore.deleteItemAsync('expires-on');
-      SecureStore.deleteItemAsync('refresh-token-expires-on');
-      SecureStore.deleteItemAsync('b2c_type');
-      http.removeHeader('Authorization');
-      queryClient.removeQueries();
-      setIsLogged(false);
-
-      if (loginResponse?.type === 'success' || _registerResponse?.type === 'success') {
-        dismiss();
-      }
-    });
-  };
-
   const handleDeleteAccount = () => {
-    SecureStore.deleteItemAsync('refresh-token');
-    SecureStore.deleteItemAsync('id-token');
-    SecureStore.deleteItemAsync('expires-on');
-    SecureStore.deleteItemAsync('refresh-token-expires-on');
-    SecureStore.deleteItemAsync('b2c_type');
     http.removeHeader('Authorization');
     queryClient.removeQueries();
     setIsLogged(false);
@@ -304,7 +234,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       value={{
         isLogged,
         handleLogin,
-        handleLogout,
         handleDeleteAccount,
         handlePasswordReset,
         handleRegister,

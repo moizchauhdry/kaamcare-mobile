@@ -16,14 +16,14 @@ import AbstractHttpService from '../AbstractHttpService';
 export class ProfileClient extends AbstractHttpService {
   getProfileInformation(): Promise<ProfileInformation> {
     return this.http
-      .get('User/profile')
+      .get('user/profile')
       .then((res) => this.resolve<ProfileInformation>(res))
       .catch(this.reject);
   }
 
   putEmail(email: string): Promise<void> {
     return this.http
-      .put('User/email', {
+      .put('user/email', {
         json: { email },
       })
       .then(() => undefined)
@@ -32,7 +32,7 @@ export class ProfileClient extends AbstractHttpService {
 
   putProfileInformation(data: ProfileInformation): Promise<void> {
     return this.http
-      .put('User/profile', {
+      .put('user/profile', {
         json: {
           ...data,
         },
@@ -43,14 +43,14 @@ export class ProfileClient extends AbstractHttpService {
 
   getEmergencyContact(): Promise<EmergencyContact> {
     return this.http
-      .get('User/emergency-contact')
+      .get('user/emergency-contact')
       .then((res) => this.resolve<EmergencyContact>(res))
       .catch(this.reject);
   }
 
   postEmergencyContact(data: EmergencyContact): Promise<void> {
     return this.http
-      .post('User/emergency-contact', {
+      .post('user/emergency-contact', {
         json: {
           ...data,
         },
@@ -61,7 +61,7 @@ export class ProfileClient extends AbstractHttpService {
 
   putEmergencyContact(data: EmergencyContact): Promise<void> {
     return this.http
-      .put('User/emergency-contact', {
+      .put('user/emergency-contact', {
         json: {
           ...data,
         },
@@ -72,14 +72,14 @@ export class ProfileClient extends AbstractHttpService {
 
   getAddressInformation(): Promise<AddressInformation> {
     return this.http
-      .get('User/address-information')
+      .get('user/address-information')
       .then((res) => this.resolve<AddressInformation>(res))
       .catch(this.reject);
   }
 
   putAddressInformation(data: AddressInformation): Promise<void> {
     return this.http
-      .put('User/address-information', {
+      .put('user/address-information', {
         json: {
           ...data,
         },
@@ -90,7 +90,7 @@ export class ProfileClient extends AbstractHttpService {
 
   postAddressInformation(data: AddressInformation): Promise<void> {
     return this.http
-      .post('User/address-information', {
+      .post('user/address-information', {
         json: {
           ...data,
         },
@@ -101,14 +101,14 @@ export class ProfileClient extends AbstractHttpService {
 
   getPharmacy(): Promise<Pharmacy> {
     return this.http
-      .get('User/pharmacy')
+      .get('user/pharmacy')
       .then((res) => this.resolve<Pharmacy>(res))
       .catch(this.reject);
   }
 
   postPharmacy(data: Pharmacy): Promise<void> {
     return this.http
-      .post('User/pharmacy', {
+      .post('user/pharmacy', {
         json: {
           ...data,
         },
@@ -119,7 +119,7 @@ export class ProfileClient extends AbstractHttpService {
 
   putPharmacy(data: Pharmacy): Promise<void> {
     return this.http
-      .put('User/pharmacy', {
+      .put('user/pharmacy', {
         json: {
           ...data,
         },
@@ -130,14 +130,14 @@ export class ProfileClient extends AbstractHttpService {
 
   getCaregiver(): Promise<Caregiver> {
     return this.http
-      .get('User/caregiver')
+      .get('user/caregiver')
       .then((res) => this.resolve<Caregiver>(res))
       .catch(this.reject);
   }
 
   postCaregiver(data: Caregiver): Promise<void> {
     return this.http
-      .post('User/caregiver', {
+      .post('user/caregiver', {
         json: {
           ...data,
         },
@@ -148,7 +148,7 @@ export class ProfileClient extends AbstractHttpService {
 
   putCaregiver(data: Caregiver): Promise<void> {
     return this.http
-      .put('User/caregiver', {
+      .put('user/caregiver', {
         json: {
           ...data,
         },
@@ -159,21 +159,21 @@ export class ProfileClient extends AbstractHttpService {
 
   getCustomRelationship(): Promise<CustomRelationship[]> {
     return this.http
-      .get('User/custom-relationship')
+      .get('user/custom-relationship')
       .then((res) => this.resolve<CustomRelationship[]>(res))
       .catch(this.reject);
   }
 
   getCustomSpecialization(): Promise<CustomSpecialization[]> {
     return this.http
-      .get('User/custom-specialization')
+      .get('user/custom-specialization')
       .then((res) => this.resolve<CustomSpecialization[]>(res))
       .catch(this.reject);
   }
 
   postCustomRelationship(name: string): Promise<void> {
     return this.http
-      .post('User/custom-relationship', {
+      .post('user/custom-relationship', {
         json: {
           name,
         },
@@ -184,7 +184,7 @@ export class ProfileClient extends AbstractHttpService {
 
   postCustomSpecialization(name: string): Promise<void> {
     return this.http
-      .post('User/custom-specialization', {
+      .post('user/custom-specialization', {
         json: {
           name,
         },
@@ -195,7 +195,7 @@ export class ProfileClient extends AbstractHttpService {
 
   getHealthcareProviders(): Promise<HealthcareProvider[]> {
     return this.http
-      .get('User/healthcare-provider')
+      .get('user/healthcare-provider')
       .then((res) => this.resolve<HealthcareProvider[]>(res))
       .then((healthcareProviders) => healthcareProviders.sort((a) => (a?.isPrimaryCareProvider ? -1 : 0)))
       .catch(this.reject);
@@ -203,7 +203,7 @@ export class ProfileClient extends AbstractHttpService {
 
   postHealthcareProvider(value: HealthcareProviderNew): Promise<void> {
     return this.http
-      .post('User/healthcare-provider', {
+      .post('user/healthcare-provider', {
         json: {
           ...value,
         },
@@ -214,7 +214,7 @@ export class ProfileClient extends AbstractHttpService {
 
   putHealthcareProvider(id: string, value: HealthcareProviderNew): Promise<void> {
     return this.http
-      .put(`User/healthcare-provider`, {
+      .put(`user/healthcare-provider`, {
         json: {
           ...value,
           healthcareProviderId: id,
@@ -226,14 +226,14 @@ export class ProfileClient extends AbstractHttpService {
 
   deleteHealthcareProvider(id: string): Promise<void> {
     return this.http
-      .delete(`User/healthcare-provider/${id}`)
+      .delete(`user/healthcare-provider/${id}`)
       .then(() => undefined)
       .catch(this.reject);
   }
 
   getSpecializationKinds(): Promise<SpecializationKinds> {
     return this.http
-      .get('User/specialization-kinds')
+      .get('user/specialization-kinds')
       .then((res) => this.resolve<SpecializationKinds>(res))
       .catch(this.reject);
   }

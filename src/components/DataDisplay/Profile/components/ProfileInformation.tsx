@@ -44,8 +44,7 @@ export const ProfileInformation = () => {
         </View>
         {data?.dateOfBirth ? <Typography>{`DOB: ${formatDateWithMonthShotName(data.dateOfBirth)}`}</Typography> : null}
         {data?.phoneNumber ? <Typography>{phoneNumberFormatter(data.phoneNumber)}</Typography> : null}
-        {/* {data?.email ? <Typography>{data.email}</Typography> : null} */}
-        <Typography>{SecureStore.getItem('user-email') ?? ''}</Typography>
+        {data?.email ? <Typography>{data.email}</Typography> : null}
         <View style={{ flexDirection: 'row', gap: 8 }}>
           {data?.currentWeight ? (
             <Typography>{`Weight: ${changeKilogramToPound(data.currentWeight, mass)?.toFixed(2)} ${mass === 'Pound' ? 'lbs' : 'kg'}`}</Typography>

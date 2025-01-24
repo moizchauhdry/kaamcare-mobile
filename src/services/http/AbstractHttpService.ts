@@ -20,7 +20,8 @@ class AbstractHttpService {
 
     // `error.response` is instance of Response class
     // See: https://github.com/sindresorhus/ky/issues/107#issuecomment-476048453
-    return error.response.json().then((err: ErrorResponse) => Promise.reject(err));
+    // return error.response.json().then((err: ErrorResponse) => Promise.reject(err));
+    return error.response.json().then((err) => Promise.reject(err as ErrorResponse));
   };
 }
 

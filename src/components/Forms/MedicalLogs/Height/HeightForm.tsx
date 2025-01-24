@@ -39,12 +39,14 @@ export const HeightForm = ({ edit, isPending, onDelete, initialValues, onSubmit 
   };
 
   const handleFeetChange = (value: string) => {
+    form.setValue('heightFeet', value, { shouldValidate: true });
     if (value.length === 3) {
       inchRef.current?.focus();
     }
   };
 
   const handleInchChange = (value: string) => {
+    form.setValue('heightInch', value, { shouldValidate: true });
     if (value.length === 3) {
       descRef.current?.focus();
     }

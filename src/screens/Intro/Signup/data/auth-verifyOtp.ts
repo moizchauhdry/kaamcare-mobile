@@ -16,7 +16,6 @@ export const useAuthVerifyOtp = (screenOrigin?: string) => {
     mutationFn: (variables: IVerifyOtpRequest) => validatedApi.post<IVerifyOtpResponse>('/user/verify-otp', variables),
     onSuccess: (response) => {
       SecureStore.setItem('id-token', response.data.data?.user?.token ?? '');
-      SecureStore.setItem('refresh-token', response.data.data?.user?.token ?? '');
 
       if (screenOrigin === 'resetPassword') {
         navigation.navigate('ResetPassword');

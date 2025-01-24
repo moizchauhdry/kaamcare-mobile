@@ -21,12 +21,10 @@ import { Typography } from 'components/UI/Typography/Typography';
 import { ResetVerifyForm } from 'components/Forms/ResetVerifyForm';
 import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigation';
 
-import { useSignupStore } from '../Signup/store';
 import { useAuthVerifyOtp } from '../Signup/data/auth-verifyOtp';
 import { useAuthResendOtp } from '../Signup/data/auth-resendOtp';
 
 export const ResetVerifyScreen = () => {
-  const userEmail = useSignupStore((store) => store.userEmail);
   const { mutate: authVerifyOtp, isPending } = useAuthVerifyOtp('resetPassword');
   const { mutate: authResendOtp, isPending: isOtpPending } = useAuthResendOtp();
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();

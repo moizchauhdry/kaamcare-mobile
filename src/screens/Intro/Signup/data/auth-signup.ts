@@ -12,7 +12,6 @@ import type { AuthNavigationParamsList } from 'components/Navigation/AuthNavigat
 import { useSignupStore } from '../store';
 
 export const useAuthSignup = (screenOrigin?: string) => {
-  const setIsLogged = useSignupStore((store) => store.setIsLogged);
   const setUserEmail = useSignupStore((store) => store.setUserEmail);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
 
@@ -23,10 +22,8 @@ export const useAuthSignup = (screenOrigin?: string) => {
         SecureStore.setItem('id-token', response.data.data?.user?.token ?? '');
         SecureStore.setItem('refresh-token', response.data.data?.user?.token ?? '');
         setUserEmail(response.data.data?.email);
-        setIsLogged(true);
       } else {
         SecureStore.setItem('id-token', response.data.data?.token ?? '');
-        SecureStore.setItem('refresh-token', response.data.data?.token ?? '');
         navigation.navigate('Verify');
       }
     },

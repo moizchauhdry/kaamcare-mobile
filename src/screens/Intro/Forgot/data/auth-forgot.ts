@@ -17,7 +17,6 @@ export const useAuthForgotPass = () => {
       validatedApi.post<IForgotPassResponse>('/user/forget-password', variables),
     onSuccess: (response) => {
       SecureStore.setItem('id-token', response.data.data?.token ?? '');
-      SecureStore.setItem('refresh-token', response.data.data?.token ?? '');
       navigation.navigate('ResetVerify');
     },
     onError: (error: unknown) => {

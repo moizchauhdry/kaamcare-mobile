@@ -1,6 +1,8 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { View, TextInput as RNTextInput } from 'react-native';
+import type { TextInput as RNTextInput } from 'react-native';
+import { View } from 'react-native';
+import { useRef } from 'react';
 
 import { DateTimePickerControlled } from '../../../UI/Inputs/DateTimePicker/DateTimePickerControlled';
 import { NumberInputControlled } from '../../../UI/Inputs/NumberInput/NumberInputControlled';
@@ -13,7 +15,6 @@ import type { NewWeightLog } from '../../../../model/api/medicalLogs/Weight';
 import { parseWeightFormToApiData } from '../../../../model/parsers/medicalLogs/WeightParser';
 import { weightDefaultValues } from '../../../../constants/forms/medicalLogs/weight';
 import { useUnitsData } from '../../../../context/UnitsContext';
-import { useRef } from 'react';
 
 type WeightFormProps = {
   initialValues?: WeightFormData;
@@ -37,6 +38,7 @@ export const WeightForm = ({ edit, onDelete, initialValues, onSubmit, isPending 
   const weightRef = useRef<RNTextInput | null>(null);
 
   const handleWeightChange = (value: string) => {
+    form.setValue('weight', value, { shouldValidate: true });
     if (value.length === 5) {
       weightRef.current?.focus();
     }

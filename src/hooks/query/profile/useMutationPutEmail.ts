@@ -12,7 +12,6 @@ import { profileClient } from 'services/http/ApiServices';
 
 import type { ProfileInformation } from '../../../model/api/ProfileInformation';
 import { useAlert } from '../../useAlert';
-import { useAuth } from '../../../context/AuthContext';
 
 export const useMutationPutEmail = (
   options?: UseMutationOptions<void, ErrorResponse, string>,
@@ -21,7 +20,6 @@ export const useMutationPutEmail = (
   const { showErrorAlert } = useAlert();
   const mutationKey = [QUERY_KEYS.PROFILE_INFORMATION_EMAIL_PUT];
   const queryKey = [QUERY_KEYS.PROFILE_INFORMATION_GET];
-  const { handleLogout } = useAuth();
 
   return useMutation<void, ErrorResponse, string>({
     ...options,
@@ -42,7 +40,6 @@ export const useMutationPutEmail = (
     },
     onSuccess: (data, variables, context) => {
       options?.onSuccess?.(data, variables, context);
-      handleLogout();
     },
     onError: (data, variables, context) => {
       options?.onError?.(data, variables, context);
