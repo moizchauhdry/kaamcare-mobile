@@ -1,4 +1,4 @@
-import { type TouchableOpacityProps, View } from 'react-native';
+import { StyleProp, type TouchableOpacityProps, View, ViewStyle } from 'react-native';
 import { useFormState } from 'react-hook-form';
 
 import { Button } from '../../../UI/Button/Button';
@@ -6,12 +6,14 @@ import { Button } from '../../../UI/Button/Button';
 interface FormButtonControlledProps extends TouchableOpacityProps {
   edit?: boolean;
   enabled?: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const FormButtonControlled = ({
   edit,
   enabled,
   disabled: buttonDisabled,
+  style,
   ...props
 }: FormButtonControlledProps) => {
   const { disabled, isSubmitting, isDirty, errors } = useFormState();
@@ -30,7 +32,7 @@ export const FormButtonControlled = ({
   };
 
   return (
-    <View style={{ paddingTop: 16 }}>
+    <View style={[{ paddingTop: 16 }, style]}>
       <Button disabled={getShouldButtonDisabled()} {...props}>
         {edit ? 'Update' : 'Save'}
       </Button>

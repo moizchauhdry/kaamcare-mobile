@@ -25,6 +25,7 @@ import { BloodSugarClient } from './api/medicalLogs/BloodSugarClient';
 
 export const http: HttpConnectorService = new HttpConnectorService({
   prefixUrl: `${process.env.EXPO_PUBLIC_API_URL}/api/1.0/`,
+  // prefixUrl: 'https://kaamcare.moizchauhdry.com/api/2.0',
 });
 
 export const userClient = new UserClient(http);

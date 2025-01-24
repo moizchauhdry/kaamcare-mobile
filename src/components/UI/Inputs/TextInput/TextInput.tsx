@@ -1,6 +1,6 @@
 import type { TextInputProps as RNTextInputProps } from 'react-native';
 import { StyleSheet, TextInput as RNTextInput, View, TouchableOpacity, Image } from 'react-native';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 
 import { disabled as disabledStyles, styles } from './TextInput.styles';
 import { Typography } from '../../Typography/Typography';
@@ -15,68 +15,64 @@ export type TextInputProps = RNTextInputProps & {
   isSecureTextEntry?: boolean;
 };
 
-export const TextInput = ({
-  error,
-  disabled,
-  isSecureTextEntry = false,
-  rightElement,
-  isFocused,
-  isWide,
-  ...restProps
-}: TextInputProps) => {
-  const [isFocus, setIsFocus] = useState(false);
+export const TextInput = forwardRef<RNTextInput, TextInputProps>(
+  ({ error, disabled, isSecureTextEntry = false, rightElement, isFocused, isWide, ...restProps }, ref) => {
+    const [isFocus, setIsFocus] = useState(false);
 
-  if (rightElement) {
+    if (rightElement) {
+      return (
+        <View
+          style={StyleSheet.compose(
+            [
+              styles.inputWrapper,
+              isFocus || isFocused ? styles.inputFocus : undefined,
+              error ? styles.inputError : undefined,
+            ],
+            disabled ? disabledStyles.inputWrapper : undefined,
+          )}
+        >
+          <RNTextInput
+            ref={ref}
+            {...restProps}
+            multiline={!!isWide}
+            onBlur={() => setIsFocus(false)}
+            onFocus={() => setIsFocus(true)}
+            editable={!disabled}
+            style={StyleSheet.compose(
+              [styles.inputWithElement, isWide ? styles.inputWide : undefined],
+              disabled ? disabledStyles.inputWithElement : undefined,
+            )}
+          />
+
+          {typeof rightElement === 'function' ? (
+            rightElement({ disabled })
+          ) : (
+            <Typography style={{ color: theme.colors.gray200 }}>{rightElement}</Typography>
+          )}
+        </View>
+      );
+    }
+
     return (
-      <View
+      <RNTextInput
+        ref={ref}
+        {...restProps}
+        onBlur={() => setIsFocus(false)}
+        onFocus={() => setIsFocus(true)}
+        multiline={!!isWide}
+        editable={!disabled}
+        secureTextEntry={isSecureTextEntry}
         style={StyleSheet.compose(
           [
-            styles.inputWrapper,
-            isFocus || isFocused ? styles.inputFocus : undefined,
+            styles.input,
+            isFocus ? styles.inputFocus : undefined,
             error ? styles.inputError : undefined,
+            isWide ? styles.inputWide : undefined,
+            restProps.style,
           ],
-          disabled ? disabledStyles.inputWrapper : undefined,
+          disabled ? disabledStyles.input : undefined,
         )}
-      >
-        <RNTextInput
-          {...restProps}
-          multiline={!!isWide}
-          onBlur={() => setIsFocus(false)}
-          onFocus={() => setIsFocus(true)}
-          editable={!disabled}
-          style={StyleSheet.compose(
-            [styles.inputWithElement, isWide ? styles.inputWide : undefined],
-            disabled ? disabledStyles.inputWithElement : undefined,
-          )}
-        />
-
-        {typeof rightElement === 'function' ? (
-          rightElement({ disabled })
-        ) : (
-          <Typography style={{ color: theme.colors.gray200 }}>{rightElement}</Typography>
-        )}
-      </View>
+      />
     );
-  }
-
-  return (
-    <RNTextInput
-      {...restProps}
-      onBlur={() => setIsFocus(false)}
-      onFocus={() => setIsFocus(true)}
-      multiline={!!isWide}
-      editable={!disabled}
-      secureTextEntry={isSecureTextEntry}
-      style={StyleSheet.compose(
-        [
-          styles.input,
-          isFocus ? styles.inputFocus : undefined,
-          error ? styles.inputError : undefined,
-          isWide ? styles.inputWide : undefined,
-          restProps.style,
-        ],
-        disabled ? disabledStyles.input : undefined,
-      )}
-    />
-  );
-};
+  },
+);

@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { View } from 'react-native';
+import { View, TextInput as RNTextInput } from 'react-native';
 
 import { DateTimePickerControlled } from '../../../UI/Inputs/DateTimePicker/DateTimePickerControlled';
 import { NumberInputControlled } from '../../../UI/Inputs/NumberInput/NumberInputControlled';
@@ -13,6 +13,7 @@ import type { NewWeightLog } from '../../../../model/api/medicalLogs/Weight';
 import { parseWeightFormToApiData } from '../../../../model/parsers/medicalLogs/WeightParser';
 import { weightDefaultValues } from '../../../../constants/forms/medicalLogs/weight';
 import { useUnitsData } from '../../../../context/UnitsContext';
+import { useRef } from 'react';
 
 type WeightFormProps = {
   initialValues?: WeightFormData;
@@ -33,6 +34,14 @@ export const WeightForm = ({ edit, onDelete, initialValues, onSubmit, isPending 
     onSubmit?.(parseWeightFormToApiData(values, units.mass));
   };
 
+  const weightRef = useRef<RNTextInput | null>(null);
+
+  const handleWeightChange = (value: string) => {
+    if (value.length === 5) {
+      weightRef.current?.focus();
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <FormProvider {...form}>
@@ -45,7 +54,12 @@ export const WeightForm = ({ edit, onDelete, initialValues, onSubmit, isPending 
           <NumberInputControlled
             label="Weight"
             name="weight"
-            inputProps={{ rightElement: units.mass === 'Pound' ? 'lbs' : 'kg', type: 'float', maxLength: 6 }}
+            inputProps={{
+              rightElement: units.mass === 'Pound' ? 'lbs' : 'kg',
+              type: 'float',
+              maxLength: 5,
+              onChangeText: handleWeightChange,
+            }}
           />
           <TextInputControlled
             name="explanation"
@@ -56,6 +70,7 @@ export const WeightForm = ({ edit, onDelete, initialValues, onSubmit, isPending 
               maxLength: 240,
               style: { height: 200 },
             }}
+            ref={weightRef}
           />
 
           {edit ? (

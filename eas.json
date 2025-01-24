@@ -27,7 +27,7 @@
         "autoIncrement": true,
         "developmentClient": true,
         "gradleCommand": ":app:assembleRelease",
-        "resourceClass": "large"
+        "resourceClass": "default"
       },
       "distribution": "internal",
       "env": {
@@ -47,7 +47,7 @@
         "autoIncrement": true,
         "developmentClient": true,
         "gradleCommand": ":app:assembleRelease",
-        "resourceClass": "large"
+        "resourceClass": "default"
       },
       "autoIncrement": true,
       "credentialsSource": "local",
@@ -68,7 +68,7 @@
         "autoIncrement": true,
         "developmentClient": true,
         "gradleCommand": ":app:assembleRelease",
-        "resourceClass": "large"
+        "resourceClass": "default"
       },
       "autoIncrement": true,
       "credentialsSource": "local",
