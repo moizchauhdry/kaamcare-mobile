@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, TextInput as RNTextInput } from 'react-native';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -12,6 +12,7 @@ import { FormButtonControlled } from '../../common/FormButtonControlled/FormButt
 import { NumberInputControlled } from '../../../UI/Inputs/NumberInput/NumberInputControlled';
 import type { NewSaturationLog } from '../../../../model/api/medicalLogs/Saturation';
 import { parseSaturationFormToApiData } from '../../../../model/parsers/medicalLogs/SaturationParser';
+import { useRef } from 'react';
 
 type SaturationFormProps = {
   initialValues?: SaturationFormData;
@@ -30,6 +31,13 @@ export const SaturationForm = ({ initialValues, edit, isPending, onSubmit, onDel
   const handleSubmitForm = (values: SaturationFormData) => {
     onSubmit?.(parseSaturationFormToApiData(values));
   };
+  const spoRef = useRef<RNTextInput | null>(null);
+
+  const handleSpoChange = (value: string) => {
+    if (value.length === 2) {
+      spoRef.current?.focus();
+    }
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -43,7 +51,7 @@ export const SaturationForm = ({ initialValues, edit, isPending, onSubmit, onDel
           <NumberInputControlled
             name="spo2"
             label="SpO2"
-            inputProps={{ rightElement: '%', maxLength: 3, maxValue: 100 }}
+            inputProps={{ rightElement: '%', maxLength: 3, maxValue: 100, onChangeText: handleSpoChange }}
           />
           <TextInputControlled
             name="explanation"
@@ -54,6 +62,7 @@ export const SaturationForm = ({ initialValues, edit, isPending, onSubmit, onDel
               maxLength: 240,
               style: { height: 200 },
             }}
+            ref={spoRef}
           />
           {edit ? (
             <DeletionButton

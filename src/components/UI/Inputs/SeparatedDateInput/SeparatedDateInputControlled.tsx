@@ -1,6 +1,6 @@
-import { View } from 'react-native';
+import { View, TextInput as RNTextInput } from 'react-native';
 import { useFormContext } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { Typography } from '../../Typography/Typography';
 import { NumberInputControlled } from '../NumberInput/NumberInputControlled';
@@ -13,6 +13,14 @@ export const SeparatedDateInputControlled = ({ label }: SeparatedDateInputContro
   const { watch, formState, clearErrors } = useFormContext();
   const day = watch('day');
   const month = watch('month');
+
+  const dayRef = useRef<RNTextInput | null>(null);
+
+  const handleMonthChange = (value: string) => {
+    if (value.length <= 31) {
+      // dayRef.current?.focus();
+    }
+  };
 
   useEffect(() => {
     if (!day) {
@@ -40,7 +48,7 @@ export const SeparatedDateInputControlled = ({ label }: SeparatedDateInputContro
           <NumberInputControlled
             label={label ? undefined : 'Month'}
             name="month"
-            inputProps={{ placeholder: 'MM', maxLength: 2, maxValue: 12, minValue: 1 }}
+            inputProps={{ placeholder: 'MM', maxLength: 2, maxValue: 12, minValue: 1, onChangeText: handleMonthChange }}
           />
         </View>
         <View style={{ width: '33%' }}>
@@ -48,6 +56,7 @@ export const SeparatedDateInputControlled = ({ label }: SeparatedDateInputContro
             label={label ? undefined : 'Day'}
             name="day"
             inputProps={{ placeholder: 'DD', maxLength: 2, maxValue: 31, minValue: 1 }}
+            ref={dayRef}
           />
         </View>
         <View style={{ width: '33%' }}>

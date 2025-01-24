@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { View } from 'react-native';
+import { TextInput as RNTextInput, View } from 'react-native';
 
 import { DateTimePickerControlled } from '../../../UI/Inputs/DateTimePicker/DateTimePickerControlled';
 import { NumberInputControlled } from '../../../UI/Inputs/NumberInput/NumberInputControlled';
@@ -14,6 +14,7 @@ import { heightSchema } from '../../../../schemas/forms/medicalLogs/height';
 import { parseHeightFormToApiData } from '../../../../model/parsers/medicalLogs/HeightParser';
 import { useUnitsData } from '../../../../context/UnitsContext';
 import { Typography } from '../../../UI/Typography/Typography';
+import { useRef } from 'react';
 
 type HeightFormProps = {
   initialValues?: HeightFormData;
@@ -24,6 +25,9 @@ type HeightFormProps = {
 };
 
 export const HeightForm = ({ edit, isPending, onDelete, initialValues, onSubmit }: HeightFormProps) => {
+  const ftRef = useRef<RNTextInput | null>(null);
+  const inchRef = useRef<RNTextInput | null>(null);
+  const descRef = useRef<RNTextInput | null>(null);
   const units = useUnitsData();
   const form = useForm({
     defaultValues: initialValues ?? { ...heightDefaultValues, date: new Date(), unitType: units.length },
@@ -32,6 +36,18 @@ export const HeightForm = ({ edit, isPending, onDelete, initialValues, onSubmit 
 
   const handleSubmitForm = (values: HeightFormData) => {
     onSubmit?.(parseHeightFormToApiData(values, units.length));
+  };
+
+  const handleFeetChange = (value: string) => {
+    if (value.length === 3) {
+      inchRef.current?.focus();
+    }
+  };
+
+  const handleInchChange = (value: string) => {
+    if (value.length === 3) {
+      descRef.current?.focus();
+    }
   };
 
   return (
@@ -50,13 +66,24 @@ export const HeightForm = ({ edit, isPending, onDelete, initialValues, onSubmit 
                 <View style={{ flex: 0.5 }}>
                   <NumberInputControlled
                     name="heightFeet"
-                    inputProps={{ rightElement: 'ft', placeholder: 'Type in...', maxLength: 3 }}
+                    inputProps={{
+                      rightElement: 'ft',
+                      placeholder: 'Type in...',
+                      maxLength: 3,
+                      onChangeText: handleFeetChange,
+                    }}
                   />
                 </View>
                 <View style={{ flex: 0.5 }}>
                   <NumberInputControlled
                     name="heightInch"
-                    inputProps={{ rightElement: 'in', placeholder: 'Type in...', maxLength: 3 }}
+                    inputProps={{
+                      rightElement: 'in',
+                      placeholder: 'Type in...',
+                      maxLength: 3,
+                      onChangeText: handleInchChange,
+                    }}
+                    ref={inchRef}
                   />
                 </View>
               </View>
@@ -76,6 +103,7 @@ export const HeightForm = ({ edit, isPending, onDelete, initialValues, onSubmit 
               maxLength: 240,
               style: { height: 200 },
             }}
+            ref={descRef}
           />
 
           {edit ? (

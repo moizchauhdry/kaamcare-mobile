@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { KeyboardAvoidingView, Platform, TextInput as RNTextInput, ScrollView, StyleSheet, View } from 'react-native';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -14,14 +14,16 @@ import { NumberInputControlled } from '../../../UI/Inputs/NumberInput/NumberInpu
 import type { NewBloodPressureLog } from '../../../../model/api/medicalLogs/BloodPressure';
 import { parseBloodPressureFormToApiData } from '../../../../model/parsers/medicalLogs/BloodPressureParser';
 import { useUnitsData } from '../../../../context/UnitsContext';
+import { useRef, useState } from 'react';
+import { ButtonAboveKeyboard } from 'components/UI/Button/Button';
 
 const mmHgData = {
-  rightElement: 'mmHg',
+  // rightElement: 'mmHg',
   maxLength: 3,
 };
 
 const kPaData = {
-  rightElement: 'kPa',
+  // rightElement: 'kPa',
   maxLength: 5,
   type: 'float',
 };
@@ -35,6 +37,9 @@ type BloodPressureFormProps = {
 };
 
 export const BloodPressureForm = ({ initialValues, edit, onSubmit, onDelete, isPending }: BloodPressureFormProps) => {
+  const [MaxLength, setMaxLength] = useState<any>(3);
+  const diastolicRef = useRef<RNTextInput | null>(null);
+  const pulseRef = useRef<RNTextInput | null>(null);
   const units = useUnitsData();
   const form = useForm({
     defaultValues: initialValues
@@ -51,8 +56,82 @@ export const BloodPressureForm = ({ initialValues, edit, onSubmit, onDelete, isP
     onSubmit?.(parseBloodPressureFormToApiData(values, units.pressure));
   };
 
+  const handleSystolicChange = (value: any) => {
+    const firstDigit = parseInt(value[0], 10);
+    const numericValue = parseInt(value, 10);
+    if (firstDigit === 1 || firstDigit === 2) {
+      setMaxLength(3);
+    } else {
+      setMaxLength(2);
+    }
+
+    if (
+      (firstDigit === 1 && numericValue >= 100 && numericValue <= 199) ||
+      (firstDigit === 2 && numericValue >= 200 && numericValue <= 299) ||
+      (firstDigit >= 3 && numericValue >= 30 && numericValue <= 99)
+    ) {
+      form.setValue('systolic', value);
+      diastolicRef.current?.focus();
+    }
+  };
+
+  // const handleSystolicChange = (value: any) => {
+  //   const numericValue = parseInt(value, 10);
+
+  //   if (!isNaN(numericValue) && numericValue >= 30 && numericValue <= 299) {
+  //     form.setValue('systolic', value);
+  //     diastolicRef.current?.focus();
+  //   } else if (value === '') {
+  //     form.setValue('systolic', '');
+  //   } else {
+  //     console.log('Invalid input: Value must be between 30 and 299');
+  //   }
+  // };
+
+  const handleDiastolicChange = (value: any) => {
+    const firstDigit = parseInt(value[0], 10);
+    const numericValue = parseInt(value, 10);
+
+    if (firstDigit === 1 || firstDigit === 2) {
+      setMaxLength(3);
+    } else {
+      setMaxLength(2);
+    }
+
+    if (
+      (firstDigit === 1 && numericValue >= 100 && numericValue <= 199) ||
+      (firstDigit === 2 && numericValue >= 200 && numericValue <= 299) ||
+      (firstDigit >= 3 && numericValue >= 30 && numericValue <= 99)
+    ) {
+      form.setValue('diastolic', value);
+      pulseRef.current?.focus();
+    }
+  };
+
+  const handlePulsecChange = (value: any) => {
+    const firstDigit = parseInt(value[0], 10);
+    const numericValue = parseInt(value, 10);
+    if (firstDigit === 1 || firstDigit === 2) {
+      setMaxLength(3);
+    } else {
+      setMaxLength(2);
+    }
+
+    if (
+      (firstDigit === 1 && numericValue >= 100 && numericValue <= 199) ||
+      (firstDigit === 2 && numericValue >= 200 && numericValue <= 299) ||
+      (firstDigit >= 3 && numericValue >= 30 && numericValue <= 99)
+    ) {
+      form.setValue('pulse', value);
+    }
+  };
+
   return (
-    <View style={{ flex: 1 }}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0} // Adjust offset as needed
+    >
       <FormProvider {...form}>
         <View style={{ gap: 16 }}>
           <DateTimePickerControlled
@@ -60,23 +139,44 @@ export const BloodPressureForm = ({ initialValues, edit, onSubmit, onDelete, isP
             label="Date and time"
             inputProps={{ forbidFuture: true, mode: 'datetime', placeholder: 'MM/DD/YYYY, hh:mm' }}
           />
-          <View style={{ flexDirection: 'row', gap: 16, paddingRight: 16 }}>
-            <View style={{ width: '50%' }}>
+          <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'space-between' }}>
+            <View style={{ flex: 1 }}>
               <NumberInputControlled
                 name="systolic"
                 label="Systolic"
-                inputProps={units.pressure === 'mmHg' ? mmHgData : kPaData}
+                inputProps={{
+                  placeholder: 'mmHg',
+                  onChangeText: handleSystolicChange,
+                  maxLength: MaxLength,
+                  // ...(units.pressure === 'mmHg' ? mmHgData : kPaData),
+                }}
               />
             </View>
-            <View style={{ width: '50%' }}>
+
+            <View style={{ flex: 1 }}>
               <NumberInputControlled
                 name="diastolic"
                 label="Diastolic"
-                inputProps={units.pressure === 'mmHg' ? mmHgData : kPaData}
+                inputProps={{
+                  placeholder: 'mmHg',
+                  // ...(units.pressure === 'mmHg' ? mmHgData : kPaData),
+                  maxLength: MaxLength,
+                  onChangeText: handleDiastolicChange,
+                }}
+                ref={diastolicRef}
+              />
+            </View>
+
+            <View style={{ flex: 1 }}>
+              <NumberInputControlled
+                name="pulse"
+                label="Pulse"
+                inputProps={{ maxLength: MaxLength, placeholder: 'bpm', onChangeText: handlePulsecChange }}
+                ref={pulseRef}
               />
             </View>
           </View>
-          <NumberInputControlled name="pulse" label="Pulse" inputProps={{ rightElement: 'bpm', maxLength: 3 }} />
+
           <SwitchSelectorControlled
             name="measurementPosition"
             label="Measurement position"
@@ -114,9 +214,14 @@ export const BloodPressureForm = ({ initialValues, edit, onSubmit, onDelete, isP
               Delete Blood Pressure log
             </DeletionButton>
           ) : null}
-          <FormButtonControlled edit={edit} onPress={form.handleSubmit(handleSubmitForm)} disabled={isPending} />
         </View>
+        <FormButtonControlled edit={edit} onPress={form.handleSubmit(handleSubmitForm)} disabled={isPending} />
       </FormProvider>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

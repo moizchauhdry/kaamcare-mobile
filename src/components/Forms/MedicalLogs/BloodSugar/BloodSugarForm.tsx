@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { View } from 'react-native';
-import { useEffect } from 'react';
+import { TextInput as RNTextInput, View } from 'react-native';
+import { useEffect, useRef } from 'react';
 
 import { DateTimePickerControlled } from '../../../UI/Inputs/DateTimePicker/DateTimePickerControlled';
 import { NumberInputControlled } from '../../../UI/Inputs/NumberInput/NumberInputControlled';
@@ -30,6 +30,7 @@ type BloodSugarFormProps = {
 };
 
 export const BloodSugarForm = ({ edit, onDelete, initialValues, onSubmit, isPending }: BloodSugarFormProps) => {
+  const carbsRef = useRef<RNTextInput | null>(null);
   const units = useUnitsData();
   const form = useForm({
     defaultValues: initialValues ?? { ...bloodSugarDefaultValues, date: new Date() },
@@ -45,6 +46,12 @@ export const BloodSugarForm = ({ edit, onDelete, initialValues, onSubmit, isPend
 
   const handleSubmitForm = (values: BloodSugarFormData) => {
     onSubmit?.(parseBloodSugarFormToApiData(values, units.sugar));
+  };
+
+  const handleBloodSugarChange = (value: string) => {
+    if (value.length === 5) {
+      carbsRef.current?.focus();
+    }
   };
 
   return (
@@ -65,6 +72,7 @@ export const BloodSugarForm = ({ edit, onDelete, initialValues, onSubmit, isPend
                   rightElement: units.sugar === 'mmolL' ? 'mmol/L' : 'mg/dL',
                   maxLength: 5,
                   type: 'float',
+                  onChangeText: handleBloodSugarChange,
                 }}
               />
             </View>
@@ -73,6 +81,7 @@ export const BloodSugarForm = ({ edit, onDelete, initialValues, onSubmit, isPend
                 name="carbs"
                 label="Carbs"
                 inputProps={{ rightElement: 'g', maxLength: 3, type: 'int' }}
+                ref={carbsRef}
               />
             </View>
           </View>
