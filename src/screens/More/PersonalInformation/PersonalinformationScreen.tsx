@@ -40,11 +40,7 @@ export const PersonalInformationScreen = ({ navigation }: PersonalInformationScr
       <WithSkeleton isLoading={isLoading} skeleton={<PersonalInformationFormSkeleton />}>
         <PersonalInformationForm
           onSubmit={(formValues) => handleSubmit(formValues)}
-          initialValues={
-            data
-              ? parseProfileInformationToForm(data, length, mass)
-              : { email: SecureStore.getItem('user-email') ?? '' }
-          }
+          initialValues={data ? parseProfileInformationToForm(data, length, mass) : undefined}
         />
       </WithSkeleton>
     </MoreLayout>

@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { SvgXml } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';

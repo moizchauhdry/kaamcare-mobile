@@ -16,7 +16,6 @@ export const useAuthBiometric = () => {
       SecureStore.setItem('id-token', response.data.data?.user?.token ?? '');
       SecureStore.setItem('refresh-token', response.data.data?.user?.token ?? '');
       http.addHeader('Authorization', `Bearer ${response.data.data?.user?.token ?? ''}`);
-      SecureStore.setItem('user-email', response.data.data?.user?.email ?? '');
       setIsLogged(true);
     },
     onError: (error: unknown) => {

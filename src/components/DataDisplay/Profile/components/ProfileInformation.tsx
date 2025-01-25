@@ -73,8 +73,7 @@ export const ProfileInformation = () => {
         data,
         isError,
       }}
-      // defaultDataRender={<Typography style={{ marginBottom: 8 }}>{data?.email}</Typography>}
-      defaultDataRender={<Typography style={{ marginBottom: 8 }}>{SecureStore.getItem('user-email') ?? ''}</Typography>}
+      defaultDataRender={<Typography style={{ marginBottom: 8 }}>{data?.email}</Typography>}
       arrayToOmit={['email']}
     >
       {renderContent()}

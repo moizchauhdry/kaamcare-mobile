@@ -18,7 +18,6 @@ export const useAuthPassword = () => {
       SecureStore.setItem('id-token', response.data.data?.token ?? '');
       SecureStore.setItem('refresh-token', response.data.data?.token ?? '');
       http.addHeader('Authorization', `Bearer ${response.data.data?.token ?? ''}`);
-      SecureStore.setItem('user-email', response.data.data?.email ?? '');
       setIsLogged(true);
     },
     onError: (error: unknown) => {
