@@ -1,4 +1,5 @@
-import { View, TextInput as RNTextInput } from 'react-native';
+import type { TextInput as RNTextInput } from 'react-native';
+import { View } from 'react-native';
 import { useFormContext } from 'react-hook-form';
 import { useEffect, useRef } from 'react';
 
@@ -48,7 +49,7 @@ export const SeparatedDateInputControlled = ({ label }: SeparatedDateInputContro
           <NumberInputControlled
             label={label ? undefined : 'Month'}
             name="month"
-            inputProps={{ placeholder: 'MM', maxLength: 2, maxValue: 12, minValue: 1, onChangeText: handleMonthChange }}
+            inputProps={{ placeholder: 'MM', maxLength: 2, maxValue: 12, minValue: 1 }}
           />
         </View>
         <View style={{ width: '33%' }}>

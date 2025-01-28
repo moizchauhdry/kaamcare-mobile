@@ -1,10 +1,10 @@
 import { useFormContext } from 'react-hook-form';
+import type { TextInput as RNTextInput } from 'react-native';
+import { forwardRef } from 'react';
 
 import { FormFieldControlled } from '../FormField/FormFieldControlled';
 import type { NumberInputProps } from './NumberInput';
 import { NumberInput } from './NumberInput';
-import { forwardRef } from 'react';
-import { TextInput as RNTextInput } from 'react-native';
 
 type TextInputControlledProps = {
   name: string;
