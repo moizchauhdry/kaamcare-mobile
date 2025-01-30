@@ -22,7 +22,7 @@ export class ACPClient extends AbstractHttpService {
 
   putACPData(data: ACPApiModel): Promise<void> {
     return this.http
-      .put(`goals-of-care/advanced-care-planning`, {
+      .post(`goals-of-care/advanced-care-planning`, {
         body: parseToMultipartFormData(data, acpApiKeys),
       })
       .then(() => undefined)

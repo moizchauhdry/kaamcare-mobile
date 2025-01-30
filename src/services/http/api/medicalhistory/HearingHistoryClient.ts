@@ -28,7 +28,7 @@ export class HearingHistoryClient extends AbstractHttpService {
 
   putHearingHistory(name: string, id: string, data: HearingHistory): Promise<void> {
     return this.http
-      .put(`medical-history/hearing/${name}/${id}`, {
+      .post(`medical-history/hearing/${name}/${id}`, {
         body: parseToMultipartFormData(data, hearingHistoryItemApiKeys),
       })
       .then(() => undefined)

@@ -25,7 +25,7 @@ export class DiagnosisHistoryClient extends AbstractHttpService {
 
   putDiagnosisHistory(id: string, data: Diagnosis): Promise<void> {
     return this.http
-      .put(`medical-history/diagnosis/${id}`, {
+      .post(`medical-history/diagnosis/${id}`, {
         body: parseToMultipartFormData(data, diagnosisItemApiKeys),
       })
       .then(() => undefined)

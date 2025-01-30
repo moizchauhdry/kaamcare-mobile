@@ -28,7 +28,7 @@ export class SurgicalHistoryClient extends AbstractHttpService {
 
   putSurgicalHistory(id: string, data: SurgicalHistory): Promise<void> {
     return this.http
-      .put(`medical-history/surgical-history/${id}`, {
+      .post(`medical-history/surgical-history/${id}`, {
         body: parseToMultipartFormData(data, surgicalHistoryItemApiKeys),
       })
       .then(() => undefined)

@@ -34,7 +34,7 @@ export class VisionHistoryClient extends AbstractHttpService {
 
   putVisionHistory(name: string, id: string, data: VisionHistoryModel): Promise<void> {
     return this.http
-      .put(`medical-history/vision/${name}/${id}`, {
+      .post(`medical-history/vision/${name}/${id}`, {
         body: parseToMultipartFormData(
           data,
           name === 'eye-wear' ? visionHistoryEyeWearApiKeys : visionHistoryItemApiKeys,

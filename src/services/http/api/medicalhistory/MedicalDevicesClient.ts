@@ -28,7 +28,7 @@ export class MedicalDevicesClient extends AbstractHttpService {
 
   putMedicalDevices(id: string, data: MedicalDevice): Promise<void> {
     return this.http
-      .put(`medical-history/medical-devices/${id}`, {
+      .post(`medical-history/medical-devices/${id}`, {
         body: parseToMultipartFormData(data, medicalDeviceItemApiKeys),
       })
       .then(() => undefined)
