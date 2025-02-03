@@ -90,7 +90,7 @@ const InsuranceNavigation = () => {
           headerBackImage: () => null,
           headerBackTitle: 'Close',
           headerBackTitleVisible: true,
-          headerBackTitleStyle: { fontSize: 17, paddingHorizontal: 8, lineHeight: 22 },
+          headerBackTitleStyle: { fontSize: 17, paddingHorizontal: 8, lineHeight: 22, minWidth: 120 },
           headerTitle: () => <ModalGrabber />,
           headerTitleAlign: 'center',
           headerTintColor: theme.colors.primary,

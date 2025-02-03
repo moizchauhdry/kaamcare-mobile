@@ -37,6 +37,8 @@ export const styles: ButtonStyles = StyleSheet.create({
     lineHeight: 22,
     letterSpacing: -0.4,
     fontWeight: '600',
+    flex: 1,
+    textAlign: 'center',
   },
   disabled: {
     opacity: 0.2,

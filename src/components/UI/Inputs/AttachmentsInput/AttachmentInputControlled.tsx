@@ -9,10 +9,10 @@ import { AttachmentApiSmallModel, AttachmentModel } from 'model/api/common/Attac
 type AttachmentInputControlledProps = {
   name: string;
   attachmentInputProps?: AttachmentsInputProps;
-  Choose?: (files: (AttachmentModel | AttachmentApiSmallModel)[]) => void;
+  choose?: (files: (AttachmentModel | AttachmentApiSmallModel)[]) => void;
 };
 
-export const AttachmentInputControlled = ({ name, attachmentInputProps, Choose }: AttachmentInputControlledProps) => {
+export const AttachmentInputControlled = ({ name, attachmentInputProps, choose }: AttachmentInputControlledProps) => {
   const { control, setError, formState, getFieldState, clearErrors, setValue } = useFormContext();
   const fieldState = getFieldState(name, formState);
 
@@ -29,8 +29,8 @@ export const AttachmentInputControlled = ({ name, attachmentInputProps, Choose }
           }
           onChoose={(files) => {
             // Ensure Choose is called with files
-            if (Choose) {
-              Choose(files); // This calls the parent function
+            if (choose) {
+              choose(files); // This calls the parent function
             }
             setValue(field.name, files, { shouldDirty: true });
           }}

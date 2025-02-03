@@ -47,6 +47,8 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
   const pulseRef = useRef<RNTextInput | null>(null);
   const [keyboardHeight] = useState(new Animated.Value(0));
 
+  console.log('initialValues', initialValues);
+
   React.useEffect(() => {
     const keyboardWillShow = Keyboard.addListener('keyboardWillShow', (event) => {
       Animated.timing(keyboardHeight, {
@@ -72,7 +74,17 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
 
   const form = useForm({
     defaultValues: initialValues
-      ? { ...initialValues, unit: pressure }
+      ? {
+          ...initialValues,
+          unit: pressure,
+          systolic: String(initialValues.millimetersOfMercurySystolic),
+          diastolic: String(initialValues.millimetersOfMercuryDiastolic),
+          pulse: initialValues.pulse,
+          measurementPosition: initialValues.position,
+          measurementSide: initialValues.side,
+          explanation: initialValues.explanation,
+          date: new Date(),
+        }
       : {
           ...bloodPressureDefaultValues,
           unit: pressure,

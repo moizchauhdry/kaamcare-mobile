@@ -32,7 +32,7 @@ export const MoreListItem = ({ title, name, onPress }: MoreListItemProps) => {
           borderBottomColor: theme.colors.lightBlue,
         }}
       >
-        <Typography style={{ paddingVertical: 4 }}>{title}</Typography>
+        <Typography style={{ paddingVertical: 4, flexShrink: 1, flex: 1 }}>{title}</Typography>
         <SvgXml xml={chevronRight} />
       </View>
     </TouchableWithoutFeedback>

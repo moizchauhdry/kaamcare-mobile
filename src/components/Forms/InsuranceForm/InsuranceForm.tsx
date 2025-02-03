@@ -50,6 +50,13 @@ export const InsuranceForm = ({ initialValues, onSubmit, isPending, edit, onDele
   const handleSubmitForm = (data: InsuranceFormData) => {
     onSubmit?.(data);
   };
+  const handleFrontSelected = (files: any[]) => {
+    form.setValue('front', files);
+  };
+
+  const handleBackSelected = (files: any[]) => {
+    form.setValue('back', files);
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -64,6 +71,7 @@ export const InsuranceForm = ({ initialValues, onSubmit, isPending, edit, onDele
                 allowMultipleSelection: false,
                 photoType: 'front',
               }}
+              choose={handleFrontSelected}
             />
           </View>
           <View style={{ gap: 8 }}>
@@ -75,6 +83,7 @@ export const InsuranceForm = ({ initialValues, onSubmit, isPending, edit, onDele
                 allowMultipleSelection: false,
                 photoType: 'back',
               }}
+              choose={handleBackSelected}
             />
           </View>
           {form.formState.errors.common?.message ? (

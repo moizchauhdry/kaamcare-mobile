@@ -47,6 +47,9 @@ export const SurgicalHistoryForm = ({
 
     onSubmit?.({ ...data, name });
   };
+  const handleFilesSelected = (files: any[]) => {
+    form.setValue('attachment', files);
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -66,6 +69,7 @@ export const SurgicalHistoryForm = ({
           <AttachmentInputControlled
             name="attachment"
             attachmentInputProps={{ description: 'You can upload with a maximum size of up to 4 mb.' }}
+            choose={handleFilesSelected}
           />
           {edit && onDelete ? (
             <DeletionButton

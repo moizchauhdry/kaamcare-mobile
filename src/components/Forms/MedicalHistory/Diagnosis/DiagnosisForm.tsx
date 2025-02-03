@@ -68,7 +68,7 @@ export const DiagnosisForm = ({ deletionData, onSubmit, initialValues, edit, nam
           <AttachmentInputControlled
             name="attachment"
             attachmentInputProps={{ description: 'You can upload with a maximum size of up to 4 mb.' }}
-            Choose={handleFilesSelected}
+            choose={handleFilesSelected}
           />
           {edit && deletionData ? (
             <DeletionButton

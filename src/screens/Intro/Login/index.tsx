@@ -260,6 +260,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     letterSpacing: -0.4,
     color: theme.colors.textPrimary,
+    flexShrink: 1,
   },
   wrapper: {
     flexDirection: 'row',

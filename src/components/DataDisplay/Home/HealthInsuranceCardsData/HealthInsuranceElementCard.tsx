@@ -35,7 +35,7 @@ export const HealthInsuranceElementCard = ({ label, onItemPress, card }: HealthI
   return (
     <View>
       <View style={{ justifyContent: 'space-between', flexDirection: 'row', flex: 1, paddingVertical: 16 }}>
-        <Typography>{label}</Typography>
+        <Typography style={{ flex: 1 }}>{label}</Typography>
         <TouchableWithoutFeedback
           disabled={mutateDelete.isPending}
           onPress={card ? () => handleDeletePress() : () => onItemPress()}
