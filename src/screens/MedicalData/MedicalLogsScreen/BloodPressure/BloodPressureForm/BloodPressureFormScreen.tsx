@@ -91,6 +91,7 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
   const handleSystolicChange = (value: any) => {
     const firstDigit = parseInt(value[0], 10);
     const numericValue = parseInt(value, 10);
+    form.setValue('systolic', value, { shouldValidate: true });
     if (firstDigit === 1 || firstDigit === 2) {
       setMaxLength(3);
     } else {
@@ -110,6 +111,7 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
   const handleDiastolicChange = (value: any) => {
     const firstDigit = parseInt(value[0], 10);
     const numericValue = parseInt(value, 10);
+    form.setValue('diastolic', value, { shouldValidate: true });
 
     if (firstDigit === 1 || firstDigit === 2) {
       setMaxLength(3);
@@ -130,6 +132,8 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
   const handlePulsecChange = (value: any) => {
     const firstDigit = parseInt(value[0], 10);
     const numericValue = parseInt(value, 10);
+    form.setValue('pulse', value, { shouldValidate: true });
+
     if (firstDigit === 1 || firstDigit === 2) {
       setMaxLength(3);
     } else {

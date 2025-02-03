@@ -34,6 +34,7 @@ export const SaturationForm = ({ initialValues, edit, isPending, onSubmit, onDel
   const spoRef = useRef<RNTextInput | null>(null);
 
   const handleSpoChange = (value: string) => {
+    form.setValue('spo2', value, { shouldValidate: true });
     if (value.length === 2) {
       spoRef.current?.focus();
     }

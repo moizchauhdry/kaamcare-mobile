@@ -49,6 +49,7 @@ export const BloodSugarForm = ({ edit, onDelete, initialValues, onSubmit, isPend
   };
 
   const handleBloodSugarChange = (value: string) => {
+    form.setValue('bloodSugar', value, { shouldValidate: true });
     if (value.length === 5) {
       carbsRef.current?.focus();
     }
