@@ -1,7 +1,8 @@
+/* eslint-disable prettier/prettier */
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { View } from 'react-native';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { TextInputControlled } from '../../../UI/Inputs/TextInput/TextInputControlled';
 import { DeletionButton } from '../../../UI/Button/DeletionButton';
@@ -42,8 +43,11 @@ export const DiagnosisForm = ({ deletionData, onSubmit, initialValues, edit, nam
 
   const handleSubmitForm = (values: DiagnosisFormType) => {
     const data = parseDiagnosisHistoryFormToApiData(values, name);
-
     onSubmit?.(data);
+  };
+
+  const handleFilesSelected = (files: any[]) => {
+    form.setValue('attachment', files);
   };
 
   return (
@@ -64,6 +68,7 @@ export const DiagnosisForm = ({ deletionData, onSubmit, initialValues, edit, nam
           <AttachmentInputControlled
             name="attachment"
             attachmentInputProps={{ description: 'You can upload with a maximum size of up to 4 mb.' }}
+            Choose={handleFilesSelected}
           />
           {edit && deletionData ? (
             <DeletionButton

@@ -1,15 +1,18 @@
+/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { useFormContext } from 'react-hook-form';
 
 import type { AttachmentsInputProps } from './AttachmentsInput';
 import { AttachmentsInput } from './AttachmentsInput';
 import { FormFieldControlled } from '../FormField/FormFieldControlled';
+import { AttachmentApiSmallModel, AttachmentModel } from 'model/api/common/Attachment';
 
 type AttachmentInputControlledProps = {
   name: string;
   attachmentInputProps?: AttachmentsInputProps;
+  Choose?: (files: (AttachmentModel | AttachmentApiSmallModel)[]) => void;
 };
 
-export const AttachmentInputControlled = ({ name, attachmentInputProps }: AttachmentInputControlledProps) => {
+export const AttachmentInputControlled = ({ name, attachmentInputProps, Choose }: AttachmentInputControlledProps) => {
   const { control, setError, formState, getFieldState, clearErrors, setValue } = useFormContext();
   const fieldState = getFieldState(name, formState);
 
@@ -24,7 +27,13 @@ export const AttachmentInputControlled = ({ name, attachmentInputProps }: Attach
           onErrorOccur={(message: string) =>
             message ? setError(field.name, { type: 'custom', message }) : clearErrors(field.name)
           }
-          onChoose={(files) => setValue(field.name, files, { shouldDirty: true })}
+          onChoose={(files) => {
+            // Ensure Choose is called with files
+            if (Choose) {
+              Choose(files); // This calls the parent function
+            }
+            setValue(field.name, files, { shouldDirty: true });
+          }}
           initialValues={field.value}
         />
       )}
