@@ -27,8 +27,8 @@ export const bloodPressureTabsType = [
     label: 'Blood Pressure',
   },
   {
-    value: 'pulse',
-    label: 'Pulse',
+    value: 'heart rate',
+    label: 'Heart Rate',
   },
 ];
 
