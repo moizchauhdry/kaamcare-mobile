@@ -36,3 +36,30 @@ export const data = [
       'Used to bridge the gap in communication between patient and providers allowing for excellent and efficient medical care',
   },
 ];
+
+export const pillTrackerData = [
+  {
+    id: '1',
+    title: 'Schedule & Calendar',
+    media: require('../../assets/video/dilemna.mp4'),
+    description: 'Provides a clear daily, weekly, or monthly schedule of medications.',
+  },
+  {
+    id: '2',
+    title: 'Medication Reminders',
+    media: require('../../assets/video/solutions.mp4'),
+    description: 'Sends timely reminders with customizable notification tones to ensure users never miss a dose.',
+  },
+  {
+    id: '3',
+    title: 'Missed Dose Tracking',
+    media: require('../../assets/video/structure.mp4'),
+    description: 'Logs missed doses and allows users to reschedule or skip doses without confusion.',
+  },
+  {
+    id: '4',
+    title: 'Progress & Adherence',
+    media: require('../../assets/video/emergencies.mp4'),
+    description: 'Tracks medication adherence rates over time with graphs and stats.',
+  },
+];

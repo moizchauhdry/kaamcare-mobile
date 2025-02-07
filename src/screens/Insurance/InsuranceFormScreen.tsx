@@ -28,6 +28,8 @@ export const InsuranceFormScreen = ({ route }: InsuranceFormScreenProps) => {
   const handleSubmit = (data: InsuranceFormData) => {
     const properData = parseInsuranceFormToApi(data, name);
 
+    console.log('qweqweqwe', data);
+
     if (edit && id) {
       mutateUpdate.mutate({ ...initialValues, ...properData, id });
     }

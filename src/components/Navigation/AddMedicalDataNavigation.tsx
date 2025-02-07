@@ -9,6 +9,8 @@ import { AllergiesScreen } from 'screens/MedicalData/MedicalHistoryScreen/Allerg
 import { AddAllergyScreen } from 'screens/MedicalData/MedicalHistoryScreen/Allergies/AddAllergy/AddAllergyScreen';
 import { DiagnosisFormScreen } from 'screens/MedicalData/MedicalHistoryScreen/DiagnosisHistory/DiagnosisForm/DiagnosisFormScreen';
 import { SelectDiagnosisScreen } from 'screens/MedicalData/MedicalHistoryScreen/DiagnosisHistory/SelectDiagnosis/SelectDiagnosisScreen';
+import { IntroScreen } from 'screens/MedicalData/PillTrackerScreen/Intro/IntroScreen';
+import { PillTrackerHomeScreen } from 'screens/MedicalData/PillTrackerScreen/Home';
 
 import { AddMedicalDataHomeScreen } from '../../screens/MedicalData/AddMedicalDataHomeScreen/AddMedicalDataHomeScreen';
 import { MedicalLogsScreen } from '../../screens/MedicalData/MedicalLogsScreen/MedicalLogsScreen';
@@ -185,6 +187,8 @@ export type AddMedicalDataNavigationParamsList = {
   ListActivitiesOfDailyLiving: undefined;
   AddAdvancedCarePlanning: undefined;
   ListAdvancedCarePlanning: undefined;
+  PillTrackerIntro: undefined;
+  PillTrackerHome: undefined;
 };
 
 const Stack = createStackNavigator<AddMedicalDataNavigationParamsList>();
@@ -283,6 +287,9 @@ export const AddMedicalDataNavigation = () => (
       <Stack.Screen name="ScreeningExams" component={ScreeningExamsScreen} />
       <Stack.Screen name="SelectScreeningExam" component={SelectScreeningExamScreen} />
       <Stack.Screen name="ScreeningExamForm" component={ScreeningExamFormScreen} />
+
+      <Stack.Screen name="PillTrackerIntro" component={IntroScreen} />
+      <Stack.Screen name="PillTrackerHome" component={PillTrackerHomeScreen} />
     </Stack.Group>
   </Stack.Navigator>
 );
