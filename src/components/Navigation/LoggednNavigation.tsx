@@ -52,6 +52,7 @@ const TabNavigation = () => {
               onPress={() => navigation.navigate('MedicalDataNavigation')}
               name="circle-button"
               size={81}
+              styles={{ marginTop: -20 }}
             />
           ),
         })}

@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { SwitchTab } from '../../../../UI/SwitchTab/SwitchTab';
 import { DatePagination } from '../../../../UI/DatePagination/DatePagination';
@@ -16,7 +16,7 @@ type BloodPressureContentProps = {
   displayDays: number;
   onDisplayDaysChange: (days: number) => void;
 
-  initialType?: string;
+  initialType?: string; // Receiving from BloodPressureScreen
 };
 
 export const BloodPressureContent = ({
@@ -29,11 +29,13 @@ export const BloodPressureContent = ({
 }: BloodPressureContentProps) => {
   const [type, setType] = useState(initialType ?? 'pressure');
 
+  useEffect(() => {
+    setType(initialType ?? 'pressure');
+  }, [initialType]);
+
   return (
     <View style={{ gap: 16 }}>
-      <View>
-        <SwitchTab selected={type} tabs={bloodPressureTabsType} onSelect={setType} type="normal" />
-      </View>
+      <View>{/* <SwitchTab selected={type} tabs={bloodPressureTabsType} onSelect={setType} type="normal" /> */}</View>
       <View>
         <SwitchTab selected={displayDays} tabs={medicalLogsTabsDays} onSelect={onDisplayDaysChange} />
       </View>
