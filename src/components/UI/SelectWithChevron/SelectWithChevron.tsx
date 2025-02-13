@@ -28,7 +28,7 @@ export const SelectWithChevron = ({ label, subLabel, onPress, isBorder = true, c
       paddingLeft: 24,
       paddingRight: 16,
       paddingVertical: 13,
-      backgroundColor: theme.colors.white,
+      // backgroundColor: theme.colors.white,
     }}
   >
     <View style={{ flexDirection: 'column', flex: 1 }}>

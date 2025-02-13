@@ -5,7 +5,7 @@ import { theme } from 'config/Theme';
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 193,
+    height: 200,
     borderWidth: 1,
     backgroundColor: theme.colors.white,
     padding: 16,

@@ -14,7 +14,7 @@ type MedicalDataTileProps = {
 export const MedicalDataTile = ({ title, onPress, icon }: MedicalDataTileProps) => (
   <TouchableOpacity onPress={onPress} style={styles.container}>
     <SvgXml preserveAspectRatio="xMinYMin slice" xml={icon} />
-    <Typography weight="semiBold" style={{ fontSize: 20, lineHeight: 25, textAlign: 'center' }}>
+    <Typography weight="semiBold" style={{ fontSize: 20, lineHeight: 30, width: '80%', textAlign: 'center' }}>
       {title}
     </Typography>
   </TouchableOpacity>

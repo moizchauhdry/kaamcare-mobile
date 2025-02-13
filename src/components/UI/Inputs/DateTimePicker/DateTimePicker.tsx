@@ -16,6 +16,7 @@ type AndroidModeType = 'date' | 'time';
 export type DateTimePickerInputProps = TextInputProps & {
   forbidFuture?: boolean;
   mode?: 'date' | 'datetime';
+  onChange?: (date?: Date) => void;
 };
 
 export type DateTimePickerProps = (IOSNativeProps | AndroidNativeProps) & {
@@ -27,7 +28,7 @@ export type DateTimePickerProps = (IOSNativeProps | AndroidNativeProps) & {
 
 export const DateTimePicker = ({ error, value, onDateChange, inputProps }: DateTimePickerProps) => {
   const [showPicker, setShowPicker] = useState(false);
-  const { forbidFuture, mode, ...textInputProps } = inputProps || {};
+  const { forbidFuture, mode, onChange, ...textInputProps } = inputProps || {};
   const isAndroid = Platform.OS === 'android';
 
   const handleDateTimePickerToggle = (date?: Date, properMode?: AndroidModeType) => {
@@ -57,7 +58,7 @@ export const DateTimePicker = ({ error, value, onDateChange, inputProps }: DateT
   ) => {
     if (event.type === 'set') {
       cb?.(date);
-
+      onChange?.(date);
       if (Platform.OS === 'android') {
         DateTimePickerAndroid.dismiss(properMode);
         handleDateTimePickerToggle(date, properMode);

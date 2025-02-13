@@ -25,6 +25,10 @@ export const DateTimePickerControlled = ({ name, label, inputProps }: DateTimePi
         <DateTimePicker
           value={field.value}
           onDateChange={field.onChange}
+          onChange={(event, date) => {
+            inputProps?.onChange?.(date);
+            field.onChange(date);
+          }}
           error={Boolean(fieldState.error)}
           inputProps={inputProps}
         />

@@ -1,9 +1,21 @@
-import { View } from 'react-native';
-
+import { TouchableOpacity, View } from 'react-native';
 import { styles } from './ModalGrabber.styles';
+import { Typography } from '../Typography/Typography';
 
-export const ModalGrabber = () => (
-  <View style={styles.headerContainer}>
-    <View style={styles.grabber} />
-  </View>
-);
+export const ModalGrabber = ({ title, onPress }: { title?: string; onPress: any }) => {
+  // Format title to replace camel case or Pascal case with spaces
+  const formattedTitle = title
+    ? title.replace(/([a-z])([A-Z])/g, '$1 $2') // Add space before uppercase letters
+    : '';
+  console.log('titl===', title);
+
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.headerContainer}>
+      {title && (
+        <Typography size="lg" style={{ fontSize: 24 }} weight="semiBold">
+          {formattedTitle}
+        </Typography>
+      )}
+    </TouchableOpacity>
+  );
+};

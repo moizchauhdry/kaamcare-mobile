@@ -3,6 +3,7 @@ import { forwardRef, useEffect, useState } from 'react';
 import type { TextInputProps } from '../TextInput/TextInput';
 import { TextInput } from '../TextInput/TextInput';
 import { TextInput as RNTextInput } from 'react-native';
+import { theme } from 'config/Theme';
 
 export type NumberInputProps = TextInputProps & {
   maxValue?: number;
@@ -61,6 +62,15 @@ export const NumberInput = forwardRef<RNTextInput, NumberInputProps>(
         {...rest}
         onChangeText={type === 'int' ? handleTextIntChange : handleTextFloatChange}
         value={numericValue}
+        style={{
+          borderColor: theme.colors.primary,
+          height: 35,
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          fontSize: 16,
+          color: theme.colors.textPrimary,
+        }}
       />
     );
   },
