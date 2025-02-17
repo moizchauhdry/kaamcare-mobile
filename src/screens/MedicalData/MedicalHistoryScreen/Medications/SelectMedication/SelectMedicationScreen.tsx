@@ -33,7 +33,7 @@ export const SelectMedicationScreen = ({ navigation }: SelectMedicationScreenPro
     const properName = name ?? searchForSelectElem(value, commonMedications, dynamicData);
     const existedItem = data?.find((elem) => elem.medicationName === properName);
 
-    navigation.navigate('MedicationForm', {
+    navigation.navigate('EditMedication', {
       name: properName,
       edit: Boolean(existedItem),
       id: value,

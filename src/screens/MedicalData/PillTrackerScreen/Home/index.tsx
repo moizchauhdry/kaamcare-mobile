@@ -2,13 +2,16 @@ import { useState, useEffect } from 'react';
 import { SvgXml } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import { FlatList, Image, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-
+import { FlatList, Image, ImageBackground, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import bellIcon from 'assets/icons/bell.svg';
 import arrowDown from 'assets/icons/chevron-down-black.svg';
 import type { AddMedicalDataNavigationParamsList } from 'components/Navigation/AddMedicalDataNavigation';
 import { theme } from 'config/Theme';
 import { Typography } from 'components/UI/Typography/Typography';
+import { Button } from 'components/UI/Button/Button';
+import pluscircle from 'assets/icons/plus-circle.svg';
+import MedicationReminder from 'components/DataDisplay/PillTrackerData/MedicationData/MedicationReminder';
+import NoMedicationData from 'components/DataDisplay/PillTrackerData/MedicationData/NoMedicationData';
 
 const days = [
   { day: 'Sun', date: '01', hasDot: false },
@@ -39,8 +42,8 @@ export const PillTrackerHomeScreen = () => {
             <Image style={styles.avatar} source={require('../../../../assets/images/Avatar.png')} />
             <Typography size="xs">Hello John</Typography>
           </View>
-          <Pressable onPress={() => {}}>
-            <SvgXml xml={bellIcon} width={28} height={28} />
+          <Pressable onPress={() => { }}>
+          <SvgXml xml={bellIcon} width={28} height={28} />
           </Pressable>
         </View>
 
@@ -72,10 +75,28 @@ export const PillTrackerHomeScreen = () => {
         </View>
 
         <View style={styles.arrowWrapper}>
-          <Pressable onPress={() => {}}>
+        <Pressable onPress={() => navigation.navigate('ExpandedCalendar')}>
             <SvgXml xml={arrowDown} width={28} height={28} />
           </Pressable>
         </View>
+        {/* <MedicationReminder/> */}
+        <NoMedicationData/>
+        {/* <ImageBackground
+          style={styles.backgroundimage}
+          source={require('../../../../assets/images/PillsBackground.png')}
+        >
+          <View style={styles.overlay}>
+            <Typography size='md' style={styles.primarytext}>You have<Typography style={styles.secondarytext}> no schedule
+            </Typography> today.
+            </Typography>
+            <Button onPress={() => console.log('Button clicked!')}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <SvgXml xml={pluscircle} width={20} height={20} style={{ marginRight: 8 }} />
+                <Typography size="md" style={{color:'#FFFFFF'}}>Add medications</Typography>
+              </View>
+            </Button>
+          </View>
+        </ImageBackground> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -99,6 +120,28 @@ const styles = StyleSheet.create({
     height: 34,
     borderRadius: 50,
     marginBottom: 4,
+  },
+  backgroundimage: {
+    width: 380,
+    height: 380,
+    alignSelf: 'center',
+    marginTop: 40
+  },
+  overlay: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    borderRadius: 10,
+  },
+  primarytext: {
+    fontSize: 24,
+    color: 'black',
+    marginBottom: 20,
+  },
+  secondarytext: {
+    fontSize: 24,
+    color: 'red',
+    marginBottom: 20,
   },
   calendarContainer: {
     marginTop: 20,

@@ -74,6 +74,9 @@ import { ScreeningExamFormScreen } from '../../screens/MedicalData/PrimaryPreven
 import { SelectScreeningExamScreen } from '../../screens/MedicalData/PrimaryPreventionScreen/ScreeningExams/SelectScreeningExam/SelectScreeningExamScreen';
 import { ADLScreen } from '../../screens/MedicalData/GoalsOfCareScreen/ADLScreen/ADLScreen';
 import { ACPScreen } from '../../screens/MedicalData/GoalsOfCareScreen/ACPScreen/ACPScreen';
+import { CalendarScreen } from 'screens/MedicalData/PillTrackerScreen/ExpandedCalender/CalendarScreen';
+import AddMedicationScreen from 'screens/MedicalData/PillTrackerScreen/Medications/AddMedicationScreen';
+import EditMedicationScreen from 'screens/MedicalData/PillTrackerScreen/Medications/EditMedicationScreen';
 
 export type AddMedicalDataNavigationParamsList = {
   AddMedicalDataHome: undefined;
@@ -94,24 +97,24 @@ export type AddMedicalDataNavigationParamsList = {
   SaturationForm: { id?: string; edit?: boolean; days?: number } | undefined;
   Height: { days?: number };
   HeightForm:
-    | {
-        edit: boolean;
-        id?: string;
-        redirectScreen?: string;
-        isNewest?: boolean;
-        days?: number;
-      }
-    | undefined;
+  | {
+    edit: boolean;
+    id?: string;
+    redirectScreen?: string;
+    isNewest?: boolean;
+    days?: number;
+  }
+  | undefined;
   Weight: { days?: number };
   WeightForm:
-    | {
-        edit: boolean;
-        id?: string;
-        redirectScreen?: string;
-        isNewest?: boolean;
-        days?: number;
-      }
-    | undefined;
+  | {
+    edit: boolean;
+    id?: string;
+    redirectScreen?: string;
+    isNewest?: boolean;
+    days?: number;
+  }
+  | undefined;
 
   Allergies: undefined;
   SelectAllergy: undefined;
@@ -121,23 +124,23 @@ export type AddMedicalDataNavigationParamsList = {
   VisionHistorySelectDiagnosis: undefined;
   VisionHistorySelectEyeWear: undefined;
   VisionHistoryForm:
-    | { sectionName: VisionHistoryName; name: string; edit: boolean; id?: string; isCommonName?: boolean }
-    | undefined;
+  | { sectionName: VisionHistoryName; name: string; edit: boolean; id?: string; isCommonName?: boolean }
+  | undefined;
 
   DentalHistory: undefined;
   DentalHistorySelectDiagnosis: undefined;
   DentalHistorySelectProsthetics: undefined;
   DentalHistoryForm:
-    | { sectionName: DentalHistoryName; name: string; edit: boolean; id?: string; isCommonName?: boolean }
-    | undefined;
+  | { sectionName: DentalHistoryName; name: string; edit: boolean; id?: string; isCommonName?: boolean }
+  | undefined;
 
   HearingHistory: undefined;
   HearingHistorySelectDiagnosis: undefined;
   HearingHistorySelectAids: undefined;
   HearingHistorySelectTests: undefined;
   HearingHistoryForm:
-    | { sectionName: HearingHistoryName; name: string; edit: boolean; id?: string; isCommonName?: boolean }
-    | undefined;
+  | { sectionName: HearingHistoryName; name: string; edit: boolean; id?: string; isCommonName?: boolean }
+  | undefined;
 
   Diagnosis: undefined;
   SelectDiagnosis: undefined;
@@ -189,6 +192,9 @@ export type AddMedicalDataNavigationParamsList = {
   ListAdvancedCarePlanning: undefined;
   PillTrackerIntro: undefined;
   PillTrackerHome: undefined;
+  ExpandedCalendar: undefined;
+  AddMedication: undefined;
+  EditMedication: { name: string; edit: boolean; id?: string; isCommonName?: boolean };
 };
 
 const Stack = createStackNavigator<AddMedicalDataNavigationParamsList>();
@@ -290,6 +296,9 @@ export const AddMedicalDataNavigation = () => (
 
       <Stack.Screen name="PillTrackerIntro" component={IntroScreen} />
       <Stack.Screen name="PillTrackerHome" component={PillTrackerHomeScreen} />
+      <Stack.Screen name="ExpandedCalendar" component={CalendarScreen} />
+      <Stack.Screen name="AddMedication" component={AddMedicationScreen} />
+      <Stack.Screen name="EditMedication" component={EditMedicationScreen} />
     </Stack.Group>
   </Stack.Navigator>
 );
