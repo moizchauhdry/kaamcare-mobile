@@ -2,16 +2,14 @@ import { useState, useEffect } from 'react';
 import { SvgXml } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import { FlatList, Image, ImageBackground, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import bellIcon from 'assets/icons/bell.svg';
 import arrowDown from 'assets/icons/chevron-down-black.svg';
 import type { AddMedicalDataNavigationParamsList } from 'components/Navigation/AddMedicalDataNavigation';
 import { theme } from 'config/Theme';
 import { Typography } from 'components/UI/Typography/Typography';
-import { Button } from 'components/UI/Button/Button';
-import pluscircle from 'assets/icons/plus-circle.svg';
-import MedicationReminder from 'components/DataDisplay/PillTrackerData/MedicationData/MedicationReminder';
 import NoMedicationData from 'components/DataDisplay/PillTrackerData/MedicationData/NoMedicationData';
+import HorizontalDatePicker from 'components/UI/HorizontalDatePicker/HorizontalDatePicker';
 
 const days = [
   { day: 'Sun', date: '01', hasDot: false },
@@ -42,12 +40,12 @@ export const PillTrackerHomeScreen = () => {
             <Image style={styles.avatar} source={require('../../../../assets/images/Avatar.png')} />
             <Typography size="xs">Hello John</Typography>
           </View>
-          <Pressable onPress={() => { }}>
-          <SvgXml xml={bellIcon} width={28} height={28} />
+          <Pressable onPress={() => navigation.navigate('Notifications')}>
+            <SvgXml xml={bellIcon} width={28} height={28} />
           </Pressable>
         </View>
 
-        <View style={styles.calendarContainer}>
+        {/* <View style={styles.calendarContainer}>
           <Typography size="xl" style={styles.monthTitle}>
             November
           </Typography>
@@ -72,15 +70,17 @@ export const PillTrackerHomeScreen = () => {
               </Pressable>
             )}
           />
+        </View> */}
+        <View>
+          <HorizontalDatePicker />
         </View>
-
         <View style={styles.arrowWrapper}>
-        <Pressable onPress={() => navigation.navigate('ExpandedCalendar')}>
+          <Pressable onPress={() => navigation.navigate('ExpandedCalendar')}>
             <SvgXml xml={arrowDown} width={28} height={28} />
           </Pressable>
         </View>
         {/* <MedicationReminder/> */}
-        <NoMedicationData/>
+        <NoMedicationData />
         {/* <ImageBackground
           style={styles.backgroundimage}
           source={require('../../../../assets/images/PillsBackground.png')}

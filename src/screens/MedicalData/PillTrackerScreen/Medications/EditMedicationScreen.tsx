@@ -9,6 +9,11 @@ import RepeatSelector from "components/BottomSheets/PillsScheduleBottomSheets/Re
 import IntervalSelector from "components/BottomSheets/PillsScheduleBottomSheets/IntervalSelectorBottomSheet";
 import ColorShapeSelector from "components/BottomSheets/PillDoseBottomSheets/ColorShapeSelector";
 import DaysSelector from "components/BottomSheets/PillDoseBottomSheets/DaysSelectorBottomSheet";
+import MedicationFormBottomSheet from "components/BottomSheets/PillDoseBottomSheets/MedicationFormBottomSheet";
+import MedicationRouteBottomSheet from "components/BottomSheets/PillDoseBottomSheets/MedicalRouteBottomSheet";
+import PillsAmountBottomSheet from "components/BottomSheets/PillDoseBottomSheets/PillsAmountBottomSheet";
+import DatePickerBottomSheet from "components/BottomSheets/PillsScheduleBottomSheets/DatePickerBottomSheet";
+import AlarmBottomSheet from "components/BottomSheets/PillsScheduleBottomSheets/AlarmBottomSheet";
 
 const EditMedicationScreen = () => {
     const [strengthSheetVisible, setStrengthSheetVisible] = useState(false);
@@ -28,6 +33,16 @@ const EditMedicationScreen = () => {
     const [selectedShape, setSelectedShape] = useState("Circle");
     const [selectedDaysVisible, setSelectedDaysVisible] = useState(false);
     const [selectedDays, setSelectedDays] = useState<string[]>(["Mon", "Thu"]);
+    const [selectedForm, setSelectedForm] = useState("Tablet");
+    const [selectedFormVisible, setSelectedFormVisible] = useState(false);
+    const [selectedRoute, setSelectedRoute] = useState("Oral");
+    const [selectedRouteVisible, setSelectedRouteVisible] = useState(false);
+    const [amountSheetVisible, setAmountSheetVisible] = useState(false);
+    const [amount, setAmount] = useState("10 / 20");
+    const [isSheetVisible, setSheetVisible] = useState(false);
+    const [dateRange, setDateRange] = useState("02-12-2025 - 02-12-2025");
+    const [visible, setVisible] = useState(false);
+    const [selectedTime, setSelectedTime] = useState("1:00 am");
 
     return (
         <ScrollView style={styles.container}>
@@ -43,11 +58,15 @@ const EditMedicationScreen = () => {
                     value={selectedUnit}
                     onPress={() => setUnitSheetVisible(true)}
                 />
-                <MedicationDetails label="Form" value="tablet" onPress={() => { }} />
+                <MedicationDetails
+                    label="Form"
+                    value={selectedForm}
+                    onPress={() => setSelectedFormVisible(true)}
+                />
                 <MedicationDetails
                     label="Color"
                     customRightComponent={<View style={[styles.colorCircle, { backgroundColor: selectedColor }]} />}
-                    onPress={() => setColorShapeVisible(true)} // Open Bottom Sheet
+                    onPress={() => setColorShapeVisible(true)}
                 />
                 <MedicationDetails
                     label="For"
@@ -55,8 +74,12 @@ const EditMedicationScreen = () => {
                     onPress={() => setMedicineForSheetVisible(true)}
                 />
 
-                <MedicationDetails label="Pill Amount" value="10/20" onPress={() => { }} />
-                <MedicationDetails label="Route" value="oral" onPress={() => { }} />
+                <MedicationDetails
+                    label="Pill Amount"
+                    value={amount}
+                    onPress={() => setAmountSheetVisible(true)}
+                />
+                <MedicationDetails label="Route" value={selectedRoute} onPress={() => setSelectedRouteVisible(true)} />
             </View>
 
             <Text style={styles.sectionTitle}>Schedule</Text>
@@ -68,13 +91,13 @@ const EditMedicationScreen = () => {
                 />
                 <MedicationDetails
                     label="Set alarms"
-                    customRightComponent={<Text style={styles.alarmText}>1:00 am</Text>}
-                    onPress={() => { }}
+                    customRightComponent={<Text style={styles.alarmText}>{selectedTime}</Text>}
+                    onPress={() => setVisible(true)}
                 />
                 <MedicationDetails
-                    label="Start and end date:"
-                    customRightComponent={<Text style={styles.alarmText}>2-12-2025</Text>}
-                    onPress={() => { }}
+                    label="Date Range"
+                    value={dateRange}
+                    onPress={() => setSheetVisible(true)}
                 />
                 <MedicationDetails
                     label="Specific days"
@@ -86,13 +109,13 @@ const EditMedicationScreen = () => {
                     onPress={() => setRepeatSheetVisible(true)}
                 />
 
-                <MedicationDetails
+                {/* <MedicationDetails
                     label="Interval"
                     value={`Every ${selectedInterval.value} ${selectedInterval.unit}`}
                     onPress={() => setIntervalSheetVisible(true)}
                 />
                 <MedicationDetails label="Tapering Dose" value="Step Down" onPress={() => { }} />
-                <MedicationDetails label="On a Recurring Cycle" value="21 days active" onPress={() => { }} />
+                <MedicationDetails label="On a Recurring Cycle" value="21 days active" onPress={() => { }} /> */}
             </View>
 
             <TouchableOpacity style={styles.doneButton}>
@@ -107,7 +130,7 @@ const EditMedicationScreen = () => {
             />
             <UnitSelector
                 visible={unitSheetVisible}
-                setVisible={setStrengthSheetVisible}
+                setVisible={setUnitSheetVisible}
                 selectedUnit={selectedUnit}
                 setSelectedUnit={setSelectedUnit}
             />
@@ -149,6 +172,31 @@ const EditMedicationScreen = () => {
                 selectedDays={selectedDays}
                 setSelectedDays={setSelectedDays}
             />
+            <MedicationFormBottomSheet
+                visible={selectedFormVisible}
+                onClose={() => setSelectedFormVisible(false)}
+                onSelect={(form) => setSelectedForm(form)}
+            />
+            <MedicationRouteBottomSheet
+                visible={selectedRouteVisible}
+                onClose={() => setSelectedRouteVisible(false)}
+                onSelect={(form) => setSelectedRoute(form)}
+            />
+            <PillsAmountBottomSheet
+                visible={amountSheetVisible}
+                onClose={() => setAmountSheetVisible(false)}
+                onSubmit={(selectedQuantity) => setAmount(selectedQuantity)}
+            />
+            <DatePickerBottomSheet
+                visible={isSheetVisible}
+                onClose={() => setSheetVisible(false)}
+                onSubmit={(start, end) => setDateRange(`${start} - ${end}`)}
+            />
+            <AlarmBottomSheet
+                visible={visible}
+                setVisible={setVisible}
+                setSelectedTime={setSelectedTime}
+            />
         </ScrollView>
     );
 };
@@ -160,13 +208,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     sectionTitle: {
-        fontSize: 22,
-        fontWeight: "400",
+        fontSize: 23,
+        fontWeight: "500",
         color: "#0072EF",
         marginVertical: 10,
     },
     card: {
-        backgroundColor: "#EEF6FF",
+        backgroundColor: "#F2FCFF",
         padding: 15,
         borderRadius: 10,
         marginBottom: 20,

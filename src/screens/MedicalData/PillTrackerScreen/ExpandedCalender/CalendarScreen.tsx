@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Calendar, DateData } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
+import MedicationReminder from 'components/DataDisplay/PillTrackerData/MedicationData/MedicationReminder';
 
 export const CalendarScreen = () => {
     const [selectedDate, setSelectedDate] = useState<string>('');
@@ -12,7 +13,7 @@ export const CalendarScreen = () => {
 
 
     return (
-        <View style={{ flex: 1, padding: 20, backgroundColor: '#FFFFFF' }}>
+        <View style={{ flex: 1,backgroundColor: '#FFFFFF' }}>
             <Calendar
                 current={'2025-11-17'}
                 markedDates={{
@@ -28,6 +29,7 @@ export const CalendarScreen = () => {
                     selectedDayBackgroundColor: '#673AB7',
                 }}
             />
+            <MedicationReminder/>
         </View>
     );
 }

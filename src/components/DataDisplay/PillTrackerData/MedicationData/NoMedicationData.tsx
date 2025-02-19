@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: "center",
         marginTop: 30,
-        width: "100%",
         justifyContent: "center",
+        width: '110%'
     },
     addButtonText: {
         color: "#fff",

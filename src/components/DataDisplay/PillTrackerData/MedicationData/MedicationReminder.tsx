@@ -11,7 +11,7 @@ const MedicationReminder: React.FC = () => {
         <View style={styles.timelineLine} />
         <View style={[styles.timelineDot, { backgroundColor: 'green' }]} />
         <Text style={styles.time}>8:30 pm</Text>
-        <View style={[styles.timelineDot, { backgroundColor: 'orange', top: 70 }]} />
+        <View style={[styles.timelineDot, { backgroundColor: 'orange', top:150 }]} />
       </View>
 
       <View style={styles.medicationCard}>
@@ -32,10 +32,10 @@ const MedicationReminder: React.FC = () => {
           </View>
         </View>
       </View>
-      <TouchableOpacity style={styles.addButton}>
+      {/* <TouchableOpacity style={styles.addButton}>
         <FontAwesome name="plus-circle" size={20} color="white" />
         <Text style={styles.addButtonText}>Add medications</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     height: 12,
     borderRadius: 6,
     position: 'absolute',
-    left: 2,
+    left: 2.5,
   },
   time: {
     marginLeft: 30,

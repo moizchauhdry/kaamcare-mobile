@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { BottomSheet } from "react-native-btr";
+import checkcircle from '../../../assets/icons/check-mark.svg';
+import { SvgXml } from "react-native-svg";
 
 interface MedicineForProps {
     visible: boolean;
@@ -47,8 +49,10 @@ const MedicineFor: React.FC<MedicineForProps> = ({
                             setVisible(false);
                         }}
                     >
-                        <Text style={styles.optionText}>{type}</Text>
-                        {selectedMedicineType === type && <Text style={styles.checkmark}>✔️</Text>}
+                        <View style={{ flex: 1, alignItems: "center" }}>
+                            <Text style={styles.optionText}>{type}</Text>
+                        </View>
+                        {selectedMedicineType === type && <SvgXml xml={checkcircle} width={24} height={24} />}
                     </TouchableOpacity>
                 ))}
             </View>
@@ -70,7 +74,6 @@ const styles = StyleSheet.create({
     },
     option: {
         flexDirection: "row",
-        justifyContent: "space-between",
         alignItems: "center",
         width: "100%",
         backgroundColor: "#1E88E5",

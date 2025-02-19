@@ -27,7 +27,7 @@ export const SearchInput = ({ error, disabled, onChangeText, value, ...restProps
         disabled ? disabledStyles.inputWrapper : undefined,
       )}
     >
-      <SvgXml xml={searchIcon} stroke={theme.colors.gray200} />
+      <SvgXml xml={searchIcon} stroke={theme.colors.primary} />
       <RNSearchInput
         {...restProps}
         value={value}

@@ -77,6 +77,7 @@ import { ACPScreen } from '../../screens/MedicalData/GoalsOfCareScreen/ACPScreen
 import { CalendarScreen } from 'screens/MedicalData/PillTrackerScreen/ExpandedCalender/CalendarScreen';
 import AddMedicationScreen from 'screens/MedicalData/PillTrackerScreen/Medications/AddMedicationScreen';
 import EditMedicationScreen from 'screens/MedicalData/PillTrackerScreen/Medications/EditMedicationScreen';
+import NotificationsScreen from 'screens/MedicalData/PillTrackerScreen/Notifications/NotificationScreen';
 
 export type AddMedicalDataNavigationParamsList = {
   AddMedicalDataHome: undefined;
@@ -195,6 +196,7 @@ export type AddMedicalDataNavigationParamsList = {
   ExpandedCalendar: undefined;
   AddMedication: undefined;
   EditMedication: { name: string; edit: boolean; id?: string; isCommonName?: boolean };
+  Notifications: undefined;
 };
 
 const Stack = createStackNavigator<AddMedicalDataNavigationParamsList>();
@@ -299,6 +301,7 @@ export const AddMedicalDataNavigation = () => (
       <Stack.Screen name="ExpandedCalendar" component={CalendarScreen} />
       <Stack.Screen name="AddMedication" component={AddMedicationScreen} />
       <Stack.Screen name="EditMedication" component={EditMedicationScreen} />
+      <Stack.Screen name="Notifications" component={NotificationsScreen} />
     </Stack.Group>
   </Stack.Navigator>
 );

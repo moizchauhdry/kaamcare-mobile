@@ -1,6 +1,7 @@
-import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { BottomSheet } from "react-native-btr";
+import { SvgXml } from "react-native-svg";
+import checkcircle from '../../../assets/icons/check-mark.svg';
 
 interface UnitSelectorProps {
     visible: boolean;
@@ -15,7 +16,7 @@ const UnitSelector: React.FC<UnitSelectorProps> = ({
     selectedUnit,
     setSelectedUnit,
 }) => {
-    const unitlevels: string[] = ['gram','milli gram','micro gram', 'Liter', 'Drop','Puff'];
+    const unitlevels: string[] = ['gram', 'milli gram', 'micro gram', 'Liter', 'Drop', 'Puff'];
 
     return (
         <BottomSheet
@@ -37,8 +38,10 @@ const UnitSelector: React.FC<UnitSelectorProps> = ({
                             setVisible(false);
                         }}
                     >
-                        <Text style={styles.optionText}>{level}</Text>
-                        {selectedUnit === level && <Text style={styles.checkmark}>✔️</Text>}
+                        <View style={{ flex: 1, alignItems: "center" }}>
+                            <Text style={styles.optionText}>{level}</Text>
+                        </View>
+                        {selectedUnit === level && <SvgXml xml={checkcircle} width={24} height={24} />}
                     </TouchableOpacity>
                 ))}
             </View>
@@ -60,7 +63,6 @@ const styles = StyleSheet.create({
     },
     option: {
         flexDirection: "row",
-        justifyContent: "center",
         alignItems: "center",
         width: "100%",
         backgroundColor: "#1E88E5",
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
     optionText: {
         color: "#FFF",
         fontSize: 18,
-        fontWeight: "normal",
+        fontWeight: "bold",
     },
     checkmark: {
         fontSize: 18,

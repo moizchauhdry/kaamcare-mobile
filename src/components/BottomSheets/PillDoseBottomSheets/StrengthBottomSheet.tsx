@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { BottomSheet } from "react-native-btr";
+import checkcircle from '../../../assets/icons/check-mark.svg';
+import { SvgXml } from "react-native-svg";
 
 interface StrengthSelectorProps {
     visible: boolean;
@@ -37,8 +39,10 @@ const StrengthSelector: React.FC<StrengthSelectorProps> = ({
                             setVisible(false);
                         }}
                     >
-                        <Text style={styles.optionText}>{level}</Text>
-                        {selectedStrength === level && <Text style={styles.checkmark}>✔️</Text>}
+                        <View style={{ flex: 1, alignItems: "center" }}>
+                            <Text style={styles.optionText}>{level}</Text>
+                        </View>
+                        {selectedStrength === level && <SvgXml xml={checkcircle} width={24} height={24} />}
                     </TouchableOpacity>
                 ))}
             </View>
@@ -56,15 +60,14 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: "bold",
         marginBottom: 10,
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
     },
     option: {
         flexDirection: "row",
-        justifyContent: "center",
         alignItems: "center",
         width: "100%",
         backgroundColor: "#1E88E5",
-        paddingVertical: 8,
+        paddingVertical: 12,
         paddingHorizontal: 20,
         borderRadius: 10,
         marginVertical: 7,
@@ -76,11 +79,12 @@ const styles = StyleSheet.create({
     optionText: {
         color: "#FFF",
         fontSize: 18,
-        fontWeight: "normal",
+        fontWeight: "bold",
     },
     checkmark: {
         fontSize: 18,
         color: "white",
+        marginLeft: "auto",
     },
 });
 

@@ -15,7 +15,7 @@ const MedicationDetails: React.FC<MedicationDetailsProps> = ({ label, value, onP
       <Text style={styles.label}>{label}</Text>
       <View style={styles.rightSection}>
         {customRightComponent ? customRightComponent : <Text style={styles.value}>{value}</Text>}
-        <Ionicons name="chevron-forward" size={18} color="#0072EF" />
+        <Ionicons name="chevron-forward" size={20} color="#0072EF" />
       </View>
     </TouchableOpacity>
   );
@@ -27,12 +27,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#E5E5E5",
+    borderBottomWidth: 1.5,
+    borderBottomColor: "#D1F0FF",
   },
   label: {
     fontSize: 16,
     fontWeight: "500",
+    color:'black'
   },
   rightSection: {
     flexDirection: "row",
