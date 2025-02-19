@@ -27,6 +27,8 @@ export const useBloodPressureChartData = (
 ) => {
   const { pressure } = useUnitsData();
   const isLongChart = days === 2 || days === 3;
+  // console.log('bloodPressureLogs=====', bloodPressureLogs);
+
   const properData = bloodPressureLogs.map((elem) => ({
     ...elem,
     commonDate: elem.date ? getDateFromSeparatedModel(elem.date) : undefined,
@@ -76,6 +78,7 @@ export const useBloodPressureChartData = (
                   />
                 )
               : undefined,
+          date: item?.date,
         };
       });
     });
@@ -136,6 +139,7 @@ export const useBloodPressureChartData = (
             )
           : undefined,
         focusedDataPointColor: dataPointColor,
+        date: item?.date,
       };
     });
 

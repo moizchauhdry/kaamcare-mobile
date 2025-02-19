@@ -13,6 +13,7 @@ import { theme } from 'config/Theme';
 import { Card } from 'components/UI/Card/Card';
 import linkIcon from 'assets/icons/link.svg';
 import { SvgXml } from 'react-native-svg';
+import { SwitchSelector2oComponent } from 'components/UI/Inputs/SwitchSelector/SwitchSelector2o';
 // import SwitchSelector from 'react-native-switch-selector';
 // import { SwitchSelectorComponent as SwitchSelector } from '../..//SwitchSelector';
 
@@ -37,7 +38,7 @@ export const ConnectDeviceScreen = (props: ConnectDeviceScreenProps) => {
   return (
     <View style={{ flex: 1 }}>
       <ScreenModalLayout title="" isScrollable>
-        <SwitchSelectorComponent
+        <SwitchSelector2oComponent
           value={deviceType}
           onPress={(value) => handleTypeChange(value)}
           options={[

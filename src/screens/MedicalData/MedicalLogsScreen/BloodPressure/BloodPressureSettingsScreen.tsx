@@ -8,8 +8,8 @@ import { Typography } from 'components/UI/Typography/Typography';
 import { theme } from 'config/Theme';
 import { useState } from 'react';
 import { SvgXml } from 'react-native-svg';
-import LeftHandIcon from '../../../../assets/icons//left-hand.svg';
-import SittingIcon from '../../../../assets/icons/sitting-on-a-chair.svg';
+import LeftHandIcon from '../../../../assets/icons//left-hand-filled.svg';
+import SittingIcon from '../../../../assets/icons/sitting-filled.svg';
 import chevronRight from '../../../../assets/icons/chevron-right.svg';
 import { Button } from 'components/UI/Button/Button';
 import { useNavigation } from '@react-navigation/native';
@@ -68,7 +68,7 @@ export const BloodPressureSettingsScreen = (props: BloodPressureSettingsScreenPr
                   <Typography style={styles.subText}>Left Hand</Typography>
                 </View>
                 <View style={styles.iconContainer}>
-                  <SvgXml xml={LeftHandIcon} color={theme.colors.primary} />
+                  <SvgXml xml={LeftHandIcon} width={30} height={30} color={theme.colors.primary} />
                 </View>
               </View>
             </Card>
@@ -82,7 +82,7 @@ export const BloodPressureSettingsScreen = (props: BloodPressureSettingsScreenPr
                   <Typography style={styles.subText}>Sitting</Typography>
                 </View>
                 <View style={styles.iconContainer}>
-                  <SvgXml xml={SittingIcon} color={theme.colors.primary} />
+                  <SvgXml xml={SittingIcon} width={30} height={30} color={theme.colors.primary} />
                 </View>
               </View>
             </Card>

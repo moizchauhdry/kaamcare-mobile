@@ -21,7 +21,6 @@ export const Home = () => {
     <View style={{ gap: 16 }}>
       <HomeTitle />
       <MyProfile />
-      {/* <OfflineSimulator /> */}
       <ContributionComponent />
       <HealthInsurance />
       <MedicalLogs />

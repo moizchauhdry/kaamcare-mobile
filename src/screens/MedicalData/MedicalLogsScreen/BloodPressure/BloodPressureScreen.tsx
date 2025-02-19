@@ -12,6 +12,8 @@ import { useQueryBloodPressureLogsList } from '../../../../hooks/query/medicalLo
 import { useMedicalLogsDateFilter } from '../../../../hooks/useMedicalLogsDateFilter';
 import { useQueryBloodPressureListAll } from '../../../../hooks/query/medicalLogs/bloodPressure/useQueryBloodPressureListAll';
 import { TabNavigationCustomIcon } from 'components/Navigation/components/TabNavigationIcon/TabNavigationCustomIcon';
+import { SwitchSelector2oComponent } from 'components/UI/Inputs/SwitchSelector/SwitchSelector2o';
+import { theme } from 'config/Theme';
 
 type BloodPressureScreenProps = NativeStackScreenProps<AddMedicalDataNavigationParamsList, 'BloodPressure'>;
 
@@ -24,9 +26,12 @@ export const BloodPressureScreen = ({ route, navigation }: BloodPressureScreenPr
   const { data = [] } = useQueryBloodPressureLogsList(filters, { enabled: isOnline });
   const properData = useMemo(() => (isOnline ? data : dataAll), [isOnline, dataAll, data]);
   const [switchType, setSwitchType] = useState(type === 'Heart Rate' ? 'heart rate' : 'pressure');
-
+  const [selectedType, setSelectedType] = useState<string>('Blood pressure');
   const handleSelect = (selectedType: string) => {
     setSwitchType(selectedType === 'Heart Rate' ? 'heart rate' : 'pressure');
+  };
+  const handleTypeChange = (selectedType: string) => {
+    setSelectedType(selectedType);
   };
 
   console.log('typetypetypetype', type);
@@ -34,8 +39,22 @@ export const BloodPressureScreen = ({ route, navigation }: BloodPressureScreenPr
   return (
     <View style={{ flex: 1 }}>
       <MedicalLogsMainLayout onSelect={(type) => handleSelect(type)} title="Blood Pressure">
-        <View style={{ flex: 1, paddingBottom: 64 }}>
+        <View style={{ flex: 1, paddingBottom: 64, zIndex: 10 }}>
           <View style={{ gap: 16 }}>
+            <SwitchSelector2oComponent
+              value={selectedType}
+              onPress={(value) => handleTypeChange(value)}
+              options={[
+                {
+                  value: 'Blood pressure',
+                  label: 'Blood pressure',
+                },
+                { value: 'Pulse', label: 'Pulse' },
+              ]}
+              style={{ borderWidth: 0, marginTop: 10 }}
+              textStyle={{ fontSize: 20, color: theme.colors.textGray }}
+              selectedTextStyle={{ fontSize: 20, color: theme.colors.textPrimary, fontWeight: '500' }}
+            />
             <BloodPressureContent
               initialType={switchType}
               displayDays={days}
@@ -52,8 +71,8 @@ export const BloodPressureScreen = ({ route, navigation }: BloodPressureScreenPr
       <View style={styles.floatingButtonContainer}>
         <TabNavigationCustomIcon
           onPress={() => navigation.navigate('BloodPressureForm', { days, edit: false })}
-          name="circle-button"
-          size={81}
+          name="plus-circle-button"
+          size={60}
         />
       </View>
     </View>

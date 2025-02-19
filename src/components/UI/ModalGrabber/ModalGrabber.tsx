@@ -7,7 +7,6 @@ export const ModalGrabber = ({ title, onPress }: { title?: string; onPress: any 
   const formattedTitle = title
     ? title.replace(/([a-z])([A-Z])/g, '$1 $2') // Add space before uppercase letters
     : '';
-  console.log('titl===', title);
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.headerContainer}>

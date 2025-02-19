@@ -3,7 +3,11 @@ import { useState, useEffect } from 'react';
 
 import { SwitchTab } from '../../../../UI/SwitchTab/SwitchTab';
 import { DatePagination } from '../../../../UI/DatePagination/DatePagination';
-import { bloodPressureTabsType, medicalLogsTabsDays } from '../../../../../constants/data/medicalLogs/common';
+import {
+  bloodPressureTabsType,
+  medicalLogsTabsDays,
+  medicalLogsTabsDays2o,
+} from '../../../../../constants/data/medicalLogs/common';
 import type { BloodPressureLogs } from '../../../../../model/api/medicalLogs/BloodPressure';
 import { BloodPressureChart } from './BloodPressureChart';
 
@@ -34,10 +38,10 @@ export const BloodPressureContent = ({
   }, [initialType]);
 
   return (
-    <View style={{ gap: 16 }}>
+    <View style={{ gap: 12 }}>
       <View>{/* <SwitchTab selected={type} tabs={bloodPressureTabsType} onSelect={setType} type="normal" /> */}</View>
       <View>
-        <SwitchTab selected={displayDays} tabs={medicalLogsTabsDays} onSelect={onDisplayDaysChange} />
+        <SwitchTab selected={displayDays} tabs={medicalLogsTabsDays2o} onSelect={onDisplayDaysChange} />
       </View>
       <View style={{ flex: 1 }}>
         <DatePagination onDateChange={onStartDateChange} subDays={medicalLogsTabsDays[displayDays]!.subDays} />

@@ -44,6 +44,7 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
   };
 
   // Convert chartData.data into the format needed for BarChart
+
   const barData = chartData.data
     .filter((d) => d.value !== null) // Exclude null values
     .map((d) => ({
@@ -52,6 +53,7 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
       frontColor: d.dataPointColor || theme.colors.primary, // Default to primary theme color if not specified
       onPress: isDashboard ? undefined : () => handleFocus(d),
     }));
+  console.log('chartData=====', chartData);
 
   return (
     <View style={{ flex: 1, gap: 8 }}>

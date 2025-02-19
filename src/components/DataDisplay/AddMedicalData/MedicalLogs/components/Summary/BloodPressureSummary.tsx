@@ -19,13 +19,23 @@ const SummaryDataItem = ({ label, min, max, average }: SummaryDataItemProps) => 
         {label === 'Pulse' ? 'Heart Rate' : label}
       </Typography>
       <View style={styles.valuesContainer}>
-        <Typography size="sm" color="primary" weight="semiBold" style={styles.value}>
+        <Typography
+          size="sm"
+          // color={theme.colors.orange}
+          weight="semiBold"
+          style={[styles.value, { color: theme.colors.orange }]}
+        >
           {min}
         </Typography>
-        <Typography size="sm" color="primary" weight="semiBold" style={styles.value}>
+        <Typography
+          size="sm"
+          // color={theme.colors.red}
+          weight="semiBold"
+          style={[styles.value, { color: theme.colors.red }]}
+        >
           {max}
         </Typography>
-        <Typography size="sm" color="primary" weight="semiBold" style={styles.value}>
+        <Typography size="sm" weight="semiBold" style={[styles.value, { color: theme.colors.green }]}>
           {average}
         </Typography>
       </View>
@@ -100,11 +110,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 6,
     marginBottom: 8,
-    marginLeft: 145,
+    marginLeft: 120,
   },
   headerText: {
     flex: 1,
     textAlign: 'center',
+    color: theme.colors.textPrimary,
   },
   itemContainer: {
     flexDirection: 'row',

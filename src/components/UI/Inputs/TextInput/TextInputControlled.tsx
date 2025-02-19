@@ -31,7 +31,7 @@ export const TextInputControlled = forwardRef<RNTextInput, TextInputControlledPr
         control={control}
         name={name}
         disabled={inputProps?.disabled}
-        containerStyle={{ marginBottom: 60 }}
+        // containerStyle={{ marginBottom: 60 }}
         render={({ field }) => (
           <View>
             <TextInput

@@ -3,8 +3,8 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { theme } from 'config/Theme';
 import { SvgXml } from 'react-native-svg';
-import chevronDown from '../../../assets/icons/chevron-down.svg';
-import help from '../../../assets/icons/help.svg';
+import chevronDown from '../../../assets/icons/chevron-down-transparent.svg';
+import help from '../../../assets/icons/help-filled.svg';
 import { Typography } from '../Typography/Typography';
 import { Card } from './Card';
 import { useNavigation } from '@react-navigation/native';
@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 const PreHypertensionCard = () => {
   const navigation = useNavigation();
   return (
-    <Card style={{ borderColor: theme.colors.backgroundDark, borderWidth: 1 }}>
+    <Card style={{ borderColor: theme.colors.backgroundDark, borderWidth: 1, height: 165 }}>
       <View style={styles.contentContainer}>
         {/* Title */}
         <Typography style={styles.titleText}>Pre-Hypertension</Typography>
@@ -21,15 +21,16 @@ const PreHypertensionCard = () => {
         <View
           style={{
             flexDirection: 'row',
-            width: '70%',
-            justifyContent: 'space-between',
+            // width: '70%',
+            // justifyContent: 'space-between',
+            gap: 10,
             alignItems: 'center',
             // backgroundColor: 'red',
           }}
         >
           <Typography style={styles.subtitleText}>Systolic 121-109 or Diastolic 90-120</Typography>
           <TouchableOpacity style={{}} onPress={() => (navigation as any).navigate('HypertensionStagesScreen')}>
-            <SvgXml xml={help} />
+            <SvgXml xml={help} width={18} height={18} />
           </TouchableOpacity>
         </View>
         {/* Colored indicators */}
@@ -37,7 +38,7 @@ const PreHypertensionCard = () => {
           <View style={[styles.indicator, { backgroundColor: '#007AFF' }]} />
           <View style={[styles.indicator, { backgroundColor: '#34C759' }]} />
           <View style={[styles.indicator, { backgroundColor: '#F8AE11' }]}>
-            <SvgXml style={styles.arrow} color={'red'} xml={chevronDown} />
+            <SvgXml style={styles.arrow} color={'#F8AE11'} xml={chevronDown} />
           </View>
           <View style={[styles.indicator, { backgroundColor: '#FF8102' }]} />
           <View style={[styles.indicator, { backgroundColor: '#FF9647' }]} />
@@ -65,16 +66,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleText: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 10,
+    fontSize: 22,
+    fontWeight: '500',
+    // marginBottom: 10,
     textAlign: 'center',
-    lineHeight: 30,
+    lineHeight: 27,
     color: theme.colors.textPrimary,
   },
   subtitleText: {
-    fontSize: 13,
+    fontSize: 12,
     color: theme.colors.textGray,
+    fontWeight: '400',
+
     // marginBottom: 16,
     // textAlign: 'flex-end',
   },
@@ -82,7 +85,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 18,
+    marginVertical: 8,
+    marginTop: 16,
   },
   indicator: {
     width: 40,
@@ -100,8 +104,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     color: theme.colors.textGrayDark,
-    lineHeight: 18,
-    width: '85%',
+    lineHeight: 15,
+    width: '74%',
   },
 });
 

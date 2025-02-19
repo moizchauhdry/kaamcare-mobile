@@ -20,6 +20,28 @@ export const medicalLogsTabsDays = [
     subDays: 90,
   },
 ];
+export const medicalLogsTabsDays2o = [
+  {
+    value: 0,
+    label: 'Day',
+    subDays: 1,
+  },
+  {
+    value: 1,
+    label: 'Week',
+    subDays: 7,
+  },
+  {
+    value: 2,
+    label: 'Month',
+    subDays: 30,
+  },
+  {
+    value: 3,
+    label: 'Year',
+    subDays: 90,
+  },
+];
 
 export const bloodPressureTabsType = [
   {

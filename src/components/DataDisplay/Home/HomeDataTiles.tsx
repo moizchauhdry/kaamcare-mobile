@@ -1,5 +1,5 @@
 import type { ListRenderItemInfo } from 'react-native';
-import { FlatList } from 'react-native';
+import { FlatList, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import type { ComponentType, JSXElementConstructor, ReactElement } from 'react';
 import { useCallback, useMemo } from 'react';
 
@@ -53,7 +53,11 @@ export const HomeDataTiles = ({ selected, contentAboveTheList, contentBellowTheL
   const memoizedRender = useCallback(
     ({ item, index }: ListRenderItemInfo<HomeCardDataType>) => {
       const Component = currentComponent![index]!;
-      return <Component {...item} />;
+      return (
+        <TouchableWithoutFeedback delayPressIn={150} onPress={Keyboard.dismiss}>
+          <Component {...item} />
+        </TouchableWithoutFeedback>
+      );
     },
     [currentComponent],
   );
@@ -72,6 +76,7 @@ export const HomeDataTiles = ({ selected, contentAboveTheList, contentBellowTheL
       ListHeaderComponent={contentAboveTheList}
       ListFooterComponent={contentBellowTheList}
       initialScrollIndex={0}
+      keyboardShouldPersistTaps="handled"
     />
   );
 };

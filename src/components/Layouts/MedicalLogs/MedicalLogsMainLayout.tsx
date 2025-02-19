@@ -30,7 +30,7 @@ export const MedicalLogsMainLayout = ({ title, onSelect, children }: MedicalHist
     >
       <View style={styles.container}>
         <TouchableOpacity onPress={() => setDropdownVisible(!dropdownVisible)} style={styles.titleContainer}>
-          <Typography size="lg" weight="bolder">
+          <Typography size="lg" style={{ fontSize: 22, color: theme.colors.primary }} weight="bolder">
             {selectedType} ▼
           </Typography>
         </TouchableOpacity>
@@ -56,7 +56,11 @@ export const MedicalLogsMainLayout = ({ title, onSelect, children }: MedicalHist
 // Styles
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    // marginTop: 20,
+    alignItems: 'flex-end',
+    borderBottomWidth: 1,
+    borderColor: theme.colors.border,
+    zIndex: 50,
   },
   titleContainer: {
     padding: 10,
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
   dropdown: {
     position: 'absolute',
     top: 50,
-    left: 10,
+    right: 10,
     width: 200,
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 5,
-    zIndex: 10,
+    zIndex: 50,
   },
   option: {
     padding: 10,

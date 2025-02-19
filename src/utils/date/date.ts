@@ -32,10 +32,10 @@ export const formatDate = (date: Date, mode?: 'date' | 'datetime') => {
 
     const properMinutes = formatDatePart(minutes);
 
-    return `${properMonth}.${properDay}.${year}, ${hour12}:${properMinutes} ${hour >= 12 ? 'PM' : 'AM'}`;
+    return `${properMonth}-${properDay}-${year}, ${hour12}:${properMinutes} ${hour >= 12 ? 'PM' : 'AM'}`;
   }
 
-  return `${properMonth}.${properDay}.${year}`;
+  return `${properMonth}-${properDay}-${year}`;
 };
 
 export const getHourFromDate = (date: Date | string) => {

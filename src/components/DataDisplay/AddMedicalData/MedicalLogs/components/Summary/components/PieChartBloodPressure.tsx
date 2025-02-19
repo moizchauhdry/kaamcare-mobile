@@ -6,11 +6,14 @@ import { PieChart } from 'react-native-gifted-charts';
 import { SvgXml } from 'react-native-svg';
 
 import info from 'assets/icons/info.svg';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
 const PieChartComponent = () => {
   // Define pie chart data
+  const navigation = useNavigation();
+
   const pieData = [
     { value: 5, color: '#84c3f5', text: 'Low', percentage: '10%' },
     { value: 15, color: '#89d7a5', text: 'Normal', percentage: '10%' },
@@ -18,16 +21,22 @@ const PieChartComponent = () => {
     { value: 33, color: '#ff6f61', text: 'Hypertension Stage 1', percentage: '33%' },
     { value: 13, color: '#d9534f', text: 'Hypertension Stage 2', percentage: '33%' },
   ];
-
+  const truncateText = (text: string) => {
+    const words = text.split(' ');
+    if (words.length > 2) {
+      return `${words[0]} ${words[1]} ...`;
+    }
+    return text;
+  };
+  const onInfoPress = () => {
+    navigation.navigate('PressureGuidline');
+  };
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>
         <Text style={styles.title}>Pie Chart (Last 12 Months)</Text>
 
-        <TouchableOpacity
-          //   onPress={onInfoPress}
-          style={{ marginTop: -3 }}
-        >
+        <TouchableOpacity onPress={onInfoPress} style={{ marginTop: -3 }}>
           <SvgXml xml={info} height={28} />
         </TouchableOpacity>
       </View>
@@ -53,7 +62,7 @@ const PieChartComponent = () => {
               <View style={[styles.legendColor, { backgroundColor: item.color }]} />
               <Text style={styles.legendText}>{item.percentage}</Text>
 
-              <Text style={styles.legendText}>{item.text}</Text>
+              <Text style={styles.legendText}>{truncateText(item.text)}</Text>
             </View>
           ))}
         </View>
@@ -105,8 +114,8 @@ const styles = StyleSheet.create({
   },
   legendWrapper: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: theme.colors.danger,
+    // borderWidth: 1,
+    // borderColor: theme.colors.danger,
     padding: 10,
     borderRadius: 10,
   },

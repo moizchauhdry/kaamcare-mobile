@@ -80,7 +80,7 @@ export const DataCard = <T,>({
 
   return (
     <WithSkeleton isLoading={dataProps?.isLoading ?? false} skeleton={<DataCardSkeleton />}>
-      <TouchableWithoutFeedback onPress={onPress ?? handleItemPress}>
+      <TouchableWithoutFeedback delayPressIn={150} onPress={onPress ?? handleItemPress}>
         <Card>
           <View style={{ gap: 12 }}>
             <View>

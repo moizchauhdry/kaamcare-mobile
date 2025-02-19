@@ -58,30 +58,50 @@ import { FormFieldControlled } from '../FormField/FormFieldControlled';
 type SwitchSelectorControlledProps = {
   name: string;
   label?: string;
-  options: { value: string; label: string; icon?: string }[]; // Icon is optional for flexibility
+  options: { value: string; label: string; icon?: string; filledIcon?: string }[]; // Icon is optional for flexibility
 };
 
 export const SwitchSelectorControlled2o = ({ options, name, label }: SwitchSelectorControlledProps) => {
-  const { control, setValue } = useFormContext();
+  // const { control, setValue } = useFormContext();
+  const { control, formState, getFieldState } = useFormContext();
+  const fieldState = getFieldState(name, formState);
+
   const defaultValue = options[0]?.value;
-  React.useEffect(() => {
-    if (defaultValue) {
-      setValue(name, defaultValue); // Set the form value to the first option
-    }
-  }, [defaultValue, name, setValue]);
+  // React.useEffect(() => {
+  //   if (defaultValue) {
+  //     setValue(name, defaultValue); // Set the form value to the first option
+  //   }
+  // }, [defaultValue, name, setValue]);
   return (
     <FormFieldControlled
       name={name}
       control={control}
+      error={fieldState.error?.message}
       label={''}
-      defaultValue={defaultValue}
+      // defaultValue={defaultValue}
       render={({ field }) => (
-        <Card>
+        <Card
+          style={{
+            paddingVertical: 8,
+          }}
+        >
           <View style={styles.container}>
             <View style={styles.textContainer}>
               <Typography style={styles.titleText}>{label}</Typography>
               <Typography style={styles.subText}>
-                {field.value && options.find((opt) => opt.value === field.value)?.label}
+                {/* {field.value && options.find((opt) => opt.value === field.value)?.label} */}
+                {field.value &&
+                  (() => {
+                    const selectedOption = options.find((opt) => opt.value === field.value);
+                    let label = selectedOption?.label;
+
+                    // Append "Hand" if value is "Right" or "Left"
+                    if (field.value === 'Right' || field.value === 'Left') {
+                      label = `${label} Hand`;
+                    }
+
+                    return label;
+                  })()}
               </Typography>
             </View>
             <View style={styles.iconContainer}>
@@ -89,8 +109,9 @@ export const SwitchSelectorControlled2o = ({ options, name, label }: SwitchSelec
                 <TouchableOpacity key={option.value} onPress={() => field.onChange(option.value)}>
                   {option.icon ? (
                     <SvgXml
-                      xml={option.icon}
-                      color={field.value === option.value ? theme.colors.primary : theme.colors.black}
+                      xml={field.value === option.value ? option.filledIcon || option.icon : option.icon}
+                      width={40}
+                      height={40}
                     />
                   ) : (
                     <Typography
@@ -122,13 +143,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   titleText: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 15,
+    fontWeight: '500',
     // lineHeight: 32,
     color: theme.colors.textPrimary,
   },
   subText: {
-    fontSize: 13,
+    fontSize: 12,
     color: theme.colors.textGray,
   },
   iconContainer: {

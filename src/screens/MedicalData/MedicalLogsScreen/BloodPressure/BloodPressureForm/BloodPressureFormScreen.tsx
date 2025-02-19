@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Animated, Keyboard, TextInput as RNTextInput, StyleSheet, TouchableOpacity, View } from 'react-native';
 
@@ -9,13 +9,18 @@ import PreHypertensionCard from 'components/UI/Card/PreHypertensionCard';
 import { SwitchSelectorControlled2o } from 'components/UI/Inputs/SwitchSelector/SwitchSelectorController2o';
 import { Typography } from 'components/UI/Typography/Typography';
 import { theme } from 'config/Theme';
-import LeftHandIcon from '../../../../../assets/icons//left-hand.svg';
+import LeftHandIcon from '../../../../../assets/icons/left-hand-unfilled.svg';
+import LeftHandIconFilled from '../../../../../assets/icons/left-hand-filled.svg';
 import checkboxChecked from '../../../../../assets/icons/check-square.svg';
-import LyingIcon from '../../../../../assets/icons/lying.svg';
-import RightHandIcon from '../../../../../assets/icons/right-hand.svg';
-import SittingIcon from '../../../../../assets/icons/sitting-on-a-chair.svg';
+import LyingIcon from '../../../../../assets/icons/lying-unfilled.svg';
+import LyingIconFilled from '../../../../../assets/icons/lying-filled.svg';
+import RightHandIcon from '../../../../../assets/icons/right-hand-unfilled.svg';
+import RightHandIconFilled from '../../../../../assets/icons/right-hand-filled.svg';
+import SittingIcon from '../../../../../assets/icons/sitting-unfilled.svg';
+import SittingIconFilled from '../../../../../assets/icons/sitting-filled.svg';
 import checkboxSquare from '../../../../../assets/icons/square-empty.svg';
-import StandingIcon from '../../../../../assets/icons/standing.svg';
+import StandingIcon from '../../../../../assets/icons/standing-unfilled.svg';
+import StandingIconFilled from '../../../../../assets/icons/standing-filled.svg';
 import { FormSkeleton } from '../../../../../components/Forms/FormSkeleton';
 import { ScreenModalLayout } from '../../../../../components/Layouts/ScreenModalLayout/ScreenModalLayout';
 import type { AddMedicalDataNavigationParamsList } from '../../../../../components/Navigation/AddMedicalDataNavigation';
@@ -38,6 +43,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
 import { ModalGrabber } from 'components/UI/ModalGrabber/ModalGrabber';
 import moment from 'moment';
+import { NumberInputControlled2o } from 'components/UI/Inputs/NumberInput/NumberInputControlled2o';
 
 type BloodPressureFormScreenProps = NativeStackScreenProps<AddMedicalDataNavigationParamsList, 'BloodPressureForm'>;
 
@@ -57,7 +63,12 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
   const openBottomSheet = useCallback(() => {
     refRBSheet.current?.open();
   }, []);
-
+  useEffect(() => {
+    if (initialValues?.date) {
+      const formattedDate = moment(initialValues.date).format('DD-MM-YYYY');
+      setSelectedDate(formattedDate);
+    }
+  }, [initialValues]);
   // Pass the callback to the navigation options
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -201,32 +212,39 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
           <FormSkeleton />
         ) : (
           <FormProvider {...form}>
-            <View style={{ gap: 16 }}>
-              <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'space-between' }}>
-                <NumberInputControlled
+            <View style={{ gap: 16, marginTop: -16, marginBottom: 50 }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 5,
+                  justifyContent: 'space-between',
+                  overflow: 'hidden',
+                }}
+              >
+                <NumberInputControlled2o
                   name="systolic"
                   label="Systolic"
                   inputProps={{
-                    placeholder: 'mmHg',
+                    placeholder: 'mmhg',
                     maxLength: MaxLength,
                     onChangeText: handleSystolicChange,
                   }}
                 />
-                <NumberInputControlled
+                <NumberInputControlled2o
                   name="diastolic"
                   label="Diastolic"
                   inputProps={{
-                    placeholder: 'mmHg',
+                    placeholder: 'mmhg',
                     maxLength: MaxLength,
                     onChangeText: handleDiastolicChange,
                   }}
                   ref={diastolicRef}
                 />
-                <NumberInputControlled
+                <NumberInputControlled2o
                   name="pulse"
                   label="Pulse"
                   inputProps={{
-                    placeholder: 'bpm',
+                    placeholder: 'BPM',
                     maxLength: MaxLength,
                     onChangeText: handlePulsecChange,
                   }}
@@ -242,34 +260,33 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
                 name="measurementSide"
                 label="Measured arm"
                 options={[
-                  { value: 'Right', label: 'Right', icon: RightHandIcon },
-                  { value: 'Left', label: 'Left', icon: LeftHandIcon },
+                  { value: 'Right', label: 'Right', icon: RightHandIcon, filledIcon: RightHandIconFilled },
+                  { value: 'Left', label: 'Left', icon: LeftHandIcon, filledIcon: LeftHandIconFilled },
                 ]}
               />
               <SwitchSelectorControlled2o
                 name="measurementPosition"
                 label="Body position"
                 options={[
-                  { value: 'Sitting', label: 'Sitting', icon: SittingIcon },
-                  { value: 'Standing', label: 'Standing', icon: StandingIcon },
-                  { value: 'Lying', label: 'Lying', icon: LyingIcon },
+                  { value: 'Sitting', label: 'Sitting', icon: SittingIcon, filledIcon: SittingIconFilled },
+                  { value: 'Lying', label: 'Lying', icon: LyingIcon, filledIcon: LyingIconFilled },
+                  { value: 'Standing', label: 'Standing', icon: StandingIcon, filledIcon: StandingIconFilled },
                 ]}
               />
-              <Card style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Card style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8 }}>
                 <Typography
                   style={{
-                    fontSize: 16,
-                    fontWeight: '600',
+                    fontSize: 15,
+                    fontWeight: '500',
                     color: theme.colors.textPrimary,
                   }}
                 >
                   Arrythmia detected
                 </Typography>
                 <TouchableOpacity onPress={() => setArythmiaDetected(!arythmiaDetected)}>
-                  <SvgXml width={20} height={20} xml={arythmiaDetected ? checkboxChecked : checkboxSquare} />
+                  <SvgXml width={17} height={17} xml={arythmiaDetected ? checkboxChecked : checkboxSquare} />
                 </TouchableOpacity>
               </Card>
-              {/* <Button onPress={() => refRBSheet.current.open()}>Open</Button> */}
               <TextInputControlled
                 name="explanation"
                 label="Enter Comments"

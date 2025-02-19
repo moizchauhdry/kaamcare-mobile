@@ -81,8 +81,11 @@ import { PrimaryPreventionScreen } from '../../screens/MedicalData/PrimaryPreven
 import { ScreeningExamFormScreen } from '../../screens/MedicalData/PrimaryPreventionScreen/ScreeningExams/ScreeningExamForm/ScreeningExamFormScreen';
 import { ScreeningExamsScreen } from '../../screens/MedicalData/PrimaryPreventionScreen/ScreeningExams/ScreeningExamsScreen';
 import { SelectScreeningExamScreen } from '../../screens/MedicalData/PrimaryPreventionScreen/ScreeningExams/SelectScreeningExam/SelectScreeningExamScreen';
-import { ConnectDeviceScreen } from 'screens/MedicalData/MedicalLogsScreen/BloodPressure/ConnectDeviceScreen';
-import { ExportShareDataScreen } from 'screens/MedicalData/MedicalLogsScreen/BloodPressure/ExportShareDataScreen';
+import { ConnectDeviceScreen } from '../../screens/MedicalData/MedicalLogsScreen/BloodPressure/ConnectDeviceScreen';
+import { ExportShareDataScreen } from '../../screens/MedicalData/MedicalLogsScreen/BloodPressure/ExportShareDataScreen';
+import { PressureGuidlineScreen } from '../../screens/MedicalData/MedicalLogsScreen/BloodPressure/PressureGuidelineScreen';
+import { PressureGuidelineSettingsScreen } from '../../screens/MedicalData/MedicalLogsScreen/BloodPressure/PressureGuidelineSettingsScreen';
+import { PressureGuidelineDetails } from '../../screens/MedicalData/MedicalLogsScreen/BloodPressure/PressureGuidelineDetails';
 
 export type AddMedicalDataNavigationParamsList = {
   AddMedicalDataHome: undefined;
@@ -204,6 +207,17 @@ export type AddMedicalDataNavigationParamsList = {
   ListAdvancedCarePlanning: undefined;
   PillTrackerIntro: undefined;
   PillTrackerHome: undefined;
+  PressureGuidline: undefined;
+  PressureGuidelineSettings: undefined;
+  PressureGuidelineDetails: {
+    stage: {
+      title: string;
+      subtitle: string;
+      advice: string;
+      color: string;
+      arrowIndex: number;
+    };
+  };
 };
 
 const Stack = createStackNavigator<AddMedicalDataNavigationParamsList>();
@@ -217,11 +231,6 @@ const options: StackNavigationOptions = {
   headerTitleAlign: 'center',
   headerTintColor: theme.colors.primary,
   headerStyle: { backgroundColor: theme.colors.background, shadowColor: 'transparent' },
-};
-
-const cardOptions: StackNavigationOptions = {
-  ...options,
-  presentation: 'card',
 };
 const screenTitleMap: Record<string, string> = {
   MedicalLogs: 'Medical Logs',
@@ -279,6 +288,61 @@ const screenTitleMap: Record<string, string> = {
   HypertensionStagesScreen: 'All Stages',
   ConnectDeviceScreen: 'Connect to device',
   ExportShareDataScreen: 'Export/Share Data',
+
+  // Group 1
+  AddMedicalDataHome: '',
+  Allergies: '',
+  Medications: '',
+  SocialHistory: '',
+  DentalHistory: '',
+  MedicalDevices: '',
+  VisionHistory: '',
+  SurgicalHistory: '',
+  BloodPressure: 'Blood pressure & pulse',
+  BloodSugar: 'Blood Sugar',
+  Weight: 'Weight',
+  Height: 'Height',
+  Saturation: 'Saturation',
+  Diagnosis: '',
+  FamilyHistory: '',
+  PressureGuidline: 'Pressure Guidelines',
+  PressureGuidelineSettings: 'Pressure Guidelines',
+  PressureGuidelineDetails: 'Pressure Guidelines',
+};
+const cardOptions = ({ route, navigation }: { route: any; navigation: any }): StackNavigationOptions => {
+  const title =
+    // route.name === 'BloodPressureForm' ? currentDate :
+    screenTitleMap[route.name];
+  const handleTitlePress = () => {
+    console.log('hi from route===', route.name);
+  };
+  const showHeaderBottomBorder = () => {
+    return ['BloodPressure', 'BloodSugar', 'Weight', 'Height', 'Saturation'].includes(route.name);
+  };
+
+  return {
+    ...options,
+    presentation: 'card',
+    headerBackImage: () => <ModalChevronBack />,
+    headerBackTitleVisible: false,
+    headerTitle: () => <ModalGrabber title={title} onPress={handleTitlePress} />,
+    headerRight: () =>
+      route.name === 'BloodPressureForm' ? (
+        <TouchableOpacity
+          style={{ marginRight: 15 }}
+          onPress={() => (navigation as any).navigate('BloodPressureSettingsScreen')}
+        >
+          <SvgXml xml={settings} />
+        </TouchableOpacity>
+      ) : null,
+    headerTitleAlign: 'center',
+    headerStyle: {
+      backgroundColor: theme.colors.background,
+      shadowColor: 'transparent',
+      borderBottomWidth: showHeaderBottomBorder() ? 0 : 1,
+      borderColor: theme.colors.border,
+    },
+  };
 };
 
 const optionsStack = ({ route, navigation }: { route: any; navigation: any }): StackNavigationOptions => {
@@ -329,6 +393,15 @@ export const AddMedicalDataNavigation = () => {
         <Stack.Screen name="VisionHistory" component={VisionHistoryScreen} />
         <Stack.Screen name="SurgicalHistory" component={SurgicalHistoryScreen} />
         <Stack.Screen name="BloodPressure" component={BloodPressureScreen} />
+        <Stack.Screen name="PressureGuidline" component={PressureGuidlineScreen} />
+        <Stack.Screen name="PressureGuidelineSettings" component={PressureGuidelineSettingsScreen} />
+        <Stack.Screen
+          name="PressureGuidelineDetails"
+          component={PressureGuidelineDetails}
+          options={({ route }) => ({
+            title: route.params?.stage?.title || '',
+          })}
+        />
         <Stack.Screen name="BloodSugar" component={BloodSugarScreen} />
         <Stack.Screen name="Weight" component={WeightScreen} />
         <Stack.Screen name="Height" component={HeightScreen} />
