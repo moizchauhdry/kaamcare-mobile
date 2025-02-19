@@ -44,7 +44,7 @@ export const BloodPressureContent = ({
         <SwitchTab selected={displayDays} tabs={medicalLogsTabsDays2o} onSelect={onDisplayDaysChange} />
       </View>
       <View style={{ flex: 1 }}>
-        <DatePagination onDateChange={onStartDateChange} subDays={medicalLogsTabsDays[displayDays]!.subDays} />
+        <DatePagination onDateChange={onStartDateChange} subDays={medicalLogsTabsDays2o[displayDays]!.subDays} />
       </View>
       <BloodPressureChart data={data} type={type} days={displayDays} startDate={startDate} />
     </View>

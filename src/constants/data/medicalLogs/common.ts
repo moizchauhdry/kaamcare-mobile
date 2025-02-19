@@ -39,7 +39,7 @@ export const medicalLogsTabsDays2o = [
   {
     value: 3,
     label: 'Year',
-    subDays: 90,
+    subDays: 365,
   },
 ];
 
