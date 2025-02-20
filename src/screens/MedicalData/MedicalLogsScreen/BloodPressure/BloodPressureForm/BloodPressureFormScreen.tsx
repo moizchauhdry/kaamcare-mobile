@@ -9,23 +9,22 @@ import PreHypertensionCard from 'components/UI/Card/PreHypertensionCard';
 import { SwitchSelectorControlled2o } from 'components/UI/Inputs/SwitchSelector/SwitchSelectorController2o';
 import { Typography } from 'components/UI/Typography/Typography';
 import { theme } from 'config/Theme';
-import LeftHandIcon from '../../../../../assets/icons/left-hand-unfilled.svg';
-import LeftHandIconFilled from '../../../../../assets/icons/left-hand-filled.svg';
 import checkboxChecked from '../../../../../assets/icons/check-square.svg';
-import LyingIcon from '../../../../../assets/icons/lying-unfilled.svg';
+import LeftHandIconFilled from '../../../../../assets/icons/left-hand-filled.svg';
+import LeftHandIcon from '../../../../../assets/icons/left-hand-unfilled.svg';
 import LyingIconFilled from '../../../../../assets/icons/lying-filled.svg';
-import RightHandIcon from '../../../../../assets/icons/right-hand-unfilled.svg';
+import LyingIcon from '../../../../../assets/icons/lying-unfilled.svg';
 import RightHandIconFilled from '../../../../../assets/icons/right-hand-filled.svg';
-import SittingIcon from '../../../../../assets/icons/sitting-unfilled.svg';
+import RightHandIcon from '../../../../../assets/icons/right-hand-unfilled.svg';
 import SittingIconFilled from '../../../../../assets/icons/sitting-filled.svg';
+import SittingIcon from '../../../../../assets/icons/sitting-unfilled.svg';
 import checkboxSquare from '../../../../../assets/icons/square-empty.svg';
-import StandingIcon from '../../../../../assets/icons/standing-unfilled.svg';
 import StandingIconFilled from '../../../../../assets/icons/standing-filled.svg';
+import StandingIcon from '../../../../../assets/icons/standing-unfilled.svg';
 import { FormSkeleton } from '../../../../../components/Forms/FormSkeleton';
 import { ScreenModalLayout } from '../../../../../components/Layouts/ScreenModalLayout/ScreenModalLayout';
 import type { AddMedicalDataNavigationParamsList } from '../../../../../components/Navigation/AddMedicalDataNavigation';
 import { DeletionButton } from '../../../../../components/UI/Button/DeletionButton';
-import { NumberInputControlled } from '../../../../../components/UI/Inputs/NumberInput/NumberInputControlled';
 import { TextInputControlled } from '../../../../../components/UI/Inputs/TextInput/TextInputControlled';
 import { bloodPressureDefaultValues } from '../../../../../constants/forms/medicalLogs/bloodPressure';
 import { useUnitsData } from '../../../../../context/UnitsContext';
@@ -36,14 +35,15 @@ import { useQueryBloodPressureLog } from '../../../../../hooks/query/medicalLogs
 import { parseBloodPressureFormToApiData } from '../../../../../model/parsers/medicalLogs/BloodPressureParser';
 import { bloodPressureSchema } from '../../../../../schemas/forms/medicalLogs/bloodPressure';
 
-import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack';
-import { SvgXml } from 'react-native-svg';
-import { DateTimePickerControlled } from 'components/UI/Inputs/DateTimePicker/DateTimePickerControlled';
-import RBSheet from 'react-native-raw-bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
+import { DateTimePickerControlled2o } from 'components/UI/Inputs/DateTimePicker/DateTimePickerControlled2o';
+import { NumberInputControlled2o } from 'components/UI/Inputs/NumberInput/NumberInputControlled2o';
 import { ModalGrabber } from 'components/UI/ModalGrabber/ModalGrabber';
 import moment from 'moment';
-import { NumberInputControlled2o } from 'components/UI/Inputs/NumberInput/NumberInputControlled2o';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack';
+import { SvgXml } from 'react-native-svg';
+import { getDateFromSeparatedModel } from 'utils/date/date';
 
 type BloodPressureFormScreenProps = NativeStackScreenProps<AddMedicalDataNavigationParamsList, 'BloodPressureForm'>;
 
@@ -63,12 +63,46 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
   const openBottomSheet = useCallback(() => {
     refRBSheet.current?.open();
   }, []);
+  const form = useForm({
+    defaultValues: initialValues
+      ? {
+          ...initialValues,
+          unit: pressure,
+          systolic: String(initialValues.millimetersOfMercurySystolic),
+          diastolic: String(initialValues.millimetersOfMercuryDiastolic),
+          pulse: initialValues.pulse,
+          measurementPosition: initialValues.position,
+          measurementSide: initialValues.side,
+          explanation: initialValues.explanation,
+          date: new Date(),
+        }
+      : {
+          ...bloodPressureDefaultValues,
+          unit: pressure,
+          date: new Date(),
+        },
+    resolver: zodResolver(bloodPressureSchema),
+  });
+
   useEffect(() => {
-    if (initialValues?.date) {
-      const formattedDate = moment(initialValues.date).format('DD-MM-YYYY');
+    if (initialValues) {
+      const dateObject = getDateFromSeparatedModel(initialValues.date);
+
+      const formattedDate = moment(dateObject).format('DD-MM-YYYY');
       setSelectedDate(formattedDate);
+      form.reset({
+        ...initialValues,
+        unit: pressure,
+        systolic: String(initialValues.millimetersOfMercurySystolic),
+        diastolic: String(initialValues.millimetersOfMercuryDiastolic),
+        pulse: initialValues.pulse,
+        measurementPosition: initialValues.position,
+        measurementSide: initialValues.side,
+        explanation: initialValues.explanation,
+        date: dateObject, // Use the converted date object
+      });
     }
-  }, [initialValues]);
+  }, [initialValues, form, pressure]);
   // Pass the callback to the navigation options
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -85,7 +119,6 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
   const pulseRef = useRef<RNTextInput | null>(null);
   const [keyboardHeight] = useState(new Animated.Value(0));
   const [arythmiaDetected, setArythmiaDetected] = useState(false);
-  console.log('initialValues', initialValues);
 
   React.useEffect(() => {
     const keyboardWillShow = Keyboard.addListener('keyboardWillShow', (event) => {
@@ -110,29 +143,9 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
     };
   }, [keyboardHeight]);
 
-  const form = useForm({
-    defaultValues: initialValues
-      ? {
-          ...initialValues,
-          unit: pressure,
-          systolic: String(initialValues.millimetersOfMercurySystolic),
-          diastolic: String(initialValues.millimetersOfMercuryDiastolic),
-          pulse: initialValues.pulse,
-          measurementPosition: initialValues.position,
-          measurementSide: initialValues.side,
-          explanation: initialValues.explanation,
-          date: new Date(),
-        }
-      : {
-          ...bloodPressureDefaultValues,
-          unit: pressure,
-          date: new Date(),
-        },
-    resolver: zodResolver(bloodPressureSchema),
-  });
-
   const handleSubmitForm = (values: any) => {
     const parsedValues = parseBloodPressureFormToApiData(values, pressure);
+
     edit && initialValues
       ? mutationUpdate.mutate({ ...initialValues, ...parsedValues, id: id! })
       : mutationAdd.mutate(parsedValues);
@@ -317,6 +330,7 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
                   borderTopLeftRadius: 10,
                   borderTopRightRadius: 10,
                   paddingBottom: 10,
+                  height: 300,
                 },
                 draggableIcon: {
                   width: 80,
@@ -324,7 +338,7 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
               }}
             >
               <View style={{ margin: 15, gap: 20 }}>
-                <DateTimePickerControlled
+                <DateTimePickerControlled2o
                   name="date"
                   label="Date and time"
                   inputProps={{

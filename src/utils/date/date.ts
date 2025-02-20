@@ -101,21 +101,20 @@ export const formatDateForChart = (date: Date | string) => {
 };
 
 export const getDateFromSeparatedModel = (date: SeparatedDateModel): Date => {
-  const current = new Date();
-  const hour24 =
-    date.partOfDay === 'PM' && date.hour !== 12
-      ? date.hour! + 12
-      : date.hour === 12 && date.partOfDay === 'AM'
-        ? 0
-        : date.hour;
+  const current = new Date(); // Convert values to numbers, ensuring they are strings first
+  const year = date.year !== null && date.year !== undefined ? parseInt(String(date.year), 10) : current.getFullYear();
+  const month =
+    date.month !== null && date.month !== undefined ? parseInt(String(date.month), 10) - 1 : current.getMonth();
+  const day = date.day !== null && date.day !== undefined ? parseInt(String(date.day), 10) : current.getDate();
+  const hour = date.hour !== null && date.hour !== undefined ? parseInt(String(date.hour), 10) : current.getHours();
+  const minute =
+    date.minute !== null && date.minute !== undefined ? parseInt(String(date.minute), 10) : current.getMinutes();
 
-  return new Date(
-    date.year ?? current.getFullYear(),
-    (date.month ?? current.getMonth()) - 1,
-    date.day ?? current.getDate(),
-    hour24,
-    date.minute,
-  );
+  // Convert hour to 24-hour format
+  const hour24 = date.partOfDay === 'PM' && hour !== 12 ? hour + 12 : date.partOfDay === 'AM' && hour === 12 ? 0 : hour;
+
+  const data = new Date(year, month, day, hour24, minute);
+  return data;
 };
 
 export const getSeparatedModelFromDate = (date: Date): SeparatedDateModel => {

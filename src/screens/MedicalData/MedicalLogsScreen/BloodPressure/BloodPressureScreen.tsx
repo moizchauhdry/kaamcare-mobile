@@ -34,8 +34,6 @@ export const BloodPressureScreen = ({ route, navigation }: BloodPressureScreenPr
     setSelectedType(selectedType);
   };
 
-  console.log('typetypetypetype', type);
-
   return (
     <View style={{ flex: 1 }}>
       <MedicalLogsMainLayout onSelect={(type) => handleSelect(type)} title="Blood Pressure">
