@@ -14,6 +14,7 @@ import { useSignupStore } from '../store';
 export const useAuthSignup = (screenOrigin?: string) => {
   const setUserEmail = useSignupStore((store) => store.setUserEmail);
   const navigation = useNavigation<StackNavigationProp<AuthNavigationParamsList>>();
+  const setIsLogged = useSignupStore((store) => store.setIsLogged);
 
   return useMutation({
     mutationFn: (variables: ISignupRequest) => validatedApi.post<ISignupResponse>('/user/register', variables),
@@ -21,13 +22,20 @@ export const useAuthSignup = (screenOrigin?: string) => {
       if (screenOrigin === 'socialLogin') {
         SecureStore.setItem('id-token', response.data.data?.user?.token ?? '');
         SecureStore.setItem('refresh-token', response.data.data?.user?.token ?? '');
-        setUserEmail(response.data.data?.email);
+        if (response.data.data?.email) {
+          setUserEmail(response.data.data?.email);
+        } else {
+          setUserEmail(response.data.data.user?.email);
+        }
+        setIsLogged(true);
       } else {
         SecureStore.setItem('id-token', response.data.data?.token ?? '');
         navigation.navigate('Verify');
       }
     },
     onError: (error: unknown) => {
+      console.log('error====', error);
+
       handleError(error);
     },
   });

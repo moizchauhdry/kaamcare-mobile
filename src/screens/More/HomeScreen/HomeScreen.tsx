@@ -15,12 +15,15 @@ import { MoreListItem } from '../../../components/DataDisplay/List/MoreListItem/
 
 export const HomeScreen = () => {
   const setIsLogged = useSignupStore((store) => store.setIsLogged);
+  const setUserEmail = useSignupStore((store) => store.setUserEmail);
 
   const handleLogout = () => {
     SecureStore.deleteItemAsync('refresh-token');
     SecureStore.deleteItemAsync('expires-on');
     SecureStore.deleteItemAsync('refresh-token-expires-on');
     SecureStore.deleteItemAsync('b2c_type');
+    SecureStore.deleteItemAsync('id-token');
+    setUserEmail('');
     http.removeHeader('Authorization');
     setIsLogged(false);
 
