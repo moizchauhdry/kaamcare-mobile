@@ -11,6 +11,7 @@ import type { HeightLogs } from '../../../../model/api/medicalLogs/Height';
 import { theme } from '../../../../config/Theme';
 import type { AddMedicalDataNavigationParamsList } from '../../../Navigation/AddMedicalDataNavigation';
 import { MedicalLogsCarouselCard } from './MedicalLogsCarouselCard';
+import { MedicalLogsCarouselCard2o } from './MedicalLogsCarouselCard2o';
 
 const { width } = Dimensions.get('window');
 
@@ -29,7 +30,7 @@ type MedicalLogsCarouselProps = {
   isHome?: boolean;
 };
 
-export const MedicalLogsCarousel = ({ data, isHome }: MedicalLogsCarouselProps) => {
+export const MedicalLogsCarousel2o = ({ data, isHome }: MedicalLogsCarouselProps) => {
   const [activeChart, setActiveChart] = useState(1);
   const listRef = useRef<FlatList | null>(null);
   const extractKey = (item: MedicalLogsCarouselData) => item.type + item.chart;
@@ -56,11 +57,11 @@ export const MedicalLogsCarousel = ({ data, isHome }: MedicalLogsCarouselProps) 
       <FlatList
         ItemSeparatorComponent={() => <View style={{ width: 8 }} />}
         ref={listRef}
-        snapToAlignment="start"
-        snapToInterval={width - 32 + 8}
+        snapToAlignment="center"
+        // snapToInterval={width - 100 + 8}
         decelerationRate={0}
         data={data}
-        renderItem={(item) => <MedicalLogsCarouselCard item={item.item} isHome={isHome} />}
+        renderItem={(item) => <MedicalLogsCarouselCard2o item={item.item} isHome={isHome} />}
         onViewableItemsChanged={({ viewableItems }) => handleItemChange(viewableItems)}
         horizontal
         showsHorizontalScrollIndicator={false}

@@ -88,10 +88,10 @@ export const PressureGuidlineScreen = (props: PressureGuidlineScreenProps) => {
       <ScreenModalLayout title="" isScrollable>
         {stages.map((stage, index) => (
           <TouchableOpacity key={index} onPress={() => navigation.navigate('PressureGuidelineDetails', { stage })}>
-            <Card style={{ marginBottom: 10, paddingVertical: 6, paddingHorizontal: 4 }}>
+            <Card style={{ marginBottom: 10, paddingVertical: 0, paddingHorizontal: 4 }}>
               <View style={styles.contentContainer}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginVertical: 6 }}>
-                  <View style={{ width: 15, height: 55, borderRadius: 15, backgroundColor: stage.color }} />
+                  <View style={{ width: 15, height: 41, borderRadius: 15, backgroundColor: stage.color }} />
                   {/* Title */}
                   <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                     <Typography style={{ ...styles.titleText }}>{stage.title}</Typography>
@@ -165,8 +165,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   titleText: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 15,
+    fontWeight: '500',
     textAlign: 'left',
     // lineHeight: 25,
     color: theme.colors.textPrimary,

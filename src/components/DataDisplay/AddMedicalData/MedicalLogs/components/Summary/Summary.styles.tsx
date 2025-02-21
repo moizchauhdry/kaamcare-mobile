@@ -5,10 +5,11 @@ import { theme } from '../../../../../../config/Theme';
 export const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderColor: theme.colors.lightBlue,
+    borderColor: theme.colors.backgroundDark,
     backgroundColor: theme.colors.white,
-    padding: 16,
-    borderRadius: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 8,
+    borderRadius: 8,
     gap: 12,
   },
   collapsedWrapper: {

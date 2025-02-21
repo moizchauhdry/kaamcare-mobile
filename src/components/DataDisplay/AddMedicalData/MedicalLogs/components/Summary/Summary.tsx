@@ -116,10 +116,10 @@ export const Summary = ({ data, dataLength = 0, graphData }: SummaryProps) => {
 
       {isExpanded && (
         <View style={{ gap: 12 }}>
-          <View style={{ flexDirection: 'row', gap: 12 }}>
+          {/* <View style={{ flexDirection: 'row', gap: 12 }}>
             <View style={[styles.horizontalLine, { flex: 0.5 }]} />
             <View style={[styles.horizontalLine, { flex: 0.5 }]} />
-          </View>
+          </View> */}
 
           {/* {renderContent(data)} */}
 

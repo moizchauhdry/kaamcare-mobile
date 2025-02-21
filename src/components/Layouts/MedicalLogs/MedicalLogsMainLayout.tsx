@@ -37,7 +37,7 @@ export const MedicalLogsMainLayout = ({ title, onSelect, children }: MedicalHist
 
         {dropdownVisible && (
           <View style={styles.dropdown}>
-            {['Blood Pressure', 'Heart Rate', 'Blood Sugar'].map((option) => (
+            {['Blood Pressure', 'Heart Rate'].map((option) => (
               <TouchableOpacity key={option} style={styles.option} onPress={() => handleSelect(option)}>
                 <Typography color={selectedType === option ? 'primary' : 'gray'} size="sm" weight="bolder">
                   {option}

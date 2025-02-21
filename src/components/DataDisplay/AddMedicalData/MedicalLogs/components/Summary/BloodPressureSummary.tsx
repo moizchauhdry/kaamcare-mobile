@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.1,
     // shadowRadius: 5,
     // elevation: 3,
-    borderTopWidth: 1,
-    borderTopColor: theme.colors.primary100,
+    // borderTopWidth: 1,
+    // borderTopColor: theme.colors.primary100,
   },
   title: {
     textAlign: 'left',

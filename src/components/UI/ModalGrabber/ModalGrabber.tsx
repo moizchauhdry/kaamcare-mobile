@@ -11,7 +11,7 @@ export const ModalGrabber = ({ title, onPress }: { title?: string; onPress: any 
   return (
     <TouchableOpacity onPress={onPress} style={styles.headerContainer}>
       {title && (
-        <Typography size="lg" style={{ fontSize: 24 }} weight="semiBold">
+        <Typography size="lg" style={{ fontSize: 24, fontWeight: '600', lineHeight: 36 }} weight="semiBold">
           {formattedTitle}
         </Typography>
       )}

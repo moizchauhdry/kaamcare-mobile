@@ -56,7 +56,23 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
   console.log('chartData=====', chartData);
 
   return (
-    <View style={{ flex: 1, gap: 8 }}>
+    <View
+      style={{
+        flex: 1,
+        gap: 8,
+        backgroundColor: theme.colors.white,
+        padding: 16,
+        borderRadius: 8,
+        shadowColor: theme.colors.shadowPrimary,
+        shadowOffset: { width: 0, height: 3 },
+        shadowRadius: 1,
+        shadowOpacity: 0.9,
+        elevation: 4,
+        borderColor: theme.colors.backgroundDark,
+        borderWidth: 1,
+        overflow: 'hidden',
+      }}
+    >
       <View>
         <Typography style={{ fontSize: 12, opacity: 0.5 }}>
           {type === 'pressure' ? (pressure === 'mmHg' ? 'mmHg' : 'kPa') : 'bpm'}
@@ -67,10 +83,10 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
           <BarChart
             data={barData}
             barWidth={15}
-            barBorderRadius={8}
+            barBorderRadius={4}
             spacing={40}
             adjustToWidth
-            width={Dimensions.get('window').width - 96}
+            width={Dimensions.get('window').width - 140}
             yAxisThickness={0}
             xAxisThickness={0}
             yAxisTextStyle={{

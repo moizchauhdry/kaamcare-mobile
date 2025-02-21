@@ -14,7 +14,7 @@ import { IntroScreen } from 'screens/MedicalData/PillTrackerScreen/Intro/IntroSc
 
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { BloodPressureSettingsScreen } from 'screens/MedicalData/MedicalLogsScreen/BloodPressure/BloodPressureSettingsScreen';
 import { HypertensionStagesScreen } from 'screens/MedicalData/MedicalLogsScreen/BloodPressure/HypertensionStagesScreen';
@@ -235,55 +235,55 @@ const options: StackNavigationOptions = {
 const screenTitleMap: Record<string, string> = {
   MedicalLogs: 'Medical Logs',
   // BloodPressureForm: '',
-  MedicalHistory: '',
-  PrimaryPrevention: '',
-  GoalsOfCare: '',
-  SelectAllergy: '',
-  AddAllergy: '',
-  SelectMedication: '',
-  MedicationForm: '',
-  SocialHistorySmokingForm: '',
-  SocialHistoryAlcoholForm: '',
-  SocialHistoryOccupationForm: '',
-  SocialHistoryDrugForm: '',
-  SelectMedicalDevice: '',
-  MedicalDeviceForm: '',
-  DentalHistorySelectDiagnosis: '',
-  DentalHistorySelectProsthetics: '',
-  DentalHistoryForm: '',
-  VisionHistorySelectEyeWear: '',
-  VisionHistorySelectDiagnosis: '',
-  VisionHistoryForm: '',
-  SelectSurgicalHistory: '',
-  SurgicalHistoryForm: '',
-  HearingHistory: '',
-  HearingHistorySelectDiagnosis: '',
-  HearingHistorySelectAids: '',
-  HearingHistorySelectTests: '',
-  HearingHistoryForm: '',
-  BloodPressureForm: '',
-  BloodSugarForm: '',
-  WeightForm: '',
-  HeightForm: '',
-  SaturationForm: '',
-  DiagnosisForm: '',
-  SelectDiagnosis: '',
-  FamilyHistoryMember: '',
-  FamilyMemberForm: '',
-  FamilyHistorySelectMedicalHistory: '',
-  FamilyHistorySelectDiagnosis: '',
-  FamilyHistoryDiagnosisForm: '',
-  Immunizations: '',
-  SelectVaccine: '',
-  VaccineForm: '',
-  VaccineCardForm: '',
-  ADL: '',
-  ACP: '',
-  ScreeningExams: '',
-  SelectScreeningExam: '',
-  ScreeningExamForm: '',
-  PillTrackerIntro: '',
-  PillTrackerHome: '',
+  MedicalHistory: 'Medical History',
+  PrimaryPrevention: 'Primary Prevention',
+  GoalsOfCare: 'Goals of Care',
+  SelectAllergy: 'Allergies',
+  AddAllergy: 'Allergies',
+  SelectMedication: 'Medications',
+  MedicationForm: 'Medications',
+  SocialHistorySmokingForm: 'Smoking',
+  SocialHistoryAlcoholForm: 'Alcohol',
+  SocialHistoryOccupationForm: 'Occupation',
+  SocialHistoryDrugForm: 'Drug',
+  SelectMedicalDevice: 'Medical Devices',
+  MedicalDeviceForm: 'Medical Devices',
+  DentalHistorySelectDiagnosis: 'Dental History',
+  DentalHistorySelectProsthetics: 'Dental History',
+  DentalHistoryForm: 'Dental History',
+  VisionHistorySelectEyeWear: 'Vision History',
+  VisionHistorySelectDiagnosis: 'Vision History',
+  VisionHistoryForm: 'Vision History',
+  SelectSurgicalHistory: 'Surgical History',
+  SurgicalHistoryForm: 'Surgical History',
+  HearingHistory: 'Hearing History',
+  HearingHistorySelectDiagnosis: 'Hearing History',
+  HearingHistorySelectAids: 'Hearing History',
+  HearingHistorySelectTests: 'Hearing History',
+  HearingHistoryForm: 'Hearing History',
+  BloodPressureForm: 'Blood Pressure',
+  BloodSugarForm: 'Blood Sugar',
+  WeightForm: 'Weight',
+  HeightForm: 'Height',
+  SaturationForm: 'Saturation',
+  DiagnosisForm: 'Diagnosis',
+  SelectDiagnosis: 'Diagnosis',
+  FamilyHistoryMember: 'Family History',
+  FamilyMemberForm: 'Family History',
+  FamilyHistorySelectMedicalHistory: 'Family History',
+  FamilyHistorySelectDiagnosis: 'Family History',
+  FamilyHistoryDiagnosisForm: 'Family History',
+  Immunizations: 'Immunizations',
+  SelectVaccine: 'Immunizations',
+  VaccineForm: 'Immunizations',
+  VaccineCardForm: 'Immunizations',
+  ADL: 'Goals of Care',
+  ACP: 'Goals of Care',
+  ScreeningExams: 'Screening Exams',
+  SelectScreeningExam: 'Screening Exams',
+  ScreeningExamForm: 'Screening Exams',
+  PillTrackerIntro: 'Pill Tracker',
+  PillTrackerHome: 'Pill Tracker',
   BloodPressureSettingsScreen: 'Settings',
   HypertensionStagesScreen: 'All Stages',
   ConnectDeviceScreen: 'Connect to device',
@@ -291,20 +291,20 @@ const screenTitleMap: Record<string, string> = {
 
   // Group 1
   AddMedicalDataHome: '',
-  Allergies: '',
-  Medications: '',
-  SocialHistory: '',
-  DentalHistory: '',
-  MedicalDevices: '',
-  VisionHistory: '',
-  SurgicalHistory: '',
+  Allergies: 'Allergies',
+  Medications: 'Medications',
+  SocialHistory: 'Social History',
+  DentalHistory: 'Dental History',
+  MedicalDevices: 'Medical Devices',
+  VisionHistory: 'Vision History',
+  SurgicalHistory: 'Surgical History',
   BloodPressure: 'Blood pressure & pulse',
   BloodSugar: 'Blood Sugar',
   Weight: 'Weight',
   Height: 'Height',
   Saturation: 'Saturation',
-  Diagnosis: '',
-  FamilyHistory: '',
+  Diagnosis: 'Diagnosis',
+  FamilyHistory: 'Family History',
   PressureGuidline: 'Pressure Guidelines',
   PressureGuidelineSettings: 'Pressure Guidelines',
   PressureGuidelineDetails: 'Pressure Guidelines',
@@ -317,15 +317,23 @@ const cardOptions = ({ route, navigation }: { route: any; navigation: any }): St
     console.log('hi from route===', route.name);
   };
   const showHeaderBottomBorder = () => {
-    return ['BloodPressure', 'BloodSugar', 'Weight', 'Height', 'Saturation'].includes(route.name);
+    return ['BloodPressure', 'BloodSugar', 'AddMedicalDataHome', 'Weight', 'Height', 'Saturation'].includes(route.name);
   };
 
   return {
     ...options,
     presentation: 'card',
-    headerBackImage: () => <ModalChevronBack />,
-    headerBackTitleVisible: false,
+    headerBackImage: () => (route.name === 'AddMedicalDataHome' ? null : <ModalChevronBack />),
+    headerBackTitle: 'Cancel',
+    headerBackTitleVisible: route.name === 'AddMedicalDataHome' ? true : false,
     headerTitle: () => <ModalGrabber title={title} onPress={handleTitlePress} />,
+    // route.name === 'AddMedicalDataHome' ? (
+    //   <ModalGrabber title={title} onPress={handleTitlePress} />
+    // ) : (
+    //   <View style={{ flex: 1, justifyContent: 'flex-start', width: '100%', paddingTop: 5, height: 407 }}>
+    //     <View style={{ width: 36, height: 5, borderRadius: 2.5, backgroundColor: '#ccc', alignSelf: 'center' }} />
+    //   </View>
+    // ),
     headerRight: () =>
       route.name === 'BloodPressureForm' ? (
         <TouchableOpacity
@@ -339,7 +347,7 @@ const cardOptions = ({ route, navigation }: { route: any; navigation: any }): St
     headerStyle: {
       backgroundColor: theme.colors.background,
       shadowColor: 'transparent',
-      borderBottomWidth: showHeaderBottomBorder() ? 0 : 1,
+      borderBottomWidth: showHeaderBottomBorder() ? 0 : 0.5,
       borderColor: theme.colors.border,
     },
   };
@@ -371,7 +379,7 @@ const optionsStack = ({ route, navigation }: { route: any; navigation: any }): S
     headerStyle: {
       backgroundColor: theme.colors.background,
       shadowColor: 'transparent',
-      borderBottomWidth: 1,
+      borderBottomWidth: 0.5,
       borderColor: theme.colors.border,
     },
     presentation: 'card',

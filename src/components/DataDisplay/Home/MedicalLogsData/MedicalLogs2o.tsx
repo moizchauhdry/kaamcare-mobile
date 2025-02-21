@@ -1,13 +1,13 @@
 import { isObjectSomeDataFilled } from 'utils/object/object';
 
-import { MedicalLogsProfileCard } from './MedicalLogsProfileCard';
 import { useQueriesMedicalLogsGet } from '../../../../hooks/query/medicalLogs/useQueriesMedicalLogsGet';
-import type { MedicalLogsCarouselData } from './MedicalLogsCarousel';
-import { MedicalLogsCarousel } from './MedicalLogsCarousel';
-import { getHomePageMedicalLogsData } from '../../../../utils/medicalLogs/common';
 import type { BloodSugarLogs } from '../../../../model/api/medicalLogs/BloodSugar';
+import { getHomePageMedicalLogsData } from '../../../../utils/medicalLogs/common';
+import type { MedicalLogsCarouselData } from './MedicalLogsCarousel';
+import { MedicalLogsCarousel2o } from './MedicalLogsCarousel2o';
+import { MedicalLogsProfileCard } from './MedicalLogsProfileCard';
 
-export const MedicalLogs = ({ isHome }: { isHome?: boolean }) => {
+export const MedicalLogs2o = ({ isHome }: { isHome?: boolean }) => {
   const data = useQueriesMedicalLogsGet();
   const isLoading = data.some((query) => query.isLoading);
   const properData = data.map((query) => query.data);
@@ -39,6 +39,6 @@ export const MedicalLogs = ({ isHome }: { isHome?: boolean }) => {
       }}
     />
   ) : (
-    <MedicalLogsCarousel isHome={isHome} data={properCarouselData as unknown as MedicalLogsCarouselData[]} />
+    <MedicalLogsCarousel2o isHome={isHome} data={properCarouselData as unknown as MedicalLogsCarouselData[]} />
   );
 };

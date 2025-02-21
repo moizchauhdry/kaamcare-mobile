@@ -85,16 +85,16 @@ export const HypertensionStagesScreen = (props: HypertensionStagesScreenProps) =
               </View>
 
               {/* Subtitle */}
-              <View
+              {/* <View
                 style={{
                   flexDirection: 'row',
-                  width: '70%',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  width: '100%',
+                  // justifyContent: 'space-between',
+                  // alignItems: 'center',
                 }}
-              >
-                <Typography style={styles.subtitleText}>{stage.systolicRange}</Typography>
-              </View>
+              > */}
+              <Typography style={styles.subtitleText}>{stage.systolicRange}</Typography>
+              {/* </View> */}
               {/* Colored indicators */}
               <View style={styles.indicatorContainer}>
                 {stages.map((_, indicatorIndex) => (
@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#181818',
     marginTop: 6,
+    textAlign: 'center',
   },
   indicatorContainer: {
     flexDirection: 'row',

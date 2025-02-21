@@ -34,7 +34,8 @@ const PieChartComponent = () => {
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>Pie Chart (Last 12 Months)</Text>
+        <Text style={styles.title}>Pie Chart </Text>
+        <Text style={[styles.title, { color: theme.colors.primary }]}>Last 12 Months</Text>
 
         <TouchableOpacity onPress={onInfoPress} style={{ marginTop: -3 }}>
           <SvgXml xml={info} height={28} />
@@ -74,27 +75,32 @@ const PieChartComponent = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    padding: 15,
-    backgroundColor: 'white',
-    borderRadius: 12,
-    // elevation: 4,
-    // shadowColor: '#000',
-    shadowOpacity: 0.1,
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowRadius: 4,
-    alignSelf: 'center',
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: theme.colors.white,
+    shadowColor: theme.colors.shadowPrimary,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 1,
+    shadowOpacity: 0.9,
+    elevation: 4,
+    borderColor: theme.colors.backgroundDark,
+    borderWidth: 1,
+    marginTop: 15,
   },
   infoContainer: {
     marginBottom: 12,
-    position: 'absolute',
-    left: 0,
+    // position: 'absolute',
+    // left: 0,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
   },
   title: {
     fontSize: 16,
     fontWeight: '600',
     marginRight: 12,
-    color: theme.colors.gray200,
+    color: theme.colors.textPrimary,
   },
   chartLegendContainer: {
     flexDirection: 'row',

@@ -24,11 +24,11 @@ export const ScreenModalLayout = ({
   const content = (
     <View style={{ flex: 1 }}>
       <View style={{ padding: 16, paddingBottom: 28, paddingTop: 12 }}>
-        {title && (
+        {/* {title && (
           <Typography size="lg" weight="bolder">
             {title}
           </Typography>
-        )}
+        )} */}
         {subTitle ? (
           <Typography size="md" weight="semiBold">
             {subTitle}

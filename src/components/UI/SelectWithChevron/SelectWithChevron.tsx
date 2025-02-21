@@ -32,7 +32,7 @@ export const SelectWithChevron = ({ label, subLabel, onPress, isBorder = true, c
     }}
   >
     <View style={{ flexDirection: 'column', flex: 1 }}>
-      <Typography weight="normal" numberOfLines={2}>
+      <Typography style={{ fontSize: 17, lineHeight: 25, fontWeight: '400' }} weight="normal" numberOfLines={2}>
         {label}
         {children}
       </Typography>

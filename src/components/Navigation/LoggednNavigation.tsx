@@ -92,7 +92,7 @@ const InsuranceNavigation = () => {
           headerBackTitle: 'Close',
           headerBackTitleVisible: true,
           headerBackTitleStyle: { fontSize: 17, paddingHorizontal: 8, lineHeight: 22, minWidth: 120 },
-          headerTitle: () => <ModalGrabber />,
+          headerTitle: () => <ModalGrabber onPress={() => {}} />,
           headerTitleAlign: 'center',
           headerTintColor: theme.colors.primary,
           headerStyle: { backgroundColor: theme.colors.background, shadowColor: 'transparent' },
@@ -104,7 +104,7 @@ const InsuranceNavigation = () => {
         options={{
           headerBackImage: () => <ModalChevronBack />,
           headerBackTitleVisible: false,
-          headerTitle: () => <ModalGrabber />,
+          headerTitle: () => <ModalGrabber onPress={() => {}} />,
           headerTitleAlign: 'center',
           headerStyle: { backgroundColor: theme.colors.background, shadowColor: 'transparent' },
           presentation: 'card',

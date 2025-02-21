@@ -21,9 +21,9 @@ export const MedicalHistoryUnitLayout = ({
 }: MedicalHistoryContentProps) => (
   <View style={{ flex: 1, paddingHorizontal: 16, backgroundColor: theme.colors.background }}>
     <View style={editable ? { flexDirection: 'row', justifyContent: 'space-between' } : undefined}>
-      <Typography size="lg" weight="bolder">
+      {/* <Typography size="lg" weight="bolder">
         {title}
-      </Typography>
+      </Typography> */}
       {editable ? (
         <TouchableOpacity onPress={onEditablePress}>
           <SvgXml xml={edit} />
