@@ -1,15 +1,15 @@
-import { BarChart } from 'react-native-gifted-charts';
-import { Dimensions, View } from 'react-native';
 import type { ElementType } from 'react';
 import { useState } from 'react';
+import { Dimensions, View } from 'react-native';
+import { BarChart } from 'react-native-gifted-charts';
 
+import { theme } from '../../../../../config/Theme';
+import { useUnitsData } from '../../../../../context/UnitsContext';
 import { useBloodPressureChartData } from '../../../../../hooks/useBloodPressureChartData';
 import type { BloodPressureLogs } from '../../../../../model/api/medicalLogs/BloodPressure';
-import { theme } from '../../../../../config/Theme';
-import { Typography } from '../../../../UI/Typography/Typography';
-import { useUnitsData } from '../../../../../context/UnitsContext';
-import { findFirstValueIndex, findLastValueIndex, findMax } from '../../../../../utils/array/array';
+import { findMax } from '../../../../../utils/array/array';
 import { roundUpToNearest } from '../../../../../utils/number/number';
+import { Typography } from '../../../../UI/Typography/Typography';
 
 type BloodPressureChartProps = {
   data: BloodPressureLogs;
@@ -23,9 +23,12 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
   const [focusedItem, setFocusedItem] = useState<null | { displayComponent?: ElementType }>(null);
   const [isDisplay, setIsDisplay] = useState(false);
   const { pressure } = useUnitsData();
-  const chartData = useBloodPressureChartData(data, type, days, startDate);
+  const chartData: any = useBloodPressureChartData(data, type, days, startDate);
+  // console.log('chartData=====', chartData);
+  // console.log('type=====', type);
+  // console.log('data=====', data);
 
-  const maxValue = roundUpToNearest(findMax(chartData.data!.map((d) => d.value ?? 0)) ?? 0, 10);
+  const maxValue = roundUpToNearest(findMax(chartData.data!.map((d: any) => d.value ?? 0)) ?? 0, 10);
   const Component = focusedItem?.displayComponent || null;
   const isDaily = days === 0;
 
@@ -46,14 +49,15 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
   // Convert chartData.data into the format needed for BarChart
 
   const barData = chartData.data
-    .filter((d) => d.value !== null) // Exclude null values
-    .map((d) => ({
+    .filter((d: any) => d.value !== null) // Exclude null values
+    .map((d: any) => ({
       value: d.value ?? 0,
       label: d.label,
+      frontLabel: d.dataPointLabel,
       frontColor: d.dataPointColor || theme.colors.primary, // Default to primary theme color if not specified
       onPress: isDashboard ? undefined : () => handleFocus(d),
     }));
-  console.log('chartData=====', chartData);
+  console.log('barData=====', barData);
 
   return (
     <View
@@ -102,14 +106,22 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
               opacity: 0.5,
             }}
             maxValue={maxValue}
+
+            // renderTooltip={(item: any) => (
+            //   <View style={{ position: 'absolute', top: -20, left: -10 }}>
+            //     <Typography size="md" color="black">
+            //       {item.frontLabel}
+            //     </Typography>
+            //   </View>
+            // )}
           />
         ) : null}
         {isDisplay && focusedItem && Component ? (
           <View
             style={{
               position: 'absolute',
-              top: isDaily ? '50%' : '35%',
-              left: isDaily ? '50%' : '35%',
+              top: isDaily ? '10%' : '15%',
+              left: isDaily ? '50%' : '50%',
               transform: [{ translateX: -50 }, { translateY: -50 }],
             }}
           >

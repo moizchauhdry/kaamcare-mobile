@@ -1,9 +1,10 @@
-import { View, type ViewStyle } from 'react-native';
+import { Animated, Easing, View, type ViewStyle } from 'react-native';
 import type { FieldValues, FieldPath, ControllerProps, FieldError, Merge, FieldErrorsImpl } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 
 import { Typography, type TypographyExportProps } from '../../Typography/Typography';
 import { theme } from 'config/Theme';
+import { useEffect, useRef } from 'react';
 
 interface FormFieldControlledProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -29,8 +30,19 @@ export const FormFieldControlled2o = <
   wrapperStyle,
   ...restProps
 }: FormFieldControlledProps<TFieldValues, TName>) => {
+  const heightAnim = useRef(new Animated.Value(120)).current; // Initial height
+  useEffect(() => {
+    // Animate height based on error presence
+    Animated.timing(heightAnim, {
+      toValue: error ? 250 : 120, // Expand to 150 if error, else shrink to 120
+      duration: 300, // Animation duration in milliseconds
+      easing: Easing.inOut(Easing.ease), // Add easing
+      useNativeDriver: false, // Height animation requires `useNativeDriver: false`
+    }).start();
+  }, [error]); // Trigger animation when error changes
+
   return (
-    <View
+    <Animated.View
       style={[
         {
           // gap: 18,
@@ -48,7 +60,8 @@ export const FormFieldControlled2o = <
           elevation: 5,
           justifyContent: 'center',
           width: 112,
-          // minHeight: error && error==='Field is required' ?150:error==='Field is required' ? 230 : 120,
+          minHeight: error ? 150 : 120,
+          height: heightAnim,
         },
         containerStyle,
       ]}
@@ -73,6 +86,6 @@ export const FormFieldControlled2o = <
           {error as string}
         </Typography>
       )}
-    </View>
+    </Animated.View>
   );
 };

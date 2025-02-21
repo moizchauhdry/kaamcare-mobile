@@ -11,6 +11,8 @@ import chevronDown from '../../../../assets/icons/chevron-down.svg';
 import chevronDownTransparent from '../../../../assets/icons/chevron-down-transparent.svg';
 import chevronUp from '../../../../assets/icons/chevron-up.svg';
 import type { AddMedicalDataNavigationParamsList } from '../../../../components/Navigation/AddMedicalDataNavigation';
+import { GraphStage } from 'model/medicalLogs/MedicalLogsCommon';
+import { getStageRange } from 'utils/medicalLogs/summary';
 
 type PressureGuidelineDetailsProps = NativeStackScreenProps<
   AddMedicalDataNavigationParamsList,
@@ -26,46 +28,6 @@ const indicators = [
   { color: '#E84420' }, // Crisis
 ];
 
-const adviceList = [
-  {
-    title: 'Increase fluid intake',
-    titleColor: '#FF9647',
-    content:
-      'Maintain good hydration by drinking an adequate amount of water, fruit juices, or electrolyte beverages to help stabilize blood pressure.',
-  },
-  {
-    title: 'Adjust Body Positions',
-    titleColor: '#FF9647',
-
-    content:
-      'Especially when transitioning from lying or sitting to standing, do so slowly to avoid sudden changes that may lead to dizziness and lightheadedness.',
-  },
-  {
-    title: 'Eat Small, Frequent Meals',
-    titleColor: '#FF9647',
-    content:
-      'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
-  },
-  {
-    title: 'Avoid Hot Baths and High Temperatures',
-    titleColor: '#FF9647',
-    content:
-      'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
-  },
-  {
-    title: 'Monitor Symptoms',
-    titleColor: '#FF9647',
-    content:
-      'If you experience frequent dizziness, lightheadedness, weakness, or persistent discomfort, seek medical advice promptly.',
-  },
-  {
-    title: 'Important Note',
-    titleColor: theme.colors.primary,
-    content:
-      'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
-  },
-];
-
 export const PressureGuidelineDetails = ({ route }: PressureGuidelineDetailsProps) => {
   const { stage } = route.params;
   const [isExpanded, setIsExpanded] = useState(false);
@@ -79,14 +41,14 @@ export const PressureGuidelineDetails = ({ route }: PressureGuidelineDetailsProp
             {/* Title Section */}
             <View style={styles.titleContainer}>
               {/* <View style={{ width: 15, height: 15, borderRadius: 15, backgroundColor: stage.color }} /> */}
-              <Typography style={[styles.titleText]}>{stage.title}</Typography>
+              <Typography style={[styles.titleText]}>{stage.label}</Typography>
             </View>
 
             {/* Indicators */}
             <View style={styles.indicatorContainer}>
               {indicators.map((indicator, index) => (
                 <View key={index} style={[styles.indicator, { backgroundColor: indicator.color }]}>
-                  {index === stage.arrowIndex && (
+                  {index === stage.index && (
                     <SvgXml
                       style={styles.arrow}
                       width={28}
@@ -100,7 +62,7 @@ export const PressureGuidelineDetails = ({ route }: PressureGuidelineDetailsProp
             </View>
             {/* Subtitle */}
             <View style={styles.subtitleContainer}>
-              <Typography style={styles.subtitleText}>{stage.subtitle}</Typography>
+              <Typography style={styles.subtitleText}>{getStageRange(stage)}</Typography>
             </View>
             {/* Warning Text */}
             {/* <Typography style={styles.warningText}>{stage.advice}</Typography> */}
@@ -120,12 +82,12 @@ export const PressureGuidelineDetails = ({ route }: PressureGuidelineDetailsProp
 
             {isExpanded && (
               <View style={styles.adviceContent}>
-                {adviceList.map((advice, index) => (
+                {stage.exclusiveAdvices.map((advice: any, index) => (
                   <View key={index} style={styles.adviceItem}>
                     <Typography style={[styles.adviceItemTitle, { color: advice.titleColor }]} weight="semiBold">
                       • {advice.title}
                     </Typography>
-                    <Typography style={styles.adviceItemContent}>{advice.content}</Typography>
+                    <Typography style={styles.adviceItemContent}>{advice.description}</Typography>
                   </View>
                 ))}
               </View>

@@ -29,21 +29,21 @@ export const DateTimePicker2o = ({ value, onDateChange, inputProps }: DateTimePi
 
   const handleDateTimePickerToggle = (date?: Date, properMode?: AndroidModeType) => {
     if (mode === 'datetime' && properMode === 'date') {
-      handleOpenPicker('time', date);
+      // handleOpenPicker('time', date);
     }
   };
 
-  const handleOpenPicker = (properMode?: AndroidModeType, properValue: Date = new Date()) => {
+  const handleOpenPicker = (properMode: AndroidModeType, properValue: Date = new Date()) => {
     if (isAndroid) {
       DateTimePickerAndroid.open({
         value: properValue,
         onChange: (e, date) => handleDateChange(e, date, onDateChange, properMode),
-        mode: properMode ?? 'date',
+        mode: properMode,
         maximumDate: forbidFuture ? new Date() : undefined,
       });
+    } else {
+      setShowPicker(true);
     }
-
-    setShowPicker(true);
   };
 
   const handleDateChange = (
@@ -119,6 +119,7 @@ export const DateTimePicker2o = ({ value, onDateChange, inputProps }: DateTimePi
 
     return null;
   };
+
   const formatDateParts = (date: Date) => {
     const year = date.getFullYear();
     const month = date.toLocaleString('default', { month: 'long' }); // Full month name
@@ -149,38 +150,44 @@ export const DateTimePicker2o = ({ value, onDateChange, inputProps }: DateTimePi
 
   return (
     <>
-      <Pressable onPress={() => handleOpenPicker('date', value)}>
-        <View style={styles.dateContainer}>
-          {/* Year */}
+      <View style={styles.dateContainer}>
+        {/* Year */}
+        <Pressable onPress={() => handleOpenPicker('date', value)}>
           <View style={styles.datePart}>
             <Text style={styles.datePartText}>{year}</Text>
           </View>
+        </Pressable>
 
-          {/* Separator */}
-          <View style={styles.separator} />
+        {/* Separator */}
+        <View style={styles.separator} />
 
-          {/* Month */}
+        {/* Month */}
+        <Pressable onPress={() => handleOpenPicker('date', value)}>
           <View style={styles.datePart}>
             <Text style={styles.datePartText}>{month}</Text>
           </View>
+        </Pressable>
 
-          {/* Separator */}
-          <View style={styles.separator} />
+        {/* Separator */}
+        <View style={styles.separator} />
 
-          {/* Day */}
+        {/* Day */}
+        <Pressable onPress={() => handleOpenPicker('date', value)}>
           <View style={styles.datePart}>
             <Text style={styles.datePartText}>{day}</Text>
           </View>
+        </Pressable>
 
-          {/* Separator */}
-          <View style={styles.separator} />
+        {/* Separator */}
+        <View style={styles.separator} />
 
-          {/* Time */}
+        {/* Time */}
+        <Pressable onPress={() => handleOpenPicker('time', value)}>
           <View style={styles.datePart}>
             <Text style={styles.datePartText}>{time}</Text>
           </View>
-        </View>
-      </Pressable>
+        </Pressable>
+      </View>
       <View style={styles.timeContainer}>
         {/* AM */}
         <Pressable

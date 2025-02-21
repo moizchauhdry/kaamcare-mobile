@@ -18,6 +18,8 @@ import { dayXAxis, medicalLogsTabsDays } from '../constants/data/medicalLogs/com
 import { useUnitsData } from '../context/UnitsContext';
 import { Typography } from '../components/UI/Typography/Typography';
 import { theme } from '../config/Theme';
+import { determineBloodPressureStage } from 'utils/medicalLogs/summary';
+import { graphStages } from 'constants/data/medicalLogs/bloodPressure';
 
 export const useBloodPressureChartData = (
   bloodPressureLogs: BloodPressureLogs,
@@ -106,15 +108,29 @@ export const useBloodPressureChartData = (
     higherIndex?: number,
   ): lineDataItem[] =>
     xAxisLabels.map((elem, index) => {
-      const item = properCalculatedData.find((inner) => formatDate(inner!.date!) === formatDate(elem));
+      const item: any = properCalculatedData.find((inner) => formatDate(inner!.date!) === formatDate(elem));
+      console.log('typ of====', typeof item?.total.millimetersOfMercurySystolic);
+
+      const calculateData = determineBloodPressureStage(
+        {
+          millimetersOfMercurySystolic: item?.total.millimetersOfMercurySystolic,
+          millimetersOfMercuryDiastolic: item?.total.millimetersOfMercuryDiastolic,
+          pulse: item?.total.pulse,
+        },
+        graphStages,
+      );
+      // console.log('calculateData=====', calculateData);
+
       const properValue = item?.average?.[key] ?? null;
       const chartType = key === 'pulse' ? 'pulse' : 'pressure';
-      const dataPointColor = chartType === 'pulse' ? item?.pulseColor : item?.color;
+      const dataPointColor = calculateData.color;
+      // chartType === 'pulse' ? item?.pulseColor : item?.color;
       const label = getLabel(elem, subDays, index, xAxisLabels.length - 1);
 
       return {
         value: properValue!,
         hideDataPoint: properValue === 0,
+        dataPointLabel: calculateData.label,
         dataPointColor: isLongChart
           ? higherIndex === 0
             ? theme.colors.summaryBlue

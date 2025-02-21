@@ -19,7 +19,7 @@ export const BloodPressureList = ({ data, days }: BloodPressureListProps) => {
   if (!data) {
     return null;
   }
-
+  console.log('data=====', data);
   return (
     <View style={{ gap: 8 }}>
       {data.map((elem) => {

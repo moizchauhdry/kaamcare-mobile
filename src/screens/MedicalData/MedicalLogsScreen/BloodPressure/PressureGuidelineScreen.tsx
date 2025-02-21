@@ -11,54 +11,11 @@ import { useState } from 'react';
 import { SvgXml } from 'react-native-svg';
 import chevronRight from '../../../../assets/icons/chevron-right.svg';
 import type { AddMedicalDataNavigationParamsList } from '../../../../components/Navigation/AddMedicalDataNavigation';
+import { graphStages } from 'constants/data/medicalLogs/bloodPressure';
+import { GraphStage } from 'model/medicalLogs/MedicalLogsCommon';
+import { getStageRange } from 'utils/medicalLogs/summary';
 
 type PressureGuidlineScreenProps = NativeStackScreenProps<AddMedicalDataNavigationParamsList, 'PressureGuidline'>;
-
-const stages = [
-  {
-    title: 'Hypotension',
-    subtitle: 'sys >90 or DIA <60',
-    advice: 'Please seek help from your doctor if it remains low for a long time.',
-    color: '#007AFF',
-    arrowIndex: 0,
-  },
-  {
-    title: 'Normal',
-    subtitle: 'sys 90-119 and DIA 60-79',
-    advice: 'Great! Your blood pressure is in the healthy range. Just keep it!',
-    color: '#34C759',
-
-    arrowIndex: 1,
-  },
-  {
-    title: 'Prehypertension',
-    subtitle: 'sys 120-129 and DIA <80',
-    advice: 'Please seek help from your doctor if it remains low for a long time.',
-    color: '#F8AE11',
-    arrowIndex: 2,
-  },
-  {
-    title: 'Hypertension Stage 1',
-    subtitle: 'sys 130-139 or DIA 80-89',
-    advice: 'Please seek help from your doctor if it remains low for a long time.',
-    color: '#FF8102',
-    arrowIndex: 3,
-  },
-  {
-    title: 'Hypertension Stage 2',
-    subtitle: 'sys 140-180 or DIA 90-120',
-    advice: `Attention! If you've got 3 or more results in the range, your doctor's advice and immediate medical treatment are necessary.`,
-    color: '#FF9647',
-    arrowIndex: 4,
-  },
-  {
-    title: 'Hypertensive Crisis',
-    subtitle: 'sys >180 or DIA >120',
-    advice: 'We are worried about you, please call emergency services immediately.',
-    color: '#E84420',
-    arrowIndex: 5,
-  },
-];
 
 export const PressureGuidlineScreen = (props: PressureGuidlineScreenProps) => {
   const navigation = useNavigation();
@@ -83,10 +40,11 @@ export const PressureGuidlineScreen = (props: PressureGuidlineScreenProps) => {
       </TouchableOpacity>
     );
   };
+
   return (
     <View style={{ flex: 1 }}>
       <ScreenModalLayout title="" isScrollable>
-        {stages.map((stage, index) => (
+        {graphStages.map((stage, index) => (
           <TouchableOpacity key={index} onPress={() => navigation.navigate('PressureGuidelineDetails', { stage })}>
             <Card style={{ marginBottom: 10, paddingVertical: 0, paddingHorizontal: 4 }}>
               <View style={styles.contentContainer}>
@@ -94,8 +52,8 @@ export const PressureGuidlineScreen = (props: PressureGuidlineScreenProps) => {
                   <View style={{ width: 15, height: 41, borderRadius: 15, backgroundColor: stage.color }} />
                   {/* Title */}
                   <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                    <Typography style={{ ...styles.titleText }}>{stage.title}</Typography>
-                    <Typography style={styles.subtitleText}>{stage.subtitle}</Typography>
+                    <Typography style={{ ...styles.titleText }}>{stage.label}</Typography>
+                    <Typography style={styles.subtitleText}>{getStageRange(stage)}</Typography>
                   </View>
                 </View>
 

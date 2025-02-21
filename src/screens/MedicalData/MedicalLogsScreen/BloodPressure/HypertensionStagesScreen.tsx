@@ -1,4 +1,4 @@
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 import type { NativeStackScreenProps } from 'react-native-screens/native-stack';
 
 import { useNavigation } from '@react-navigation/native';
@@ -11,62 +11,14 @@ import { useState } from 'react';
 import { SvgXml } from 'react-native-svg';
 import chevronDown from '../../../../assets/icons/chevron-down-transparent.svg';
 import type { AddMedicalDataNavigationParamsList } from '../../../../components/Navigation/AddMedicalDataNavigation';
+import { graphStages } from 'constants/data/medicalLogs/bloodPressure';
+import { GraphStage } from 'model/medicalLogs/MedicalLogsCommon';
+import { getStageRange } from 'utils/medicalLogs/summary';
 
 type HypertensionStagesScreenProps = NativeStackScreenProps<
   AddMedicalDataNavigationParamsList,
   'HypertensionStagesScreen'
 >;
-
-const stages = [
-  {
-    title: 'Low',
-    subtitle: 'Your blood pressure seems a little low.',
-    systolicRange: 'Your blood pressure seems a little low.',
-    advice: 'Please seek help from your doctor if it remains low for a long time.',
-    color: '#007AFF',
-    arrowIndex: 0,
-  },
-  {
-    title: 'Normal',
-    subtitle: 'Great! Your blood pressure is in the healthy range.',
-    systolicRange: 'Systolic 90–119 and Diastolic 60–79',
-    advice: 'Great! Your blood pressure is in the healthy range. Just keep it!',
-    color: '#34C759',
-    arrowIndex: 1,
-  },
-  {
-    title: 'Pre-hypertension',
-    subtitle: 'Please seek help from your doctor if it remains low for a long time.',
-    systolicRange: 'Systolic 120–129 and Diastolic < 80',
-    advice: 'Please seek help from your doctor if it remains low for a long time.',
-    color: '#F8AE11',
-    arrowIndex: 2,
-  },
-  {
-    title: 'Hypertension-Stage 1',
-    subtitle: 'Please seek help from your doctor.',
-    systolicRange: 'Systolic 130–139 or Diastolic 80–89',
-    advice: 'Please seek help from your doctor if it remains low for a long time.',
-    color: '#FF8102',
-    arrowIndex: 3,
-  },
-  {
-    title: 'Hypertension-Stage 2',
-    subtitle: 'Attention! If you’ve got 3 or more results in this range.',
-    systolicRange: 'Systolic 140–180 or Diastolic 90–120',
-    advice: `Attention! If you've got 3 or more results in the range, your doctor's advice and immediate medical treatment are necessary.`,
-    color: '#FF9647',
-    arrowIndex: 4,
-  },
-  {
-    title: 'Hypertensive-Crisis',
-    subtitle: 'We are worried about you.',
-    systolicRange: 'Systolic > 180 or Diastolic > 120',
-    advice: 'We are worried about you, please call emergency services immediately.',
-    color: '#E84420',
-    arrowIndex: 5,
-  },
-];
 
 export const HypertensionStagesScreen = (props: HypertensionStagesScreenProps) => {
   const navigation = useNavigation();
@@ -75,17 +27,18 @@ export const HypertensionStagesScreen = (props: HypertensionStagesScreenProps) =
   return (
     <View style={{ flex: 1 }}>
       <ScreenModalLayout title="" isScrollable>
-        {stages.map((stage, index) => (
-          <Card key={index} style={{ marginBottom: 10 }}>
-            <View style={styles.contentContainer}>
-              {/* Title */}
-              <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center', justifyContent: 'center' }}>
-                <View style={{ width: 15, height: 15, borderRadius: 15, backgroundColor: stage.color }} />
-                <Typography style={{ ...styles.titleText, color: stage.color }}>{stage.title}</Typography>
-              </View>
+        {graphStages.map((stage, index) => (
+          <TouchableOpacity key={index} onPress={() => navigation.navigate('PressureGuidelineDetails', { stage })}>
+            <Card key={index} style={{ marginBottom: 10 }}>
+              <View style={styles.contentContainer}>
+                {/* Title */}
+                <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center', justifyContent: 'center' }}>
+                  <View style={{ width: 15, height: 15, borderRadius: 15, backgroundColor: stage.color }} />
+                  <Typography style={{ ...styles.titleText, color: stage.color }}>{stage.label}</Typography>
+                </View>
 
-              {/* Subtitle */}
-              {/* <View
+                {/* Subtitle */}
+                {/* <View
                 style={{
                   flexDirection: 'row',
                   width: '100%',
@@ -93,26 +46,30 @@ export const HypertensionStagesScreen = (props: HypertensionStagesScreenProps) =
                   // alignItems: 'center',
                 }}
               > */}
-              <Typography style={styles.subtitleText}>{stage.systolicRange}</Typography>
-              {/* </View> */}
-              {/* Colored indicators */}
-              <View style={styles.indicatorContainer}>
-                {stages.map((_, indicatorIndex) => (
-                  <View
-                    key={indicatorIndex}
-                    style={[styles.indicator, { backgroundColor: stages[indicatorIndex]?.color || 'transparent' }]}
-                  >
-                    {indicatorIndex === stage.arrowIndex && (
-                      <SvgXml style={styles.arrow} color={stage.color} xml={chevronDown} />
-                    )}
-                  </View>
-                ))}
-              </View>
+                <Typography style={styles.subtitleText}>{getStageRange(stage)}</Typography>
+                {/* </View> */}
+                {/* Colored indicators */}
+                <View style={styles.indicatorContainer}>
+                  {graphStages.map((_, indicatorIndex) => (
+                    <View
+                      key={indicatorIndex}
+                      style={[
+                        styles.indicator,
+                        { backgroundColor: graphStages[indicatorIndex]?.color || 'transparent' },
+                      ]}
+                    >
+                      {indicatorIndex === stage.index && (
+                        <SvgXml style={styles.arrow} color={stage.color} xml={chevronDown} />
+                      )}
+                    </View>
+                  ))}
+                </View>
 
-              {/* Instructional text */}
-              <Typography style={styles.warningText}>{stage.advice}</Typography>
-            </View>
-          </Card>
+                {/* Instructional text */}
+                <Typography style={styles.warningText}>{stage.advice}</Typography>
+              </View>
+            </Card>
+          </TouchableOpacity>
         ))}
         <View style={{ marginBottom: 60 }} />
       </ScreenModalLayout>

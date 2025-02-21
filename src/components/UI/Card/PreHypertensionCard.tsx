@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-
 import { theme } from 'config/Theme';
 import { SvgXml } from 'react-native-svg';
 import chevronDown from '../../../assets/icons/chevron-down-transparent.svg';
@@ -8,48 +7,64 @@ import help from '../../../assets/icons/help-filled.svg';
 import { Typography } from '../Typography/Typography';
 import { Card } from './Card';
 import { useNavigation } from '@react-navigation/native';
+import { graphStages } from 'constants/data/medicalLogs/bloodPressure';
 
-const PreHypertensionCard = () => {
+interface PreHypertensionCardProps {
+  systolic: number;
+  diastolic: number;
+}
+
+const PreHypertensionCard: React.FC<PreHypertensionCardProps> = ({ systolic, diastolic }) => {
   const navigation = useNavigation();
+
+  // Determine the current stage based on systolic and diastolic values
+  const currentStage = graphStages.find((stage) => {
+    return stage.scopes.some((scope) => {
+      if (scope.key === 'systolic') {
+        return systolic >= scope.min && systolic <= scope.max;
+      } else if (scope.key === 'diastolic') {
+        return diastolic >= scope.min && diastolic <= scope.max;
+      }
+      return false;
+    });
+  });
+
+  const stageIndex = currentStage?.index || 0;
+
   return (
     <Card style={{ borderColor: theme.colors.backgroundDark, borderWidth: 1, height: 165 }}>
       <View style={styles.contentContainer}>
         {/* Title */}
-        <Typography style={styles.titleText}>Pre-Hypertension</Typography>
+        <Typography style={styles.titleText}>{currentStage?.label || 'Pre-Hypertension'}</Typography>
 
         {/* Subtitle */}
-        <View
-          style={{
-            flexDirection: 'row',
-            // width: '70%',
-            // justifyContent: 'space-between',
-            gap: 10,
-            alignItems: 'center',
-            // backgroundColor: 'red',
-          }}
-        >
-          <Typography style={styles.subtitleText}>Systolic 121-109 or Diastolic 90-120</Typography>
-          <TouchableOpacity style={{}} onPress={() => (navigation as any).navigate('HypertensionStagesScreen')}>
-            <SvgXml xml={help} width={18} height={18} />
+        <View style={{ flexDirection: 'row', gap: 8, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+          <Typography style={styles.subtitleText}>
+            Systolic {systolic} and Diastolic {diastolic}
+          </Typography>
+          <TouchableOpacity onPress={() => (navigation as any).navigate('HypertensionStagesScreen')}>
+            <SvgXml xml={help} width={20} height={20} />
           </TouchableOpacity>
         </View>
+
         {/* Colored indicators */}
         <View style={styles.indicatorContainer}>
-          <View style={[styles.indicator, { backgroundColor: '#007AFF' }]} />
-          <View style={[styles.indicator, { backgroundColor: '#34C759' }]} />
-          <View style={[styles.indicator, { backgroundColor: '#F8AE11' }]}>
-            <SvgXml style={styles.arrow} color={'#F8AE11'} xml={chevronDown} />
-          </View>
-          <View style={[styles.indicator, { backgroundColor: '#FF8102' }]} />
-          <View style={[styles.indicator, { backgroundColor: '#FF9647' }]} />
-          <View style={[styles.indicator, { backgroundColor: '#E84420' }]} />
+          {graphStages.map((stage, index) => (
+            <View
+              key={stage.label}
+              style={[
+                styles.indicator,
+                { backgroundColor: stage.color },
+                index === stageIndex && { justifyContent: 'center', alignItems: 'center' },
+              ]}
+            >
+              {index === stageIndex && <SvgXml style={styles.arrow} color={stage.color} xml={chevronDown} />}
+            </View>
+          ))}
         </View>
 
         {/* Instructional text */}
-        <Typography style={styles.warningText}>
-          Attention if you’ve got 3 or more results in the range your doctor advice and immediate treatment are
-          necessary
-        </Typography>
+        <Typography style={styles.warningText}>{currentStage?.advice}</Typography>
       </View>
     </Card>
   );
@@ -57,9 +72,7 @@ const PreHypertensionCard = () => {
 
 const styles = StyleSheet.create({
   card: {
-    // borderRadius: 12,
     padding: 16,
-    // margin: 16,
     elevation: 2,
   },
   contentContainer: {
@@ -68,7 +81,6 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 22,
     fontWeight: '500',
-    // marginBottom: 10,
     textAlign: 'center',
     lineHeight: 27,
     color: theme.colors.textPrimary,
@@ -77,9 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: theme.colors.textGray,
     fontWeight: '400',
-
-    // marginBottom: 16,
-    // textAlign: 'flex-end',
+    textAlign: 'center',
   },
   indicatorContainer: {
     flexDirection: 'row',
@@ -93,8 +103,6 @@ const styles = StyleSheet.create({
     height: 15,
     borderRadius: 20,
     marginHorizontal: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   arrow: {
     position: 'absolute',

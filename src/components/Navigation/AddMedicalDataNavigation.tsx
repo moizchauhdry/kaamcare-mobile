@@ -211,11 +211,13 @@ export type AddMedicalDataNavigationParamsList = {
   PressureGuidelineSettings: undefined;
   PressureGuidelineDetails: {
     stage: {
-      title: string;
-      subtitle: string;
-      advice: string;
+      index: number;
+      label: string;
       color: string;
-      arrowIndex: number;
+      conditionType: string;
+      advice: string;
+      exclusiveAdvices: {}[];
+      scopes: {}[];
     };
   };
 };

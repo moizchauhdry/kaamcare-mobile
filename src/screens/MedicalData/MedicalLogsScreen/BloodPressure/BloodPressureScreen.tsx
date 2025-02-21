@@ -32,6 +32,11 @@ export const BloodPressureScreen = ({ route, navigation }: BloodPressureScreenPr
   };
   const handleTypeChange = (selectedType: string) => {
     setSelectedType(selectedType);
+    if (selectedType === 'Pulse') {
+      setSwitchType('heart rate');
+    } else {
+      setSwitchType('pressure');
+    }
   };
 
   return (

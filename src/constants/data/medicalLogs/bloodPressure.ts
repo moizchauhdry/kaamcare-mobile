@@ -4,8 +4,9 @@ import type { GraphStage, MoreDataGraphStage } from '../../../model/medicalLogs/
 export const pulseGraphStages: GraphStage[] = [
   {
     label: 'Normal',
-    color: theme.colors.green,
+    color: '#34C759',
     conditionType: 'AND',
+    advice: '',
     scopes: [
       {
         min: 60,
@@ -13,14 +14,62 @@ export const pulseGraphStages: GraphStage[] = [
         key: 'pulse',
       },
     ],
+    index: 0,
+    exclusiveAdvices: [
+      {
+        title: '',
+        description: '',
+        titleColor: '',
+      },
+    ],
   },
 ];
 
 export const graphStages: GraphStage[] = [
   {
+    index: 0,
     label: 'Hypotension',
-    color: theme.colors.mint,
+    color: '#007AFF',
     conditionType: 'OR',
+    advice: 'Please seek help from your doctor if it remains low for a long time.',
+    exclusiveAdvices: [
+      {
+        title: 'Increase fluid intake',
+        description:
+          'Maintain good hydration by drinking an adequate amount of water, fruit juices, or electrolyte beverages to help stabilize blood pressure.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Adjust Body Positions',
+        description:
+          'Especially when transitioning from lying or sitting to standing, do so slowly to avoid sudden changes that may lead to dizziness and lightheadedness.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Eat Small, Frequent Meals',
+        description:
+          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Avoid Hot Baths and High Temperatures',
+        description:
+          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Monitor Symptoms',
+        description:
+          'If you experience frequent dizziness, lightheadedness, weakness, or persistent discomfort, seek medical advice promptly.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Important Note',
+        description:
+          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+        titleColor: '#07406B',
+      },
+    ],
     scopes: [
       {
         min: 0,
@@ -35,9 +84,48 @@ export const graphStages: GraphStage[] = [
     ],
   },
   {
+    index: 1,
     label: 'Normal',
-    color: theme.colors.green,
+    color: '#34C759',
     conditionType: 'AND',
+    advice: 'Great! Your blood pressure is in the healthy range. Just keep it!',
+    exclusiveAdvices: [
+      {
+        title: 'Lifestyle Modifications',
+        description:
+          'Adopt a healthy lifestyle to help manage elevated blood pressure. This includes regular physical activity, maintaining a balanced diet with plenty of fruits, vegetables, and whole grains, and limiting salt and saturated fat intake.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Weight Management',
+        description:
+          'If you are overweight, losing even a small amount of weight can have a positive impact on blood pressure.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Reduce Sodium Intake',
+        description:
+          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Manage Stress',
+        description:
+          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Limit Alcohol and Caffeine',
+        description: 'Excessive alcohol and caffeine consumption can impact blood pressure. Moderation is key.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Important Note',
+        description:
+          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+        titleColor: '#07406B',
+      },
+    ],
     scopes: [
       {
         min: 90,
@@ -52,9 +140,48 @@ export const graphStages: GraphStage[] = [
     ],
   },
   {
+    index: 2,
     label: 'Pre-hypertension',
-    color: theme.colors.orange,
+    color: '#F8AE11',
     conditionType: 'AND',
+    advice: 'Please seek help from your doctor if it remains low for a long time.',
+    exclusiveAdvices: [
+      {
+        title: 'Lifestyle Modifications',
+        description:
+          'Adopt a healthy lifestyle to help manage elevated blood pressure. This includes regular physical activity, maintaining a balanced diet with plenty of fruits, vegetables, and whole grains, and limiting salt and saturated fat intake.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Weight Management',
+        description:
+          'If you are overweight, losing even a small amount of weight can have a positive impact on blood pressure.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Reduce Sodium Intake',
+        description:
+          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Manage Stress',
+        description:
+          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Limit Alcohol and Caffeine',
+        description: 'Excessive alcohol and caffeine consumption can impact blood pressure. Moderation is key.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Important Note',
+        description:
+          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+        titleColor: '#07406B',
+      },
+    ],
     scopes: [
       {
         min: 120,
@@ -69,9 +196,48 @@ export const graphStages: GraphStage[] = [
     ],
   },
   {
+    index: 3,
     label: 'Hypertension Stage 1',
-    color: theme.colors.red,
+    color: '#FF8102',
     conditionType: 'OR',
+    advice: 'Please seek help from your doctor if it remains low for a long time.',
+    exclusiveAdvices: [
+      {
+        title: 'Lifestyle Modifications',
+        description:
+          'Adopt a healthy lifestyle to help manage elevated blood pressure. This includes regular physical activity, maintaining a balanced diet with plenty of fruits, vegetables, and whole grains, and limiting salt and saturated fat intake.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Weight Management',
+        description:
+          'If you are overweight, losing even a small amount of weight can have a positive impact on blood pressure.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Reduce Sodium Intake',
+        description:
+          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Manage Stress',
+        description:
+          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Limit Alcohol and Caffeine',
+        description: 'Excessive alcohol and caffeine consumption can impact blood pressure. Moderation is key.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Important Note',
+        description:
+          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+        titleColor: '#07406B',
+      },
+    ],
     scopes: [
       {
         min: 130,
@@ -86,9 +252,48 @@ export const graphStages: GraphStage[] = [
     ],
   },
   {
+    index: 4,
     label: 'Hypertension Stage 2',
-    color: theme.colors.red,
+    color: '#FF9647',
     conditionType: 'OR',
+    advice: `Attention! If you've got 3 or more results in the range, your doctor's advice and immediate medical treatment are necessary.`,
+    exclusiveAdvices: [
+      {
+        title: 'Lifestyle Modifications',
+        description:
+          'Adopt a healthy lifestyle to help manage elevated blood pressure. This includes regular physical activity, maintaining a balanced diet with plenty of fruits, vegetables, and whole grains, and limiting salt and saturated fat intake.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Weight Management',
+        description:
+          'If you are overweight, losing even a small amount of weight can have a positive impact on blood pressure.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Reduce Sodium Intake',
+        description:
+          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Manage Stress',
+        description:
+          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Limit Alcohol and Caffeine',
+        description: 'Excessive alcohol and caffeine consumption can impact blood pressure. Moderation is key.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Important Note',
+        description:
+          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+        titleColor: '#07406B',
+      },
+    ],
     scopes: [
       {
         min: 140,
@@ -103,9 +308,48 @@ export const graphStages: GraphStage[] = [
     ],
   },
   {
+    index: 5,
     label: 'Hypertension Crisis',
-    color: theme.colors.red,
+    color: '#E84420',
     conditionType: 'OR',
+    advice: 'We are worried about you, please call emergency services immediately.',
+    exclusiveAdvices: [
+      {
+        title: 'Lifestyle Modifications',
+        description:
+          'Adopt a healthy lifestyle to help manage elevated blood pressure. This includes regular physical activity, maintaining a balanced diet with plenty of fruits, vegetables, and whole grains, and limiting salt and saturated fat intake.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Weight Management',
+        description:
+          'If you are overweight, losing even a small amount of weight can have a positive impact on blood pressure.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Reduce Sodium Intake',
+        description:
+          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Manage Stress',
+        description:
+          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Limit Alcohol and Caffeine',
+        description: 'Excessive alcohol and caffeine consumption can impact blood pressure. Moderation is key.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Important Note',
+        description:
+          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+        titleColor: '#07406B',
+      },
+    ],
     scopes: [
       {
         min: 180,

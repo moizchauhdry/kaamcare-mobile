@@ -230,7 +230,7 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
                 style={{
                   flexDirection: 'row',
                   gap: 5,
-                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
                   overflow: 'hidden',
                 }}
               >
@@ -266,7 +266,10 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
               </View>
 
               <View style={{}}>
-                <PreHypertensionCard />
+                <PreHypertensionCard
+                  systolic={parseInt(form.watch('systolic'), 10)}
+                  diastolic={parseInt(form.watch('diastolic'), 10)}
+                />
               </View>
 
               <SwitchSelectorControlled2o
