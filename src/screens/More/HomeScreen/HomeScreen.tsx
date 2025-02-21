@@ -15,13 +15,15 @@ import { MoreListItem } from '../../../components/DataDisplay/List/MoreListItem/
 
 export const HomeScreen = () => {
   const setIsLogged = useSignupStore((store) => store.setIsLogged);
+  const setUserEmail = useSignupStore((store) => store.setUserEmail);
 
   const handleLogout = () => {
     SecureStore.deleteItemAsync('refresh-token');
     SecureStore.deleteItemAsync('expires-on');
     SecureStore.deleteItemAsync('refresh-token-expires-on');
     SecureStore.deleteItemAsync('b2c_type');
-    http.removeHeader('Authorization');
+    SecureStore.deleteItemAsync('id-token');
+    setUserEmail('');
     setIsLogged(false);
 
     GoogleSignin.revokeAccess();
