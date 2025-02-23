@@ -32,7 +32,7 @@
       "distribution": "internal",
       "env": {
         "EXPO_PUBLIC_CLIENT_ID": "469bfb24-c303-4cc3-a8ed-e78faa7640e2",
-        "EXPO_PUBLIC_API_URL": "https://kaamcare.moizchauhdry.com/api/2.0",
+        "EXPO_PUBLIC_API_URL": "https://app.kaamcare.com/api/2.0/",
         "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k8A73qVb8ucpyaEH",
         "EXPO_PUBLIC_APP_NAME": "KaamCare",
         "EXPO_PUBLIC_ENVIRONMENT": "Development",
@@ -54,7 +54,7 @@
       "channel": "production",
       "env": {
         "EXPO_PUBLIC_CLIENT_ID": "469bfb24-c303-4cc3-a8ed-e78faa7640e2",
-        "EXPO_PUBLIC_API_URL": "https://kaamcare.moizchauhdry.com/api/2.0",
+        "EXPO_PUBLIC_API_URL": "https://app.kaamcare.com/api/2.0/",
         "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k8A73qVb8ucpyaEH",
         "EXPO_PUBLIC_APP_NAME": "KaamCare",
         "EXPO_PUBLIC_ENVIRONMENT": "Production",
@@ -75,7 +75,7 @@
       "channel": "production",
       "env": {
         "EXPO_PUBLIC_CLIENT_ID": "469bfb24-c303-4cc3-a8ed-e78faa7640e2",
-        "EXPO_PUBLIC_API_URL": "https://kaamcare.moizchauhdry.com/api/2.0",
+        "EXPO_PUBLIC_API_URL": "https://app.kaamcare.com/api/2.0/",
         "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k8A73qVb8ucpyaEH",
         "EXPO_PUBLIC_APP_NAME": "KaamCare",
         "EXPO_PUBLIC_ENVIRONMENT": "Development",
@@ -88,7 +88,7 @@
       "channel": "production",
       "env": {
         "EXPO_PUBLIC_CLIENT_ID": "469bfb24-c303-4cc3-a8ed-e78faa7640e2",
-        "EXPO_PUBLIC_API_URL": "https://kaamcare.moizchauhdry.com/api/2.0",
+        "EXPO_PUBLIC_API_URL": "https://app.kaamcare.com/api/2.0/",
         "EXPO_PUBLIC_APP_NAME": "KaamCare",
         "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k8A73qVb8ucpyaEH",
         "EXPO_PUBLIC_ENVIRONMENT": "Development",

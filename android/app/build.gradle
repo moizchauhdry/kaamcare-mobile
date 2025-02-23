@@ -91,8 +91,8 @@ android {
         applicationId 'com.qodeca.kaamcare'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0.4"
+        versionCode 3
+        versionName "1.0.5"
     }
     signingConfigs {
         debug {
@@ -102,10 +102,10 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file('release.keystore')
-            storePassword '4d28cca9cb5047b21f282d3c37daa4cd'
-            keyAlias '4ba32791396a4741cc25856d0523a7c8'
-            keyPassword '61d780d83f5d242686eae5a272a49c1e'
+            storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
         }
     }
     buildTypes {
