@@ -22,12 +22,12 @@ export const MedicalDataTile = ({ title, onPress, icon, isHome }: MedicalDataTil
     style={[
       styles.container,
       {
-        height: isHome ? 'auto' : 195,
+        height: isHome ? 'auto' : 120,
       },
     ]}
   >
     <SvgXml preserveAspectRatio="xMinYMin slice" xml={icon} />
-    <Typography weight="semiBold" style={{ fontSize: 20, lineHeight: 30, width: '80%', textAlign: 'center' }}>
+    <Typography weight="semiBold" style={{ fontSize: 20, lineHeight: 30, textAlign: 'center', marginTop: 10 }}>
       {title}
     </Typography>
     {isHome && (

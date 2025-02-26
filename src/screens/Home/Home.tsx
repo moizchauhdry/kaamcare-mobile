@@ -27,8 +27,8 @@ export const Home = () => {
       <MyProfile />
       {/* <ContributionComponent /> */}
       <HealthInsurance />
-      {/* <MedicalLogs /> */}
-      <HomeMedicalLogCard navigation={navigation} />
+      <MedicalLogs />
+      {/* <HomeMedicalLogCard navigation={navigation} /> */}
       <SwitchTab tabs={medicalDataTabs} selected={selected} onSelect={setSelected} />
     </View>
   );

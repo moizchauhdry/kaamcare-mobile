@@ -289,7 +289,7 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
                   { value: 'Standing', label: 'Standing', icon: StandingIcon, filledIcon: StandingIconFilled },
                 ]}
               />
-              <Card style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8 }}>
+              <Card style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 16 }}>
                 <Typography
                   style={{
                     fontSize: 15,
@@ -306,10 +306,10 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
               <TextInputControlled
                 name="explanation"
                 label="Enter Comments"
+                isComment={true} // Enable WhatsApp-like behavior
                 inputProps={{
                   placeholder: 'Enter your comments here ...',
                   maxLength: 240,
-                  style: { height: 160, borderColor: theme.colors.backgroundDark, borderWidth: 1 },
                 }}
               />
               {edit && (

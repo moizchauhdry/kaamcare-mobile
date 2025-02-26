@@ -9,10 +9,11 @@ export type NumberInputProps = TextInputProps & {
   maxValue?: number;
   minValue?: number;
   type?: 'int' | 'float';
+  error?: boolean;
 };
 
 export const NumberInput2o = forwardRef<RNTextInput, NumberInputProps>(
-  ({ minValue, maxValue, type = 'int', ...rest }, ref) => {
+  ({ minValue, maxValue, type = 'int', error, ...rest }, ref) => {
     const [numericValue, setNumericValue] = useState('');
 
     useEffect(() => {
@@ -56,24 +57,29 @@ export const NumberInput2o = forwardRef<RNTextInput, NumberInputProps>(
     };
 
     return (
-      <TextInput
+      <RNTextInput
         ref={ref}
         keyboardType="numeric"
         {...rest}
         onChangeText={type === 'int' ? handleTextIntChange : handleTextFloatChange}
         value={numericValue}
         placeholder=""
+        textAlignVertical="center"
+        textAlign="center"
         style={{
-          borderColor: theme.colors.primary,
-          height: 28,
+          borderWidth: error || !numericValue ? 1 : 0,
+          borderColor: error ? theme.colors.red : theme.colors.primary,
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
-          fontSize: 16,
           color: theme.colors.textPrimary,
-          width: 64,
-          borderRadius: 4,
           fontWeight: '500',
+          fontSize: 50,
+          padding: 0,
+          height: 70,
+          marginBottom: 10,
+          borderRadius: 4,
+          width: 70,
         }}
       />
     );

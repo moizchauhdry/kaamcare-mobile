@@ -50,7 +50,9 @@ export const FormFieldControlled2o = <
           alignItems: 'center',
           borderWidth: 1,
           backgroundColor: theme.colors.white,
-          padding: 16,
+          // padding: 16,
+          paddingTop: 16,
+          paddingHorizontal: 22,
           borderRadius: 9,
           borderColor: theme.colors.backgroundDark,
           shadowColor: theme.colors.shadowPrimary,
@@ -59,9 +61,9 @@ export const FormFieldControlled2o = <
           shadowOpacity: 0.9,
           elevation: 5,
           justifyContent: 'center',
-          width: 112,
-          minHeight: error ? 150 : 120,
-          height: heightAnim,
+          // width: 114,
+          // minHeight: error ? 150 : 120,
+          // height: heightAnim,
         },
         containerStyle,
       ]}
@@ -81,11 +83,11 @@ export const FormFieldControlled2o = <
           <Controller {...restProps} />
         </View>
       </View>
-      {error && (
+      {/* {error && (
         <Typography style={{ fontSize: 13, marginTop: 5, textAlign: 'center' }} color="error">
           {error as string}
         </Typography>
-      )}
+      )} */}
     </Animated.View>
   );
 };

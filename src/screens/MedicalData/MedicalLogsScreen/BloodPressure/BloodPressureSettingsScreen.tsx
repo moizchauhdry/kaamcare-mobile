@@ -8,11 +8,22 @@ import { Typography } from 'components/UI/Typography/Typography';
 import { theme } from 'config/Theme';
 import { useState } from 'react';
 import { SvgXml } from 'react-native-svg';
-import LeftHandIcon from '../../../../assets/icons//left-hand-filled.svg';
-import SittingIcon from '../../../../assets/icons/sitting-filled.svg';
+import LeftHandIconFilled from '../../../../assets/icons/left-hand-filled.svg';
+import LeftHandIcon from '../../../../assets/icons/left-hand-unfilled.svg';
+import LyingIconFilled from '../../../../assets/icons/lying-filled.svg';
+import LyingIcon from '../../../../assets/icons/lying-unfilled.svg';
+import RightHandIconFilled from '../../../../assets/icons/right-hand-filled.svg';
+import RightHandIcon from '../../../../assets/icons/right-hand-unfilled.svg';
+import SittingIconFilled from '../../../../assets/icons/sitting-filled.svg';
+import SittingIcon from '../../../../assets/icons/sitting-unfilled.svg';
+import StandingIconFilled from '../../../../assets/icons/standing-filled.svg';
+import StandingIcon from '../../../../assets/icons/standing-unfilled.svg';
+
 import chevronRight from '../../../../assets/icons/chevron-right.svg';
 import { Button } from 'components/UI/Button/Button';
 import { useNavigation } from '@react-navigation/native';
+import { SwitchSelectorControlled2o } from 'components/UI/Inputs/SwitchSelector/SwitchSelectorController2o';
+import { FormProvider, useForm } from 'react-hook-form';
 
 type BloodPressureSettingsScreenProps = NativeStackScreenProps<
   AddMedicalDataNavigationParamsList,
@@ -51,51 +62,77 @@ export const BloodPressureSettingsScreen = (props: BloodPressureSettingsScreenPr
       </View>
     );
   };
+  const form = useForm({
+    defaultValues: {
+      dateTime: true,
+      heartRate: true,
+      spo2: true,
+    },
+  });
   return (
     <View style={{ flex: 1 }}>
       <ScreenModalLayout title="" isScrollable>
         <Typography style={styles.title}>Default</Typography>
-        <Card>
-          <Selector label="Date & time" state={dateTime} setState={setDateTime} />
-          <Selector label="Heart rate" state={heartRate} setState={setHeartRate} />
-          <Selector label="Spo2" state={spo2} setState={setSpo2} />
-          <Selector label="Measurement position" state={measurementPosition} setState={setMeasurementPosition} />
-          {measurementPosition && (
-            <Card>
-              <View style={styles.container}>
-                <View style={styles.textContainer}>
-                  <Typography style={styles.titleText}>Measured arm</Typography>
-                  <Typography style={styles.subText}>Left Hand</Typography>
-                </View>
-                <View style={styles.iconContainer}>
-                  <SvgXml xml={LeftHandIcon} width={30} height={30} color={theme.colors.primary} />
-                </View>
-              </View>
-            </Card>
-          )}
-          <Selector label="Measurement Side" state={measurementSide} setState={setMeasurementSide} />
-          {measurementSide && (
-            <Card>
-              <View style={styles.container}>
-                <View style={styles.textContainer}>
-                  <Typography style={styles.titleText}>Body position</Typography>
-                  <Typography style={styles.subText}>Sitting</Typography>
-                </View>
-                <View style={styles.iconContainer}>
-                  <SvgXml xml={SittingIcon} width={30} height={30} color={theme.colors.primary} />
-                </View>
-              </View>
-            </Card>
-          )}
-          <Selector label="Explanation" state={explanation} setState={setExplanation} />
-        </Card>
-        <TouchableOpacity onPress={() => (navigation as any).navigate('ConnectDeviceScreen')}>
+        <FormProvider {...form}>
+          <Card>
+            <Selector label="Date & time" state={dateTime} setState={setDateTime} />
+            <Selector label="Heart rate" state={heartRate} setState={setHeartRate} />
+            <Selector label="Spo2" state={spo2} setState={setSpo2} />
+            <Selector label="Measurement position" state={measurementPosition} setState={setMeasurementPosition} />
+            {measurementPosition && (
+              // <Card>
+              //   <View style={styles.container}>
+              //     <View style={styles.textContainer}>
+              //       <Typography style={styles.titleText}>Measured arm</Typography>
+              //       <Typography style={styles.subText}>Left Hand</Typography>
+              //     </View>
+              //     <View style={styles.iconContainer}>
+              //       <SvgXml xml={LeftHandIcon} width={30} height={30} color={theme.colors.primary} />
+              //     </View>
+              //   </View>
+              // </Card>
+              <SwitchSelectorControlled2o
+                name="measurementPosition"
+                label="Measured arm"
+                options={[
+                  { value: 'Right', label: 'Right', icon: RightHandIcon, filledIcon: RightHandIconFilled },
+                  { value: 'Left', label: 'Left', icon: LeftHandIcon, filledIcon: LeftHandIconFilled },
+                ]}
+              />
+            )}
+            <Selector label="Measurement Side" state={measurementSide} setState={setMeasurementSide} />
+            {measurementSide && (
+              // <Card>
+              //   <View style={styles.container}>
+              //     <View style={styles.textContainer}>
+              //       <Typography style={styles.titleText}>Body position</Typography>
+              //       <Typography style={styles.subText}>Sitting</Typography>
+              //     </View>
+              //     <View style={styles.iconContainer}>
+              //       <SvgXml xml={SittingIcon} width={30} height={30} color={theme.colors.primary} />
+              //     </View>
+              //   </View>
+              // </Card>
+              <SwitchSelectorControlled2o
+                name="measurementSide"
+                label="Body position"
+                options={[
+                  { value: 'Sitting', label: 'Sitting', icon: SittingIcon, filledIcon: SittingIconFilled },
+                  { value: 'Lying', label: 'Lying', icon: LyingIcon, filledIcon: LyingIconFilled },
+                  { value: 'Standing', label: 'Standing', icon: StandingIcon, filledIcon: StandingIconFilled },
+                ]}
+              />
+            )}
+            <Selector label="Explanation" state={explanation} setState={setExplanation} />
+          </Card>
+        </FormProvider>
+        <TouchableOpacity disabled={true} onPress={() => (navigation as any).navigate('ConnectDeviceScreen')}>
           <Card style={{ marginVertical: 8, flexDirection: 'row', justifyContent: 'space-between' }}>
             <Typography style={styles.title}>Connect your device</Typography>
             <SvgXml xml={chevronRight} />
           </Card>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => (navigation as any).navigate('ExportShareDataScreen')}>
+        <TouchableOpacity disabled={true} onPress={() => (navigation as any).navigate('ExportShareDataScreen')}>
           <Card style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Typography style={styles.title}>Export / share data</Typography>
             <SvgXml xml={chevronRight} />

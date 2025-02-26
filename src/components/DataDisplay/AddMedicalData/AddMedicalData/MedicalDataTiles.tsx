@@ -4,7 +4,11 @@ import { FlatList, View } from 'react-native';
 
 import goalsOfCare from 'assets/icons/goals-of-care.svg';
 import medicalHistory from 'assets/icons/medical-history.svg';
-import medicalLogs from 'assets/icons/medical-logs.svg';
+import spo2Icon from 'assets/icons/spo2.svg';
+import weightIcon from 'assets/icons/weight.svg';
+import heightIcon from 'assets/icons/height.svg';
+import bloodPressureIcon from 'assets/icons/b-p.svg';
+import bloodSugarIcon from 'assets/icons/blood-sugar.svg';
 import primaryPrevention from 'assets/icons/primary-prevention.svg';
 import type { AddMedicalDataNavigationParamsList } from 'components/Navigation/AddMedicalDataNavigation';
 
@@ -13,11 +17,16 @@ import { useEffect, useState } from 'react';
 import { MedicalDataTile } from './components/MedicalDataTile';
 
 const medicalData = [
-  { title: 'Medical Logs', screen: 'MedicalLogs', icon: medicalLogs },
-  { title: 'Medical History', screen: 'MedicalHistory', icon: medicalHistory },
-  { title: 'Primary Prevention', screen: 'PrimaryPrevention', icon: primaryPrevention },
-  // { title: 'Pill Tracker', screen: 'PillTrackerIntro', icon: pillTrackerIcon },
+  { title: 'Blood Pressure', screen: 'BloodPressureForm', icon: bloodPressureIcon },
+  { title: 'Blood Sugar', screen: 'BloodSugarForm', icon: bloodSugarIcon },
   { title: 'Goals of Care', screen: 'GoalsOfCare', icon: goalsOfCare },
+  { title: 'Preventive Care', screen: 'PrimaryPrevention', icon: primaryPrevention },
+
+  { title: 'SpO2', screen: 'SaturationForm', icon: spo2Icon },
+  { title: 'Medical History', screen: 'MedicalHistory', icon: medicalHistory },
+  { title: 'Weight', screen: 'WeightForm', icon: weightIcon },
+
+  { title: 'Height', screen: 'HeightForm', icon: heightIcon },
 ];
 
 export const MedicalDataTiles = () => {
