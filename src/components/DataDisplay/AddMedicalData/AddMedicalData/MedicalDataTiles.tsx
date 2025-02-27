@@ -19,14 +19,12 @@ import { MedicalDataTile } from './components/MedicalDataTile';
 const medicalData = [
   { title: 'Blood Pressure', screen: 'BloodPressureForm', icon: bloodPressureIcon },
   { title: 'Blood Sugar', screen: 'BloodSugarForm', icon: bloodSugarIcon },
-  { title: 'Goals of Care', screen: 'GoalsOfCare', icon: goalsOfCare },
-  { title: 'Preventive Care', screen: 'PrimaryPrevention', icon: primaryPrevention },
-
+  { title: 'Height', screen: 'HeightForm', icon: heightIcon },
+  { title: 'Weight', screen: 'WeightForm', icon: weightIcon },
   { title: 'SpO2', screen: 'SaturationForm', icon: spo2Icon },
   { title: 'Medical History', screen: 'MedicalHistory', icon: medicalHistory },
-  { title: 'Weight', screen: 'WeightForm', icon: weightIcon },
-
-  { title: 'Height', screen: 'HeightForm', icon: heightIcon },
+  { title: 'Preventive Care', screen: 'PrimaryPrevention', icon: primaryPrevention },
+  { title: 'Goals of Care', screen: 'GoalsOfCare', icon: goalsOfCare },
 ];
 
 export const MedicalDataTiles = () => {

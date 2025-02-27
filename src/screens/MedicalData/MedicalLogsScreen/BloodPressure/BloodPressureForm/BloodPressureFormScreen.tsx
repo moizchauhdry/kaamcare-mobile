@@ -228,15 +228,15 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
         ) : (
           <FormProvider {...form}>
             <View style={{ gap: 16, marginTop: -16, marginBottom: 50 }}>
-              <View
+              {/* <View
                 style={{
                   flexDirection: 'row',
                   gap: 5,
                   alignItems: 'flex-start',
                   overflow: 'hidden',
                 }}
-              >
-                <NumberInputControlled2o
+              > */}
+              {/* <NumberInputControlled2o
                   name="systolic"
                   label="Systolic"
                   inputProps={{
@@ -264,9 +264,56 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
                     onChangeText: handlePulsecChange,
                   }}
                   ref={pulseRef}
+                /> */}
+              {/* </View> */}
+              <Card
+                style={{
+                  borderColor: theme.colors.backgroundDark,
+                  borderWidth: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: 0,
+                  // height: 123,
+                }}
+              >
+                <NumberInputControlled2o
+                  name="systolic"
+                  label="Systolic"
+                  containerStyle={{
+                    padding: 10,
+                  }}
+                  inputProps={{
+                    placeholder: 'mmhg',
+                    maxLength: MaxLength,
+                    onChangeText: handleSystolicChange,
+                  }}
                 />
-              </View>
+                <View style={{ height: 80, width: 1, backgroundColor: theme.colors.primary }} />
+                <NumberInputControlled2o
+                  name="diastolic"
+                  label="Diastolic"
+                  containerStyle={{}}
+                  inputProps={{
+                    placeholder: 'mmhg',
+                    maxLength: MaxLength,
+                    onChangeText: handleDiastolicChange,
+                  }}
+                  ref={diastolicRef}
+                />
+                <View style={{ height: 80, width: 1, backgroundColor: theme.colors.primary }} />
 
+                <NumberInputControlled2o
+                  name="pulse"
+                  label="Pulse"
+                  inputProps={{
+                    placeholder: 'BPM',
+                    maxLength: MaxLength,
+                    onChangeText: handlePulsecChange,
+                  }}
+                  ref={pulseRef}
+                />
+              </Card>
               <View style={{}}>
                 <PreHypertensionCard
                   systolic={parseInt(form.watch('systolic'), 10)}

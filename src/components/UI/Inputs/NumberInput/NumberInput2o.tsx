@@ -63,22 +63,24 @@ export const NumberInput2o = forwardRef<RNTextInput, NumberInputProps>(
         {...rest}
         onChangeText={type === 'int' ? handleTextIntChange : handleTextFloatChange}
         value={numericValue}
-        placeholder=""
+        placeholder="00"
+        placeholderTextColor={'#D5E1EA'}
         textAlignVertical="center"
         textAlign="center"
         style={{
-          borderWidth: error || !numericValue ? 1 : 0,
+          borderWidth: error ? 1 : 0,
           borderColor: error ? theme.colors.red : theme.colors.primary,
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
           color: theme.colors.textPrimary,
           fontWeight: '500',
-          fontSize: 50,
+          fontSize: 45,
           padding: 0,
-          // height: 70,
+          // height: 60,
           marginBottom: 10,
           borderRadius: 4,
+          // backgroundColor: 'red',
           // width: 70,
         }}
       />
