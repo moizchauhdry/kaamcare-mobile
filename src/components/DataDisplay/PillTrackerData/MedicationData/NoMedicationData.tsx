@@ -20,11 +20,6 @@ const NoMedicationData: React.FC = () => {
                     <Text style={styles.redText}>schedule</Text> today.
                 </Text>
             </ImageBackground>
-
-            <TouchableOpacity style={styles.addButton} onPress={handleAddMedication}>
-                <FontAwesome name="plus-circle" size={20} color="white" />
-                <Text style={styles.addButtonText}>Add medications</Text>
-            </TouchableOpacity>
         </View>
     );
 };

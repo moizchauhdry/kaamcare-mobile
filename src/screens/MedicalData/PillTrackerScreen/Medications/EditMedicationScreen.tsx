@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import MedicationDetails from "components/DataDisplay/PillTrackerData/MedicationData/MedicationDetailsList";
 import StrengthSelector from "components/BottomSheets/PillDoseBottomSheets/StrengthBottomSheet";
 import UnitSelector from "components/BottomSheets/PillDoseBottomSheets/UnitsBottomSheet";
@@ -14,12 +16,32 @@ import MedicationRouteBottomSheet from "components/BottomSheets/PillDoseBottomSh
 import PillsAmountBottomSheet from "components/BottomSheets/PillDoseBottomSheets/PillsAmountBottomSheet";
 import DatePickerBottomSheet from "components/BottomSheets/PillsScheduleBottomSheets/DatePickerBottomSheet";
 import AlarmBottomSheet from "components/BottomSheets/PillsScheduleBottomSheets/AlarmBottomSheet";
+import { MedicationFormData, medicationSchema } from "schemas/forms/medicalHistory/medication";
+import { medicationFormDefaultValues } from "constants/forms/medicalhistory/medication";
+import { parseMedicationFormToApiData } from "model/parsers/medicalHistory/MedicationParser";
+import { NewMedication } from "model/api/medicalHistory/Medications";
 
-const EditMedicationScreen = () => {
+import type { NativeStackScreenProps } from 'react-native-screens/native-stack';
+import { AddMedicalDataNavigationParamsList } from "components/Navigation/AddMedicalDataNavigation";
+import { useMutationMedicationAdd } from "hooks/query/medicalHistory/medication/useMutationMedicationAdd";
+import { useMutationMedicationDelete } from "hooks/query/medicalHistory/medication/useMutationMedicationDelete";
+import { useMutationMedicationUpdate } from "hooks/query/medicalHistory/medication/useMutationMedicationUpdate";
+import { useQueryMedication } from "hooks/query/medicalHistory/medication/useQueryMedication";
+import { Typography } from "components/UI/Typography/Typography";
+import { theme } from "config/Theme";
+
+type EditMedicationScreenProps = NativeStackScreenProps<AddMedicalDataNavigationParamsList, 'EditMedication'>;
+
+export const EditMedicationScreen = ({
+    route,
+    navigation,
+}: EditMedicationScreenProps) => {
+    const { name: medicationName, edit, id, isCommonName } = route.params;
+    console.log(medicationName);
     const [strengthSheetVisible, setStrengthSheetVisible] = useState(false);
     const [selectedStrength, setSelectedStrength] = useState<number>(500);
     const [unitSheetVisible, setUnitSheetVisible] = useState(false);
-    const [selectedUnit, setSelectedUnit] = useState('mg');
+    const [selectedUnit, setSelectedUnit] = useState("mg");
     const [medicineForSheetVisible, setMedicineForSheetVisible] = useState<boolean>(false);
     const [selectedMedicineType, setSelectedMedicineType] = useState<string>("Pain killer");
     const [frequencySheetVisible, setFrequencySheetVisible] = useState<boolean>(false);
@@ -42,27 +64,70 @@ const EditMedicationScreen = () => {
     const [isSheetVisible, setSheetVisible] = useState(false);
     const [dateRange, setDateRange] = useState("02-12-2025 - 02-12-2025");
     const [visible, setVisible] = useState(false);
-    const [selectedTime, setSelectedTime] = useState("1:00 am");
+    const [selectedTimes, setSelectedTimes] = useState<string[]>(["1:00 am"]);
+
+    const handleSettled = () =>
+        navigation.reset({ routes: [{ name: 'Medications' }] });
+
+    const { data } = useQueryMedication(id);
+    const mutateDelete = useMutationMedicationDelete(id!, { onSettled: handleSettled });
+    const mutateUpdate = useMutationMedicationUpdate({ onSettled: handleSettled });
+    const mutateAdd = useMutationMedicationAdd({ onSettled: handleSettled });
+    const isPending = mutateAdd.isPending || mutateUpdate.isPending || mutateDelete.isPending;
+
+    const form = useForm<MedicationFormData>({
+        defaultValues: { ...medicationFormDefaultValues, medicationName },
+        resolver: zodResolver(medicationSchema),
+    });
+
+    const handleSubmit = (values: MedicationFormData) => {
+        const [start_date = '', end_date = ''] = dateRange.split(" - ");
+
+        const completeValues: MedicationFormData = {
+            ...values,
+            medicationName,
+            strength: selectedStrength.toString(),
+            unit: selectedUnit,
+            form: selectedForm,
+            color: selectedColor,
+            shape: selectedShape,
+            for: selectedMedicineType,
+            route: selectedRoute,
+            frequency: selectedFrequency,
+            times: selectedTimes,
+            start_date: start_date.trim(),
+            end_date: end_date.trim(),
+        };
+
+        console.log("Submit pressed with values:", completeValues);
+
+        const apiData = parseMedicationFormToApiData(completeValues, medicationName);
+        console.log("Parsed API data:", apiData);
+
+        if (edit && data) {
+            mutateUpdate.mutate({
+                ...data,
+                ...apiData,
+                isCommonName: true,
+            });
+        } else {
+            mutateAdd.mutate({ ...apiData, medication_name: medicationName, isCommonName });
+        }
+    };
 
     return (
         <ScrollView style={styles.container}>
-            <Text style={styles.sectionTitle}>Dose</Text>
+            <Typography size="lg" weight="regular" color='primary' style={{
+                color: '#0072EF',
+            }}>Dose</Typography>
             <View style={styles.card}>
                 <MedicationDetails
                     label="Strength"
                     value={selectedStrength.toString()}
                     onPress={() => setStrengthSheetVisible(true)}
                 />
-                <MedicationDetails
-                    label="Unit"
-                    value={selectedUnit}
-                    onPress={() => setUnitSheetVisible(true)}
-                />
-                <MedicationDetails
-                    label="Form"
-                    value={selectedForm}
-                    onPress={() => setSelectedFormVisible(true)}
-                />
+                <MedicationDetails label="Unit" value={selectedUnit} onPress={() => setUnitSheetVisible(true)} />
+                <MedicationDetails label="Form" value={selectedForm} onPress={() => setSelectedFormVisible(true)} />
                 <MedicationDetails
                     label="Color"
                     customRightComponent={<View style={[styles.colorCircle, { backgroundColor: selectedColor }]} />}
@@ -73,7 +138,6 @@ const EditMedicationScreen = () => {
                     value={selectedMedicineType}
                     onPress={() => setMedicineForSheetVisible(true)}
                 />
-
                 <MedicationDetails
                     label="Pill Amount"
                     value={amount}
@@ -82,43 +146,52 @@ const EditMedicationScreen = () => {
                 <MedicationDetails label="Route" value={selectedRoute} onPress={() => setSelectedRouteVisible(true)} />
             </View>
 
-            <Text style={styles.sectionTitle}>Schedule</Text>
+            <Typography size="lg" weight="regular" style={{
+                color: '#0072EF'
+            }}>Schedule</Typography>
             <View style={styles.card}>
                 <MedicationDetails
                     label="Frequency"
                     value={selectedFrequency}
                     onPress={() => setFrequencySheetVisible(true)}
                 />
-                <MedicationDetails
-                    label="Set alarms"
+                {/* <MedicationDetails
+                    label="Set Times"
                     customRightComponent={<Text style={styles.alarmText}>{selectedTime}</Text>}
                     onPress={() => setVisible(true)}
-                />
+                /> */}
                 <MedicationDetails
                     label="Date Range"
                     value={dateRange}
                     onPress={() => setSheetVisible(true)}
                 />
-                <MedicationDetails
+                {/* <MedicationDetails
                     label="Specific days"
                     value={selectedDays.toString()}
-                    onPress={() => setSelectedDaysVisible(true)} />
-                <MedicationDetails
+                    onPress={() => setSelectedDaysVisible(true)}
+                /> */}
+                {/* <MedicationDetails
                     label="Repeat"
                     value={selectedRepeat}
                     onPress={() => setRepeatSheetVisible(true)}
-                />
-
-                {/* <MedicationDetails
-                    label="Interval"
-                    value={`Every ${selectedInterval.value} ${selectedInterval.unit}`}
-                    onPress={() => setIntervalSheetVisible(true)}
-                />
-                <MedicationDetails label="Tapering Dose" value="Step Down" onPress={() => { }} />
-                <MedicationDetails label="On a Recurring Cycle" value="21 days active" onPress={() => { }} /> */}
+                /> */}
             </View>
 
-            <TouchableOpacity style={styles.doneButton}>
+            <TouchableOpacity
+                style={styles.doneButton}
+                onPress={() => {
+                    form.handleSubmit(
+                        (data) => {
+                            console.log("Success", data);
+                            handleSubmit(data);
+                        },
+                        (errors) => {
+                            console.log("Validation errors", errors);
+                        }
+                    )();
+                }}
+
+            >
                 <Text style={styles.doneText}>Done</Text>
             </TouchableOpacity>
 
@@ -145,6 +218,7 @@ const EditMedicationScreen = () => {
                 setVisible={setFrequencySheetVisible}
                 selectedFrequency={selectedFrequency}
                 setSelectedFrequency={setSelectedFrequency}
+                setAlarmVisible={setVisible}
             />
             <RepeatSelector
                 visible={repeatSheetVisible}
@@ -180,7 +254,7 @@ const EditMedicationScreen = () => {
             <MedicationRouteBottomSheet
                 visible={selectedRouteVisible}
                 onClose={() => setSelectedRouteVisible(false)}
-                onSelect={(form) => setSelectedRoute(form)}
+                onSelect={(route) => setSelectedRoute(route)}
             />
             <PillsAmountBottomSheet
                 visible={amountSheetVisible}
@@ -195,9 +269,10 @@ const EditMedicationScreen = () => {
             <AlarmBottomSheet
                 visible={visible}
                 setVisible={setVisible}
-                setSelectedTime={setSelectedTime}
+                setSelectedTimes={setSelectedTimes} 
+                maxAlarms={parseInt(selectedFrequency, 10) || 1}
             />
-        </ScrollView>
+        </ScrollView >
     );
 };
 

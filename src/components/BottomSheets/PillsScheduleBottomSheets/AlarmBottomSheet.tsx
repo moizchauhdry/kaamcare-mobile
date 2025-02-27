@@ -1,64 +1,109 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { BottomSheet } from "react-native-btr";
-import Slider from "@react-native-community/slider";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Ionicons } from "@expo/vector-icons";
 
 interface AlarmBottomSheetProps {
   visible: boolean;
   setVisible: (visible: boolean) => void;
-  setSelectedTime: (time: string) => void;
+  setSelectedTimes: (times: string[]) => void;
+  maxAlarms: number;
 }
 
-const AlarmBottomSheet: React.FC<AlarmBottomSheetProps> = ({ visible, setVisible, setSelectedTime }) => {
-  const [alarms, setAlarms] = useState(["1:00 am", "1:00 am", "1:00 am"]);
-  const [selectedTune, setSelectedTune] = useState("Peace");
-  const [volume, setVolume] = useState(0.5);
+const AlarmBottomSheet: React.FC<AlarmBottomSheetProps> = ({
+  visible,
+  setVisible,
+  setSelectedTimes,
+  maxAlarms,
+}) => {
+  const [alarms, setAlarms] = useState<string[]>([]);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
-  const addAlarm = () => setAlarms([...alarms, "1:00 am"]);
+  const showTimePicker = () => {
+    if (alarms.length >= maxAlarms) {
+      Alert.alert("Limit reached", `You can only set ${maxAlarms} alarms.`);
+      return;
+    }
+    setTimePickerVisibility(true);
+  };
+
+  const hideTimePicker = () => {
+    setTimePickerVisibility(false);
+  };
+
+  const handleConfirm = (date: Date) => {
+    // Format the selected time
+    const formattedTime = formatTime(date);
+    setAlarms((prev) => [...prev, formattedTime]);
+    hideTimePicker();
+  };
+
+  // Helper function to format the time as e.g. "7:30 am"
+  const formatTime = (date: Date): string => {
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12 || 12;
+    const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
+    return `${hours}:${minutesFormatted} ${ampm}`;
+  };
 
   return (
-    <BottomSheet visible={visible} onBackButtonPress={() => setVisible(false)} onBackdropPress={() => setVisible(false)}>
-      <View style={styles.sheetContainer}>
-        <Text style={styles.heading}>Set alarm</Text>
-        <View style={styles.alarmContainer}>
-          {alarms.map((alarm, index) => (
-            <TouchableOpacity key={index} style={styles.alarmBox} onPress={() => setSelectedTime(alarm)}>
-              <Text style={styles.alarmText}>{alarm}</Text>
+    <>
+      <BottomSheet
+        visible={visible}
+        onBackButtonPress={() => setVisible(false)}
+        onBackdropPress={() => setVisible(false)}
+      >
+        <View style={styles.sheetContainer}>
+          <Text style={styles.heading}>Set Times</Text>
+
+          <View style={styles.alarmContainer}>
+            {alarms.map((alarm, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.alarmBox}
+                onPress={() => {
+                }}
+              >
+                <Text style={styles.alarmText}>{alarm}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          {alarms.length < maxAlarms && (
+            <TouchableOpacity style={styles.addTimeButton} onPress={showTimePicker}>
+              <Ionicons name="time" size={20} color="#007AFF" />
+              <Text style={styles.addTimeText}>Add Time</Text>
             </TouchableOpacity>
-          ))}
-          <TouchableOpacity style={styles.addButton} onPress={addAlarm}>
-            <Ionicons name="images" size={20} color="#007AFF" />
+          )}
+
+          {alarms.length >= maxAlarms && (
+            <Text style={styles.limitText}>
+              You have reached the maximum of {maxAlarms} alarms.
+            </Text>
+          )}
+
+          <TouchableOpacity
+            style={styles.doneButton}
+            onPress={() => {
+              setSelectedTimes(alarms);
+              setVisible(false);
+            }}
+          >
+            <Text style={styles.doneText}>Done</Text>
           </TouchableOpacity>
         </View>
+      </BottomSheet>
 
-        <Text style={styles.heading}>Set tune</Text>
-        <View style={styles.tuneContainer}>
-          <TextInput
-            style={styles.tuneInput}
-            value={selectedTune}
-            onChangeText={setSelectedTune}
-            placeholder="Select tune"
-          />
-          <Ionicons name="images" size={20} color="black" style={styles.musicIcon} />
-        </View>
-
-        <Slider
-          style={styles.slider}
-          minimumValue={0}
-          maximumValue={1}
-          value={volume}
-          onValueChange={setVolume}
-          minimumTrackTintColor="#007AFF"
-          maximumTrackTintColor="#ddd"
-          thumbTintColor="#007AFF"
-        />
-
-        <TouchableOpacity style={styles.doneButton} onPress={() => setVisible(false)}>
-          <Text style={styles.doneText}>Done</Text>
-        </TouchableOpacity>
-      </View>
-    </BottomSheet>
+      <DateTimePickerModal
+        isVisible={isTimePickerVisible}
+        mode="time"
+        onConfirm={handleConfirm}
+        onCancel={hideTimePicker}
+      />
+    </>
   );
 };
 
@@ -76,8 +121,8 @@ const styles = StyleSheet.create({
   },
   alarmContainer: {
     flexDirection: "row",
-    alignItems: "center",
     flexWrap: "wrap",
+    marginBottom: 15,
   },
   alarmBox: {
     borderWidth: 1,
@@ -92,44 +137,36 @@ const styles = StyleSheet.create({
     color: "#007AFF",
     fontSize: 16,
   },
-  addButton: {
-    borderWidth: 1,
-    borderColor: "#007AFF",
-    padding: 10,
-    borderRadius: 10,
-  },
-  tuneContainer: {
+  addTimeButton: {
     flexDirection: "row",
     alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: "#007AFF",
     borderRadius: 10,
-    paddingHorizontal: 10,
-    marginVertical: 10,
+    marginBottom: 15,
   },
-  tuneInput: {
-    flex: 1,
+  addTimeText: {
+    color: "#007AFF",
     fontSize: 16,
-    paddingVertical: 8,
-  },
-  musicIcon: {
-    marginLeft: 10,
-  },
-  slider: {
-    width: "100%",
-    height: 40,
+    marginLeft: 5,
   },
   doneButton: {
     backgroundColor: "#007AFF",
     paddingVertical: 12,
     borderRadius: 10,
     alignItems: "center",
-    marginTop: 15,
   },
   doneText: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
+  },
+  limitText: {
+    color: "red",
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
 

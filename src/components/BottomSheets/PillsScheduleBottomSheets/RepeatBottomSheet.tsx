@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { BottomSheet } from "react-native-btr";
+import checkcircle from '../../../assets/icons/check-mark.svg';
+import { SvgXml } from "react-native-svg";
 
 interface RepeatSelectorProps {
     visible: boolean;
@@ -37,8 +39,10 @@ const RepeatSelector: React.FC<RepeatSelectorProps> = ({
                             setVisible(false);
                         }}
                     >
-                        <Text style={styles.optionText}>{option}</Text>
-                        {selectedRepeat === option && <Text style={styles.checkmark}>✔️</Text>}
+                        <View style={{ flex: 1, alignItems: "center" }}>
+                            <Text style={styles.optionText}>{option}</Text>
+                        </View>
+                        {selectedRepeat === option && <SvgXml xml={checkcircle} width={24} height={24} />}
                     </TouchableOpacity>
                 ))}
             </View>

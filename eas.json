@@ -31,9 +31,9 @@
       },
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_CLIENT_ID": "210ab400-81c0-49f5-a0d2-672a81f742d6",
-        "EXPO_PUBLIC_API_URL": "https://app-kmcr-apps-api-dev-plc.azurewebsites.net",
-        "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/test_28oeWs6yz49OehacMM",
+        "EXPO_PUBLIC_CLIENT_ID": "469bfb24-c303-4cc3-a8ed-e78faa7640e2",
+        "EXPO_PUBLIC_API_URL": "https://app.kaamcare.com/api/2.0/",
+        "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k8A73qVb8ucpyaEH",
         "EXPO_PUBLIC_APP_NAME": "KaamCare",
         "EXPO_PUBLIC_ENVIRONMENT": "Development",
         "EXPO_PUBLIC_B2C_NAME": "kaamcaredevplc"
@@ -54,7 +54,7 @@
       "channel": "production",
       "env": {
         "EXPO_PUBLIC_CLIENT_ID": "469bfb24-c303-4cc3-a8ed-e78faa7640e2",
-        "EXPO_PUBLIC_API_URL": "https://app-kmcr-apps-api-prod-wu.azurewebsites.net",
+        "EXPO_PUBLIC_API_URL": "https://app.kaamcare.com/api/2.0/",
         "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k8A73qVb8ucpyaEH",
         "EXPO_PUBLIC_APP_NAME": "KaamCare",
         "EXPO_PUBLIC_ENVIRONMENT": "Production",
@@ -74,9 +74,9 @@
       "credentialsSource": "local",
       "channel": "production",
       "env": {
-        "EXPO_PUBLIC_CLIENT_ID": "210ab400-81c0-49f5-a0d2-672a81f742d6",
-        "EXPO_PUBLIC_API_URL": "https://app-kmcr-apps-api-dev-plc.azurewebsites.net",
-        "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/test_28oeWs6yz49OehacMM",
+        "EXPO_PUBLIC_CLIENT_ID": "469bfb24-c303-4cc3-a8ed-e78faa7640e2",
+        "EXPO_PUBLIC_API_URL": "https://app.kaamcare.com/api/2.0/",
+        "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k8A73qVb8ucpyaEH",
         "EXPO_PUBLIC_APP_NAME": "KaamCare",
         "EXPO_PUBLIC_ENVIRONMENT": "Development",
         "EXPO_PUBLIC_B2C_NAME": "kaamcaredevplc"
@@ -87,10 +87,10 @@
       "credentialsSource": "local",
       "channel": "production",
       "env": {
-        "EXPO_PUBLIC_CLIENT_ID": "ab78fd32-c3b4-4f41-b2cf-d223887a5254",
-        "EXPO_PUBLIC_API_URL": "https://app-kmcr-apps-api-test-wu.azurewebsites.net",
+        "EXPO_PUBLIC_CLIENT_ID": "469bfb24-c303-4cc3-a8ed-e78faa7640e2",
+        "EXPO_PUBLIC_API_URL": "https://app.kaamcare.com/api/2.0/",
         "EXPO_PUBLIC_APP_NAME": "KaamCare",
-        "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k4jRe5zekGahqbII",
+        "EXPO_PUBLIC_STRIPE_PAYMENT_URL": "https://donate.stripe.com/14k8A73qVb8ucpyaEH",
         "EXPO_PUBLIC_ENVIRONMENT": "Development",
         "EXPO_PUBLIC_B2C_NAME": "kaamcaretest"
       }

@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { theme } from "config/Theme";
+import { Typography } from "components/UI/Typography/Typography";
 
 interface MedicationDetailsProps {
   label: string;
@@ -12,9 +14,9 @@ interface MedicationDetailsProps {
 const MedicationDetails: React.FC<MedicationDetailsProps> = ({ label, value, onPress, customRightComponent }) => {
   return (
     <TouchableOpacity style={styles.itemContainer} onPress={onPress} activeOpacity={0.7}>
-      <Text style={styles.label}>{label}</Text>
+      <Typography size='md' weight='regular'>{label}</Typography>
       <View style={styles.rightSection}>
-        {customRightComponent ? customRightComponent : <Text style={styles.value}>{value}</Text>}
+        {customRightComponent ? customRightComponent : <Typography size='xs'>{value}</Typography>}
         <Ionicons name="chevron-forward" size={20} color="#0072EF" />
       </View>
     </TouchableOpacity>
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: "500",
-    color:'black'
+    color: theme.colors.black,
   },
   rightSection: {
     flexDirection: "row",

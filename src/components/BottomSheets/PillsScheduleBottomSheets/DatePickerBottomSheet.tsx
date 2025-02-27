@@ -4,7 +4,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Platform
+  Platform,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { BottomSheet } from "react-native-btr";
@@ -25,18 +25,27 @@ const DatePickerBottomSheet: React.FC<DatePickerBottomSheetProps> = ({
   const [showStartPicker, setShowStartPicker] = useState(false);
   const [showEndPicker, setShowEndPicker] = useState(false);
 
+  // Format date to "YYYY-MM-DD"
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString("en-GB");
+    const year = date.getFullYear();
+    // getMonth() returns 0-indexed months so we add 1
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
   };
 
   return (
-    <BottomSheet visible={visible} onBackButtonPress={onClose} onBackdropPress={onClose}>
+    <BottomSheet
+      visible={visible}
+      onBackButtonPress={onClose}
+      onBackdropPress={onClose}
+    >
       <View style={styles.bottomSheet}>
         <View style={styles.row}>
           <View style={styles.column}>
             <Text style={styles.label}>Start date</Text>
-            <TouchableOpacity 
-              style={styles.dateInput} 
+            <TouchableOpacity
+              style={styles.dateInput}
               onPress={() => setShowStartPicker(true)}
             >
               <Text style={styles.dateText}>{formatDate(startDate)}</Text>
@@ -58,8 +67,8 @@ const DatePickerBottomSheet: React.FC<DatePickerBottomSheetProps> = ({
 
           <View style={styles.column}>
             <Text style={styles.label}>End date</Text>
-            <TouchableOpacity 
-              style={styles.dateInput} 
+            <TouchableOpacity
+              style={styles.dateInput}
               onPress={() => setShowEndPicker(true)}
             >
               <Text style={styles.dateText}>{formatDate(endDate)}</Text>
@@ -138,10 +147,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 10,
-    width:'100%'
+    width: "100%",
   },
   doneText: {
-    alignSelf:'center',
+    alignSelf: "center",
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",

@@ -7,6 +7,7 @@ import { SvgXml } from "react-native-svg";
 interface FrequencySelectorProps {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    setAlarmVisible: React.Dispatch<React.SetStateAction<boolean>>;
     selectedFrequency: string;
     setSelectedFrequency: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -16,6 +17,7 @@ const frequencyOptions: string[] = ["1/day", "2/day", "3/day", "4/day", "5/day"]
 const FrequencySelector: React.FC<FrequencySelectorProps> = ({
     visible,
     setVisible,
+    setAlarmVisible,
     selectedFrequency,
     setSelectedFrequency,
 }) => {
@@ -37,12 +39,15 @@ const FrequencySelector: React.FC<FrequencySelectorProps> = ({
                         onPress={() => {
                             setSelectedFrequency(freq);
                             setVisible(false);
+                            setTimeout(() => setAlarmVisible(true), 300);
                         }}
                     >
                         <View style={{ flex: 1, alignItems: "center" }}>
                             <Text style={styles.optionText}>{freq}</Text>
                         </View>
-                        {selectedFrequency === freq && <SvgXml xml={checkcircle} width={24} height={24} />}
+                        {selectedFrequency === freq && (
+                            <SvgXml xml={checkcircle} width={24} height={24} />
+                        )}
                     </TouchableOpacity>
                 ))}
             </View>
@@ -80,11 +85,6 @@ const styles = StyleSheet.create({
         color: "#FFF",
         fontSize: 18,
         fontWeight: "bold",
-    },
-    checkmark: {
-        fontSize: 18,
-        color: "white",
-        marginLeft: "auto",
     },
 });
 

@@ -19,26 +19,34 @@ import SvgShape15 from 'assets/icons/shape14.svg';
 import { SvgXml } from 'react-native-svg';
 
 const COLORS = [
-  "#FFFFFF", "#EAEAEA", "#F9F1D2", "#FBE192",
-  "#F4AF7D", "#F27667", "#F3C1C6", "#76B785",
-  "#B6E1F1", "#77A7F6", "#B39DDB"
+  { name: "White", value: "#FFFFFF" },
+  { name: "Light Gray", value: "#EAEAEA" },
+  { name: "Light Mustard", value: "#F9F1D2" },
+  { name: "Pale Yellow", value: "#FBE192" },
+  { name: "Peach", value: "#F4AF7D" },
+  { name: "Coral", value: "#F27667" },
+  { name: "Pink", value: "#F3C1C6" },
+  { name: "Mint", value: "#76B785" },
+  { name: "Sky Blue", value: "#B6E1F1" },
+  { name: "Blue", value: "#77A7F6" },
+  { name: "Lavender", value: "#B39DDB" },
 ];
 
 const SHAPES = [
   { name: "Vector1", component: <SvgXml xml={SvgShape1} width={40} height={40} /> },
-  { name: "Vector2", component:<SvgXml xml={SvgShape2} width={40} height={40} /> },
+  { name: "Vector2", component: <SvgXml xml={SvgShape2} width={40} height={40} /> },
   { name: "Vector3", component: <SvgXml xml={SvgShape3} width={40} height={40} /> },
-  { name: "Vector4", component:<SvgXml xml={SvgShape4} width={40} height={40} /> },
+  { name: "Vector4", component: <SvgXml xml={SvgShape4} width={40} height={40} /> },
   { name: "Vector5", component: <SvgXml xml={SvgShape5} width={40} height={40} /> },
-  { name: "Vector6", component:<SvgXml xml={SvgShape6} width={40} height={40} /> },
+  { name: "Vector6", component: <SvgXml xml={SvgShape6} width={40} height={40} /> },
   { name: "Vector7", component: <SvgXml xml={SvgShape7} width={40} height={40} /> },
-  { name: "Vector8", component:<SvgXml xml={SvgShape8} width={40} height={40} /> },
+  { name: "Vector8", component: <SvgXml xml={SvgShape8} width={40} height={40} /> },
   { name: "Vector9", component: <SvgXml xml={SvgShape9} width={40} height={40} /> },
-  { name: "Vector10", component:<SvgXml xml={SvgShape10} width={40} height={40} /> },
+  { name: "Vector10", component: <SvgXml xml={SvgShape10} width={40} height={40} /> },
   { name: "Vector11", component: <SvgXml xml={SvgShape11} width={40} height={40} /> },
-  { name: "Vector12", component:<SvgXml xml={SvgShape12} width={40} height={40} /> },
+  { name: "Vector12", component: <SvgXml xml={SvgShape12} width={40} height={40} /> },
   { name: "Vector13", component: <SvgXml xml={SvgShape13} width={40} height={40} /> },
-  { name: "Vector14", component:<SvgXml xml={SvgShape14} width={40} height={40} /> },
+  { name: "Vector14", component: <SvgXml xml={SvgShape14} width={40} height={40} /> },
   { name: "Vector15", component: <SvgXml xml={SvgShape15} width={40} height={40} /> },
 ];
 
@@ -112,17 +120,18 @@ const ColorShapeSelector: React.FC<ColorShapeSelectorProps> = ({
               key={"colorList"}
               data={COLORS}
               numColumns={4}
-              keyExtractor={(item) => item}
+              keyExtractor={(item) => item.value}
               contentContainerStyle={styles.grid}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={[
                     styles.colorOption,
-                    { backgroundColor: item },
-                    selectedColor === item && styles.selectedColor
+                    { backgroundColor: item.value },
+                    selectedColor === item.value && styles.selectedColor,
                   ]}
-                  onPress={() => setSelectedColor(item)}
-                />
+                  onPress={() => setSelectedColor(item.value)}
+                >
+                </TouchableOpacity>
               )}
             />
           </View>
@@ -139,7 +148,7 @@ const ColorShapeSelector: React.FC<ColorShapeSelectorProps> = ({
                 <TouchableOpacity
                   style={[
                     styles.shapeOption,
-                    selectedShape === item.name && styles.selectedShape
+                    selectedShape === item.name && styles.selectedShape,
                   ]}
                   onPress={() => setSelectedShape(item.name)}
                 >
@@ -193,12 +202,12 @@ const styles = StyleSheet.create({
   pageContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginLeft:-25
+    marginLeft: -25,
   },
   grid: {
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 15,    
+    marginBottom: 15,
   },
   colorOption: {
     width: 50,
@@ -207,9 +216,17 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: 2,
     borderColor: "transparent",
+    justifyContent: "center",
+    alignItems: "center",
   },
   selectedColor: {
     borderColor: "black",
+  },
+  colorName: {
+    fontSize: 10,
+    color: "#333",
+    marginTop: 4,
+    textAlign: "center",
   },
   shapeOption: {
     width: 60,

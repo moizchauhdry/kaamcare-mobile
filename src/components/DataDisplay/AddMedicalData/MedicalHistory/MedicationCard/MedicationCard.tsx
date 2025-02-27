@@ -1,67 +1,106 @@
-import { TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { TouchableOpacity, View, StyleSheet, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
 import { Typography } from '../../../../UI/Typography/Typography';
-import { Card } from '../../../../UI/Card/Card';
 import type { AddMedicalDataNavigationParamsList } from '../../../../Navigation/AddMedicalDataNavigation';
 import type { Medication } from '../../../../../model/api/medicalHistory/Medications';
 
 type MedicationCardProps = Medication & {
-  [key: string]: string | null;
+  [key: string]: string | string[] | null;
 };
 
 export const MedicationCard = (props: MedicationCardProps) => {
   const navigation = useNavigation<StackNavigationProp<AddMedicalDataNavigationParamsList>>();
-  const { userMedicationId, medicationName, explanation, ...rest } = props;
-  const objectKeys = Object.keys(rest).filter((elem) => Boolean(rest[elem]));
+  const { userMedicationId, medication_name, explanation, ...rest } = props;
 
-  const renderContent = () => {
-    const order = ['form', 'dose', 'units', 'route', 'frequency'];
-    const orderMap = new Map(order.map((item, index) => [item, index]));
-    const sorted = [...objectKeys].sort(
-      (a, b) => (orderMap.get(a) ?? objectKeys.length) - (orderMap.get(b) ?? objectKeys.length),
-    );
+  const excludedKeys = ['color', 'shape', 'times'];
+  const objectKeys = Object.keys(rest)
+    .filter((key) => Boolean(rest[key]) && !excludedKeys.includes(key));
 
-    return sorted.map((elem, index) => {
-      const trailingComa = index !== sorted.length - 1 ? ', ' : null;
+  let formattedTimes = '';
 
-      if (elem === 'dose' || elem === 'units') {
-        if (elem === 'units' || !rest[elem] || !rest.units) {
-          return null;
-        }
+  if (rest.times) {
+    const timesArray = Array.isArray(rest.times) ? rest.times : [rest.times];
 
-        return (
-          <Typography key={`${rest.dose}-${rest.units}`}>
-            {rest.dose} {rest.units}
-            {index !== sorted.length - 2 ? ', ' : null}
-          </Typography>
-        );
-      }
+    if (timesArray.length === 1) {
+      formattedTimes = timesArray[0] ?? '';
+    } else if (timesArray.length > 1) {
+      formattedTimes = timesArray.slice(0, -1).join(', ') + ' and ' + timesArray[timesArray.length - 1];
+    }
+  }
 
-      return (
-        /* eslint-disable-next-line */
-        <Typography key={`${elem}-${index}`}>
-          {rest[elem]}
-          {trailingComa}
-        </Typography>
-      );
-    });
-  };
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('MedicationForm', { id: userMedicationId, edit: true, name: medicationName })}
+      onPress={() => navigation.navigate('EditMedication', { id: userMedicationId, edit: true, name: medication_name })}
     >
-      <Card>
-        <View style={{ gap: 12 }}>
-          <Typography style={{ fontSize: 20 }} color="secondary">
-            {medicationName}
-          </Typography>
-          {objectKeys.length > 0 ? <Typography>{renderContent()}</Typography> : null}
-          {explanation ? <Typography>{explanation}</Typography> : null}
+      <View style={styles.medicationCard}>
+        {/* <View style={[styles.pillImageContainer, { backgroundColor: rest.color || '#F8DADA' }]}>
+          {rest.shape ? (
+            <Text style={styles.shapeText}>{rest.shape}</Text>
+          ) : (
+            <Image source={require('../../../../../assets/images/pills.png')} style={styles.pillImage} />
+          )}
+        </View> */}
+        <View style={styles.medicationDetails}>
+          <View style={{ flexDirection: 'row' }}>
+            <Typography size='sm' weight='regular'>{medication_name}</Typography>
+            <Typography size='sm' weight='regular'> {rest.strength}</Typography>
+            <Typography size='sm' weight='regular'> {rest.unit}</Typography>
+            <Typography size='sm' weight='regular'> {rest.form}</Typography>
+          </View>
+          <View style={styles.detailsRow}>
+            <Typography size="xs" weight="normal">
+              Take via {rest.route} {rest.frequency} at {formattedTimes}
+            </Typography>
+          </View>
+          {explanation && (
+            <View style={styles.detailsRow}>
+              <Typography size="xs" weight="normal">{explanation}</Typography>
+            </View>
+          )}
         </View>
-      </Card>
+      </View>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  medicationCard: {
+    flexDirection: 'row',
+    backgroundColor: '#EAF8E8',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  pillImageContainer: {
+    padding: 10,
+    borderRadius: 10,
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pillImage: {
+    width: 55,
+    height: 53,
+  },
+  shapeText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  medicationDetails: {
+    flex: 1,
+  },
+  medicationName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#1A3C70',
+  },
+  detailsRow: {
+    marginVertical: 5,
+  },
+});

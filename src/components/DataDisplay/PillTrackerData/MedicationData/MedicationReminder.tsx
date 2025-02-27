@@ -1,49 +1,63 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { Medication } from 'model/api/medicalHistory/Medications';
+import { useNavigation } from '@react-navigation/native';
+import type { AddMedicalDataNavigationParamsList } from '../../../Navigation/AddMedicalDataNavigation';
+import type { StackNavigationProp } from '@react-navigation/stack';
+import { Typography } from 'components/UI/Typography/Typography';
 
-const MedicationReminder: React.FC = () => {
+
+type MedicationReminderProps = Medication & {
+  [key: string]: string | string[] | null;
+};
+
+export const MedicationReminder = (props: MedicationReminderProps) => {
+  const navigation = useNavigation<StackNavigationProp<AddMedicalDataNavigationParamsList>>();
+  const { userMedicationId, medication_name, explanation, ...rest } = props;
+
+  const handleAddMedication = () => {
+    navigation.navigate('SelectMedication');
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Up comings</Text>
-
-      <View style={styles.timeline}>
-        <View style={styles.timelineLine} />
-        <View style={[styles.timelineDot, { backgroundColor: 'green' }]} />
-        <Text style={styles.time}>8:30 pm</Text>
-        <View style={[styles.timelineDot, { backgroundColor: 'orange', top:150 }]} />
-      </View>
-
       <View style={styles.medicationCard}>
         <View style={styles.pillImageContainer}>
-          <Image source={require('../../../../assets/images/pills.png')} style={styles.pillImage} />
+          <Image source={require('../../../../assets/images/pills.png')} resizeMode='contain' style={styles.pillImage} />
         </View>
 
         <View style={styles.medicationDetails}>
-          <Text style={styles.medicationName}>Azithromycin 500mg Tablets</Text>
-          <View style={styles.detailsRow}>
-            <Text style={styles.pillText}>1 pill</Text>
-            <Text style={styles.mealText}>After Meal</Text>
+          <View style={styles.row}>
+            <Text style={styles.medicationName}>{medication_name}</Text>
+            <Text style={styles.medicationName}> {rest.strength} {rest.unit}</Text>
+            <Text style={styles.medicationName}> {rest.form}</Text>
           </View>
-          <Text style={styles.refillText}>Refill needed</Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.daysLeft}>15 days left</Text>
-            <Text style={styles.date}>02-12-2025</Text>
+
+          <Text style={styles.time}>{rest.time}</Text>
+
+          <View style={styles.detailsRow}>
+            <Typography size='xs' weight='normal'>
+              Take {rest.form} by {rest.route} {rest.frequency}
+            </Typography>
+          </View>
+
+          <View style={styles.dateRow}>
+            <Text style={styles.date}>
+              Start from {rest.start_date} till {rest.end_date}
+            </Text>
           </View>
         </View>
       </View>
-      {/* <TouchableOpacity style={styles.addButton}>
-        <FontAwesome name="plus-circle" size={20} color="white" />
-        <Text style={styles.addButtonText}>Add medications</Text>
-      </TouchableOpacity> */}
     </View>
+
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
     backgroundColor: '#fff',
   },
   heading: {
@@ -77,14 +91,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#555',
   },
+  row: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   medicationCard: {
     flexDirection: 'row',
     backgroundColor: '#EAF8E8',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
-    marginVertical: 10,
-    marginLeft: 20
   },
   pillImageContainer: {
     backgroundColor: '#F8DADA',
@@ -93,21 +109,19 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   pillImage: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 65,
   },
   medicationDetails: {
-    flex: 1,
   },
   medicationName: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#1A3C70',
   },
   detailsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 5,
   },
   pillText: {
     fontSize: 14,
@@ -144,6 +158,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 10,
   },
+  dateRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  date: {
+    fontSize: 12,
+    color: '#888',
+  },
 });
 
-export default MedicationReminder;
