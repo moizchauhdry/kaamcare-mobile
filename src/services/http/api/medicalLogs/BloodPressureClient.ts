@@ -34,7 +34,9 @@ export class BloodPressureClient extends AbstractHttpService {
         },
       })
       .then((res) => this.resolve<BloodPressureLogsApiList>(res))
-      .then((res) => sortByDate(res.bloodPressurePulses, 'date'))
+      .then((res) => {
+        return sortByDate(res.bloodPressurePulses, 'date');
+      })
       .catch(this.reject);
   }
 

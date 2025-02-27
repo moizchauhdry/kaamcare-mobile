@@ -87,13 +87,14 @@ export const calculateAveragesBloodPressureValues = (data: { [key: string]: Bloo
     ]);
     const dataPointColor = determineBloodPressureStage(calculatedData?.average, graphStages);
     const pulseDataPointColor = determineBloodPulseStage(calculatedData?.average, pulseGraphStages);
-
-    return {
+    const returnData = {
       ...calculatedData,
       date: item[0]!.commonDate,
       color: dataPointColor.color,
       pulseColor: pulseDataPointColor.color,
     };
+
+    return returnData;
   });
 
 export const calculateAveragesSaturationValues = (data: { [key: string]: SaturationApiLog[] }) =>

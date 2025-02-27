@@ -60,7 +60,7 @@ export const MedicalLogsProfileCard = <T,>({
   };
   return (
     <WithSkeleton isLoading={dataProps?.isLoading ?? false} skeleton={<MedicalLogsProfileCardSkeleton />}>
-      <TouchableWithoutFeedback onPress={handleItemPress}>
+      <TouchableWithoutFeedback delayPressIn={150} onPress={handleItemPress}>
         <Card>
           <View style={{ gap: 8, alignItems: 'center' }}>
             <SvgXml preserveAspectRatio="xMinYMin slice" xml={heartIcon} />

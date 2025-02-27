@@ -1,7 +1,7 @@
 export type SeparatedDateModel = {
-  year: number | null;
-  month: number | null;
-  day: number | null;
+  year: number | string | null;
+  month: number | string | null;
+  day: number | string | null;
   hour?: number;
   minute?: number;
   partOfDay?: 'AM' | 'PM';

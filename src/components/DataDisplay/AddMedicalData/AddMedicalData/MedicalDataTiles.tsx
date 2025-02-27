@@ -1,62 +1,68 @@
-import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
+import { FlatList, View } from 'react-native';
 
-import medicalLogs from 'assets/icons/medical-logs.svg';
-import medicalHistory from 'assets/icons/medical-history.svg';
-import primaryPrevention from 'assets/icons/primary-prevention.svg';
 import goalsOfCare from 'assets/icons/goals-of-care.svg';
+import medicalHistory from 'assets/icons/medical-history.svg';
+import spo2Icon from 'assets/icons/spo2.svg';
+import weightIcon from 'assets/icons/weight.svg';
+import heightIcon from 'assets/icons/height.svg';
+import bloodPressureIcon from 'assets/icons/b-p.svg';
+import bloodSugarIcon from 'assets/icons/blood-sugar.svg';
+import primaryPrevention from 'assets/icons/primary-prevention.svg';
 import type { AddMedicalDataNavigationParamsList } from 'components/Navigation/AddMedicalDataNavigation';
-import pillIcon from 'assets/icons/pill icon.svg';
+
+import { SearchInput2 } from 'components/UI/Inputs/SearchInput/SearchInput2o';
+import { useEffect, useState } from 'react';
 import { MedicalDataTile } from './components/MedicalDataTile';
+
+const medicalData = [
+  { title: 'Blood Pressure', screen: 'BloodPressureForm', icon: bloodPressureIcon },
+  { title: 'Blood Sugar', screen: 'BloodSugarForm', icon: bloodSugarIcon },
+  { title: 'Goals of Care', screen: 'GoalsOfCare', icon: goalsOfCare },
+  { title: 'Preventive Care', screen: 'PrimaryPrevention', icon: primaryPrevention },
+
+  { title: 'SpO2', screen: 'SaturationForm', icon: spo2Icon },
+  { title: 'Medical History', screen: 'MedicalHistory', icon: medicalHistory },
+  { title: 'Weight', screen: 'WeightForm', icon: weightIcon },
+
+  { title: 'Height', screen: 'HeightForm', icon: heightIcon },
+];
 
 export const MedicalDataTiles = () => {
   const navigation = useNavigation<StackNavigationProp<AddMedicalDataNavigationParamsList>>();
+  const [searchValue, setSearchValue] = useState('');
+  const [delayedSearchValue, setDelayedSearchValue] = useState('');
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDelayedSearchValue(searchValue);
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [searchValue]);
+
+  const filteredTiles = medicalData.filter((item) =>
+    item.title.toLowerCase().includes(delayedSearchValue.toLowerCase()),
+  );
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: 8,
-      }}
-    >
-      <View
-        style={{
-          flexDirection: 'column',
-          flexWrap: 'wrap',
-          gap: 16,
-          flex: 1,
-        }}
-      >
-        <MedicalDataTile title="Medical Logs" onPress={() => navigation.navigate('MedicalLogs')} icon={medicalLogs} />
-        <MedicalDataTile
-          title="Primary Prevention"
-          onPress={() => navigation.navigate('PrimaryPrevention')}
-          icon={primaryPrevention}
-        />
-        <MedicalDataTile
-          title="Pill Tracker"
-          onPress={() => navigation.navigate('PillTrackerIntro')}
-          icon={pillIcon}
-        />
+    <>
+      <View style={{ marginBottom: 12 }}>
+        <SearchInput2 placeholder="Search" value={searchValue} onChangeText={setSearchValue} />
       </View>
-      <View
-        style={{
-          flexDirection: 'column',
-          flexWrap: 'wrap',
-          gap: 16,
-          flex: 1,
-        }}
-      >
-        <MedicalDataTile
-          title="Medical History"
-          onPress={() => navigation.navigate('MedicalHistory')}
-          icon={medicalHistory}
-        />
-
-        <MedicalDataTile title="Goals of Care" onPress={() => navigation.navigate('GoalsOfCare')} icon={goalsOfCare} />
-      </View>
-    </View>
+      <FlatList
+        data={filteredTiles}
+        keyExtractor={(item) => item.title}
+        numColumns={2} // Ensures two tiles per row
+        columnWrapperStyle={{ flex: 1, justifyContent: 'space-between', marginBottom: 16 }} // Ensures alignment
+        contentContainerStyle={{ flexGrow: 1 }} // Prevents single column issue
+        renderItem={({ item }) => (
+          <View style={{ flex: 1, paddingHorizontal: 4 }}>
+            <MedicalDataTile title={item.title} onPress={() => navigation.navigate(item.screen)} icon={item.icon} />
+          </View>
+        )}
+      />
+    </>
   );
 };

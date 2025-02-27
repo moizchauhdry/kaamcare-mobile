@@ -1,53 +1,126 @@
-import React, { useRef, useState } from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  View,
-  TextInput as RNTextInput,
-  Keyboard,
-  Animated,
-} from 'react-native';
-import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { Animated, Keyboard, TextInput as RNTextInput, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { ScreenModalLayout } from '../../../../../components/Layouts/ScreenModalLayout/ScreenModalLayout';
-import { DateTimePickerControlled } from '../../../../../components/UI/Inputs/DateTimePicker/DateTimePickerControlled';
-import { TextInputControlled } from '../../../../../components/UI/Inputs/TextInput/TextInputControlled';
-import { SwitchSelectorControlled } from '../../../../../components/UI/Inputs/SwitchSelector/SwitchSelectorControlled';
-import { NumberInputControlled } from '../../../../../components/UI/Inputs/NumberInput/NumberInputControlled';
-import { DeletionButton } from '../../../../../components/UI/Button/DeletionButton';
 import { Button } from 'components/UI/Button/Button';
-import { bloodPressureSchema } from '../../../../../schemas/forms/medicalLogs/bloodPressure';
-import { bloodPressureDefaultValues } from '../../../../../constants/forms/medicalLogs/bloodPressure';
-import { parseBloodPressureFormToApiData } from '../../../../../model/parsers/medicalLogs/BloodPressureParser';
-import { useUnitsData } from '../../../../../context/UnitsContext';
-import { useQueryBloodPressureLog } from '../../../../../hooks/query/medicalLogs/bloodPressure/useQueryBloodPressureLog';
-import { useMutationBloodPressureLogAdd } from '../../../../../hooks/query/medicalLogs/bloodPressure/useMutationBloodPressureLogAdd';
-import { useMutationBloodPressureLogUpdate } from '../../../../../hooks/query/medicalLogs/bloodPressure/useMutationBloodPressureLogUpdate';
-import { useMutationBloodPressureLogDelete } from '../../../../../hooks/query/medicalLogs/bloodPressure/useMutationBloodPressureLogDelete';
+import { Card } from 'components/UI/Card/Card';
+import PreHypertensionCard from 'components/UI/Card/PreHypertensionCard';
+import { SwitchSelectorControlled2o } from 'components/UI/Inputs/SwitchSelector/SwitchSelectorController2o';
+import { Typography } from 'components/UI/Typography/Typography';
+import { theme } from 'config/Theme';
+import checkboxChecked from '../../../../../assets/icons/check-square.svg';
+import LeftHandIconFilled from '../../../../../assets/icons/left-hand-filled.svg';
+import LeftHandIcon from '../../../../../assets/icons/left-hand-unfilled.svg';
+import LyingIconFilled from '../../../../../assets/icons/lying-filled.svg';
+import LyingIcon from '../../../../../assets/icons/lying-unfilled.svg';
+import RightHandIconFilled from '../../../../../assets/icons/right-hand-filled.svg';
+import RightHandIcon from '../../../../../assets/icons/right-hand-unfilled.svg';
+import SittingIconFilled from '../../../../../assets/icons/sitting-filled.svg';
+import SittingIcon from '../../../../../assets/icons/sitting-unfilled.svg';
+import checkboxSquare from '../../../../../assets/icons/square-empty.svg';
+import StandingIconFilled from '../../../../../assets/icons/standing-filled.svg';
+import StandingIcon from '../../../../../assets/icons/standing-unfilled.svg';
 import { FormSkeleton } from '../../../../../components/Forms/FormSkeleton';
+import { ScreenModalLayout } from '../../../../../components/Layouts/ScreenModalLayout/ScreenModalLayout';
 import type { AddMedicalDataNavigationParamsList } from '../../../../../components/Navigation/AddMedicalDataNavigation';
+import { DeletionButton } from '../../../../../components/UI/Button/DeletionButton';
+import { TextInputControlled } from '../../../../../components/UI/Inputs/TextInput/TextInputControlled';
+import { bloodPressureDefaultValues } from '../../../../../constants/forms/medicalLogs/bloodPressure';
+import { useUnitsData } from '../../../../../context/UnitsContext';
+import { useMutationBloodPressureLogAdd } from '../../../../../hooks/query/medicalLogs/bloodPressure/useMutationBloodPressureLogAdd';
+import { useMutationBloodPressureLogDelete } from '../../../../../hooks/query/medicalLogs/bloodPressure/useMutationBloodPressureLogDelete';
+import { useMutationBloodPressureLogUpdate } from '../../../../../hooks/query/medicalLogs/bloodPressure/useMutationBloodPressureLogUpdate';
+import { useQueryBloodPressureLog } from '../../../../../hooks/query/medicalLogs/bloodPressure/useQueryBloodPressureLog';
+import { parseBloodPressureFormToApiData } from '../../../../../model/parsers/medicalLogs/BloodPressureParser';
+import { bloodPressureSchema } from '../../../../../schemas/forms/medicalLogs/bloodPressure';
+
+import { useNavigation } from '@react-navigation/native';
+import { DateTimePickerControlled2o } from 'components/UI/Inputs/DateTimePicker/DateTimePickerControlled2o';
+import { NumberInputControlled2o } from 'components/UI/Inputs/NumberInput/NumberInputControlled2o';
+import { ModalGrabber } from 'components/UI/ModalGrabber/ModalGrabber';
+import moment from 'moment';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack';
+import { SvgXml } from 'react-native-svg';
+import { getDateFromSeparatedModel } from 'utils/date/date';
 
 type BloodPressureFormScreenProps = NativeStackScreenProps<AddMedicalDataNavigationParamsList, 'BloodPressureForm'>;
 
 export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps) => {
   const { pressure } = useUnitsData();
+  const navigation = useNavigation();
   const edit = route.params?.edit;
   const id = route.params?.id;
   const days = route.params?.days;
+  const refRBSheet = useRef<any>(null);
+  const [selectedDate, setSelectedDate] = useState(moment().format('MMM D, h:mm A'));
 
   const { data: initialValues, isLoading } = useQueryBloodPressureLog(id!, { enabled: Boolean(id) });
   const mutationAdd = useMutationBloodPressureLogAdd(days);
   const mutationUpdate = useMutationBloodPressureLogUpdate(id!, days);
   const mutationDelete = useMutationBloodPressureLogDelete(id!, days);
+  const openBottomSheet = useCallback(() => {
+    refRBSheet.current?.open();
+  }, []);
+  const form = useForm({
+    defaultValues: initialValues
+      ? {
+          ...initialValues,
+          unit: pressure,
+          systolic: String(initialValues.millimetersOfMercurySystolic),
+          diastolic: String(initialValues.millimetersOfMercuryDiastolic),
+          pulse: initialValues.pulse,
+          measurementPosition: initialValues.position,
+          measurementSide: initialValues.side,
+          explanation: initialValues.explanation,
+          date: new Date(),
+        }
+      : {
+          ...bloodPressureDefaultValues,
+          unit: pressure,
+          date: new Date(),
+        },
+    resolver: zodResolver(bloodPressureSchema),
+  });
 
+  useEffect(() => {
+    if (initialValues) {
+      const dateObject = getDateFromSeparatedModel(initialValues.date);
+
+      // const formattedDate = moment(dateObject).format('DD-MM-YYYY');
+      // setSelectedDate(formattedDate);
+      const formattedDate = moment(dateObject).format('MMM D, h:mm A');
+      setSelectedDate(formattedDate);
+      form.reset({
+        ...initialValues,
+        unit: pressure,
+        systolic: String(initialValues.millimetersOfMercurySystolic),
+        diastolic: String(initialValues.millimetersOfMercuryDiastolic),
+        pulse: initialValues.pulse,
+        measurementPosition: initialValues.position,
+        measurementSide: initialValues.side,
+        explanation: initialValues.explanation,
+        date: dateObject, // Use the converted date object
+      });
+    }
+  }, [initialValues, form, pressure]);
+  // Pass the callback to the navigation options
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <ModalGrabber
+          title={selectedDate}
+          onPress={openBottomSheet} // Open the bottom sheet on title press
+        />
+      ),
+    });
+  }, [navigation, openBottomSheet, selectedDate]);
   const [MaxLength, setMaxLength] = useState(3);
   const diastolicRef = useRef<RNTextInput | null>(null);
   const pulseRef = useRef<RNTextInput | null>(null);
   const [keyboardHeight] = useState(new Animated.Value(0));
-
-  console.log('initialValues', initialValues);
+  const [arythmiaDetected, setArythmiaDetected] = useState(false);
 
   React.useEffect(() => {
     const keyboardWillShow = Keyboard.addListener('keyboardWillShow', (event) => {
@@ -72,29 +145,9 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
     };
   }, [keyboardHeight]);
 
-  const form = useForm({
-    defaultValues: initialValues
-      ? {
-          ...initialValues,
-          unit: pressure,
-          systolic: String(initialValues.millimetersOfMercurySystolic),
-          diastolic: String(initialValues.millimetersOfMercuryDiastolic),
-          pulse: initialValues.pulse,
-          measurementPosition: initialValues.position,
-          measurementSide: initialValues.side,
-          explanation: initialValues.explanation,
-          date: new Date(),
-        }
-      : {
-          ...bloodPressureDefaultValues,
-          unit: pressure,
-          date: new Date(),
-        },
-    resolver: zodResolver(bloodPressureSchema),
-  });
-
   const handleSubmitForm = (values: any) => {
     const parsedValues = parseBloodPressureFormToApiData(values, pressure);
+
     edit && initialValues
       ? mutationUpdate.mutate({ ...initialValues, ...parsedValues, id: id! })
       : mutationAdd.mutate(parsedValues);
@@ -160,75 +213,105 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
       form.setValue('pulse', value);
     }
   };
+  const handleDateSelect = (date: Date) => {
+    // console.log('date===', date);
 
+    const formattedDate = moment(date).format('MMM D, h:mm A');
+    setSelectedDate(formattedDate); // Update the selected date
+    // refRBSheet.current?.close(); // Close the bottom sheet
+  };
   return (
     <View style={styles.container}>
-      <ScreenModalLayout title="Blood Pressure & Pulse" isScrollable>
+      <ScreenModalLayout title="" isScrollable>
         {edit && isLoading ? (
           <FormSkeleton />
         ) : (
           <FormProvider {...form}>
-            <View style={{ gap: 16 }}>
-              <DateTimePickerControlled
-                name="date"
-                label="Date and time"
-                inputProps={{ forbidFuture: true, mode: 'datetime', placeholder: 'MM/DD/YYYY, hh:mm' }}
-              />
-              <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'space-between' }}>
-                <NumberInputControlled
+            <View style={{ gap: 16, marginTop: -16, marginBottom: 50 }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 5,
+                  alignItems: 'flex-start',
+                  overflow: 'hidden',
+                }}
+              >
+                <NumberInputControlled2o
                   name="systolic"
                   label="Systolic"
                   inputProps={{
-                    placeholder: 'mmHg',
+                    placeholder: 'mmhg',
                     maxLength: MaxLength,
                     onChangeText: handleSystolicChange,
                   }}
                 />
-                <NumberInputControlled
+                <NumberInputControlled2o
                   name="diastolic"
                   label="Diastolic"
                   inputProps={{
-                    placeholder: 'mmHg',
+                    placeholder: 'mmhg',
                     maxLength: MaxLength,
                     onChangeText: handleDiastolicChange,
                   }}
                   ref={diastolicRef}
                 />
-                <NumberInputControlled
+                <NumberInputControlled2o
                   name="pulse"
                   label="Pulse"
                   inputProps={{
-                    placeholder: 'bpm',
+                    placeholder: 'BPM',
                     maxLength: MaxLength,
                     onChangeText: handlePulsecChange,
                   }}
                   ref={pulseRef}
                 />
               </View>
-              <SwitchSelectorControlled
-                name="measurementPosition"
-                label="Measurement position"
-                options={[
-                  { value: 'Lying', label: 'Lying' },
-                  { value: 'Sitting', label: 'Sitting' },
-                  { value: 'Standing', label: 'Standing' },
-                ]}
-              />
-              <SwitchSelectorControlled
+
+              <View style={{}}>
+                <PreHypertensionCard
+                  systolic={parseInt(form.watch('systolic'), 10)}
+                  diastolic={parseInt(form.watch('diastolic'), 10)}
+                />
+              </View>
+
+              <SwitchSelectorControlled2o
                 name="measurementSide"
-                label="Measurement side"
+                label="Measured arm"
                 options={[
-                  { value: 'Left', label: 'Left' },
-                  { value: 'Right', label: 'Right' },
+                  { value: 'Right', label: 'Right', icon: RightHandIcon, filledIcon: RightHandIconFilled },
+                  { value: 'Left', label: 'Left', icon: LeftHandIcon, filledIcon: LeftHandIconFilled },
                 ]}
               />
+              <SwitchSelectorControlled2o
+                name="measurementPosition"
+                label="Body position"
+                options={[
+                  { value: 'Sitting', label: 'Sitting', icon: SittingIcon, filledIcon: SittingIconFilled },
+                  { value: 'Lying', label: 'Lying', icon: LyingIcon, filledIcon: LyingIconFilled },
+                  { value: 'Standing', label: 'Standing', icon: StandingIcon, filledIcon: StandingIconFilled },
+                ]}
+              />
+              <Card style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 16 }}>
+                <Typography
+                  style={{
+                    fontSize: 15,
+                    fontWeight: '500',
+                    color: theme.colors.textPrimary,
+                  }}
+                >
+                  Arrythmia detected
+                </Typography>
+                <TouchableOpacity onPress={() => setArythmiaDetected(!arythmiaDetected)}>
+                  <SvgXml width={17} height={17} xml={arythmiaDetected ? checkboxChecked : checkboxSquare} />
+                </TouchableOpacity>
+              </Card>
               <TextInputControlled
                 name="explanation"
-                label="Explanation"
+                label="Enter Comments"
+                isComment={true} // Enable WhatsApp-like behavior
                 inputProps={{
-                  placeholder: 'Enter relevant information...',
+                  placeholder: 'Enter your comments here ...',
                   maxLength: 240,
-                  style: { height: 160 },
                 }}
               />
               {edit && (
@@ -240,6 +323,46 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
                 />
               )}
             </View>
+            <RBSheet
+              ref={refRBSheet}
+              draggable
+              customModalProps={{
+                animationType: 'slide',
+                statusBarTranslucent: true,
+              }}
+              customStyles={{
+                container: {
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  paddingBottom: 10,
+                  height: 300,
+                },
+                draggableIcon: {
+                  width: 80,
+                },
+              }}
+            >
+              <View style={{ margin: 15, gap: 20 }}>
+                <DateTimePickerControlled2o
+                  name="date"
+                  label="Date and time"
+                  inputProps={{
+                    forbidFuture: true,
+                    mode: 'datetime',
+                    placeholder: 'MM/DD/YYYY, hh:mm',
+                    editable: false,
+                    onChange: (event) => {
+                      if (event instanceof Date) {
+                        handleDateSelect(event);
+                      } else if (event && event.nativeEvent && event.nativeEvent.text) {
+                        handleDateSelect(new Date(event.nativeEvent.text));
+                      }
+                    },
+                  }}
+                />
+                <Button onPress={() => refRBSheet.current?.close()}>Done</Button>
+              </View>
+            </RBSheet>
           </FormProvider>
         )}
       </ScreenModalLayout>

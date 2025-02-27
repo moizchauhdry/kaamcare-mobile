@@ -1,3 +1,4 @@
+import { theme } from 'config/Theme';
 import type { GraphStage } from '../../model/medicalLogs/MedicalLogsCommon';
 
 type Reading<T> = {
@@ -20,9 +21,9 @@ type CalculatedStats<T> = {
 };
 
 type BloodPressureAveragesValues = {
-  millimetersOfMercurySystolic: number;
-  millimetersOfMercuryDiastolic: number;
-  pulse: number;
+  millimetersOfMercurySystolic: number | undefined;
+  millimetersOfMercuryDiastolic: number | undefined;
+  pulse: number | undefined;
 };
 
 type SaturationAveragesValues = {
@@ -160,13 +161,26 @@ export const determineBloodPressureStage = (
       return { label: stage.label, color: stage.color, min, max };
     }
   }
-
   return {
     label: '',
-    color: 'white',
+    color: theme.colors.primary,
   };
 };
-
+export const getStageRange = (stage: GraphStage | any) => {
+  return `sys ${
+    stage.label === 'Hypotension'
+      ? '<' + stage?.scopes[0].max
+      : stage.label === 'Hypertension Crisis'
+        ? '>' + stage?.scopes[0].min
+        : stage?.scopes[0].min + '-' + stage?.scopes[0].max
+  } ${stage.conditionType === 'AND' ? 'and' : 'or'} DIA ${
+    stage.label === 'Hypotension'
+      ? '<' + stage?.scopes[1].max
+      : stage.label === 'Hypertension Crisis'
+        ? '>' + stage?.scopes[1].min
+        : stage?.scopes[1].min + '-' + stage?.scopes[1].max
+  }`;
+};
 export const determineSaturationStage = (averages: SaturationAveragesValues | undefined, stages: GraphStage[]) => {
   if (!averages) {
     return {

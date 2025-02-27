@@ -46,17 +46,17 @@ export const BloodPressureCard = ({
       </View>
       <View style={{ gap: 4 }}>
         {bloodPressureStage ? (
-          <Typography size="sm" weight="semiBold" style={{ textAlign: 'right' }}>
+          <Typography size="sm" weight="semiBold" style={{ textAlign: 'left' }}>
             {bloodPressureStage}
           </Typography>
         ) : null}
         {date ? (
-          <Typography color="gray" size="sm" style={{ textAlign: 'right' }}>
+          <Typography color="gray" size="sm" style={{ textAlign: 'left' }}>
             {formatDate(getDateFromSeparatedModel(date), 'datetime')}
           </Typography>
         ) : null}
         {position || side ? (
-          <Typography color="gray" size="sm" style={{ textAlign: 'right' }}>
+          <Typography color="gray" size="sm" style={{ textAlign: 'left' }}>
             {position || ''}
             {position && side ? ', ' : null}
             {side || ''}

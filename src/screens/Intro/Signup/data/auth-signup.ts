@@ -34,6 +34,8 @@ export const useAuthSignup = (screenOrigin?: string) => {
       }
     },
     onError: (error: unknown) => {
+      console.log('error====', error);
+
       handleError(error);
     },
   });

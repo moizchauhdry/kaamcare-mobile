@@ -26,9 +26,10 @@ export type MedicalLogsCarouselData = {
 
 type MedicalLogsCarouselProps = {
   data: MedicalLogsCarouselData[];
+  isHome?: boolean;
 };
 
-export const MedicalLogsCarousel = ({ data }: MedicalLogsCarouselProps) => {
+export const MedicalLogsCarousel = ({ data, isHome }: MedicalLogsCarouselProps) => {
   const [activeChart, setActiveChart] = useState(1);
   const listRef = useRef<FlatList | null>(null);
   const extractKey = (item: MedicalLogsCarouselData) => item.type + item.chart;
@@ -59,7 +60,7 @@ export const MedicalLogsCarousel = ({ data }: MedicalLogsCarouselProps) => {
         snapToInterval={width - 32 + 8}
         decelerationRate={0}
         data={data}
-        renderItem={(item) => <MedicalLogsCarouselCard item={item.item} />}
+        renderItem={(item) => <MedicalLogsCarouselCard item={item.item} isHome={isHome} />}
         onViewableItemsChanged={({ viewableItems }) => handleItemChange(viewableItems)}
         horizontal
         showsHorizontalScrollIndicator={false}

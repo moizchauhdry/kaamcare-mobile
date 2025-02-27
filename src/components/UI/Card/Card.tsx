@@ -20,6 +20,8 @@ export const Card = ({ children, style }: CardProps) => (
         shadowRadius: 1,
         shadowOpacity: 0.9,
         elevation: 4,
+        borderColor: theme.colors.backgroundDark,
+        borderWidth: 1,
       },
       style,
     ]}

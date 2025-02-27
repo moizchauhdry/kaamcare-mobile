@@ -16,7 +16,9 @@ export const ProfileInformation = () => {
   const { data, isLoading, isError } = useQueryGetProfileInformation({
     retry: 1,
   });
+  const localUserData = JSON.parse(SecureStore.getItem('user-data') ?? '{}');
   const { mass, length } = useUnitsData();
+  console.log('localUserData', localUserData);
 
   const renderContent = () => {
     const isContentAfterName = data?.dateOfBirth || data?.gender;
@@ -25,37 +27,39 @@ export const ProfileInformation = () => {
       <View style={{ gap: 4 }}>
         <View style={{ flexDirection: 'row', gap: 4 }}>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            {data?.firstName ? (
-              <Typography weight="semiBold">{`${data.firstName}${isContentAfterName && !data.lastName ? ',' : ' '}`}</Typography>
+            {localUserData?.firstName ? (
+              <Typography weight="semiBold">{`${localUserData.firstName}${isContentAfterName && !localUserData.lastName ? ',' : ' '}`}</Typography>
             ) : null}
-            {data?.lastName ? (
-              <Typography weight="semiBold">{`${data.lastName}${isContentAfterName ? ',' : ''}`}</Typography>
+            {localUserData?.lastName ? (
+              <Typography weight="semiBold">{`${localUserData.lastName}${isContentAfterName ? ',' : ''}`}</Typography>
             ) : null}
           </View>
 
-          {data?.dateOfBirth ? (
-            <Typography weight="semiBold">{formatDateYearsDifference(data.dateOfBirth)}</Typography>
+          {localUserData?.dateOfBirth ? (
+            <Typography weight="semiBold">{formatDateYearsDifference(localUserData.dateOfBirth)}</Typography>
           ) : null}
-          {data?.gender ? (
+          {localUserData?.gender ? (
             <Typography weight="semiBold">
-              {genderPickerData.find((elem) => elem.value === data.gender)?.label}
+              {genderPickerData.find((elem) => elem.value === localUserData.gender)?.label}
             </Typography>
           ) : null}
         </View>
-        {data?.dateOfBirth ? <Typography>{`DOB: ${formatDateWithMonthShotName(data.dateOfBirth)}`}</Typography> : null}
-        {data?.phoneNumber ? <Typography>{phoneNumberFormatter(data.phoneNumber)}</Typography> : null}
-        {data?.email ? <Typography>{data.email}</Typography> : null}
+        {localUserData?.dateOfBirth ? (
+          <Typography>{`DOB: ${formatDateWithMonthShotName(localUserData.dateOfBirth)}`}</Typography>
+        ) : null}
+        {localUserData?.phoneNumber ? <Typography>{phoneNumberFormatter(localUserData.phoneNumber)}</Typography> : null}
+        {localUserData?.email ? <Typography>{localUserData.email}</Typography> : null}
         <View style={{ flexDirection: 'row', gap: 8 }}>
-          {data?.currentWeight ? (
-            <Typography>{`Weight: ${changeKilogramToPound(data.currentWeight, mass)?.toFixed(2)} ${mass === 'Pound' ? 'lbs' : 'kg'}`}</Typography>
+          {localUserData?.currentWeight ? (
+            <Typography>{`Weight: ${changeKilogramToPound(localUserData.currentWeight, mass)?.toFixed(2)} ${mass === 'Pound' ? 'lbs' : 'kg'}`}</Typography>
           ) : null}
-          {data?.currentHeight ? (
-            <Typography>{`Height: ${changeCentimeterToFeetInch(data.currentHeight, length)?.toFixed(2)} ${length === 'FeetInch' ? 'ft' : 'cm'}`}</Typography>
+          {localUserData?.currentHeight ? (
+            <Typography>{`Height: ${changeCentimeterToFeetInch(localUserData.currentHeight, length)?.toFixed(2)} ${length === 'FeetInch' ? 'ft' : 'cm'}`}</Typography>
           ) : null}
         </View>
-        {data?.bloodType ? (
+        {localUserData?.bloodType ? (
           <Typography>
-            Blood type: {bloodTypePickerData.find((elem) => elem.value === data?.bloodType)?.label}
+            Blood type: {bloodTypePickerData.find((elem) => elem.value === localUserData.bloodType)?.label}
           </Typography>
         ) : null}
       </View>

@@ -176,6 +176,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
           SecureStore.setItem('expires-on', parsedData.expiresOn.toString());
           SecureStore.setItem('refresh-token-expires-on', parsedData.refreshTokenExpiresOn.toString());
           SecureStore.setItem('b2c_type', 'b2c_1_signupsignin');
+          SecureStore.setItem('user-data', JSON.stringify(parsedData.user ?? ''));
           http.addHeader('Authorization', `Bearer ${parsedData.idToken}`);
           setIsLogged(true);
         });

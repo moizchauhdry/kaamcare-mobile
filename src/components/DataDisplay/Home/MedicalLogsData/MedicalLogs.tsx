@@ -7,7 +7,7 @@ import { MedicalLogsCarousel } from './MedicalLogsCarousel';
 import { getHomePageMedicalLogsData } from '../../../../utils/medicalLogs/common';
 import type { BloodSugarLogs } from '../../../../model/api/medicalLogs/BloodSugar';
 
-export const MedicalLogs = () => {
+export const MedicalLogs = ({ isHome }: { isHome?: boolean }) => {
   const data = useQueriesMedicalLogsGet();
   const isLoading = data.some((query) => query.isLoading);
   const properData = data.map((query) => query.data);
@@ -39,6 +39,6 @@ export const MedicalLogs = () => {
       }}
     />
   ) : (
-    <MedicalLogsCarousel data={properCarouselData as unknown as MedicalLogsCarouselData[]} />
+    <MedicalLogsCarousel isHome={isHome} data={properCarouselData as unknown as MedicalLogsCarouselData[]} />
   );
 };

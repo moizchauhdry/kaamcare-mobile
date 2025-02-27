@@ -7,6 +7,8 @@ export const theme = {
 
     textPrimary: '#07406B',
     textSecondary: '#007AFF',
+    textGray: '#A1A2A3',
+    textGrayDark: '#656769',
 
     blue: '#007AFF',
     lightBlue: '#C9E3FF',
@@ -41,5 +43,6 @@ export const theme = {
     green: '#66B71B',
     orange: '#F8AE11',
     red: '#E40520',
+    border: '#726F6F',
   },
 };

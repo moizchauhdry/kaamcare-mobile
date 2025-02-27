@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import type { NativeStackScreenProps } from 'react-native-screens/native-stack';
-import { useMemo } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
 import { onlineManager } from '@tanstack/react-query';
 
 import { AdditionButton } from '../../../../components/UI/Button/AdditionButton';
@@ -11,6 +11,7 @@ import { BloodSugarContent } from '../../../../components/DataDisplay/AddMedical
 import { useQueryBloodSugarLogsList } from '../../../../hooks/query/medicalLogs/bloodSugar/useQueryBloodSugarLogsList';
 import { useMedicalLogsDateFilter } from '../../../../hooks/useMedicalLogsDateFilter';
 import { useQueryBloodSugarListAll } from '../../../../hooks/query/medicalLogs/bloodSugar/useQueryBloodSugarListAll';
+import { ModalGrabber } from 'components/UI/ModalGrabber/ModalGrabber';
 
 type BloodSugarScreenProps = NativeStackScreenProps<AddMedicalDataNavigationParamsList, 'BloodSugar'>;
 
@@ -22,7 +23,52 @@ export const BloodSugarScreen = ({ route, navigation }: BloodSugarScreenProps) =
   const { data = [] } = useQueryBloodSugarLogsList(filters);
   const { data: dataAll = [] } = useQueryBloodSugarListAll(filters);
   const properData = useMemo(() => (isOnline ? data : dataAll), [isOnline, dataAll, data]);
-
+  const handleSelect = (type: string) => {
+    switch (type) {
+      case 'Blood Pressure':
+        navigation.replace('MedicalDataNavigation', {
+          screen: 'BloodPressure',
+          params: { type: 'pressure', days: 1 },
+        } as any);
+        break;
+      case 'Heart Rate':
+        navigation.replace('MedicalDataNavigation', {
+          screen: 'BloodPressure',
+          params: { type: 'pulse', days: 1 },
+        } as any);
+        break;
+      case 'Height':
+        navigation.replace('MedicalDataNavigation', {
+          screen: 'Height',
+          params: { type: 'Height', days: 1 },
+        } as any);
+        break;
+      case 'Weight':
+        navigation.replace('MedicalDataNavigation', {
+          screen: 'Weight',
+          params: { type: 'Weight', days: 1 },
+        } as any);
+        break;
+      case 'SpO2':
+        navigation.replace('MedicalDataNavigation', {
+          screen: 'Saturation',
+          params: { type: 'Saturation', days: 1 },
+        } as any);
+        break;
+    }
+  };
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <ModalGrabber
+          showDropDown={true}
+          onSelect={(type) => handleSelect(type)}
+          title="Blood Sugar"
+          onPress={() => {}} // Open the bottom sheet on title press
+        />
+      ),
+    });
+  }, [navigation]);
   return (
     <MedicalLogsMainLayout title="Blood Sugar">
       <View style={{ flex: 1, paddingBottom: 24 }}>
