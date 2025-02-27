@@ -52,12 +52,59 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
     .filter((d: any) => d.value !== null) // Exclude null values
     .map((d: any) => ({
       value: d.value ?? 0,
-      label: d.label,
+      // barStyle: { height: d.value - d.diaValue },
+      // label: d.diaValue,
+      // secondaryLabel: 'hh',
+      // labelsDistanceFromXaxis: 10,
       frontLabel: d.dataPointLabel,
       frontColor: d.dataPointColor || theme.colors.primary, // Default to primary theme color if not specified
+      topLabelComponent: () => {
+        return (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: 30,
+            }}
+          >
+            <Typography style={{ fontSize: 12, color: theme.colors.textPrimary, fontWeight: '600' }}>
+              {d.value ?? 0}
+            </Typography>
+          </View>
+        );
+      },
+      labelComponent: () => {
+        return (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              // height: 30,
+              // backgroundColor: 'red',
+              // width: 30,
+            }}
+          >
+            {type === 'pressure' && (
+              <Typography style={{ fontSize: 12, color: theme.colors.textPrimary, fontWeight: '600' }}>
+                {d.diaValue ?? 0}
+              </Typography>
+            )}
+            <Typography style={{ fontSize: 12, color: theme.colors.textPrimary, fontWeight: '600' }}>
+              {d.label ?? ''}
+            </Typography>
+          </View>
+        );
+      },
+      // secondaryLabelComponent: () => {
+      //   return (
+      //     <View>
+      //       <Typography>HiH</Typography>
+      //     </View>
+      //   );
+      // },
       onPress: isDashboard ? undefined : () => handleFocus(d),
     }));
-  console.log('barData=====', barData);
 
   return (
     <View
@@ -82,12 +129,16 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
           {type === 'pressure' ? (pressure === 'mmHg' ? 'mmHg' : 'kPa') : 'bpm'}
         </Typography>
       </View>
-      <View style={{ flex: 1, position: 'relative' }} onTouchEnd={isDashboard ? undefined : () => handleTouchEnd()}>
+      <View
+        style={{ flex: 1, position: 'relative', paddingTop: 30 }}
+        onTouchEnd={isDashboard ? undefined : () => handleTouchEnd()}
+      >
         {barData.length > 0 ? (
           <BarChart
             data={barData}
-            barWidth={15}
+            barWidth={22}
             barBorderRadius={4}
+            // barStyle={{ height: 100 }}
             spacing={40}
             adjustToWidth
             width={Dimensions.get('window').width - 140}
@@ -105,15 +156,7 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
               color: theme.colors.textPrimary,
               opacity: 0.5,
             }}
-            maxValue={maxValue}
-
-            // renderTooltip={(item: any) => (
-            //   <View style={{ position: 'absolute', top: -20, left: -10 }}>
-            //     <Typography size="md" color="black">
-            //       {item.frontLabel}
-            //     </Typography>
-            //   </View>
-            // )}
+            maxValue={maxValue + 20}
           />
         ) : null}
         {isDisplay && focusedItem && Component ? (

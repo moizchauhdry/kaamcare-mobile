@@ -10,8 +10,6 @@ type MedicalLogsCardProps = {
 };
 
 export const MedicalLogsCard = ({ children, cardColor, onPress }: MedicalLogsCardProps) => {
-  console.log('cardColor====', cardColor);
-
   return (
     <TouchableOpacity onPress={onPress}>
       <Card

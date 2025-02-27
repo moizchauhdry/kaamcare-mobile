@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import type { NativeStackScreenProps } from 'react-native-screens/native-stack';
 import { onlineManager } from '@tanstack/react-query';
-import { useMemo } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
 
 import { MedicalLogsMainLayout } from '../../../../components/Layouts/MedicalLogs/MedicalLogsMainLayout';
 import { AdditionButton } from '../../../../components/UI/Button/AdditionButton';
@@ -11,6 +11,7 @@ import { HeightLogList } from '../../../../components/DataDisplay/AddMedicalData
 import { HeightContent } from '../../../../components/DataDisplay/AddMedicalData/MedicalLogs/Height/HeightContent';
 import { useMedicalLogsDateFilter } from '../../../../hooks/useMedicalLogsDateFilter';
 import { useQueryHeightListAll } from '../../../../hooks/query/medicalLogs/height/useQueryHeightListAll';
+import { ModalGrabber } from 'components/UI/ModalGrabber/ModalGrabber';
 
 type HeightScreenProps = NativeStackScreenProps<AddMedicalDataNavigationParamsList, 'Height'>;
 
@@ -21,7 +22,52 @@ export const HeightScreen = ({ navigation, route }: HeightScreenProps) => {
   const { data: dataAll = [] } = useQueryHeightListAll(filters);
   const { data } = useQueryHeightLogsList(filters);
   const properData = useMemo(() => (isOnline ? data : dataAll), [isOnline, dataAll, data]);
-
+  const handleSelect = (type: string) => {
+    switch (type) {
+      case 'Blood Pressure':
+        navigation.replace('MedicalDataNavigation', {
+          screen: 'BloodPressure',
+          params: { type: 'pressure', days: 1 },
+        } as any);
+        break;
+      case 'Heart Rate':
+        navigation.replace('MedicalDataNavigation', {
+          screen: 'BloodPressure',
+          params: { type: 'pulse', days: 1 },
+        } as any);
+        break;
+      case 'Blood sugar':
+        navigation.replace('MedicalDataNavigation', {
+          screen: 'BloodSugar',
+          params: { type: 'sugar', days: 1 },
+        } as any);
+        break;
+      case 'Weight':
+        navigation.replace('MedicalDataNavigation', {
+          screen: 'Weight',
+          params: { type: 'Weight', days: 1 },
+        } as any);
+        break;
+      case 'SpO2':
+        navigation.replace('MedicalDataNavigation', {
+          screen: 'Saturation',
+          params: { type: 'Saturation', days: 1 },
+        } as any);
+        break;
+    }
+  };
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <ModalGrabber
+          showDropDown={true}
+          onSelect={(type) => handleSelect(type)}
+          title="Height"
+          onPress={() => {}} // Open the bottom sheet on title press
+        />
+      ),
+    });
+  }, [navigation]);
   return (
     <MedicalLogsMainLayout title="Height">
       <View style={{ flex: 1, paddingBottom: 24 }}>

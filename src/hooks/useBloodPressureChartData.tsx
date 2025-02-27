@@ -55,9 +55,9 @@ export const useBloodPressureChartData = (
         const item = properCalculatedData.find((inner) => getHourFromDate(inner!.date!) === elem);
         const properValue = item?.average?.[key] ?? null;
         const dataPointColor = chartType === 'pulse' ? item?.pulseColor : item?.color;
-
         return {
           value: properValue!,
+          diaValue: item?.average?.[diastolicKey],
           label: elem,
           dataPointColor,
           hideDataPoint: properValue === 0,
@@ -77,6 +77,7 @@ export const useBloodPressureChartData = (
                     pulse={item?.average?.pulse}
                     type={chartType}
                     variant="single"
+                    stage={item?.stage}
                   />
                 )
               : undefined,
@@ -109,7 +110,6 @@ export const useBloodPressureChartData = (
   ): lineDataItem[] =>
     xAxisLabels.map((elem, index) => {
       const item: any = properCalculatedData.find((inner) => formatDate(inner!.date!) === formatDate(elem));
-      console.log('typ of====', typeof item?.total.millimetersOfMercurySystolic);
 
       const calculateData = determineBloodPressureStage(
         {
@@ -129,6 +129,7 @@ export const useBloodPressureChartData = (
 
       return {
         value: properValue!,
+        diaValue: item?.average?.[diastolicKey],
         hideDataPoint: properValue === 0,
         dataPointLabel: calculateData.label,
         dataPointColor: isLongChart
@@ -151,6 +152,7 @@ export const useBloodPressureChartData = (
                 color={dataPointColor}
                 pulse={item?.average?.pulse}
                 type={chartType}
+                stage={item?.stage}
               />
             )
           : undefined,

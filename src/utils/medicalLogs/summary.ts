@@ -1,3 +1,4 @@
+import { theme } from 'config/Theme';
 import type { GraphStage } from '../../model/medicalLogs/MedicalLogsCommon';
 
 type Reading<T> = {
@@ -160,10 +161,9 @@ export const determineBloodPressureStage = (
       return { label: stage.label, color: stage.color, min, max };
     }
   }
-
   return {
     label: '',
-    color: 'white',
+    color: theme.colors.primary,
   };
 };
 export const getStageRange = (stage: GraphStage | any) => {

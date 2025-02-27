@@ -6,7 +6,6 @@ import { FormFieldControlled } from '../FormField/FormFieldControlled';
 import { Image, TextInput as RNTextInput, TouchableOpacity, View } from 'react-native';
 import { forwardRef, useState } from 'react';
 import { styles } from './TextInput.styles';
-import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 import { theme } from 'config/Theme';
 
 type TextInputControlledProps = {
@@ -38,7 +37,7 @@ export const TextInputControlled = forwardRef<RNTextInput, TextInputControlledPr
         render={({ field }) => (
           <View>
             {isComment ? (
-              <AutoGrowingTextInput
+              <RNTextInput
                 ref={ref}
                 value={field.value}
                 onChangeText={field.onChange}
@@ -56,6 +55,7 @@ export const TextInputControlled = forwardRef<RNTextInput, TextInputControlledPr
                   paddingVertical: 16,
                 }}
                 {...inputProps}
+                multiline={true}
                 // error={Boolean(fieldState.error)}
                 // isSecureTextEntry={isPasswordField && !showPassword}
               />

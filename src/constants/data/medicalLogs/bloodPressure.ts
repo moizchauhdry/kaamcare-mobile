@@ -31,10 +31,10 @@ export const graphStages: GraphStage[] = [
     label: 'Hypotension',
     color: '#007AFF',
     conditionType: 'OR',
-    advice: 'Please seek help from your doctor if it remains low for a long time.',
+    advice: 'Your blood pressure is low. If it continues, please see a doctor in time!',
     exclusiveAdvices: [
       {
-        title: 'Increase fluid intake',
+        title: 'Increase Fluid Intake',
         description:
           'Maintain good hydration by drinking an adequate amount of water, fruit juices, or electrolyte beverages to help stabilize blood pressure.',
         titleColor: '#FF9647',
@@ -66,7 +66,7 @@ export const graphStages: GraphStage[] = [
       {
         title: 'Important Note',
         description:
-          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid abnormalities. If you frequently experience symptoms of low blood pressure, it’s essential to consult a doctor to identify the underlying cause and receive appropriate treatment advice.',
         titleColor: '#07406B',
       },
     ],
@@ -88,7 +88,7 @@ export const graphStages: GraphStage[] = [
     label: 'Normal',
     color: '#34C759',
     conditionType: 'AND',
-    advice: 'Great! Your blood pressure is in the healthy range. Just keep it!',
+    advice: 'Your blood pressure is normal,keep it!',
     exclusiveAdvices: [
       {
         title: 'Lifestyle Modifications',
@@ -99,19 +99,13 @@ export const graphStages: GraphStage[] = [
       {
         title: 'Weight Management',
         description:
-          'If you are overweight, losing even a small amount of weight can have a positive impact on blood pressure.',
+          'If you are overweight, lowing even a modest amount of weight can help lower blood pressure and reduce risk of developing hypertension.',
         titleColor: '#FF9647',
       },
       {
-        title: 'Reduce Sodium Intake',
+        title: 'Reduce Stress',
         description:
-          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
-        titleColor: '#FF9647',
-      },
-      {
-        title: 'Manage Stress',
-        description:
-          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+          'Chronic stress can contribute to elevated blood pressure. Practice stress-reducing techniques such as meditation, deep breathing exercises, or engaging in hobbies you enjoy.',
         titleColor: '#FF9647',
       },
       {
@@ -120,9 +114,27 @@ export const graphStages: GraphStage[] = [
         titleColor: '#FF9647',
       },
       {
+        title: 'Quit Smoking',
+        description:
+          'If you smoke, consider quitting, as smoking can contribute to high blood pressure and increase the risk of cardiovascular diseases.',
+        titleColor: '#FF9647',
+      },
+      {
+        title: 'Monitor Regularly',
+        description:
+          'Keep track of your blood pressure regularly at home or through regular check-ups with your healthcare provider. This helps to assess the effectiveness of lifestyle changes and any necessary medical interventions.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Follow Medical Advice',
+        description:
+          'If your healthcare provider recommends medications or other interventions to manage your blood pressure, adhere to their advice and treatment plan.',
+        titleColor: '#07406B',
+      },
+      {
         title: 'Important Note',
         description:
-          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+          'Always consult with your healthcare professional for personalized advice guidance on managing your blood pressure, as individual health conditions may vary, and they can provide the best recommendations based on your specific needs.',
         titleColor: '#07406B',
       },
     ],
@@ -144,7 +156,8 @@ export const graphStages: GraphStage[] = [
     label: 'Pre-hypertension',
     color: '#F8AE11',
     conditionType: 'AND',
-    advice: 'Please seek help from your doctor if it remains low for a long time.',
+    advice:
+      'Your blood pressure is a little high.Please maintain a healthy lifestyle and measure your blood pressure in time!',
     exclusiveAdvices: [
       {
         title: 'Lifestyle Modifications',
@@ -161,24 +174,48 @@ export const graphStages: GraphStage[] = [
       {
         title: 'Reduce Sodium Intake',
         description:
-          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
+          'Lower your daily sodium intake to help prevent further increase in blood pressure. Aim for less than 2,300 mg of sodium per day (and even lower if your doctor recommends it).',
         titleColor: '#FF9647',
       },
       {
         title: 'Manage Stress',
         description:
-          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+          'Chronic stress can contribute to elevated blood pressure. Find stress-reducing techniques that work for you, such as meditation, deep breathing exercises, or engaging in hobbies you enjoy.',
         titleColor: '#FF9647',
       },
       {
         title: 'Limit Alcohol and Caffeine',
-        description: 'Excessive alcohol and caffeine consumption can impact blood pressure. Moderation is key.',
+        description: 'Reducing alcohol and caffeine consumption can help control blood pressure levels.',
         titleColor: '#FF9647',
+      },
+      {
+        title: 'Monitor Blood Pressure',
+        description:
+          'Regularly check and record your blood pressure at home or through regular check-ups with your healthcare provider. This allows you to track your progress and the effectiveness of lifestyle changes or medical interventions.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Quit Smoking',
+        description:
+          'If you smoke, consider quitting, as smoking can raise high blood pressure and increase the risk of heart disease.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Follow Medical Advice',
+        description:
+          'If necessary, your healthcare provider may recommend medications to manage elevated blood pressure. It’s essential to adhere to their advice and take prescribed medications as directed.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Maintain Regular Medical Check-ups',
+        description:
+          'Visit your healthcare provider for routine check-ups and blood pressure monitoring. Regular monitoring helps identify any changes in your condition and allows for appropriate adjustments to your treatment plan.',
+        titleColor: '#07406B',
       },
       {
         title: 'Important Note',
         description:
-          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+          'Always work closely with your healthcare professional to develop a comprehensive plan to manage elevated blood pressure effectively. They can provide personalized advice and guidance based on your health status and help you achieve and maintain optimal blood pressure levels.',
         titleColor: '#07406B',
       },
     ],
@@ -200,41 +237,72 @@ export const graphStages: GraphStage[] = [
     label: 'Hypertension Stage 1',
     color: '#FF8102',
     conditionType: 'OR',
-    advice: 'Please seek help from your doctor if it remains low for a long time.',
+    advice:
+      'Your blood pressure is high,please pay attention to your diet and lifestyle! If this continues, please see a doctor!',
     exclusiveAdvices: [
       {
         title: 'Lifestyle Modifications',
         description:
-          'Adopt a healthy lifestyle to help manage elevated blood pressure. This includes regular physical activity, maintaining a balanced diet with plenty of fruits, vegetables, and whole grains, and limiting salt and saturated fat intake.',
+          'Adopt a healthy lifestyle to help manage elevated blood pressure. This includes regular physical activity, maintaining a balanced diet with plenty of fruits, vegetables, and whole grains, and reducing salt and saturated fat intake.',
         titleColor: '#FF9647',
       },
       {
         title: 'Weight Management',
         description:
-          'If you are overweight, losing even a small amount of weight can have a positive impact on blood pressure.',
+          'If you are overweight, losing weight can significantly lower blood pressure and reduce the risk of complications.',
         titleColor: '#FF9647',
       },
       {
-        title: 'Reduce Sodium Intake',
+        title: 'Sodium Restriction',
         description:
-          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
+          'Lower your daily sodium intake to less than 2,300 mg (and even lower if advised by your doctor). Reducing salt consumption can have a positive impact on blood pressure.',
         titleColor: '#FF9647',
       },
       {
-        title: 'Manage Stress',
+        title: 'Stress Management',
         description:
-          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+          'Chronic stress can contribute to hypertension. Incorporate stress-reducing techniques into your daily routine, such as meditation, yoga, or deep breathing exercises.',
         titleColor: '#FF9647',
       },
       {
         title: 'Limit Alcohol and Caffeine',
-        description: 'Excessive alcohol and caffeine consumption can impact blood pressure. Moderation is key.',
+        description: 'Reduce alcohol and caffeine consumption, as they can temporarily raise blood pressure.',
         titleColor: '#FF9647',
+      },
+      {
+        title: 'Quit Smoking',
+        description:
+          'If you smoke, quitting is essential for managing hypertension and reducing the risk of heart disease and other complications.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Medication Adherence',
+        description:
+          'If your healthcare provider prescribes medications to manage hypertension, take them as directed and do not skip doses.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Regular Blood Pressure Monitoring',
+        description:
+          'Monitor your blood pressure regularly at home or through regular check-ups with your healthcare provider. Regular monitoring helps you track your progress and the effectiveness of lifestyle changes or medications.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Attend Medical Check-ups',
+        description:
+          'Regularly visit your healthcare provider for routine check-ups and blood pressure monitoring. This helps detect any changes in your condition and allows for appropriate adjustments to your treatment plan.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Follow Your Doctor’s Advice',
+        description:
+          'Work closely with your healthcare professional to develop a comprehensive plan to manage hypertension effectively. They can provide personalized advice and guidance based on your health status.',
+        titleColor: '#07406B',
       },
       {
         title: 'Important Note',
         description:
-          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+          'It’s crucial to take hypertension seriously and manage it effectively to reduce the risk of complications such as heart disease, stroke, and kidney problems. Follow your doctor’s recommendations and maintain a healthy lifestyle to keep your blood pressure under control.',
         titleColor: '#07406B',
       },
     ],
@@ -256,41 +324,72 @@ export const graphStages: GraphStage[] = [
     label: 'Hypertension Stage 2',
     color: '#FF9647',
     conditionType: 'OR',
-    advice: `Attention! If you've got 3 or more results in the range, your doctor's advice and immediate medical treatment are necessary.`,
+    advice:
+      'Your blood pressure is high,please pay attention to your diet and lifestyle! If this continues, please see a doctor!',
     exclusiveAdvices: [
+      {
+        title: 'Medical Evaluation',
+        description:
+          'Schedule an appointment with your healthcare provider immediately to assess your overall health and determine the best course of action for managing your hypertension.',
+        titleColor: '#FF9647',
+      },
       {
         title: 'Lifestyle Modifications',
         description:
-          'Adopt a healthy lifestyle to help manage elevated blood pressure. This includes regular physical activity, maintaining a balanced diet with plenty of fruits, vegetables, and whole grains, and limiting salt and saturated fat intake.',
+          'Continue or adopt healthy lifestyle changes, including regular exercise, maintaining a balanced diet with plenty of fruits, vegetables, and whole grains, and reducing sodium and saturated fat intake. Weight Management is crucial, especially if you are overweight.',
         titleColor: '#FF9647',
       },
       {
-        title: 'Weight Management',
+        title: 'Medication Management',
         description:
-          'If you are overweight, losing even a small amount of weight can have a positive impact on blood pressure.',
+          'In Hypertension Stage 2, your healthcare provider may prescribe medications to help lower your blood pressure. Take the prescribed medications as directed and inform your doctor of any side effects or concerns.',
         titleColor: '#FF9647',
       },
       {
-        title: 'Reduce Sodium Intake',
+        title: 'Sodium Restriction',
         description:
-          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
+          'Limit your daily sodium intake to less than 2,300 mg (and even lower if advised by your doctor). Reducing salt consumption can have a significant impact on blood pressure.',
         titleColor: '#FF9647',
       },
       {
-        title: 'Manage Stress',
+        title: 'Stress Management',
         description:
-          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+          'Practice stress-reducing techniques regularly, such as meditation, yoga, or deep breathing exercises, to help manage hypertension.',
         titleColor: '#FF9647',
       },
       {
         title: 'Limit Alcohol and Caffeine',
-        description: 'Excessive alcohol and caffeine consumption can impact blood pressure. Moderation is key.',
+        description: 'Reduce alcohol and caffeine consumption, as they can temporarily raise blood pressure.',
         titleColor: '#FF9647',
+      },
+      {
+        title: 'Quit Smoking',
+        description:
+          'If you smoke, quitting is essential for managing hypertension and reducing the risk of heart disease and other complications.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Regular Blood Pressure Monitoring',
+        description:
+          'Monitor your blood pressure regularly at home or through regular check-ups with your healthcare provider. Regular monitoring helps track your progress and the effectiveness of lifestyle changes or medications.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Attend Medical Check-ups',
+        description:
+          'Regularly visit your healthcare provider for routine check-ups and blood pressure monitoring. Frequent follow-ups are crucial to evaluate your progress and adjust treatment plans as needed.',
+        titleColor: '#07406B',
+      },
+      {
+        title: 'Comply with Medical Recommendations',
+        description:
+          'It’s vital to adhere to your healthcare provider’s advice and treatment plan to effectively manage hypertension and reduce the risk of complications.',
+        titleColor: '#07406B',
       },
       {
         title: 'Important Note',
         description:
-          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+          'Managing Hypertension Stage 2 requires a comprehensive approach involving life style changes, medications management, and close monitoring under the guidance of a healthcare professional. By taking proactive steps, you can significantly improve your blood pressure levels and overall health. Always work closely with your doctor to address any concerns and ensure your receive the best care for your specific condition.',
         titleColor: '#07406B',
       },
     ],
@@ -312,53 +411,60 @@ export const graphStages: GraphStage[] = [
     label: 'Hypertension Crisis',
     color: '#E84420',
     conditionType: 'OR',
-    advice: 'We are worried about you, please call emergency services immediately.',
+    advice: 'Your blood pressure is seriously high,please seek the help of a doctor in time!',
     exclusiveAdvices: [
       {
-        title: 'Lifestyle Modifications',
+        title: 'Call Emergency Services',
         description:
-          'Adopt a healthy lifestyle to help manage elevated blood pressure. This includes regular physical activity, maintaining a balanced diet with plenty of fruits, vegetables, and whole grains, and limiting salt and saturated fat intake.',
+          'If you are experiencing a severe headache, chest pain, shortness of breath, or any other symptoms of a hypertensive emergency, call emergency services (Such as 911 in the United States) immediately.',
         titleColor: '#FF9647',
       },
       {
-        title: 'Weight Management',
+        title: 'Do Not Delay Seeking Help',
         description:
-          'If you are overweight, losing even a small amount of weight can have a positive impact on blood pressure.',
+          'Hypertensive Crisis can lead to serious complications like stroke, heart attack, or organ damage. Do not hesitate to seek medical attention.',
         titleColor: '#FF9647',
       },
       {
-        title: 'Reduce Sodium Intake',
+        title: 'Avoid Activities that Elevated Blood Pressure',
         description:
-          'Distribute your meals throughout the day and opt for smaller portions to prevent excessive drops in blood pressure. Avoid becoming too hungry or overeating.',
+          'During a hypertensive crisis, avoid any activities that could further elevated your blood pressure, such as heavy lifting or strenuous exercise.',
         titleColor: '#FF9647',
       },
       {
-        title: 'Manage Stress',
+        title: 'Take Medications as Prescribed',
         description:
-          'Prolonged exposure to high temperatures can cause blood pressure to drop. Be mindful of maintaining a comfortable environment.',
+          'If you are already taking blood pressure medications, do not discontinue them. Take your prescribed medications as directed by your healthcare provider.',
         titleColor: '#FF9647',
       },
       {
-        title: 'Limit Alcohol and Caffeine',
-        description: 'Excessive alcohol and caffeine consumption can impact blood pressure. Moderation is key.',
+        title: 'Avoid Sodium and Caffeine',
+        description:
+          'During a hypertensive crisis, it’s crucial to avoid high-sodium foods and beverages, as well as caffeine, which can exacerbate high blood pressure.',
         titleColor: '#FF9647',
+      },
+      {
+        title: 'Stay Calm and Relaxed',
+        description:
+          'Stress and anxiety can contribute to elevated blood pressure. Try to remain as calm and relaxed as possible while waiting for medical assistance.',
+        titleColor: '#07406B',
       },
       {
         title: 'Important Note',
         description:
-          'Low blood pressure can be a symptom of other underlying issues, such as anemia, cardiovascular problems, or thyroid problems.',
+          'Remember Hypertensive Crisis is a medical emergency that requires immediate attention. Do not attempt to manage this condition on your own. Seek medical help promptly to receive appropriate treatment and prevent further complications. To prevent hypertensive crisis and manage hypertension in general, it is crucial to work closely with your healthcare provider to develop a comprehensive treatment plan. This may include lifestyle changes, medications, and regular monitoring of your blood pressure. Managing hypertension effectively can significantly reduce the risk of complications and improve your overall health.Always follow your doctor’s advice and attend regular medical check-ups to monitor your blood pressure and overall health status.',
         titleColor: '#07406B',
       },
     ],
     scopes: [
       {
-        min: 180,
-        max: Infinity,
+        min: 140,
+        max: 180,
         key: 'systolic',
       },
       {
-        min: 120,
-        max: Infinity,
+        min: 90,
+        max: 120,
         key: 'diastolic',
       },
     ],

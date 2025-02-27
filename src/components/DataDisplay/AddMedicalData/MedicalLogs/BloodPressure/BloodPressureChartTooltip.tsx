@@ -16,6 +16,7 @@ type BloodPressureChartTooltipProps = {
   pulse?: number;
   color?: string;
   variant?: 'single' | 'multiple';
+  stage?: string;
 };
 
 export const BloodPressureChartTooltip = ({
@@ -30,6 +31,7 @@ export const BloodPressureChartTooltip = ({
   pulse,
   type,
   variant = 'multiple',
+  stage,
 }: BloodPressureChartTooltipProps) => {
   const ColorLabelComponent = <View style={{ width: 10, height: 10, backgroundColor: color, borderRadius: 6 }} />;
   const renderSingle = () => (
@@ -81,6 +83,9 @@ export const BloodPressureChartTooltip = ({
       <View>
         <Typography size="sm" style={{ textAlign: 'center' }}>
           {variant === 'single' ? getFullHourFromDate(date) : formatDate(date)}
+        </Typography>
+        <Typography size="sm" style={{ textAlign: 'center' }}>
+          {stage}
         </Typography>
       </View>
       <View>

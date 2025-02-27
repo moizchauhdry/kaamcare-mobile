@@ -7,30 +7,75 @@ import { SvgXml } from 'react-native-svg';
 
 import info from 'assets/icons/info.svg';
 import { useNavigation } from '@react-navigation/native';
+import { graphStages } from 'constants/data/medicalLogs/bloodPressure';
 
 const { width } = Dimensions.get('window');
 
-const PieChartComponent = () => {
+const PieChartComponent = ({ mainData }: { mainData: any }) => {
   // Define pie chart data
   const navigation = useNavigation();
+  const categorizeBloodPressure = (systolic, diastolic) => {
+    for (const stage of graphStages) {
+      const systolicMatch = stage.scopes.find((s) => s.key === 'systolic' && systolic >= s.min && systolic <= s.max);
+      const diastolicMatch = stage.scopes.find(
+        (d) => d.key === 'diastolic' && diastolic >= d.min && diastolic <= d.max,
+      );
 
-  const pieData = [
-    { value: 5, color: '#84c3f5', text: 'Low', percentage: '10%' },
-    { value: 15, color: '#89d7a5', text: 'Normal', percentage: '10%' },
-    { value: 34, color: '#ffcd56', text: 'Prehypertension', percentage: '34%' },
-    { value: 33, color: '#ff6f61', text: 'Hypertension Stage 1', percentage: '33%' },
-    { value: 13, color: '#d9534f', text: 'Hypertension Stage 2', percentage: '33%' },
-  ];
+      if (
+        (stage.conditionType === 'AND' && systolicMatch && diastolicMatch) ||
+        (stage.conditionType === 'OR' && (systolicMatch || diastolicMatch))
+      ) {
+        return stage;
+      }
+    }
+    return null;
+  };
+
+  const processPieData = (mainData) => {
+    const categoryCounts = {};
+
+    // Initialize all stages with zero count
+    graphStages.forEach((stage) => {
+      categoryCounts[stage.label] = 0;
+    });
+
+    mainData.forEach((entry) => {
+      const systolic = parseInt(entry.millimetersOfMercurySystolic, 10);
+      const diastolic = parseInt(entry.millimetersOfMercuryDiastolic, 10);
+      const category = categorizeBloodPressure(systolic, diastolic);
+
+      if (category) {
+        categoryCounts[category.label]++;
+      }
+    });
+
+    const totalEntries = mainData.length;
+    return graphStages.map((stage) => {
+      const count = categoryCounts[stage.label];
+      return {
+        value: count,
+        color: stage.color,
+        text: stage.label,
+        percentage: totalEntries > 0 ? ((count / totalEntries) * 100).toFixed(2) + '%' : '0%',
+      };
+    });
+  };
+
+  const pieDataDynamic = processPieData(mainData);
+
   const truncateText = (text: string) => {
     const words = text.split(' ');
     if (words.length > 2) {
-      return `${words[0]} ${words[1]} ...`;
+      return `${words[0].charAt(0)}... ${words[1]} ${words[2]}`;
     }
     return text;
   };
+
   const onInfoPress = () => {
     navigation.navigate('PressureGuidline');
   };
+  const totalPercentage = pieDataDynamic.reduce((acc, item) => acc + parseFloat(item.percentage), 0).toFixed(2) + '%';
+
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>
@@ -46,19 +91,23 @@ const PieChartComponent = () => {
         {/* Pie Chart */}
         <View style={styles.chartWrapper}>
           <PieChart
-            data={pieData}
+            data={pieDataDynamic}
             donut
             // showText
             textColor="black"
             radius={width * 0.14} // Adjusts dynamically to screen size
             innerRadius={width * 0.07}
-            centerLabelComponent={() => <Text style={styles.percentage}>34%</Text>}
+            centerLabelComponent={() => (
+              <Text style={styles.percentage}>
+                {totalPercentage && totalPercentage > '100' ? '100%' : totalPercentage}
+              </Text>
+            )}
           />
         </View>
 
         {/* Legend Section */}
         <View style={styles.legendWrapper}>
-          {pieData.map((item, index) => (
+          {pieDataDynamic.map((item, index) => (
             <View key={index} style={styles.legendItem}>
               <View style={[styles.legendColor, { backgroundColor: item.color }]} />
               <Text style={styles.legendText}>{item.percentage}</Text>

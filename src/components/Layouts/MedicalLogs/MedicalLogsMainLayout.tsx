@@ -28,7 +28,7 @@ export const MedicalLogsMainLayout = ({ title, onSelect, children }: MedicalHist
       style={{ paddingHorizontal: 16, backgroundColor: theme.colors.background }}
       showsVerticalScrollIndicator={false}
     >
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <TouchableOpacity onPress={() => setDropdownVisible(!dropdownVisible)} style={styles.titleContainer}>
           <Typography size="lg" style={{ fontSize: 22, color: theme.colors.primary }} weight="bolder">
             {selectedType} ▼
@@ -37,7 +37,7 @@ export const MedicalLogsMainLayout = ({ title, onSelect, children }: MedicalHist
 
         {dropdownVisible && (
           <View style={styles.dropdown}>
-            {['Blood Pressure', 'Heart Rate'].map((option) => (
+            {['Blood Pressure', 'Heart Rate', 'Blood sugar', 'Height', 'Weight', 'SpO2'].map((option) => (
               <TouchableOpacity key={option} style={styles.option} onPress={() => handleSelect(option)}>
                 <Typography color={selectedType === option ? 'primary' : 'gray'} size="sm" weight="bolder">
                   {option}
@@ -46,7 +46,7 @@ export const MedicalLogsMainLayout = ({ title, onSelect, children }: MedicalHist
             ))}
           </View>
         )}
-      </View>
+      </View> */}
 
       {children}
     </ScrollView>

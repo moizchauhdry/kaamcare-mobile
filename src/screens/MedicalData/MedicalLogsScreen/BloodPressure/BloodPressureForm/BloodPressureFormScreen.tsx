@@ -54,7 +54,7 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
   const id = route.params?.id;
   const days = route.params?.days;
   const refRBSheet = useRef<any>(null);
-  const [selectedDate, setSelectedDate] = useState(moment().format('DD-MM-YYYY'));
+  const [selectedDate, setSelectedDate] = useState(moment().format('MMM D, h:mm A'));
 
   const { data: initialValues, isLoading } = useQueryBloodPressureLog(id!, { enabled: Boolean(id) });
   const mutationAdd = useMutationBloodPressureLogAdd(days);
@@ -88,7 +88,9 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
     if (initialValues) {
       const dateObject = getDateFromSeparatedModel(initialValues.date);
 
-      const formattedDate = moment(dateObject).format('DD-MM-YYYY');
+      // const formattedDate = moment(dateObject).format('DD-MM-YYYY');
+      // setSelectedDate(formattedDate);
+      const formattedDate = moment(dateObject).format('MMM D, h:mm A');
       setSelectedDate(formattedDate);
       form.reset({
         ...initialValues,
@@ -214,7 +216,7 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
   const handleDateSelect = (date: Date) => {
     // console.log('date===', date);
 
-    const formattedDate = moment(date).format('DD-MM-YYYY');
+    const formattedDate = moment(date).format('MMM D, h:mm A');
     setSelectedDate(formattedDate); // Update the selected date
     // refRBSheet.current?.close(); // Close the bottom sheet
   };

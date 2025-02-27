@@ -23,6 +23,7 @@ export const HomeScreen = () => {
     SecureStore.deleteItemAsync('refresh-token-expires-on');
     SecureStore.deleteItemAsync('b2c_type');
     SecureStore.deleteItemAsync('id-token');
+    SecureStore.deleteItemAsync('user-data');
     setUserEmail('');
     http.removeHeader('Authorization');
     setIsLogged(false);

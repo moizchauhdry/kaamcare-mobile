@@ -79,6 +79,7 @@ export const BloodPressureSummary = ({ data, days }: BloodPressureSummaryProps) 
         <Summary
           dataLength={data.length}
           data={summaryData}
+          mainData={data}
           graphData={{
             data: graphStages,
             moreData: bloodPressureModalData,

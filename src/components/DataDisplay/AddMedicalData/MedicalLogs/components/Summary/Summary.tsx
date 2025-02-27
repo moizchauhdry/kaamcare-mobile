@@ -41,13 +41,14 @@ type SummaryProps = {
     infoContentComponent?: ReactNode;
     information?: string;
   };
+  mainData?: any;
 };
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-export const Summary = ({ data, dataLength = 0, graphData }: SummaryProps) => {
+export const Summary = ({ data, dataLength = 0, graphData, mainData }: SummaryProps) => {
   const isOne = dataLength === 1;
   const [isExpanded, setIsExpanded] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -99,7 +100,6 @@ export const Summary = ({ data, dataLength = 0, graphData }: SummaryProps) => {
       </View>
     );
   };
-
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handlePressSummary}>
@@ -123,7 +123,7 @@ export const Summary = ({ data, dataLength = 0, graphData }: SummaryProps) => {
 
           {/* {renderContent(data)} */}
 
-          <PieChartComponent />
+          <PieChartComponent mainData={mainData} />
 
           <BloodPressureSummary data={data} />
 

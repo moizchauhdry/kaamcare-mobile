@@ -40,7 +40,7 @@ const PreHypertensionCard: React.FC<PreHypertensionCardProps> = ({ systolic, dia
         {/* Subtitle */}
         <View style={{ flexDirection: 'row', gap: 8, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
           <Typography style={styles.subtitleText}>
-            Systolic {systolic} and Diastolic {diastolic}
+            Systolic {systolic ? systolic : 0} and Diastolic {diastolic ? diastolic : 0}
           </Typography>
           <TouchableOpacity onPress={() => (navigation as any).navigate('HypertensionStagesScreen')}>
             <SvgXml xml={help} width={20} height={20} />

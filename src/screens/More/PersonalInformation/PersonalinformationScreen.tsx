@@ -21,6 +21,8 @@ type PersonalInformationScreenProps = NativeStackScreenProps<MoreNavigationParam
 
 export const PersonalInformationScreen = ({ navigation }: PersonalInformationScreenProps) => {
   const { data, isLoading } = useQueryGetProfileInformation();
+  const localUserData = JSON.parse(SecureStore.getItem('user-data') ?? '{}');
+
   const { mutate } = useMutationPutProfileInformation({
     onSettled: () => navigation.navigate('MyProfile'),
   });
@@ -30,7 +32,7 @@ export const PersonalInformationScreen = ({ navigation }: PersonalInformationScr
   const handleSubmit = (formValues: PersonalInformationFormData) => {
     mutate(parseProfileInformationToApi(formValues));
 
-    if (formValues.email !== data?.email) {
+    if (formValues.email !== localUserData?.email) {
       mutateEmail(formValues.email!);
     }
   };
@@ -40,7 +42,7 @@ export const PersonalInformationScreen = ({ navigation }: PersonalInformationScr
       <WithSkeleton isLoading={isLoading} skeleton={<PersonalInformationFormSkeleton />}>
         <PersonalInformationForm
           onSubmit={(formValues) => handleSubmit(formValues)}
-          initialValues={data ? parseProfileInformationToForm(data, length, mass) : undefined}
+          initialValues={localUserData ? parseProfileInformationToForm(localUserData, length, mass) : undefined}
         />
       </WithSkeleton>
     </MoreLayout>

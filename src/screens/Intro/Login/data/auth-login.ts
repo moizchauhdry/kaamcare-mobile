@@ -25,6 +25,7 @@ export const useAuthLogin = () => {
       if (response.data.data?.user?.is_verified == 1) {
         SecureStore.setItem('id-token', response.data.data?.user?.token ?? '');
         SecureStore.setItem('refresh-token', response.data.data?.user?.token ?? '');
+        SecureStore.setItem('user-data', JSON.stringify(response.data.data?.user ?? ''));
         http.addHeader('Authorization', `Bearer ${response.data.data?.user?.token ?? ''}`);
         setIsLogged(true);
       } else {

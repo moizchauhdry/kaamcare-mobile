@@ -76,10 +76,10 @@ export const NumberInput2o = forwardRef<RNTextInput, NumberInputProps>(
           fontWeight: '500',
           fontSize: 50,
           padding: 0,
-          height: 70,
+          // height: 70,
           marginBottom: 10,
           borderRadius: 4,
-          width: 70,
+          // width: 70,
         }}
       />
     );

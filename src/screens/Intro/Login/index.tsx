@@ -77,6 +77,7 @@ export const LoginScreen = () => {
       } else {
         Alert.prompt('Email Required', 'We need your email address to continue. Please provide it below.', (email) => {
           if (email) {
+            SecureStore.setItem('user-data', JSON.stringify({ email }));
             authLogin({
               email,
               type: AuthTypes.APPLE,
