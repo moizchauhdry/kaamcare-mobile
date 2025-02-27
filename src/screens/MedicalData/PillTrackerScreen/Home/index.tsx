@@ -2,27 +2,29 @@ import { useState, useEffect } from 'react';
 import { SvgXml } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import { FlatList, Image, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-
+import { FlatList, Image, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import bellIcon from 'assets/icons/bell.svg';
 import arrowDown from 'assets/icons/chevron-down-black.svg';
 import type { AddMedicalDataNavigationParamsList } from 'components/Navigation/AddMedicalDataNavigation';
 import { theme } from 'config/Theme';
 import { Typography } from 'components/UI/Typography/Typography';
+import NoMedicationData from 'components/DataDisplay/PillTrackerData/MedicationData/NoMedicationData';
+import HorizontalDatePicker from 'components/UI/HorizontalDatePicker/HorizontalDatePicker';
+import { useQueryMedications } from 'hooks/query/medicalHistory/medication/useQueryMedications';
+import { MedicationReminder } from 'components/DataDisplay/PillTrackerData/MedicationData/MedicationReminder';
+import { FontAwesome } from '@expo/vector-icons';
+import { useQueryGetProfileInformation } from 'hooks/query/profile/useQueryGetProfileInformation';
 
-const days = [
-  { day: 'Sun', date: '01', hasDot: false },
-  { day: 'Mon', date: '02', hasDot: false },
-  { day: 'Tue', date: '03', hasDot: false },
-  { day: 'Wed', date: '04', hasDot: true },
-  { day: 'Thu', date: '05', hasDot: false },
-  { day: 'Fri', date: '06', hasDot: true },
-  { day: 'Sat', date: '07', hasDot: false },
-];
+
 
 export const PillTrackerHomeScreen = () => {
   const navigation = useNavigation<StackNavigationProp<AddMedicalDataNavigationParamsList>>();
-
+  const { data, isLoading, isError } = useQueryGetProfileInformation({
+    retry: 1,
+  });
+  const handleAddMedication = () => {
+    navigation.navigate('SelectMedication');
+  }
   const [selectedDate, setSelectedDate] = useState<string>('');
 
   useEffect(() => {
@@ -31,50 +33,63 @@ export const PillTrackerHomeScreen = () => {
     setSelectedDate(currentDayString);
   }, []);
 
+
+  const { data: medications = [] } = useQueryMedications();
+
+  useEffect(() => {
+    const today = new Date();
+    const todayStr = today.getDate().toString().padStart(2, "0");
+    setSelectedDate(todayStr);
+  }, []);
+
+  const filteredMedications = medications.filter(
+    (med) => med.start_date === selectedDate
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ height: '100%' }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
         <View style={styles.header}>
-          <View>
-            <Image style={styles.avatar} source={require('../../../../assets/images/Avatar.png')} />
-            <Typography size="xs">Hello John</Typography>
-          </View>
-          <Pressable onPress={() => {}}>
+            <View style={{ flexDirection: 'row' }}>
+              {data?.firstName ? (
+                <Typography weight="semiBold">Hello {data.firstName} </Typography>
+              ) : null}
+              {data?.lastName ? (
+                <Typography weight="semiBold">{data.lastName}!</Typography>
+              ) : null}
+            </View>
+          {/* <Pressable onPress={() => navigation.navigate('Notifications')}>
             <SvgXml xml={bellIcon} width={28} height={28} />
-          </Pressable>
+          </Pressable> */}
         </View>
-
-        <View style={styles.calendarContainer}>
-          <Typography size="xl" style={styles.monthTitle}>
-            November
-          </Typography>
-          <Typography size="md" style={styles.yearText}>
-            2025
-          </Typography>
-          <View style={styles.divider} />
-
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={days}
-            keyExtractor={(item) => item.date}
-            renderItem={({ item }) => (
-              <Pressable
-                style={[styles.dayContainer, selectedDate === item.date && styles.selectedDay]}
-                onPress={() => setSelectedDate(item.date)}
-              >
-                <Text style={[styles.dayText, selectedDate === item.date && styles.selectedText]}>{item.day}</Text>
-                <Text style={[styles.dateText, selectedDate === item.date && styles.selectedText]}>{item.date}</Text>
-                {item.hasDot && <View style={styles.dot} />}
-              </Pressable>
-            )}
-          />
+        <View>
+          <HorizontalDatePicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
         </View>
-
         <View style={styles.arrowWrapper}>
-          <Pressable onPress={() => {}}>
+          <Pressable onPress={() => navigation.navigate('ExpandedCalendar')}>
             <SvgXml xml={arrowDown} width={28} height={28} />
           </Pressable>
+        </View>
+        <View style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>
+            {filteredMedications.length > 0 ? (
+              <FlatList
+                data={filteredMedications}
+                keyExtractor={(med) => med.userMedicationId}
+                renderItem={({ item }) => <MedicationReminder {...item} />}
+                contentContainerStyle={{ gap: 8 }}
+              />
+            ) : (
+              <NoMedicationData />
+            )}
+          </View>
+          <TouchableOpacity style={styles.addButton} onPress={handleAddMedication}>
+            <FontAwesome name="plus-circle" size={20} color="white" />
+            <Text style={styles.addButtonText}>Add medications</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -99,6 +114,28 @@ const styles = StyleSheet.create({
     height: 34,
     borderRadius: 50,
     marginBottom: 4,
+  },
+  backgroundimage: {
+    width: 380,
+    height: 380,
+    alignSelf: 'center',
+    marginTop: 40
+  },
+  overlay: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    borderRadius: 10,
+  },
+  primarytext: {
+    fontSize: 24,
+    color: 'black',
+    marginBottom: 20,
+  },
+  secondarytext: {
+    fontSize: 24,
+    color: 'red',
+    marginBottom: 20,
   },
   calendarContainer: {
     marginTop: 20,
@@ -149,12 +186,28 @@ const styles = StyleSheet.create({
     borderWidth: 0.3,
     borderColor: '#9B9B9B',
     marginTop: 8,
-    marginBottom: 12,
   },
   arrowWrapper: {
     justifyContent: 'center',
     flexDirection: 'row',
-    marginTop: 20,
+  },
+  content: {
+    flex: 1
+  },
+  addButton: {
+    flexDirection: 'row',
+    backgroundColor: '#4285F4',
+    paddingVertical: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginBottom: 10
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    marginLeft: 10,
   },
 });
 

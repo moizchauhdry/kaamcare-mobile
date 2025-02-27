@@ -13,6 +13,6 @@ export const useQueryMedications = (
 ): UseQueryResult<Medications, ErrorResponse> =>
   useQuery({
     queryKey: [QUERY_KEYS.MEDICAL_HISTORY_MEDICATIONS_GET],
-    queryFn: () => medicationsClient.getUserMedications().then((res) => sortByName(res, 'medicationName')),
+    queryFn: () => medicationsClient.getUserMedications().then((res) => sortByName(res, 'medication_name')),
     ...options,
   });

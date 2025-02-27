@@ -3,22 +3,35 @@ import type { MedicationFormData } from '../../../schemas/forms/medicalHistory/m
 import { parseApiToSelectDataGeneric } from './GenericParsers';
 
 export const parseMedicationApiToFormData = (data: Medication): MedicationFormData => ({
+  medicationName: data.medication_name ?? '',
+  strength: data.strength?.toString() ?? '',
+  unit: data.unit ?? '',
   form: data.form ?? '',
-  dose: data.dose?.toString() ?? '',
-  units: data.units ?? '',
-  frequency: data.frequency ?? '',
-  explanation: data.explanation ?? '',
+  color: data.color ?? '',
+  shape: data.shape ?? '',
+  for: data.for ?? '',
   route: data.route ?? '',
+  frequency: data.frequency ?? '',
+  times: data.times ?? [],
+  start_date: data.start_date ?? '',
+  end_date: data.end_date ?? '',
+  explanation: data.explanation ?? '',
 });
 
 export const parseMedicationFormToApiData = (data: MedicationFormData, name: string): NewMedication => ({
+  medication_name: name,
+  strength: data.strength || null,
+  unit: data.unit || null,
   form: data.form || null,
-  dose: data.dose || null,
-  units: data.units || null,
-  frequency: data.frequency || null,
-  explanation: data.explanation || null,
+  color: data.color || null,
+  shape: data.shape || null,
+  for: data.for || null,
   route: data.route || null,
-  medicationName: name,
+  frequency: data.frequency || null,
+  times: data.times || [],
+  start_date: data.start_date || null,
+  end_date: data.end_date || null,
+  explanation: data.explanation || null,
 });
 
 export const parseMedicationsApiData = (data: MedicationsApiReturnModel) => ({

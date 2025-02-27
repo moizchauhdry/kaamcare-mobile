@@ -31,14 +31,15 @@ export const SelectMedicationScreen = ({ navigation }: SelectMedicationScreenPro
     }
 
     const properName = name ?? searchForSelectElem(value, commonMedications, dynamicData);
-    const existedItem = data?.find((elem) => elem.medicationName === properName);
+    const existedItem = data?.find((elem) => elem.medication_name === properName);
 
-    navigation.navigate('MedicationForm', {
+    navigation.navigate('EditMedication', {
       name: properName,
       edit: Boolean(existedItem),
       id: value,
       isCommonName: Boolean(!isCustom),
     });
+    
   };
 
   return (

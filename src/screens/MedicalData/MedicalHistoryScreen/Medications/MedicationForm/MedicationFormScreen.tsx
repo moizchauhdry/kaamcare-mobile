@@ -34,7 +34,7 @@ export const MedicationFormScreen = ({ route, navigation }: MedicationFormScreen
       return;
     }
 
-    mutateAdd.mutate({ ...values, medicationName: name, isCommonName });
+    mutateAdd.mutate({ ...values, medication_name: name, isCommonName });
   };
 
   return (

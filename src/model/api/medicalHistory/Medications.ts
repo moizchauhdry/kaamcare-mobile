@@ -30,14 +30,21 @@ export interface Medication extends NewMedication {
 }
 
 export type NewMedication = {
+  medication_name: string;
+  strength?: string | null;
+  unit?: string | null;
   form?: string | null;
-  dose?: string | null;
-  units?: string | null;
+  color?: string | null;
+  shape?: string | null;
+  for?: string | null;
   route?: string | null;
   frequency?: string | null;
+  times?: string[];
+  start_date?: string | null;
+  end_date?: string | null;
   explanation?: string | null;
-  medicationName: string;
   isCommonName?: boolean;
 };
+
 
 export type Medications = Medication[];

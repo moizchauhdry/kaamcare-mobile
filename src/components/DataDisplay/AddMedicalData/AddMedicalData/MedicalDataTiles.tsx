@@ -5,10 +5,9 @@ import type { StackNavigationProp } from '@react-navigation/stack';
 import medicalLogs from 'assets/icons/medical-logs.svg';
 import medicalHistory from 'assets/icons/medical-history.svg';
 import primaryPrevention from 'assets/icons/primary-prevention.svg';
-import pillTrackerIcon from 'assets/icons/pill-icon.svg';
 import goalsOfCare from 'assets/icons/goals-of-care.svg';
 import type { AddMedicalDataNavigationParamsList } from 'components/Navigation/AddMedicalDataNavigation';
-
+import pillIcon from 'assets/icons/pill icon.svg';
 import { MedicalDataTile } from './components/MedicalDataTile';
 
 export const MedicalDataTiles = () => {
@@ -39,7 +38,7 @@ export const MedicalDataTiles = () => {
         <MedicalDataTile
           title="Pill Tracker"
           onPress={() => navigation.navigate('PillTrackerIntro')}
-          icon={pillTrackerIcon}
+          icon={pillIcon}
         />
       </View>
       <View

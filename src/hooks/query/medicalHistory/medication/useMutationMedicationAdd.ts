@@ -33,7 +33,7 @@ export const useMutationMedicationAdd = (
         data,
         variables,
         context,
-        `${variables.medicationName} has been added to your medications list.`,
+        `${variables.medication_name} has been added to your medications list.`,
       );
     },
     onSettled: (data, error, variables, context) => {

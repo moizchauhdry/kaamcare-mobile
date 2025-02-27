@@ -7,11 +7,9 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-
-    borderWidth: 1,
     borderRadius: 8,
-    height: 48,
-    backgroundColor: theme.colors.white,
+    height: 55,
+    backgroundColor: '#EEF6FF',
     borderColor: theme.colors.gray200,
     paddingLeft: 18,
     paddingRight: 16,
