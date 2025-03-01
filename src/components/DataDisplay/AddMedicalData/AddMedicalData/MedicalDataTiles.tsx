@@ -22,7 +22,7 @@ const medicalData = [
   { title: 'Height', screen: 'HeightForm', icon: heightIcon },
   { title: 'Weight', screen: 'WeightForm', icon: weightIcon },
   { title: 'SpO2', screen: 'SaturationForm', icon: spo2Icon },
-  { title: 'Pill Tracker', screen: 'PillTrackerHome', icon: pillIcon },
+  { title: 'Pill Tracker', screen: 'PillTrackerIntro', icon: pillIcon },
   { title: 'Medical History', screen: 'MedicalHistory', icon: medicalHistory },
   { title: 'Preventive Care', screen: 'PrimaryPrevention', icon: primaryPrevention },
   { title: 'Goals of Care', screen: 'GoalsOfCare', icon: goalsOfCare },
