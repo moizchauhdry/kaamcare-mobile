@@ -12,11 +12,12 @@ import { moreScreenData } from '../../../constants/data/moreScreen';
 import { Typography } from '../../../components/UI/Typography/Typography';
 import { ContributionComponent } from './components/ContributionComponent';
 import { MoreListItem } from '../../../components/DataDisplay/List/MoreListItem/MoreListItem';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const HomeScreen = () => {
   const setIsLogged = useSignupStore((store) => store.setIsLogged);
   const setUserEmail = useSignupStore((store) => store.setUserEmail);
-
+  const queryClient = useQueryClient();
   const handleLogout = () => {
     SecureStore.deleteItemAsync('refresh-token');
     SecureStore.deleteItemAsync('expires-on');
@@ -27,7 +28,7 @@ export const HomeScreen = () => {
     setUserEmail('');
     http.removeHeader('Authorization');
     setIsLogged(false);
-
+    queryClient.clear();
     GoogleSignin.revokeAccess();
     GoogleSignin.signOut();
   };

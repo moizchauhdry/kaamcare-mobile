@@ -18,14 +18,13 @@ export const useQueryBloodPressureLogsList = (
   useQuery({
     queryKey: options?.queryKey || [
       QUERY_KEYS.MEDICAL_LOGS_BLOOD_PRESSURE_LOGS_LIST_GET,
-      filters.startDate,
-      filters.endDate,
+      // filters.startDate,
+      // filters.endDate,
     ],
-    queryFn: () =>
-      bloodPressureClient.getBloodPressureFragment({ startDate: filters.startDate, endDate: filters.endDate }),
+    queryFn: () => bloodPressureClient.getBloodPressureAll(),
     retry: 1,
-    gcTime: LOG_LIST_CACHE_TIME,
-    staleTime: LOG_LIST_CACHE_TIME,
-    placeholderData: keepPreviousData,
+    gcTime: 0,
+    staleTime: 0,
+    placeholderData: undefined,
     ...options,
   });
