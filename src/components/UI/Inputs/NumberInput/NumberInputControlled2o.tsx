@@ -8,16 +8,19 @@ import { FormFieldControlled2o } from '../FormField/FormFieldControlled2o';
 import type { NumberInputProps } from './NumberInput';
 import { NumberInput2o } from './NumberInput2o';
 import { theme } from 'config/Theme';
+import type { ViewStyle } from 'react-native';
+import type { StyleProp } from 'react-native';
 
 type TextInputControlledProps = {
   name: string;
   label?: string;
   inputProps?: NumberInputProps;
   ref?: any;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 export const NumberInputControlled2o = forwardRef<RNTextInput, TextInputControlledProps>(
-  ({ name, label, inputProps }, ref) => {
+  ({ name, label, inputProps, containerStyle }, ref) => {
     const { control, formState, getFieldState } = useFormContext();
     const fieldState = getFieldState(name, formState);
 
@@ -26,6 +29,7 @@ export const NumberInputControlled2o = forwardRef<RNTextInput, TextInputControll
         label={label}
         error={fieldState.error?.message}
         control={control}
+        containerStyle={containerStyle}
         name={name}
         disabled={inputProps?.disabled}
         render={({ field }) => {
@@ -34,7 +38,7 @@ export const NumberInputControlled2o = forwardRef<RNTextInput, TextInputControll
               <Typography
                 weight="normal"
                 align="center"
-                style={{ fontSize: 12, fontWeight: '400', marginBottom: 8, color: theme.colors.textGray }}
+                style={{ fontSize: 12, marginTop: -5, fontWeight: '400', color: theme.colors.textGray }}
               >
                 {inputProps?.placeholder}
               </Typography>

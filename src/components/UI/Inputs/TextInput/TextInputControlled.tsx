@@ -53,6 +53,7 @@ export const TextInputControlled = forwardRef<RNTextInput, TextInputControlledPr
                   paddingHorizontal: 16,
                   backgroundColor: theme.colors.white,
                   paddingVertical: 16,
+                  marginBottom: 50,
                 }}
                 {...inputProps}
                 multiline={true}
