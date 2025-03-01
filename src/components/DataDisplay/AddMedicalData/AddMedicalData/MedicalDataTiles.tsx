@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { FlatList, View } from 'react-native';
-import pillIcon from 'assets/icons/pill icon.svg';
+import pillIcon from 'assets/icons/pill.svg';
 import goalsOfCare from 'assets/icons/goals-of-care.svg';
 import medicalHistory from 'assets/icons/medical-history.svg';
 import spo2Icon from 'assets/icons/spo2.svg';
@@ -22,10 +22,10 @@ const medicalData = [
   { title: 'Height', screen: 'HeightForm', icon: heightIcon },
   { title: 'Weight', screen: 'WeightForm', icon: weightIcon },
   { title: 'SpO2', screen: 'SaturationForm', icon: spo2Icon },
+  { title: 'Pill Tracker', screen: 'PillTrackerHome', icon: pillIcon },
   { title: 'Medical History', screen: 'MedicalHistory', icon: medicalHistory },
   { title: 'Preventive Care', screen: 'PrimaryPrevention', icon: primaryPrevention },
   { title: 'Goals of Care', screen: 'GoalsOfCare', icon: goalsOfCare },
-  { title: 'Pill Tracker', screen: 'Pill Tracker', icon: pillIcon },
 ];
 
 export const MedicalDataTiles = () => {
@@ -40,9 +40,7 @@ export const MedicalDataTiles = () => {
     return () => clearTimeout(handler);
   }, [searchValue]);
 
-  let filteredTiles = medicalData.filter((item) =>
-    item.title.toLowerCase().includes(delayedSearchValue.toLowerCase())
-  );
+  let filteredTiles = medicalData.filter((item) => item.title.toLowerCase().includes(delayedSearchValue.toLowerCase()));
 
   if (filteredTiles.length % 2 !== 0) {
     filteredTiles = [...filteredTiles, { title: 'Placeholder', screen: '', icon: null }];
@@ -59,8 +57,11 @@ export const MedicalDataTiles = () => {
         numColumns={2}
         columnWrapperStyle={{ flex: 1, justifyContent: 'space-between', marginBottom: 16 }}
         contentContainerStyle={{ flexGrow: 1 }}
+        style={{
+          marginBottom: 100,
+        }}
         renderItem={({ item }) =>
-          item.screen ? ( 
+          item.screen ? (
             <View style={{ flex: 1, paddingHorizontal: 4 }}>
               <MedicalDataTile title={item.title} onPress={() => navigation.navigate(item.screen)} icon={item.icon} />
             </View>
