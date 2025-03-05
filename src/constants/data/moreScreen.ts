@@ -16,7 +16,7 @@ export const moreScreenData = [
   },
 ];
 
-export const settingsScreenData = (resetPress: () => void) => [
+export const settingsScreenData = [
   {
     id: 'units',
     title: 'Units',
@@ -25,8 +25,8 @@ export const settingsScreenData = (resetPress: () => void) => [
   {
     id: 'reset',
     title: 'Reset password',
-    name: 'ResetPassword',
-    onPress: resetPress,
+    name: 'ResetPassword2o',
+    // onPress: resetPress,
   },
 ];
 

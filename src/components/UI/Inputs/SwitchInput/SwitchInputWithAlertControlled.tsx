@@ -32,7 +32,7 @@ export const SwitchInputWithAlertControlled = ({
       name={name}
       disabled={inputProps?.disabled}
       render={({ field }) => (
-        <SwitchInputWithAlert currentValue={field.value} onChange={field.onChange} {...inputProps} />
+        <SwitchInputWithAlert currentValue={!!field.value} onChange={field.onChange} {...inputProps} />
       )}
     />
   );

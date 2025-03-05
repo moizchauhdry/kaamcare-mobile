@@ -30,4 +30,5 @@ export type IForgotPassRequest = {
 
 export type IResetPassRequest = {
   password: string;
+  shouldNavigateToLogin: boolean;
 };

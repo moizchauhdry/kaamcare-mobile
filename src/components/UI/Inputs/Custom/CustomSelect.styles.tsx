@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'flex-start',
     flexGrow: 1,
+    // flex: 1,
   },
   buttonWrapper: {
     paddingVertical: 32,

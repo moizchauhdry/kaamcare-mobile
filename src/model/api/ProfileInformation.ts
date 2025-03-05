@@ -59,15 +59,15 @@ export type Caregiver = {
   firstName: string | null;
   lastName: string | null;
   phoneNumber: string | null;
-  isCaregiverSet: boolean;
+  isCaregiverSet: boolean | string;
 
   physicalTherapyServiceName: string | null;
   physicalTherapyPhoneNumber: string | null;
-  isPhysicalTherapySet: boolean;
+  isPhysicalTherapySet: boolean | string;
 
   nursingServiceName: string | null;
   nursingPhoneNumber: string | null;
-  isNursingSet: boolean;
+  isNursingSet: boolean | string;
 };
 
 export type CustomRelationship = {

@@ -16,8 +16,13 @@ export const useAuthResetPass = () => {
   return useMutation({
     mutationFn: (variables: IResetPassRequest) =>
       validatedApi.post<IResetPassResponse>('/user/reset-password', variables),
-    onSuccess: () => {
-      navigation.navigate('LogIn');
+    onSuccess: (data, variables) => {
+      const { shouldNavigateToLogin = true } = variables; // Default to true if flag is not provided
+      if (shouldNavigateToLogin) {
+        navigation.navigate('LogIn'); // Navigate to Login screen if flag is true
+      } else {
+        navigation.goBack(); // Navigate back if flag is false
+      }
       showToast({
         text1: 'Password reset successfully',
       });

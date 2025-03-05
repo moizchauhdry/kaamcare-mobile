@@ -52,10 +52,9 @@ export class BloodPressureClient extends AbstractHttpService {
 
   putBloodPressure(id: string, data: BloodPressureLog): Promise<void> {
     return this.http
-      .put(`health-tracker/blood-pressure-pulse/`, {
+      .put(`health-tracker/blood-pressure-pulse/${id}`, {
         json: {
           ...data,
-          id,
         },
       })
       .then(() => undefined)

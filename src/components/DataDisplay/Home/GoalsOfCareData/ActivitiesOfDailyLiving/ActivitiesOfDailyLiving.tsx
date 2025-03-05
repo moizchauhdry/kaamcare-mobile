@@ -28,6 +28,7 @@ export const ActivitiesOfDailyLiving = memo((props: HomeCardDataType) => {
   } = useQueryGetADL({
     retry: false,
   });
+  console.log('props========', props);
 
   const notIndependent = data.filter(
     (elem) =>

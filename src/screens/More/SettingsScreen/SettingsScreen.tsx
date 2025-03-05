@@ -20,13 +20,13 @@ export const SettingsScreen = () => {
       </View>
       <View style={{ backgroundColor: theme.colors.white }}>
         <FlatList
-          data={settingsScreenData(handlePasswordReset)}
+          data={settingsScreenData}
           renderItem={(data) => (
             <MoreListItem
               key={data.item.id}
               title={data.item.title}
               name={data.item.name}
-              onPress={data.item.onPress}
+              // onPress={data.item.onPress}
             />
           )}
         />

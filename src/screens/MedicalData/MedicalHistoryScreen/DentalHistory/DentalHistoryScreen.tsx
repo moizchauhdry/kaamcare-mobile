@@ -11,6 +11,7 @@ export const DentalHistoryScreen = () => {
       dentalProthetics: [],
     },
   } = useQueryDentalHistoryList();
+  console.log('data of Dental History====', JSON.stringify(dentalHistory));
 
   return (
     <MedicalHistoryUnitLayout title="Dental History">

@@ -1,4 +1,5 @@
 import { useMutation, type UseMutationOptions, type UseMutationResult } from '@tanstack/react-query';
+import * as SecureStore from 'expo-secure-store';
 
 import type { ErrorResponse } from 'model/api/common/Error';
 import { profileClient } from 'services/http/ApiServices';
@@ -15,13 +16,19 @@ export const useMutationPutProfileInformation = (
   const mutationKey = [QUERY_KEYS.PROFILE_INFORMATION_PUT];
   const queryKey = [QUERY_KEYS.PROFILE_INFORMATION_GET];
   const offlineMethods = useOfflineQuery(mutationKey, queryKey, options);
+  const localUserData = JSON.parse(SecureStore.getItem('user-data') ?? '{}');
 
   return useMutation<void, ErrorResponse, ProfileInformation>({
     ...options,
     mutationKey,
     mutationFn: (values) => profileClient.putProfileInformation(values),
     ...offlineMethods,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const updatedUserData = {
+        ...localUserData,
+        ...data,
+      };
+      SecureStore.setItem('user-data', JSON.stringify(updatedUserData));
       showToast({
         text1: `Profile information has been successfully updated.`,
       });

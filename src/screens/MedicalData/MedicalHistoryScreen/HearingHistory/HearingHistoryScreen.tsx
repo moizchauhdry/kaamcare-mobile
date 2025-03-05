@@ -11,6 +11,7 @@ export const HearingHistoryScreen = () => {
       hearingTests: [],
     },
   } = useQueryHearingHistoryList();
+  console.log('data of HearingHistoryScreen====', JSON.stringify(data));
 
   return (
     <MedicalHistoryUnitLayout title="Hearing History">

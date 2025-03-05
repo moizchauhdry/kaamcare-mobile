@@ -14,8 +14,8 @@ export const bloodTypeLetter = [
     value: 'AB',
   },
   {
-    label: '0',
-    value: '0',
+    label: 'O',
+    value: 'O',
   },
 ];
 
@@ -32,11 +32,11 @@ export const bloodTypeSign = [
 
 export const bloodTypePickerData = [
   {
-    label: '0 +',
+    label: 'O +',
     value: BloodType.OPositive,
   },
   {
-    label: '0 -',
+    label: 'O -',
     value: BloodType.ONegative,
   },
   {

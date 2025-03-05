@@ -14,10 +14,11 @@ export const CardAttachments = ({ attachment }: CardAttachmentProps) => {
   if (!attachment || attachment.length === 0) {
     return null;
   }
+  console.log('attachment====', attachment);
 
   return (
     <View>
-      {attachment.map((elem) => {
+      {attachment?.map((elem) => {
         const properNameField = isAttachmentApiModel(elem) ? elem.fileName : elem.name;
 
         return (

@@ -18,48 +18,51 @@ export const ProfileInformation = () => {
   });
   const localUserData = JSON.parse(SecureStore.getItem('user-data') ?? '{}');
   const { mass, length } = useUnitsData();
-  console.log('localUserData', localUserData);
 
   const renderContent = () => {
-    const isContentAfterName = data?.dateOfBirth || data?.gender;
+    // Prioritize `data` over `localUserData` if `data` is present and contains valid information
+    const userData = data && Object.keys(data).length > 0 ? data : localUserData;
+    const isContentAfterName = userData?.dateOfBirth || userData?.gender;
+
+    console.log('userData=====', userData); // Debugging
 
     return (
       <View style={{ gap: 4 }}>
         <View style={{ flexDirection: 'row', gap: 4 }}>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            {localUserData?.firstName ? (
-              <Typography weight="semiBold">{`${localUserData.firstName}${isContentAfterName && !localUserData.lastName ? ',' : ' '}`}</Typography>
+            {userData?.firstName ? (
+              <Typography weight="semiBold">{`${userData.firstName}${isContentAfterName && !userData.lastName ? ',' : ' '}`}</Typography>
             ) : null}
-            {localUserData?.lastName ? (
-              <Typography weight="semiBold">{`${localUserData.lastName}${isContentAfterName ? ',' : ''}`}</Typography>
+            {userData?.lastName ? (
+              <Typography weight="semiBold">{`${userData.lastName}${isContentAfterName ? ',' : ''}`}</Typography>
             ) : null}
           </View>
 
-          {localUserData?.dateOfBirth ? (
-            <Typography weight="semiBold">{formatDateYearsDifference(localUserData.dateOfBirth)}</Typography>
+          {userData?.dateOfBirth ? (
+            <Typography weight="semiBold">{formatDateYearsDifference(userData.dateOfBirth)}</Typography>
           ) : null}
-          {localUserData?.gender ? (
+          {userData?.gender ? (
             <Typography weight="semiBold">
-              {genderPickerData.find((elem) => elem.value === localUserData.gender)?.label}
+              {genderPickerData.find((elem) => elem.value === userData.gender)?.label}
             </Typography>
           ) : null}
         </View>
-        {localUserData?.dateOfBirth ? (
-          <Typography>{`DOB: ${formatDateWithMonthShotName(localUserData.dateOfBirth)}`}</Typography>
+        {userData?.dateOfBirth ? (
+          <Typography>{`DOB: ${formatDateWithMonthShotName(userData.dateOfBirth)}`}</Typography>
         ) : null}
-        {localUserData?.phoneNumber ? <Typography>{phoneNumberFormatter(localUserData.phoneNumber)}</Typography> : null}
-        {localUserData?.email ? <Typography>{localUserData.email}</Typography> : null}
+        {userData?.phoneNumber ? <Typography>{phoneNumberFormatter(userData.phoneNumber)}</Typography> : null}
+        {userData?.email ? <Typography>{userData.email}</Typography> : null}
         <View style={{ flexDirection: 'row', gap: 8 }}>
-          {localUserData?.currentWeight ? (
-            <Typography>{`Weight: ${changeKilogramToPound(localUserData.currentWeight, mass)?.toFixed(2)} ${mass === 'Pound' ? 'lbs' : 'kg'}`}</Typography>
+          {userData?.currentWeight ? (
+            <Typography>{`Weight: ${changeKilogramToPound(userData.currentWeight, mass)?.toFixed(2)} ${mass === 'Pound' ? 'lbs' : 'kg'}`}</Typography>
           ) : null}
-          {localUserData?.currentHeight ? (
-            <Typography>{`Height: ${changeCentimeterToFeetInch(localUserData.currentHeight, length)?.toFixed(2)} ${length === 'FeetInch' ? 'ft' : 'cm'}`}</Typography>
+          {userData?.currentHeight ? (
+            <Typography>{`Height: ${changeCentimeterToFeetInch(userData.currentHeight, length)?.toFixed(2)} ${length === 'FeetInch' ? 'ft' : 'cm'}`}</Typography>
           ) : null}
         </View>
-        {localUserData?.bloodType ? (
+        {userData?.bloodType ? (
           <Typography>
-            Blood type: {bloodTypePickerData.find((elem) => elem.value === localUserData.bloodType)?.label}
+            Blood type: {bloodTypePickerData.find((elem) => elem.value === userData.bloodType)?.label}
           </Typography>
         ) : null}
       </View>

@@ -1,4 +1,4 @@
-import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Animated, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import type { NativeStackScreenProps } from 'react-native-screens/native-stack';
 
 import { useNavigation } from '@react-navigation/native';
@@ -25,20 +25,28 @@ export const HypertensionStagesScreen = (props: HypertensionStagesScreenProps) =
   const [keyboardHeight] = useState(new Animated.Value(0));
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScreenModalLayout title="" isScrollable>
-        {graphStages.map((stage, index) => (
-          <TouchableOpacity key={index} onPress={() => navigation.navigate('PressureGuidelineDetails', { stage })}>
-            <Card key={index} style={{ marginBottom: 10 }}>
-              <View style={styles.contentContainer}>
-                {/* Title */}
-                <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center', justifyContent: 'center' }}>
-                  <View style={{ width: 15, height: 15, borderRadius: 15, backgroundColor: stage.color }} />
-                  <Typography style={{ ...styles.titleText, color: stage.color }}>{stage.label}</Typography>
-                </View>
+    <>
+      <View style={{ flex: 1, backgroundColor: theme.colors.background, gap: 8, padding: 16 }}>
+        {/* <ScreenModalLayout title="" isScrollable> */}
+        <ScrollView
+          style={{ flex: 1 }}
+          keyboardShouldPersistTaps="never"
+          showsVerticalScrollIndicator={false}
+          automaticallyAdjustKeyboardInsets
+          // contentContainerStyle={{ flexGrow: 1 }}
+        >
+          {graphStages.map((stage, index) => (
+            <TouchableOpacity key={index} onPress={() => navigation.navigate('PressureGuidelineDetails', { stage })}>
+              <Card key={index} style={{ marginBottom: 10 }}>
+                <View style={styles.contentContainer}>
+                  {/* Title */}
+                  <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ width: 15, height: 15, borderRadius: 15, backgroundColor: stage.color }} />
+                    <Typography style={{ ...styles.titleText, color: stage.color }}>{stage.label}</Typography>
+                  </View>
 
-                {/* Subtitle */}
-                {/* <View
+                  {/* Subtitle */}
+                  {/* <View
                 style={{
                   flexDirection: 'row',
                   width: '100%',
@@ -46,39 +54,42 @@ export const HypertensionStagesScreen = (props: HypertensionStagesScreenProps) =
                   // alignItems: 'center',
                 }}
               > */}
-                <Typography style={styles.subtitleText}>{getStageRange(stage)}</Typography>
-                {/* </View> */}
-                {/* Colored indicators */}
-                <View style={styles.indicatorContainer}>
-                  {graphStages.map((_, indicatorIndex) => (
-                    <View
-                      key={indicatorIndex}
-                      style={[
-                        styles.indicator,
-                        { backgroundColor: graphStages[indicatorIndex]?.color || 'transparent' },
-                      ]}
-                    >
-                      {indicatorIndex === stage.index && (
-                        <SvgXml style={styles.arrow} color={stage.color} xml={chevronDown} />
-                      )}
-                    </View>
-                  ))}
-                </View>
+                  <Typography style={styles.subtitleText}>{getStageRange(stage)}</Typography>
+                  {/* </View> */}
+                  {/* Colored indicators */}
+                  <View style={styles.indicatorContainer}>
+                    {graphStages.map((_, indicatorIndex) => (
+                      <View
+                        key={indicatorIndex}
+                        style={[
+                          styles.indicator,
+                          { backgroundColor: graphStages[indicatorIndex]?.color || 'transparent' },
+                        ]}
+                      >
+                        {indicatorIndex === stage.index && (
+                          <SvgXml style={styles.arrow} color={stage.color} xml={chevronDown} />
+                        )}
+                      </View>
+                    ))}
+                  </View>
 
-                {/* Instructional text */}
-                <Typography style={styles.warningText}>{stage.advice}</Typography>
-              </View>
-            </Card>
-          </TouchableOpacity>
-        ))}
-        <View style={{ marginBottom: 60 }} />
-      </ScreenModalLayout>
+                  {/* Instructional text */}
+                  <Typography style={styles.warningText}>{stage.advice}</Typography>
+                </View>
+              </Card>
+            </TouchableOpacity>
+          ))}
+
+          <View style={{ marginBottom: 60 }} />
+          {/* </ScreenModalLayout> */}
+        </ScrollView>
+      </View>
       <Animated.View style={[styles.buttonWrapper, { bottom: keyboardHeight }]}>
         <Button variant="default" onPress={() => navigation.goBack()}>
           Save
         </Button>
       </Animated.View>
-    </View>
+    </>
   );
 };
 

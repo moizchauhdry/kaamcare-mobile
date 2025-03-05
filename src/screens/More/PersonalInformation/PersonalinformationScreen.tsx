@@ -36,13 +36,18 @@ export const PersonalInformationScreen = ({ navigation }: PersonalInformationScr
       mutateEmail(formValues.email!);
     }
   };
+  console.log('localUserData=======', localUserData);
 
   return (
     <MoreLayout title="My Profile">
       <WithSkeleton isLoading={isLoading} skeleton={<PersonalInformationFormSkeleton />}>
         <PersonalInformationForm
           onSubmit={(formValues) => handleSubmit(formValues)}
-          initialValues={localUserData ? parseProfileInformationToForm(localUserData, length, mass) : undefined}
+          initialValues={
+            data
+              ? parseProfileInformationToForm(data, length, mass)
+              : parseProfileInformationToForm(localUserData, length, mass)
+          }
         />
       </WithSkeleton>
     </MoreLayout>

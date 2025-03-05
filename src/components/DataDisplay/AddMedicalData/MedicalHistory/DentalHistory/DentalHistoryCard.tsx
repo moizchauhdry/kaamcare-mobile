@@ -17,6 +17,7 @@ type DentalHistoryCardProps = DentalHistory & {
 export const DentalHistoryCard = (props: DentalHistoryCardProps) => {
   const navigation = useNavigation<StackNavigationProp<AddMedicalDataNavigationParamsList>>();
   const { sectionName, id, name, explanation, attachments, date } = props;
+  console.log('props=========', props);
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate('DentalHistoryForm', { id, edit: true, name, sectionName })}>
