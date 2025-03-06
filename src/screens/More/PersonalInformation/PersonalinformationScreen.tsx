@@ -36,7 +36,6 @@ export const PersonalInformationScreen = ({ navigation }: PersonalInformationScr
       mutateEmail(formValues.email!);
     }
   };
-  console.log('localUserData=======', localUserData);
 
   return (
     <MoreLayout title="My Profile">

@@ -44,7 +44,7 @@ export const WelcomeScreen = () => {
         });
       }
     } catch (error) {
-      console.log('Google Auth Error', error);
+      // console.log('Google Auth Error', error);
     }
   };
 
@@ -71,13 +71,11 @@ export const WelcomeScreen = () => {
               type: AuthTypes.APPLE,
               token: response.identityToken ?? '',
             });
-          } else {
-            console.log('User declined to provide email');
           }
         });
       }
     } catch (error) {
-      console.log('Apple Auth Error', error);
+      // console.log('Apple Auth Error', error);
     }
   };
 

@@ -9,8 +9,20 @@ export class DiagnosisHistoryClient extends AbstractHttpService {
     return this.http
       .get('medical-history/diagnosis/all')
       .then((res) => this.resolve<DiagnosisAllApiModel>(res))
-      .then((res) => res.diagnoses.map((elem) => ({ ...elem, diagnosisDate: elem.date })))
-      .catch(this.reject);
+      .then((res: any) => {
+        // Handle both "diagnosis" and "diagnoses" keys
+        const diagnosisList = res.diagnosis || res.diagnoses;
+        if (!diagnosisList) {
+          throw new Error('Invalid diagnosis response format');
+        }
+        return diagnosisList.map((elem: any) => ({
+          ...elem,
+          diagnosisDate: elem.date,
+        }));
+      })
+      .catch((error) => {
+        return this.reject(error);
+      });
   }
 
   postDiagnosisHistory(data: NewDiagnosis): Promise<string> {

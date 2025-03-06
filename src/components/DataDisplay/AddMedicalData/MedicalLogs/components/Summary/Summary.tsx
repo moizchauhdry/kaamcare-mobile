@@ -60,7 +60,6 @@ export const Summary = ({ data, dataLength = 0, graphData, mainData }: SummaryPr
 
   const renderContent = (data: SummaryData) => {
     if (!data || (!data.primary?.length && !data.secondary?.length)) {
-      console.log('No data available for Summary.');
       return null;
     }
 

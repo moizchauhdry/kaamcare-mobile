@@ -67,28 +67,29 @@ export const BloodPressureChartTooltip = ({
     <View
       style={{
         paddingHorizontal: 16,
-        paddingVertical: 8,
-        backgroundColor: theme.colors.white,
-        borderWidth: 1,
+        // paddingVertical: 8,
+        backgroundColor: color,
+        // borderWidth: 1,
         borderColor: theme.colors.textPrimary,
-        borderRadius: 16,
+        borderRadius: 4,
         gap: 8,
         shadowColor: theme.colors.textPrimary,
         shadowOpacity: 0.3,
         shadowRadius: 9,
         shadowOffset: { width: 0, height: 3 },
         zIndex: 999,
+        opacity: 0.5,
       }}
     >
       <View>
-        <Typography size="sm" style={{ textAlign: 'center' }}>
+        {/* <Typography size="sm" style={{ textAlign: 'center' }}>
           {variant === 'single' ? getFullHourFromDate(date) : formatDate(date)}
-        </Typography>
-        <Typography size="sm" style={{ textAlign: 'center' }}>
+        </Typography> */}
+        <Typography size="sm" style={{ textAlign: 'center', fontSize: 11, color: theme.colors.textPrimary }}>
           {stage}
         </Typography>
       </View>
-      <View>
+      {/* <View>
         {type === 'pulse' ? (
           renderPulse()
         ) : variant === 'single' ? (
@@ -157,7 +158,7 @@ export const BloodPressureChartTooltip = ({
             </View>
           </View>
         )}
-      </View>
+      </View> */}
     </View>
   );
 };

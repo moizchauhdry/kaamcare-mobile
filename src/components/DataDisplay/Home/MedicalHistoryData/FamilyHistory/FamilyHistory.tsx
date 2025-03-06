@@ -12,16 +12,21 @@ export const FamilyHistory = memo((props: HomeCardDataType) => {
   const { data = [], isLoading, isError } = useQueryFamilyMembersList();
   const { data: diagnosis = [] } = useQueryFamilyMembersDiagnosisList();
   const isSomeFilled = diagnosis.length > 0;
+  console.log('data============', data);
 
   const renderContent = () => (
     <View style={{ gap: 12 }}>
-      {data.map((member) => (
-        <FamilyHistoryMemberContent
-          key={member.id}
-          id={member.id}
-          name={member.familyMemberName || member.relationshipName}
-        />
-      ))}
+      {data.map((member) => {
+        console.log('member============', member);
+
+        return (
+          <FamilyHistoryMemberContent
+            key={member.id}
+            id={member.id}
+            name={member.familyMemberName || member.relationshipName}
+          />
+        );
+      })}
     </View>
   );
 
@@ -37,7 +42,7 @@ export const FamilyHistory = memo((props: HomeCardDataType) => {
       }}
       dataProps={{
         isLoading,
-        data: isSomeFilled ? data : null,
+        data: data,
         isError,
       }}
     >

@@ -324,7 +324,7 @@ const cardOptions = ({ route, navigation }: { route: any; navigation: any }): St
     // route.name === 'BloodPressureForm' ? currentDate :
     screenTitleMap[route.name];
   const handleTitlePress = () => {
-    console.log('hi from route===', route.name);
+    // console.log('hi from route===', route.name);
   };
   const showHeaderBottomBorder = () => {
     return ['BloodPressure', 'BloodSugar', 'AddMedicalDataHome', 'Weight', 'Height', 'Saturation'].includes(route.name);
@@ -369,7 +369,7 @@ const optionsStack = ({ route, navigation }: { route: any; navigation: any }): S
     screenTitleMap[route.name];
 
   const handleTitlePress = () => {
-    console.log('hi from route===', route.name);
+    // console.log('hi from route===', route.name);
   };
 
   return {

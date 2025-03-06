@@ -55,6 +55,14 @@ export const useBloodPressureChartData = (
         const item = properCalculatedData.find((inner) => getHourFromDate(inner!.date!) === elem);
         const properValue = item?.average?.[key] ?? null;
         const dataPointColor = chartType === 'pulse' ? item?.pulseColor : item?.color;
+        const calculateData = determineBloodPressureStage(
+          {
+            millimetersOfMercurySystolic: item?.total.millimetersOfMercurySystolic,
+            millimetersOfMercuryDiastolic: item?.total.millimetersOfMercuryDiastolic,
+            pulse: item?.total.pulse,
+          },
+          graphStages,
+        );
         return {
           value: properValue!,
           diaValue: item?.average?.[diastolicKey],
@@ -77,7 +85,7 @@ export const useBloodPressureChartData = (
                     pulse={item?.average?.pulse}
                     type={chartType}
                     variant="single"
-                    stage={item?.stage}
+                    stage={calculateData?.label}
                   />
                 )
               : undefined,
@@ -119,7 +127,6 @@ export const useBloodPressureChartData = (
         },
         graphStages,
       );
-      // console.log('calculateData=====', calculateData);
 
       const properValue = item?.average?.[key] ?? null;
       const chartType = key === 'pulse' ? 'pulse' : 'pressure';
@@ -137,8 +144,7 @@ export const useBloodPressureChartData = (
             ? theme.colors.summaryBlue
             : theme.colors.summaryBlueLight
           : dataPointColor,
-        labelComponent: () =>
-          label ? <Typography style={{ fontSize: 13, opacity: 0.5, width: 40 }}>{label}</Typography> : null,
+        label: label || '',
         displayComponent: displayTooltip
           ? () => (
               <BloodPressureChartTooltip
@@ -152,7 +158,7 @@ export const useBloodPressureChartData = (
                 color={dataPointColor}
                 pulse={item?.average?.pulse}
                 type={chartType}
-                stage={item?.stage}
+                stage={calculateData?.label}
               />
             )
           : undefined,

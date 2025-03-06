@@ -16,7 +16,6 @@ export const Diagnosis = memo((props: HomeCardDataType) => {
   } = useQueryDiagnosisList({
     retry: false,
   });
-
   return (
     <HomeDataCard
       title={props.title}

@@ -14,7 +14,6 @@ export const CardAttachments = ({ attachment }: CardAttachmentProps) => {
   if (!attachment || attachment.length === 0) {
     return null;
   }
-  console.log('attachment====', attachment);
 
   return (
     <View>

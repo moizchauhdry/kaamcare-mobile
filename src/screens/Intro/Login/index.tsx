@@ -55,7 +55,7 @@ export const LoginScreen = () => {
         });
       }
     } catch (error) {
-      console.log('Google Auth Error', error);
+      // console.log('Google Auth Error', error);
     }
   };
 
@@ -83,13 +83,11 @@ export const LoginScreen = () => {
               type: AuthTypes.APPLE,
               token: response.identityToken ?? '',
             });
-          } else {
-            console.log('User declined to provide email');
           }
         });
       }
     } catch (error) {
-      console.log('Apple Auth Error', error);
+      // console.log('Apple Auth Error', error);
     }
   };
 

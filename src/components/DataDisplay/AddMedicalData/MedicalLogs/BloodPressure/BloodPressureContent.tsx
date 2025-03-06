@@ -10,6 +10,7 @@ import {
 } from '../../../../../constants/data/medicalLogs/common';
 import type { BloodPressureLogs } from '../../../../../model/api/medicalLogs/BloodPressure';
 import { BloodPressureChart } from './BloodPressureChart';
+import { Card } from 'components/UI/Card/Card';
 
 type BloodPressureContentProps = {
   data: BloodPressureLogs;
@@ -46,7 +47,9 @@ export const BloodPressureContent = ({
       <View style={{ flex: 1 }}>
         <DatePagination onDateChange={onStartDateChange} subDays={medicalLogsTabsDays2o[displayDays]!.subDays} />
       </View>
-      <BloodPressureChart data={data} type={type} days={displayDays} startDate={startDate} />
+      <Card style={{ paddingVertical: 0, paddingHorizontal: 0, overflow: 'hidden' }}>
+        <BloodPressureChart data={data} type={type} days={displayDays} startDate={startDate} />
+      </Card>
     </View>
   );
 };

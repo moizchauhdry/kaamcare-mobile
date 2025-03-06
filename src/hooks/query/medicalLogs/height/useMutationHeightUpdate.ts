@@ -33,9 +33,21 @@ export function useMutationHeightUpdate(
   return useMutation<void, ErrorResponse, HeightLog, MutationReturnType<HeightLog>>({
     ...options,
     mutationKey: [QUERY_KEYS.MEDICAL_LOGS_HEIGHT_UPDATE],
-    mutationFn: (variables) => heightClient.putHeight(variables),
+    mutationFn: (variables) => {
+      console.log('🔵 [Height Update] Mutation executing with variables:', variables);
+      return heightClient.putHeight(variables);
+    },
     ...mutationMethods,
+    onMutate: async (variables) => {
+      console.log('🔵 [Height Update] onMutate triggered with:', variables);
+      return mutationMethods?.onMutate?.(variables);
+    },
+    onError: (error, variables, context) => {
+      console.log('❌ [Height Update] Error:', { error, variables });
+      mutationMethods?.onError?.(error, variables, context);
+    },
     onSuccess: (data, variables, context) => {
+      console.log('✅ [Height Update] Success:', { data, variables });
       mutationMethods?.onSuccess?.(data, variables, context, `This log has been successfully updated.`);
     },
   });

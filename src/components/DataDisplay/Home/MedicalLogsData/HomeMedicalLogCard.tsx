@@ -19,8 +19,6 @@ export default function HomeMedicalLogCard({
       <MedicalDataTile
         title={'Medical Logs'}
         onPress={() => {
-          console.log('Home card pressed');
-
           //   navigation.navigate('MedicalDataNavigation', { screen: 'MedicalLogs' })
         }}
         icon={medicalLogs}

@@ -12,7 +12,6 @@ type SurgicalHistoryScreenProps = NativeStackScreenProps<AddMedicalDataNavigatio
 
 export const SurgicalHistoryScreen = ({ navigation }: SurgicalHistoryScreenProps) => {
   const { data = { surgicalHistory: [] } } = useQuerySurgicalHistoryList();
-  console.log('data of SurgicalHistoryScreen====', JSON.stringify(data));
 
   return (
     <MedicalHistoryUnitLayout title="Surgical History">

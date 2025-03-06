@@ -24,8 +24,6 @@ export const ProfileInformation = () => {
     const userData = data && Object.keys(data).length > 0 ? data : localUserData;
     const isContentAfterName = userData?.dateOfBirth || userData?.gender;
 
-    console.log('userData=====', userData); // Debugging
-
     return (
       <View style={{ gap: 4 }}>
         <View style={{ flexDirection: 'row', gap: 4 }}>

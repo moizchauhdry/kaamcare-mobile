@@ -17,7 +17,8 @@ export const useQueryHeightLogsList = (
   useQuery({
     queryKey: options?.queryKey || [QUERY_KEYS.MEDICAL_LOGS_HEIGHT_LIST_GET, filters.startDate, filters.endDate],
     queryFn: ({ signal }) =>
-      heightClient.getHeightFragment({ startDate: filters.startDate, endDate: filters.endDate }, signal),
+      // heightClient.getHeightFragment({ startDate: filters.startDate, endDate: filters.endDate }, signal),
+      heightClient.getHeightAll(),
     retry: 1,
     placeholderData: keepPreviousData,
     staleTime: LOG_LIST_CACHE_TIME,

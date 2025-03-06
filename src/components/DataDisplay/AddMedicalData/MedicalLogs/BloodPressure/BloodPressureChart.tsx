@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { Dimensions, View } from 'react-native';
 import { BarChart } from 'react-native-gifted-charts';
 
+import { LineChart } from 'components/UI/LineChart/LineChart';
+import moment from 'moment';
 import { theme } from '../../../../../config/Theme';
 import { useUnitsData } from '../../../../../context/UnitsContext';
 import { useBloodPressureChartData } from '../../../../../hooks/useBloodPressureChartData';
 import type { BloodPressureLogs } from '../../../../../model/api/medicalLogs/BloodPressure';
-import { findMax } from '../../../../../utils/array/array';
-import { roundUpToNearest } from '../../../../../utils/number/number';
 import { Typography } from '../../../../UI/Typography/Typography';
 
 type BloodPressureChartProps = {
@@ -24,11 +24,9 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
   const [isDisplay, setIsDisplay] = useState(false);
   const { pressure } = useUnitsData();
   const chartData: any = useBloodPressureChartData(data, type, days, startDate);
-  // console.log('chartData=====', chartData);
-  // console.log('type=====', type);
-  // console.log('data=====', data);
+  // const maxValue = roundUpToNearest(findMax(chartData.data!.map((d: any) => d.value ?? 0)) ?? 0, 10);
+  const maxValue = Math.max(...chartData.data.map((d: any) => d.value ?? 0)) + 5;
 
-  const maxValue = roundUpToNearest(findMax(chartData.data!.map((d: any) => d.value ?? 0)) ?? 0, 10);
   const Component = focusedItem?.displayComponent || null;
   const isDaily = days === 0;
 
@@ -50,61 +48,62 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
 
   const barData = chartData.data
     .filter((d: any) => d.value !== null) // Exclude null values
-    .map((d: any) => ({
-      value: d.value ?? 0,
-      // barStyle: { height: d.value - d.diaValue },
-      // label: d.diaValue,
-      // secondaryLabel: 'hh',
-      // labelsDistanceFromXaxis: 10,
-      frontLabel: d.dataPointLabel,
-      frontColor: d.dataPointColor || theme.colors.primary, // Default to primary theme color if not specified
-      topLabelComponent: () => {
-        return (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: 30,
-            }}
-          >
-            <Typography style={{ fontSize: 12, color: theme.colors.textPrimary, fontWeight: '600' }}>
-              {d.value ?? 0}
-            </Typography>
-          </View>
-        );
-      },
-      labelComponent: () => {
-        return (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              // height: 30,
-              // backgroundColor: 'red',
-              // width: 30,
-            }}
-          >
-            {type === 'pressure' && (
+    .map((d: any) => {
+      const barHeight = (((d.value ?? 0) - (d.diaValue ?? 0)) / maxValue) * 100;
+      const startHeight = ((d.diaValue ?? 0) / maxValue) * 100;
+
+      return {
+        value: d.value ?? 0,
+        frontLabel: d.dataPointLabel,
+        frontColor: d.dataPointColor || theme.colors.primary, // Default to primary theme color if not specified
+        topLabelComponent: () => {
+          return (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 30,
+              }}
+            >
               <Typography style={{ fontSize: 12, color: theme.colors.textPrimary, fontWeight: '600' }}>
-                {d.diaValue ?? 0}
+                {d.value ?? 0}
               </Typography>
-            )}
-            <Typography style={{ fontSize: 12, color: theme.colors.textPrimary, fontWeight: '600' }}>
-              {d.label ?? ''}
-            </Typography>
-          </View>
-        );
-      },
-      // secondaryLabelComponent: () => {
-      //   return (
-      //     <View>
-      //       <Typography>HiH</Typography>
-      //     </View>
-      //   );
-      // },
-      onPress: isDashboard ? undefined : () => handleFocus(d),
-    }));
+            </View>
+          );
+        },
+        labelComponent: () => {
+          return (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                // height: 30,
+                // backgroundColor: 'red',
+                // width: 30,
+              }}
+            >
+              {type === 'pressure' && (
+                <Typography style={{ fontSize: 12, color: theme.colors.textPrimary, fontWeight: '600' }}>
+                  {d.diaValue ?? 0}
+                </Typography>
+              )}
+              <Typography style={{ fontSize: 12, color: theme.colors.textPrimary, fontWeight: '600' }}>
+                {d.label ?? moment(d.date).format('MM.DD')}
+              </Typography>
+            </View>
+          );
+        },
+        onPress: isDashboard ? undefined : () => handleFocus(d),
+        barStyle: {
+          height: `${barHeight}%`,
+          minHeight: 20,
+          // marginTop: `${startHeight}%`,
+        },
+        heightOffset: d.diaValue ?? 0,
+        // yAxisLabels: 'H',
+      };
+    });
 
   return (
     <View
@@ -113,14 +112,7 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
         gap: 8,
         backgroundColor: theme.colors.white,
         padding: 16,
-        borderRadius: 8,
-        shadowColor: theme.colors.shadowPrimary,
-        shadowOffset: { width: 0, height: 3 },
-        shadowRadius: 1,
-        shadowOpacity: 0.9,
-        elevation: 4,
-        borderColor: theme.colors.backgroundDark,
-        borderWidth: 1,
+
         overflow: 'hidden',
       }}
     >
@@ -130,33 +122,55 @@ export const BloodPressureChart = ({ data, type, days, startDate, isDashboard }:
         </Typography>
       </View>
       <View
-        style={{ flex: 1, position: 'relative', paddingTop: 30 }}
+        style={{ flex: 1, position: 'relative', paddingVertical: 15 }}
         onTouchEnd={isDashboard ? undefined : () => handleTouchEnd()}
       >
-        {barData.length > 0 ? (
-          <BarChart
+        {type === 'pressure' ? (
+          barData.length > 0 ? (
+            <BarChart
+              data={barData}
+              barWidth={22}
+              barBorderRadius={4}
+              spacing={40}
+              adjustToWidth
+              width={Dimensions.get('window').width - 140}
+              yAxisThickness={0}
+              xAxisThickness={0}
+              yAxisTextStyle={{
+                fontSize: 13,
+                lineHeight: 18,
+                color: theme.colors.textPrimary,
+                opacity: 0.5,
+              }}
+              xAxisLabelTextStyle={{
+                fontSize: 13,
+                lineHeight: 18,
+                color: theme.colors.textPrimary,
+                opacity: 0.5,
+              }}
+              // maxValue={maxValue + 20}
+            />
+          ) : null
+        ) : barData.length > 0 ? (
+          <LineChart
+            daysDisplayType={days}
+            thickness1={4}
+            maxValue={maxValue + 10}
+            color={theme.colors.primary}
+            /* @ts-ignore */
             data={barData}
-            barWidth={22}
-            barBorderRadius={4}
-            // barStyle={{ height: 100 }}
-            spacing={40}
-            adjustToWidth
-            width={Dimensions.get('window').width - 140}
-            yAxisThickness={0}
-            xAxisThickness={0}
-            yAxisTextStyle={{
-              fontSize: 13,
-              lineHeight: 18,
-              color: theme.colors.textPrimary,
-              opacity: 0.5,
-            }}
-            xAxisLabelTextStyle={{
-              fontSize: 13,
-              lineHeight: 18,
-              color: theme.colors.textPrimary,
-              opacity: 0.5,
-            }}
-            maxValue={maxValue + 20}
+            areaChart
+            scrollToIndex={chartData.scrollToIndex}
+            startIndex={barData?.findIndex((elem) => elem.value !== null)}
+            // endIndex={findLastValueIndex(chartData.data as lineDataItem[])}
+            startFillColor="#C6C8FF"
+            endFillColor={theme.colors.white}
+            startOpacity={1}
+            hideDataPoints={days === 2 || days === 3}
+            endOpacity={0.1}
+            mostNegativeValue={0}
+            showDataPointLabelOnFocus
+            dataPointsColor={theme.colors.primary}
           />
         ) : null}
         {isDisplay && focusedItem && Component ? (

@@ -16,7 +16,7 @@ export const ModalGrabber1o = ({
   return (
     <TouchableOpacity
       onPress={() => {
-        console.log('hhhh');
+        // Remove line 18: console.log('hhhh');
       }}
       style={styles.headerContainer}
     >

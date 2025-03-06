@@ -16,7 +16,7 @@ validatedApi.interceptors.request.use((request) => {
 validatedApi.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error(error);
+    handleApiError(error);
     return Promise.reject(error);
   },
 );

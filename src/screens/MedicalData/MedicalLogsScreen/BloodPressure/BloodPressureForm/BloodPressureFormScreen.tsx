@@ -214,8 +214,6 @@ export const BloodPressureFormScreen = ({ route }: BloodPressureFormScreenProps)
     }
   };
   const handleDateSelect = (date: Date) => {
-    // console.log('date===', date);
-
     const formattedDate = moment(date).format('MMM D, h:mm A');
     setSelectedDate(formattedDate); // Update the selected date
     // refRBSheet.current?.close(); // Close the bottom sheet

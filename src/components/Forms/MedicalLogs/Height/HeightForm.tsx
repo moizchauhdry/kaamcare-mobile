@@ -1,6 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput as RNTextInput, View } from 'react-native';
+import { useEffect, useRef } from 'react';
 
 import { DateTimePickerControlled } from '../../../UI/Inputs/DateTimePicker/DateTimePickerControlled';
 import { NumberInputControlled } from '../../../UI/Inputs/NumberInput/NumberInputControlled';
@@ -14,7 +15,6 @@ import { heightSchema } from '../../../../schemas/forms/medicalLogs/height';
 import { parseHeightFormToApiData } from '../../../../model/parsers/medicalLogs/HeightParser';
 import { useUnitsData } from '../../../../context/UnitsContext';
 import { Typography } from '../../../UI/Typography/Typography';
-import { useRef } from 'react';
 
 type HeightFormProps = {
   initialValues?: HeightFormData;

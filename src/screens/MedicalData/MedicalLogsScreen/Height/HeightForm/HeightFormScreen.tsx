@@ -25,10 +25,25 @@ export const HeightFormScreen = ({ route }: HeightFormScreenProps) => {
   const mutationUpdate = useMutationHeightUpdate(id!, isNewest, days);
   const mutationDelete = useMutationHeightDelete(id!, isNewest, days);
 
-  const handleSubmit = (data: NewHeightLog) =>
-    edit && initialValues
-      ? mutationUpdate.mutate({ ...initialValues, ...data, id: id! })
-      : mutationAdd.mutate({ ...data });
+  const handleSubmit = (data: NewHeightLog) => {
+    console.log('🔵 [HeightFormScreen] handleSubmit called:', {
+      edit,
+      id,
+      data,
+    });
+
+    if (edit && initialValues) {
+      console.log('🔵 [HeightFormScreen] Updating existing record');
+      mutationUpdate.mutate({
+        ...initialValues,
+        ...data,
+        id: id!,
+      });
+    } else {
+      console.log('🔵 [HeightFormScreen] Creating new record');
+      mutationAdd.mutate({ ...data });
+    }
+  };
 
   return (
     <ScreenModalLayout title="Height" isScrollable>

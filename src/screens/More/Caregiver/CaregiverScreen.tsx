@@ -19,7 +19,8 @@ type CaregiverScreenProps = NativeStackScreenProps<MoreNavigationParamsList, 'Ca
 export const CaregiverScreen = ({ route, navigation }: CaregiverScreenProps) => {
   const edit = route.params?.edit;
   const { data, isLoading } = useQueryCaregiverGet();
-  const isEdit = edit || data?.isCreated;
+  const isEdit = edit;
+  // || data?.isCreated;
   const { mutate, isPending } = useMutationCaregiver(isEdit, {
     onSettled: () => navigation.navigate('MyProfile'),
   });
@@ -31,7 +32,9 @@ export const CaregiverScreen = ({ route, navigation }: CaregiverScreenProps) => 
           <CaregiverForm
             edit={isEdit}
             initialValues={data ? parseCaregiverApiToFormData(data) : undefined}
-            onSubmit={(values) => mutate(parseCaregiverFormToApiData(values))}
+            onSubmit={(values) => {
+              mutate(parseCaregiverFormToApiData(values));
+            }}
             isPending={isPending}
           />
         </WithSkeleton>
